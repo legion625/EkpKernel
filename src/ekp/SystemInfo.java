@@ -114,6 +114,7 @@ public class SystemInfo implements ISystemInfo {
 	public void init(String _classResource) {
 		try {
 			URL configURL = getClass().getResource(_classResource);
+			log.debug("configURL: {}", configURL);
 			SAXBuilder saxBuilder = new SAXBuilder();
 			Document doc = saxBuilder.build(configURL);
 			Element rootApp = doc.getRootElement();

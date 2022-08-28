@@ -54,15 +54,21 @@ public class EkpKernelRmiServer {
 
 //	private String keyStoreConfName = "";
 	private int port;
-	private boolean ssl = true;
+//	private boolean ssl = true; // FIXME
+	private boolean ssl = false;
 
 	// -------------------------------------------------------------------------------
 	private static final EkpKernelRmiServer INSTANCE = new EkpKernelRmiServer();
 
 	private EkpKernelRmiServer() {
 		// 啟始系統設定
+		log.debug("EkpKernelRmiServer constructor");
+		log.debug("InitApplication.getInstance(): {}", InitApplication.getInstance());
+		log.debug("SystemInfo.getInstance(): {}", SystemInfo.getInstance());
 		InitApplication.getInstance().init(SystemInfo.getInstance(), false);
+		log.debug("test1");
 		ResourceBundle resource = ResourceBundle.getBundle("EkpKernelRmiServer");
+		log.debug("test2");
 		services = resource.getString("service").split(",");
 		serviceImps = resource.getString("serviceImp").split(",");
 		if (!resource.containsKey("serviceImpPort"))

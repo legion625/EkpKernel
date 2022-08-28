@@ -62,6 +62,7 @@ public class InitApplication {
 	
 	protected static void initLogback(SystemInfo _sys) {
 		String logfile = _sys.getAttribute("logback-init-file");
+		System.out.println("logfile: " +logfile);
 		if (DataFO.isEmptyString(logfile)) {
 			log.info("initLogback fail: logfile [{}]", logfile);
 			return;
