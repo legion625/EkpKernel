@@ -25,3 +25,6 @@ hs_err_pid*
 
 .classpath
 .project
+/src/ekp/ServiceModule.xml
+/src/ekp/datasource.xml
+/src/ekp/logback-conf.xml
