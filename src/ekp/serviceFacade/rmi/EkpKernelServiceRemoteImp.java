@@ -6,12 +6,13 @@ import java.rmi.server.UnicastRemoteObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//public class EkpKernelServiceRemoteImp extends SslUnicastRemoteObject implements EkpKernelServiceRemote {
 public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements EkpKernelServiceRemote {
 
 	private static Logger log = LoggerFactory.getLogger(EkpKernelServiceRemoteImp.class);
 
 	// -------------------------------------------------------------------------------
-	public EkpKernelServiceRemoteImp(int port) throws RemoteException {
+	public EkpKernelServiceRemoteImp(int port) throws Exception {
 		super(port);
 		// TODO Auto-generated constructor stub
 	}

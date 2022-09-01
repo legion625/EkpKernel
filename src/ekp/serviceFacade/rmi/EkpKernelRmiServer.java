@@ -62,9 +62,9 @@ public class EkpKernelRmiServer {
 
 	private EkpKernelRmiServer() {
 		// 啟始系統設定
-		log.debug("EkpKernelRmiServer constructor");
-		log.debug("InitApplication.getInstance(): {}", InitApplication.getInstance());
-		log.debug("SystemInfo.getInstance(): {}", SystemInfo.getInstance());
+//		log.debug("EkpKernelRmiServer constructor");
+//		log.debug("InitApplication.getInstance(): {}", InitApplication.getInstance());
+//		log.debug("SystemInfo.getInstance(): {}", SystemInfo.getInstance());
 		InitApplication.getInstance().init(SystemInfo.getInstance(), false);
 		log.debug("test1");
 		ResourceBundle resource = ResourceBundle.getBundle("EkpKernelRmiServer");
@@ -126,18 +126,28 @@ public class EkpKernelRmiServer {
 //		}
 
 		/* 建立register... */
+		log.debug("ssl: {}", ssl);
 		if (ssl)
 			registry = LocateRegistry.createRegistry(port, new RmiSslClientSocketFactory(),
 					new RmiSslServerSocketFactory());
 		else
 			registry = LocateRegistry.createRegistry(port);
 
+		log.debug("registry: {}", registry);
+		
+		log.debug("services.length: {}", services.length);
 		serviceObjects = new Remote[services.length];
 		for (int i = 0; i < services.length; i++) {
+			log.debug("test a1");
 			Class<?> targetClass = BeanUtil.serviceClass(serviceImps[i]);
+			log.debug("test a2");
 			Constructor<?> targetConstructor = targetClass.getConstructor(int.class);
+			log.debug("test a3");
+			log.debug("targetConstructor: {}", targetConstructor);
 			Object targetObj = targetConstructor.newInstance(serviceImpPorts[i]);
+			log.debug("test a4");
 			registry.rebind(services[i], (Remote) targetObj);
+			log.debug("test a5");
 			serviceObjects[i] = (Remote) targetObj;
 			log.info("Server: register service[{},{},{}]", services[i], serviceImpPorts[i], serviceImps[i]);
 		}
@@ -238,8 +248,11 @@ public class EkpKernelRmiServer {
 					try {
 						// start
 						if (ServerCommand.start.getId().equalsIgnoreCase(event.getActionCommand())) {
+							log.debug("test 1");
 							getInstance().startRmi();
+							log.debug("test 2");
 							getInstance().listService();
+							log.debug("test 3");
 							miStatus.setIcon(ServerStatus.running.getStatusIcon());
 							trayIcon.setImage(ServerStatus.running.getTrayIcon());
 							

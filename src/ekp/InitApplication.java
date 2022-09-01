@@ -44,7 +44,7 @@ public class InitApplication {
 		log.debug("Application init...");
 		initLog(_sys);
 		registerServerRmiSSL(_sys);
-		registerClientRmiSSL(_sys);
+//		registerClientRmiSSL(_sys);
 		initDatasource(_sys);
 		initIntegrationServiceModule(_sys);
 		initBusinessServiceModule(_sys);
@@ -62,7 +62,6 @@ public class InitApplication {
 	
 	protected static void initLogback(SystemInfo _sys) {
 		String logfile = _sys.getAttribute("logback-init-file");
-		System.out.println("logfile: " +logfile);
 		if (DataFO.isEmptyString(logfile)) {
 			log.info("initLogback fail: logfile [{}]", logfile);
 			return;
@@ -175,7 +174,6 @@ public class InitApplication {
 					LogUtil.log(e, Level.ERROR);
 				}
 		}
-
 	}
 
 	// -------------------------------------------------------------------------------

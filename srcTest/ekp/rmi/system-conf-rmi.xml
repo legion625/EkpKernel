@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Application name="EkpKernelRmiTest" version="0.0.0">
+	
+	
+	<context-param>
+		<description>Datasource Config</description>
+		<param-name>datasource-file</param-name>
+		<param-value>/ekp/rmi/datasource.xml</param-value>
+	</context-param>
+	<context-param>
+		<description>Logback Config File</description>
+		<param-name>logback-init-file</param-name>
+		<param-value>/ekp/rmi/logback-conf.xml</param-value>
+	</context-param>
+	
+	<!-- Server ssl key -->
+
+</Application>

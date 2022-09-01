@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context>
+	<Transaction debug="false" period="3000">
+		<!-- 偵測Transaction建立存活時間(毫秒) -->
+		<MaxCreateTime>3000</MaxCreateTime>
+		<!-- 偵測Transaction初始後存活時間(毫秒) -->
+		<MaxStartTime>2000</MaxStartTime>
+		<!-- 偵測異常通知信收信者，可指定多人以";"區隔 -->
+		<AlertMail>legion625@gmail.com</AlertMail>
+	</Transaction>
+	<Resource name="ekp_kernel_rmi">
+		<parameter>
+			<name>dsoClassName</name>
+			<value>legion.datasource.source.RmiDso</value>
+		</parameter>
+		<parameter>
+			<name>url</name>
+			<value>ekp_kernel_rmi@:rmi://localhost:11087/ekpKernelRmiService</value>
+		</parameter>
+		<parameter>
+			<name>serviceName</name>
+			<value>/ekpKernelRmiService</value>
+		</parameter>
+		<parameter>
+			<name>testOnConnectServiceName</name>
+			<value>testCallBack</value>
+		</parameter>
+		<parameter>
+			<name>alertMail</name>
+			<value>legion625@gmail.com</value>
+		</parameter>
+	</Resource>
+</context>
