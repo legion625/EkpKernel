@@ -47,7 +47,7 @@ public class RmiSslServerSocketFactory implements RMIServerSocketFactory {
 			log.debug("Use Datasource[{}] init", ssl_keyStore_conf_name);
 			initial(SourceConfiguration.getInstance().getSource(ssl_keyStore_conf_name));
 		}
-		// 2. 使用完成setup的AxisJsseSocketFactoryProperties資訊
+		// 2. 使用完成setup的RmiSslServerSocketFactoryProperties資訊
 		else if (RmiSslServerSocketFactoryProperties.isSetup()) {
 			log.debug("Use RmiSslServerSocketFactoryProperties init");
 			initial(RmiSslServerSocketFactoryProperties.keyStoreByte, RmiSslServerSocketFactoryProperties.keyStorePass,

@@ -44,7 +44,7 @@ public class InitApplication {
 		log.debug("Application init...");
 		initLog(_sys);
 		registerServerRmiSSL(_sys);
-		registerClientRmiSSL(_sys);
+//		registerClientRmiSSL(_sys);
 		initDatasource(_sys);
 		initIntegrationServiceModule(_sys);
 		initBusinessServiceModule(_sys);
@@ -174,7 +174,6 @@ public class InitApplication {
 					LogUtil.log(e, Level.ERROR);
 				}
 		}
-
 	}
 
 	// -------------------------------------------------------------------------------
