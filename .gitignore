@@ -28,3 +28,4 @@ hs_err_pid*
 /src/datasource.xml
 /src/logback-conf.xml
 /src/ServiceModule.xml
+/srcTest/conf/*
