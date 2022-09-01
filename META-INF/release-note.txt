@@ -1,3 +1,14 @@
+Min-Hua, 2022.09.01
+[deployment]
+1. Add legionmodule related table
+  - sys_attr, system_seq
+
+[lib]
+1. DB link related
+  - Server Runtime [Apache Tomcat v9.0] 
+  - apache_tomcat_juli_9.0.60
+  - mysql_connector_java_5.1.44
+  
 ------------------------------------------------------------------------------
 v0.0.0 released by Min-Hua, 2022.09.01
 1. Validate Rmi Server with testCallBack.
