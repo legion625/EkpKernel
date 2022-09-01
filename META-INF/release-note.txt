@@ -1,7 +1,6 @@
 ------------------------------------------------------------------------------
 v0.0.0 released by Min-Hua, 2022.09.01
-init version
-
+1. Validate Rmi Server with testCallBack.
 
 # annotations
  - [changes]
