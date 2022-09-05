@@ -1,3 +1,7 @@
+Min-Hua, 2022.09.05
+[lib]
+1. legionmodule_0.10.3 -> 0.10.4
+
 Min-Hua, 2022.09.02
 [deployment]
 1. ServiceModule.xml
