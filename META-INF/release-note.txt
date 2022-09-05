@@ -1,12 +1,15 @@
 Min-Hua, 2022.09.05
+[change]
+1. [MBOM]Add 'Part' and related services.
+
 [lib]
 1. legionmodule_0.10.3 -> 0.10.4
 
-Min-Hua, 2022.09.02
 [deployment]
 1. ServiceModule.xml
   -1. Add business service: MbomService
   -2. Add integration service: MbomDataService
+2. CREATE TABLE `mbom_part`.
 
 ------------------------------------------------------------------------------
 v0.0.1 released by Min-Hua, 2022.09.01
