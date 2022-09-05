@@ -18,7 +18,17 @@ CREATE TABLE `system_seq` (
   `max_num` bigint DEFAULT NULL,
   PRIMARY KEY (`item_id`)
 ) ;
--- mh_pc
+
 
 -- unstaging
+CREATE TABLE `mbom_part` (
+  `uid` varchar(45) NOT NULL,
+  `pin` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+-- mh_pc
 

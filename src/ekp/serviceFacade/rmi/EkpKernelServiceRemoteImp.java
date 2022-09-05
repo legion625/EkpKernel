@@ -6,7 +6,6 @@ import java.rmi.server.UnicastRemoteObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//public class EkpKernelServiceRemoteImp extends SslUnicastRemoteObject implements EkpKernelServiceRemote {
 public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements EkpKernelServiceRemote {
 
 	private static Logger log = LoggerFactory.getLogger(EkpKernelServiceRemoteImp.class);
@@ -22,4 +21,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean testCallBack() throws RemoteException {
 		return true;
 	}
+
+	// -------------------------------------------------------------------------------
+	// -------------------------------------Part--------------------------------------
 }
