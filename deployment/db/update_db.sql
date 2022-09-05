@@ -19,8 +19,7 @@ CREATE TABLE `system_seq` (
   PRIMARY KEY (`item_id`)
 ) ;
 
-
--- unstaging
+-- 0.0.1 -> 0.1.0
 CREATE TABLE `mbom_part` (
   `uid` varchar(45) NOT NULL,
   `pin` varchar(45) DEFAULT NULL,
@@ -31,4 +30,6 @@ CREATE TABLE `mbom_part` (
 ) ;
 
 -- mh_pc
+
+-- unstaging
 
