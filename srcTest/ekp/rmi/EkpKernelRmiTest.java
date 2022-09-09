@@ -49,7 +49,7 @@ public class EkpKernelRmiTest extends AbstractEkpKernelRmiInitTest {
 	
 	@Test
 	public void testLoadPart() throws RemoteException {
-		PartRemote part1 = serviceRemote.loadPart("2022!7!7!1");
+		PartRemote part1 = serviceRemote.loadPart("2022!2!8!1");
 		PartRemote part2 = serviceRemote.loadPartByPin("A1");
 		log.debug("{}\t{}", part1.getUid(), part2.getUid());
 		assertTrue(part1.equals(part2));
