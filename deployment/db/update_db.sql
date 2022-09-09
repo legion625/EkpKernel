@@ -1,4 +1,4 @@
---mh_sp8
+
 
 -- 0.0.0 -> 0.0.1
 CREATE TABLE `sys_attr` (
@@ -30,6 +30,7 @@ CREATE TABLE `mbom_part` (
 ) ;
 
 -- mh_pc
+-- mh_sp8
 
 -- unstaging
 
