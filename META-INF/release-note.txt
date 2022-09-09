@@ -1,3 +1,7 @@
+Min-Hua, 2022.09.09
+[change]
+1. [MBOM]Add 'PartAcquisition' and related services.
+
 ------------------------------------------------------------------------------
 v0.1.0.1 released by Min-Hua, 2022.09.09
 [lib]

@@ -8,7 +8,7 @@ import legion.ObjectModel;
 public class Part extends ObjectModel {
 
 	// -------------------------------------------------------------------------------
-	private String pin;
+	private String pin; // biz key
 	private String name;
 
 	// -------------------------------------------------------------------------------
@@ -46,6 +46,7 @@ public class Part extends ObjectModel {
 	}
 
 	// -------------------------------------------------------------------------------
+	// ----------------------------------ObjectModel----------------------------------
 	@Override
 	protected boolean save() {
 		return DataServiceFactory.getInstance().getService(MbomDataService.class).savePart(this);
@@ -57,6 +58,7 @@ public class Part extends ObjectModel {
 	}
 
 	// -------------------------------------------------------------------------------
+	// -------------------------------------Part--------------------------------------
 	static Part create(PartCreateObj _dto) {
 		Part p = newInstance();
 		p.setPin(_dto.getPin());

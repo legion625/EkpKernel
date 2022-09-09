@@ -1,5 +1,6 @@
 package ekp.data.service.mbom;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import ekp.data.MbomDataService;
 import ekp.mbom.Part;
+import ekp.mbom.PartAcquisition;
 
 public class MbomDataServiceImp implements MbomDataService {
 	private Logger log = LoggerFactory.getLogger(MbomDataServiceImp.class);
@@ -52,6 +54,29 @@ public class MbomDataServiceImp implements MbomDataService {
 	@Override
 	public Part loadPartByPin(String _pin) {
 		return partDao.loadPartByPin(_pin);
+	}
+	
+	// -------------------------------------------------------------------------------
+	// --------------------------------PartAcquisition--------------------------------
+	@Override
+	public boolean savePartAcquisition(PartAcquisition _pa) {
+		return partDao.savePartAcquisition(_pa);
+	}
+	@Override
+	public boolean deletePartAcquisition(String _uid) {
+		return partDao.deletePartAcquisition(_uid);
+	}
+	@Override
+	public PartAcquisition loadPartAcquisition(String _uid) {
+		return partDao.loadPartAcquisition(_uid);
+	}
+	@Override
+	public PartAcquisition loadPartAcquisitionById(String _id) {
+		return partDao.loadPartAcquisitionById(_id);
+	}
+	@Override
+	public List<PartAcquisition> loadPartAcquisitionList(String _partUid){
+		return partDao.loadPartAcquisitionList(_partUid);
 	}
 
 }
