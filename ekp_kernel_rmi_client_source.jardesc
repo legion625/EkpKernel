@@ -5,6 +5,8 @@
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
     <selectedElements exportClassFiles="false" exportJavaFiles="true" exportOutputFolder="false">
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi{EkpKernelServiceRemote.java"/>
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartCreateObjRemote.java"/>
     </selectedElements>
 </jardesc>

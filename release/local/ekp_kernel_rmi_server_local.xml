@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>D:\MyModule\workspace-2022\EkpKernel-github\release\local\ekp_kernel_rmi_server_local.jar</jar>
-  <outfile>D:\MyModule\workspace-2022\EkpKernel-github\release\local\ekp_kernel_rmi_server_local.exe</outfile>
+  <jar>ekp_kernel_rmi_server_local.jar</jar>
+  <outfile>ekp_kernel_rmi_server_local.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
