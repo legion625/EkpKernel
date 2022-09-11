@@ -1,11 +1,13 @@
 package ekp.mbom;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.data.MbomDataService;
+import ekp.mbom.dto.PartAcquisitionCreateObj;
 import ekp.mbom.dto.PartCreateObj;
 import legion.DataServiceFactory;
 
@@ -45,5 +47,18 @@ public class MbomServiceImp implements MbomService {
 	public Part loadPartByPin(String _pin) {
 		return dataService.loadPartByPin(_pin);
 	}
+	
+	// -------------------------------------------------------------------------------
+	// --------------------------------PartAcquisition--------------------------------
+	@Override
+	public PartAcquisition createPartAcquisition(PartAcquisitionCreateObj _dto);
+	@Override
+	public boolean deletePartAcquisition(String _uid);
+	@Override
+	public PartAcquisition loadPartAcquisition(String _uid);
+	@Override
+	public PartAcquisition loadPartAcquisitionById(String _id);
+	@Override
+	public List<PartAcquisition> loadPartAcquisitionList(String _partUid);
 
 }

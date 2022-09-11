@@ -77,6 +77,11 @@ public class PartAcquisition extends ObjectModel {
 	}
 
 	// -------------------------------------------------------------------------------
+	public int getTypeIdx() {
+		return (getType() == null ? PartAcquisitionType.UNDEFINED : getType()).getIdx();
+	}
+	
+	// -------------------------------------------------------------------------------
 	// ----------------------------------ObjectModel----------------------------------
 	@Override
 	protected boolean save() {
