@@ -7,6 +7,18 @@ CREATE TABLE `mbom_part` (
   PRIMARY KEY (`uid`)
 ) ;
 
+CREATE TABLE `mbom_part_acq` (
+  `uid` varchar(45) NOT NULL,
+  `part_uid` varchar(45) DEFAULT NULL,
+  `part_pin` varchar(45) DEFAULT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `type_idx` tinyint(4) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
 CREATE TABLE `sys_attr` (
   `uid` varchar(45) NOT NULL,
   `type_idx` tinyint(4) DEFAULT NULL,

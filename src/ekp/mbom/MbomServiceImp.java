@@ -51,14 +51,28 @@ public class MbomServiceImp implements MbomService {
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
 	@Override
-	public PartAcquisition createPartAcquisition(PartAcquisitionCreateObj _dto);
+	public PartAcquisition createPartAcquisition(PartAcquisitionCreateObj _dto) {
+		return PartAcquisition.create(_dto);
+	}
+
 	@Override
-	public boolean deletePartAcquisition(String _uid);
+	public boolean deletePartAcquisition(String _uid) {
+		return loadPartAcquisition(_uid).delete();
+	}
+
 	@Override
-	public PartAcquisition loadPartAcquisition(String _uid);
+	public PartAcquisition loadPartAcquisition(String _uid) {
+		return dataService.loadPartAcquisition(_uid);
+	}
+
 	@Override
-	public PartAcquisition loadPartAcquisitionById(String _id);
+	public PartAcquisition loadPartAcquisitionById(String _id) {
+		return dataService.loadPartAcquisitionById(_id);
+	}
+
 	@Override
-	public List<PartAcquisition> loadPartAcquisitionList(String _partUid);
+	public List<PartAcquisition> loadPartAcquisitionList(String _partUid) {
+		return dataService.loadPartAcquisitionList(_partUid);
+	}
 
 }

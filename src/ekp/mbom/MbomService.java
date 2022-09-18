@@ -28,5 +28,5 @@ public interface MbomService extends BusinessService {
 
 	public PartAcquisition loadPartAcquisitionById(String _id);
 
-	public List<PartAcquisition> loadPartAcquisitionList(String _partUid);
+	public List<PartAcquisition> loadPartAcquisitionList(String  _partUid);
 }

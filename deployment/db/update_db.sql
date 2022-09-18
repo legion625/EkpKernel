@@ -29,8 +29,19 @@ CREATE TABLE `mbom_part` (
   PRIMARY KEY (`uid`)
 ) ;
 
--- mh_pc
 -- mh_sp8
 
 -- unstaging
+CREATE TABLE `mbom_part_acq` (
+  `uid` varchar(45) NOT NULL,
+  `part_uid` varchar(45) DEFAULT NULL,
+  `part_pin` varchar(45) DEFAULT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `type_idx` tinyint DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+-- mh_pc
 
