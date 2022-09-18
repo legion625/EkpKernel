@@ -1,8 +1,8 @@
 package ekp.mbom.type;
 
-import legion.type.IndexEnum;
+import legion.type.IdxEnum;
 
-public enum PartAcquisitionType implements IndexEnum {
+public enum PartAcquisitionType implements IdxEnum {
 	UNDEFINED(0, "未定義"), //
 	PURCHASING(1, "採購"), OUTSOURCING(2, "委外"), SELF_PRODUCING(3, "自製"), //
 	;

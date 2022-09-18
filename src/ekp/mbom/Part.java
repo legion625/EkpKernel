@@ -63,9 +63,7 @@ public class Part extends ObjectModel {
 		Part p = newInstance();
 		p.setPin(_dto.getPin());
 		p.setName(_dto.getName());
-		if (p.save())
-			return p;
-		return null;
+		return p.save() ? p : null;
 	}
 
 }

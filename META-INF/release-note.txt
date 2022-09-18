@@ -1,5 +1,9 @@
 Min-Hua, 2022.09.18
 [change]
+1. [MBOM] Add 'PartAcqRoutingStep', 'PartAcqRoutingStepProcess', and 'PartAcqRoutingStepPart'.
+
+Min-Hua, 2022.09.18
+[change]
 1. [MBOM]Add 'PartAcquisition' and related services.
 
 ------------------------------------------------------------------------------

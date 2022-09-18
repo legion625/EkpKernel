@@ -14,7 +14,7 @@ public class BizObjPartTest extends AbstractEkpInitTest{
 	private static MbomDataService dataService = DataServiceFactory.getInstance().getService(MbomDataService.class);
 
 	private String targetUid;
-	
+
 	private Target target1, target2;
 
 	@Before

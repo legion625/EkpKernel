@@ -2,11 +2,15 @@ package ekp.data.service.mbom;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.event.Level;
 
 import ekp.mbom.Part;
+import ekp.mbom.PartAcqRoutingStep;
+import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
 import ekp.mbom.type.PartAcquisitionType;
 import legion.data.service.AbstractMySqlDao;
@@ -23,10 +27,9 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String TB_MBOM_PART = "mbom_part";
 	private final static String COL_P_PIN = "pin";
 	private final static String COL_P_NAME = "name";
-	
+
 	boolean savePart(Part _p) {
-		DbColumn<Part>[] cols = new DbColumn[] {
-				DbColumn.of(COL_P_PIN, ColType.STRING, Part::getPin), //
+		DbColumn<Part>[] cols = new DbColumn[] { DbColumn.of(COL_P_PIN, ColType.STRING, Part::getPin), //
 				DbColumn.of(COL_P_NAME, ColType.STRING, Part::getName), //
 		};
 		return saveObject(TB_MBOM_PART, cols, _p);
@@ -66,7 +69,7 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_PA_ID = "id";
 	private final static String COL_PA_NAME = "name";
 	private final static String COL_PA_TYPE_IDX = "type_idx";
-	
+
 	boolean savePartAcquisition(PartAcquisition _pa) {
 		DbColumn<PartAcquisition>[] cols = new DbColumn[] {
 				DbColumn.of(COL_PA_PART_UID, ColType.STRING, PartAcquisition::getPartUid), //
@@ -87,18 +90,19 @@ public class PartDao extends AbstractMySqlDao {
 		try {
 			String partUid = _rs.getString(COL_PA_PART_UID);
 			String partPin = _rs.getString(COL_PA_PART_PIN);
-			pa = PartAcquisition.getInstance(parseUid(_rs), partUid, partPin, parseObjectCreateTime(_rs), parseObjectUpdateTime(_rs));
+			pa = PartAcquisition.getInstance(parseUid(_rs), partUid, partPin, parseObjectCreateTime(_rs),
+					parseObjectUpdateTime(_rs));
 			/* pack attributes */
 			pa.setId(_rs.getString(COL_PA_ID));
 			pa.setName(_rs.getString(COL_PA_NAME));
 			pa.setType(PartAcquisitionType.get(_rs.getInt(COL_PA_TYPE_IDX)));
 			return pa;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
 			return null;
 		}
 	}
-	
+
 	PartAcquisition loadPartAcquisition(String _uid) {
 		return loadObject(TB_MBOM_PART_ACQUISITION, _uid, this::parsePartAcquisition);
 	}
@@ -106,10 +110,126 @@ public class PartDao extends AbstractMySqlDao {
 	PartAcquisition loadPartAcquisitionById(String _id) {
 		return loadObject(TB_MBOM_PART_ACQUISITION, COL_PA_ID, _id, this::parsePartAcquisition);
 	}
-	
-	List<PartAcquisition> loadPartAcquisitionList(String _partUid){
+
+	List<PartAcquisition> loadPartAcquisitionList(String _partUid) {
 		return loadObjectList(TB_MBOM_PART_ACQUISITION, COL_PA_PART_UID, _partUid, this::parsePartAcquisition);
 	}
-	
-}
 
+	// -------------------------------------------------------------------------------
+	// ------------------------------PartAcqRoutingStep-------------------------------
+	private final static String TB_MBOM_PART_ACQ_ROUTING_STEP = "mbom_part_acq_r_s";
+	private final static String COL_PARS_PART_ACQ_UID = "part_acq_uid";
+	private final static String COL_PARS_ID = "id";
+	private final static String COL_PARS_NAME = "name";
+	private final static String COL_PARS_DESP = "desp";
+
+	boolean savePartAcqRoutingStep(PartAcqRoutingStep _pars) {
+		DbColumn<PartAcqRoutingStep>[] cols = new DbColumn[] {
+				DbColumn.of(COL_PARS_PART_ACQ_UID, ColType.STRING, PartAcqRoutingStep::getPartAcqUid), //
+				DbColumn.of(COL_PARS_ID, ColType.STRING, PartAcqRoutingStep::getId), //
+				DbColumn.of(COL_PARS_NAME, ColType.STRING, PartAcqRoutingStep::getName), //
+				DbColumn.of(COL_PARS_DESP, ColType.STRING, PartAcqRoutingStep::getDesp), //
+		};
+		return saveObject(TB_MBOM_PART_ACQ_ROUTING_STEP, cols, _pars);
+	}
+
+	boolean deletePartAcqRoutingStep(String _uid) {
+		return deleteObject(TB_MBOM_PART_ACQ_ROUTING_STEP, _uid);
+	}
+
+	private PartAcqRoutingStep parsePartAcqRoutingStep(ResultSet _rs) {
+		PartAcqRoutingStep pars = null;
+		try {
+			String partAcqUid = _rs.getString(COL_PARS_PART_ACQ_UID);
+			pars = PartAcqRoutingStep.getInstance(parseUid(_rs), partAcqUid, parseObjectCreateTime(_rs),
+					parseObjectUpdateTime(_rs));
+			/* pack attributes */
+			pars.setId(_rs.getString(COL_PARS_ID));
+			pars.setName(_rs.getString(COL_PARS_NAME));
+			pars.setDesp(_rs.getString(COL_PARS_DESP));
+			return pars;
+		} catch (SQLException e) {
+			LogUtil.log(log, e, Level.ERROR);
+			return null;
+		}
+	}
+
+	PartAcqRoutingStep loadPartAcqRoutingStep(String _uid) {
+		return loadObject(TB_MBOM_PART_ACQ_ROUTING_STEP, _uid, this::parsePartAcqRoutingStep);
+	}
+
+	PartAcqRoutingStep loadPartAcqRoutingStep(String _partAcqUid, String _id) {
+		Map<String, String> keyValueMap = new HashMap<>();
+		keyValueMap.put(COL_PARS_PART_ACQ_UID, _partAcqUid);
+		keyValueMap.put(COL_PARS_ID, _id);
+		return loadObject(TB_MBOM_PART_ACQ_ROUTING_STEP, keyValueMap, this::parsePartAcqRoutingStep);
+	}
+
+	List<PartAcqRoutingStep> loadPartAcqRoutingStepList(String _partAcqUid) {
+		return loadObjectList(TB_MBOM_PART_ACQ_ROUTING_STEP, COL_PARS_PART_ACQ_UID, _partAcqUid,
+				this::parsePartAcqRoutingStep);
+	}
+	
+	// -------------------------------------------------------------------------------
+	// -----------------------------------ParsProc------------------------------------
+	private final static String TB_MBOM_PARS_PROC = "mbom_pars_proc";
+	private final static String COL_PARS_PROC_PARS_UID = "pars_uid";
+	private final static String COL_PARS_PROC_SEQ = "seq";
+	private final static String COL_PARS_PROC_NAME = "name";
+	private final static String COL_PARS_PROC_DESP = "desp";
+	private final static String COL_PARS_PROC_ASSIGN_PROC = "assign_proc";
+	private final static String COL_PARS_PROC_PROC_UID = "proc_uid";
+	private final static String COL_PARS_PROC_PROC_ID = "proc_id";
+	
+	boolean saveParsProc(ParsProc _parsProc) {
+		DbColumn<ParsProc>[] cols = new DbColumn[] {
+				DbColumn.of(COL_PARS_PROC_PARS_UID, ColType.STRING, ParsProc::getParsUid), //
+				DbColumn.of(COL_PARS_PROC_SEQ, ColType.STRING, ParsProc::getSeq), //
+				DbColumn.of(COL_PARS_PROC_NAME, ColType.STRING, ParsProc::getName), //
+				DbColumn.of(COL_PARS_PROC_DESP, ColType.STRING, ParsProc::getDesp), //
+				DbColumn.of(COL_PARS_PROC_ASSIGN_PROC, ColType.BOOLEAN, ParsProc::isAssignProc), //
+				DbColumn.of(COL_PARS_PROC_PROC_UID, ColType.STRING, ParsProc::getProcUid), //
+				DbColumn.of(COL_PARS_PROC_PROC_ID, ColType.STRING, ParsProc::getProcId), //
+		};
+		return saveObject(TB_MBOM_PARS_PROC, cols, _parsProc);
+	}
+
+	boolean deleteParsProc(String _uid) {
+		return deleteObject(TB_MBOM_PARS_PROC, _uid);
+	}
+
+	private ParsProc parseParsProc(ResultSet _rs) {
+		ParsProc parsProc = null;
+		try {
+			String parsUid = _rs.getString(COL_PARS_PROC_PARS_UID);
+			parsProc = ParsProc.getInstance(parseUid(_rs), parsUid, parseObjectCreateTime(_rs),
+					parseObjectUpdateTime(_rs));
+			/* pack attributes */
+			parsProc.setSeq(_rs.getString(COL_PARS_PROC_SEQ));
+			parsProc.setName(_rs.getString(COL_PARS_PROC_NAME));
+			parsProc.setDesp(_rs.getString(COL_PARS_PROC_DESP));
+			parsProc.setAssignProc(_rs.getBoolean(COL_PARS_PROC_ASSIGN_PROC));
+			parsProc.setProcUid(_rs.getString(COL_PARS_PROC_PROC_UID));
+			parsProc.setProcId(_rs.getString(COL_PARS_PROC_PROC_ID));
+			return parsProc;
+		} catch (SQLException e) {
+			LogUtil.log(log, e, Level.ERROR);
+			return null;
+		}
+	}
+
+	ParsProc loadParsProc(String _uid) {
+		return loadObject(TB_MBOM_PARS_PROC, _uid, this::parseParsProc);
+	}
+
+	List<ParsProc> loadParsProcList(String _parsUid) {
+		return loadObjectList(TB_MBOM_PARS_PROC, COL_PARS_PROC_PARS_UID, _parsUid,
+				this::parseParsProc);
+	}
+
+	List<ParsProc> loadParsProcListByProc(String _processUid) {
+		return loadObjectList(TB_MBOM_PARS_PROC, COL_PARS_PROC_PROC_UID, _processUid,
+				this::parseParsProc);
+	}
+
+}

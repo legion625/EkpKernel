@@ -100,9 +100,7 @@ public class PartAcquisition extends ObjectModel {
 		pa.setId(_dto.getId());
 		pa.setName(_dto.getName());
 		pa.setType(_dto.getType());
-		if (pa.save())
-			return pa;
-		return null;
+		return pa.save() ? pa : null;
 	}
 
 }

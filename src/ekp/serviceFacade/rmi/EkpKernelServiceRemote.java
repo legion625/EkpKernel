@@ -4,6 +4,12 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import ekp.mbom.ParsProc;
+import ekp.mbom.dto.ParsProcCreateObj;
+import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
+import ekp.serviceFacade.rmi.mbom.ParsProcRemote;
+import ekp.serviceFacade.rmi.mbom.PartAcqRoutingStepCreateObjRemote;
+import ekp.serviceFacade.rmi.mbom.PartAcqRoutingStepRemote;
 import ekp.serviceFacade.rmi.mbom.PartAcquisitionCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartAcquisitionRemote;
 import ekp.serviceFacade.rmi.mbom.PartCreateObjRemote;
@@ -33,5 +39,34 @@ public interface EkpKernelServiceRemote extends Remote {
 	public PartAcquisitionRemote loadPartAcquisitionById(String _id) throws RemoteException;
 
 	public List<PartAcquisitionRemote> loadPartAcquisitionList(String _partUid) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------PartAcqRoutingStep-------------------------------
+	public PartAcqRoutingStepRemote createPartAcqRoutingStep(PartAcqRoutingStepCreateObjRemote _dto)
+			throws RemoteException;
+
+	public boolean deletePartAcqRoutingStep(String _uid) throws RemoteException;
+
+	public PartAcqRoutingStepRemote loadPartAcqRoutingStep(String _uid) throws RemoteException;
+
+	public PartAcqRoutingStepRemote loadPartAcqRoutingStep(String _partAcqUid, String _id) throws RemoteException;
+
+	public List<PartAcqRoutingStepRemote> loadPartAcqRoutingStepList(String _partAcqUid) throws RemoteException;
+	
+	// -------------------------------------------------------------------------------
+	// -----------------------------------ParsProc------------------------------------
+	public ParsProcRemote createParsProc(ParsProcCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteParsProc(String _uid) throws RemoteException;
+
+	public ParsProcRemote loadParsProc(String _uid) throws RemoteException;
+
+	public List<ParsProcRemote> loadParsProcList(String _parsUid) throws RemoteException;
+
+	public List<ParsProcRemote> loadParsProcListByProc(String _procUid) throws RemoteException;
+	
+	public boolean parsProcAssignProc(String _uid, String _procUid, String _procId) throws RemoteException;
+
+	public boolean parsProcRevertAssignProc(String _uid) throws RemoteException;
 
 }
