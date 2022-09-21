@@ -24,17 +24,17 @@ public class ParsProc extends ObjectModel {
 		this.parsUid = parsUid;
 	}
 
-	protected static ParsProc newInstance(String parsUid) {
-		ParsProc parsProcess = new ParsProc(parsUid);
-		parsProcess.configNewInstance();
-		return parsProcess;
+	static ParsProc newInstance(String parsUid) {
+		ParsProc parsProc = new ParsProc(parsUid);
+		parsProc.configNewInstance();
+		return parsProc;
 	}
 
 	public static ParsProc getInstance(String uid, String parsUid, long objectCreateTime,
 			long objectUpdateTime) {
-		ParsProc parsProcess = new ParsProc(parsUid);
-		parsProcess.configGetInstance(uid, objectCreateTime, objectUpdateTime);
-		return parsProcess;
+		ParsProc parsProc = new ParsProc(parsUid);
+		parsProc.configGetInstance(uid, objectCreateTime, objectUpdateTime);
+		return parsProc;
 	}
 
 	// -------------------------------------------------------------------------------

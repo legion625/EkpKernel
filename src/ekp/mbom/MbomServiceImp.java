@@ -141,4 +141,41 @@ public class MbomServiceImp implements MbomService {
 		return loadParsProc(_uid).revertAssignProc();
 	}
 
+	// -------------------------------------------------------------------------------
+	// -----------------------------------ParsPart------------------------------------
+	@Override
+	public ParsPart createParsPart(String _parsUid) {
+		return ParsPart.create(_parsUid);
+	}
+
+	@Override
+	public boolean deleteParsPart(String _uid) {
+		return loadParsPart(_uid).delete();
+	}
+
+	@Override
+	public ParsPart loadParsPart(String _uid) {
+		return dataService.loadParsPart(_uid);
+	}
+
+	@Override
+	public List<ParsPart> loadParsPartList(String _parsUid) {
+		return dataService.loadParsPartList(_parsUid);
+	}
+
+	@Override
+	public List<ParsPart> loadParsPartListByPart(String _partUid) {
+		return dataService.loadParsPartListByPart(_partUid);
+	}
+
+	@Override
+	public boolean parsPartAssignPart(String _uid, String _partUid, String _partPin, double _partReqQty) {
+		return loadParsPart(_uid).assignPart(_partUid, _partPin, _partReqQty);
+	}
+
+	@Override
+	public boolean parsePartRevertAssignPart(String _uid) {
+		return loadParsPart(_uid).revertAssignPart();
+	}
+
 }

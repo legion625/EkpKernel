@@ -18,7 +18,7 @@ public class PartAcqRoutingStep extends ObjectModel {
 		this.partAcqUid = partAcqUid;
 	}
 
-	protected static PartAcqRoutingStep newInstance(String partAcqUid) {
+	static PartAcqRoutingStep newInstance(String partAcqUid) {
 		PartAcqRoutingStep pars = new PartAcqRoutingStep(partAcqUid);
 		pars.configNewInstance();
 		return pars;

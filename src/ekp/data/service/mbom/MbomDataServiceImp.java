@@ -7,9 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.data.MbomDataService;
+import ekp.mbom.ParsPart;
+import ekp.mbom.ParsProc;
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
-import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
 
 public class MbomDataServiceImp implements MbomDataService {
@@ -137,6 +138,33 @@ public class MbomDataServiceImp implements MbomDataService {
 	@Override
 	public List<ParsProc> loadParsProcListByProc(String _procUid) {
 		return partDao.loadParsProcListByProc(_procUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------ParsPart------------------------------------
+	@Override
+	public boolean saveParsPart(ParsPart _parsPart) {
+		return partDao.saveParsPart(_parsPart);
+	}
+
+	@Override
+	public boolean deleteParsPart(String _uid) {
+		return partDao.deleteParsPart(_uid);
+	}
+
+	@Override
+	public ParsPart loadParsPart(String _uid) {
+		return partDao.loadParsPart(_uid);
+	}
+
+	@Override
+	public List<ParsPart> loadParsPartList(String _parsUid) {
+		return partDao.loadParsPartList(_parsUid);
+	}
+
+	@Override
+	public List<ParsPart> loadParsPartListByPart(String _partUid) {
+		return partDao.loadParsPartListByPart(_partUid);
 	}
 
 }

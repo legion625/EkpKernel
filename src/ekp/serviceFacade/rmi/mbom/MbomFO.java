@@ -1,5 +1,6 @@
 package ekp.serviceFacade.rmi.mbom;
 
+import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
@@ -19,14 +20,14 @@ public class MbomFO {
 		remote.setName(_obj.getName());
 		return remote;
 	}
-	
+
 	public static PartCreateObj parsePartCreateObj(PartCreateObjRemote _remote) {
 		PartCreateObj dto = new PartCreateObj();
 		dto.setPin(_remote.getPin());
 		dto.setName(_remote.getName());
 		return dto;
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
 	public static PartAcquisitionRemote parsePartAcquisitionRemote(PartAcquisition _obj) {
@@ -49,7 +50,7 @@ public class MbomFO {
 		dto.setType(_remote.getType());
 		return dto;
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	public static PartAcqRoutingStepRemote parsePartAcqRoutingStepRemote(PartAcqRoutingStep _obj) {
@@ -62,7 +63,8 @@ public class MbomFO {
 		return remote;
 	}
 
-	public static PartAcqRoutingStepCreateObj parsePartAcqRoutingStepCreateObj(PartAcqRoutingStepCreateObjRemote _remote) {
+	public static PartAcqRoutingStepCreateObj parsePartAcqRoutingStepCreateObj(
+			PartAcqRoutingStepCreateObjRemote _remote) {
 		PartAcqRoutingStepCreateObj dto = new PartAcqRoutingStepCreateObj();
 		dto.setPartAcqUid(_remote.getPartAcqUid());
 		dto.setId(_remote.getId());
@@ -70,7 +72,7 @@ public class MbomFO {
 		dto.setDesp(_remote.getDesp());
 		return dto;
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// -----------------------------------ParsProc------------------------------------
 	public static ParsProcRemote parseParsProcRemote(ParsProc _obj) {
@@ -85,7 +87,7 @@ public class MbomFO {
 		remote.setProcId(_obj.getProcId());
 		return remote;
 	}
-	
+
 	public static ParsProcCreateObj parseParsProcCreateObj(ParsProcCreateObjRemote _remote) {
 		ParsProcCreateObj dto = new ParsProcCreateObj();
 		dto.setParsUid(_remote.getParsUid());
@@ -94,5 +96,18 @@ public class MbomFO {
 		dto.setDesp(_remote.getDesp());
 		return dto;
 	}
-	
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------ParsPart------------------------------------
+	public static ParsPartRemote parseParsPartRemote(ParsPart _obj) {
+		ParsPartRemote remote = new ParsPartRemote(_obj.getUid(), _obj.getObjectCreateTime(),
+				_obj.getObjectUpdateTime());
+		remote.setParsUid(_obj.getParsUid());
+		remote.setAssignPart(_obj.isAssignPart());
+		remote.setPartUid(_obj.getPartUid());
+		remote.setPartPin(_obj.getPartPin());
+		remote.setPartReqQty(_obj.getPartReqQty());
+		return remote;
+	}
+
 }

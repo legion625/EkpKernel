@@ -4,6 +4,7 @@ import java.util.List;
 
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
+import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
 import legion.IntegrationService;
@@ -55,6 +56,18 @@ public interface MbomDataService extends IntegrationService {
 	public List<ParsProc> loadParsProcList(String _parsUid);
 
 	public List<ParsProc> loadParsProcListByProc(String _procUid);
+	
+	// -------------------------------------------------------------------------------
+	// -----------------------------------ParsPart------------------------------------
+	public boolean saveParsPart(ParsPart _parsPart);
+
+	public boolean deleteParsPart(String _uid);
+
+	public ParsPart loadParsPart(String _uid);
+
+	public List<ParsPart> loadParsPartList(String _parsUid);
+
+	public List<ParsPart> loadParsPartListByPart(String _partUid);
 	
 	
 

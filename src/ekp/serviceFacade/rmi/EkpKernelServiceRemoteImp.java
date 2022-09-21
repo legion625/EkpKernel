@@ -9,10 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.mbom.MbomService;
+import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcqRoutingStep;
 import ekp.mbom.PartAcquisition;
 import ekp.serviceFacade.rmi.mbom.MbomFO;
+import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcRemote;
 import ekp.serviceFacade.rmi.mbom.PartAcqRoutingStepCreateObjRemote;
@@ -166,5 +168,47 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	@Override
 	public boolean parsProcRevertAssignProc(String _uid) throws RemoteException {
 		return mbomService.parsProcRevertAssignProc(_uid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------ParsPart------------------------------------
+	@Override
+	public ParsPartRemote createParsPart(String _parsUid) throws RemoteException {
+		return MbomFO.parseParsPartRemote(mbomService.createParsPart(_parsUid));
+	}
+
+	@Override
+	public boolean deleteParsPart(String _uid) throws RemoteException {
+		return mbomService.deleteParsPart(_uid);
+	}
+
+	@Override
+	public ParsPartRemote loadParsPart(String _uid) throws RemoteException {
+		return MbomFO.parseParsPartRemote(mbomService.loadParsPart(_uid));
+	}
+
+	@Override
+	public List<ParsPartRemote> loadParsPartList(String _parsUid) throws RemoteException {
+		List<ParsPart> list = mbomService.loadParsPartList(_parsUid);
+		List<ParsPartRemote> remoteList = list.stream().map(MbomFO::parseParsPartRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public List<ParsPartRemote> loadParsPartListByPart(String _partUid) throws RemoteException {
+		List<ParsPart> list = mbomService.loadParsPartListByPart(_partUid);
+		List<ParsPartRemote> remoteList = list.stream().map(MbomFO::parseParsPartRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public boolean parsPartAssignPart(String _uid, String _partUid, String _partPin, double _partReqQty)
+			throws RemoteException {
+		return mbomService.parsPartAssignPart(_uid, _partUid, _partPin, _partReqQty);
+	}
+
+	@Override
+	public boolean parsePartRevertAssignPart(String _uid) throws RemoteException {
+		return mbomService.parsePartRevertAssignPart(_uid);
 	}
 }

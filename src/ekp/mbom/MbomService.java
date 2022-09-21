@@ -60,4 +60,14 @@ public interface MbomService extends BusinessService {
 
 	public boolean parsProcRevertAssignProc(String _uid);
 	
+	// -------------------------------------------------------------------------------
+	// -----------------------------------ParsPart------------------------------------
+	public ParsPart createParsPart(String _parsUid);
+	public boolean deleteParsPart(String _uid);
+	public ParsPart loadParsPart(String _uid);
+	public List<ParsPart> loadParsPartList(String _parsUid);
+	public List<ParsPart> loadParsPartListByPart(String _partUid);
+	public boolean parsPartAssignPart(String _uid, String _partUid, String _partPin, double _partReqQty);
+	public boolean parsePartRevertAssignPart(String _uid);
+	
 }

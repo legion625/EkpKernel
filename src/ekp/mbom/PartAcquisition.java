@@ -21,7 +21,7 @@ public class PartAcquisition extends ObjectModel {
 		this.partPin = partPin;
 	}
 
-	protected static PartAcquisition newInstance(String partUid, String partPin) {
+	static PartAcquisition newInstance(String partUid, String partPin) {
 		PartAcquisition pa = new PartAcquisition(partUid, partPin);
 		pa.configNewInstance();
 		return pa;

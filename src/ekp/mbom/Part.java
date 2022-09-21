@@ -15,7 +15,7 @@ public class Part extends ObjectModel {
 	private Part() {
 	}
 
-	protected static Part newInstance() {
+	static Part newInstance() {
 		Part p = new Part();
 		p.configNewInstance();
 		return p;

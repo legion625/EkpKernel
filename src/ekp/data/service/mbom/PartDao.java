@@ -10,6 +10,7 @@ import org.slf4j.event.Level;
 
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
+import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
 import ekp.mbom.type.PartAcquisitionType;
@@ -230,6 +231,60 @@ public class PartDao extends AbstractMySqlDao {
 	List<ParsProc> loadParsProcListByProc(String _processUid) {
 		return loadObjectList(TB_MBOM_PARS_PROC, COL_PARS_PROC_PROC_UID, _processUid,
 				this::parseParsProc);
+	}
+	
+	// -------------------------------------------------------------------------------
+	// -----------------------------------ParsPart------------------------------------
+	private final static String TB_MBOM_PARS_PART = "mbom_pars_part";
+	private final static String COL_PARS_PART_PARS_UID = "pars_uid";
+	private final static String COL_PARS_PART_ASSIGN_PART = "assign_part";
+	private final static String COL_PARS_PART_PART_UID = "part_uid";
+	private final static String COL_PARS_PART_PART_PIN = "part_pin";
+	private final static String COL_PARS_PART_PART_REQ_QTY = "part_req_qty";
+	
+	boolean saveParsPart(ParsPart _parsPart) {
+		DbColumn<ParsPart>[] cols = new DbColumn[] {
+				DbColumn.of(COL_PARS_PART_PARS_UID, ColType.STRING, ParsPart::getParsUid), //
+				DbColumn.of(COL_PARS_PART_ASSIGN_PART, ColType.BOOLEAN, ParsPart::isAssignPart), //
+				DbColumn.of(COL_PARS_PART_PART_UID, ColType.STRING, ParsPart::getPartUid), //
+				DbColumn.of(COL_PARS_PART_PART_PIN, ColType.STRING, ParsPart::getPartPin), //
+				DbColumn.of(COL_PARS_PART_PART_REQ_QTY, ColType.DOUBLE, ParsPart::getPartReqQty), //
+		};
+		return saveObject(TB_MBOM_PARS_PART, cols, _parsPart);
+	}
+
+	boolean deleteParsPart(String _uid) {
+		return deleteObject(TB_MBOM_PARS_PART, _uid);
+	}
+
+	private ParsPart parseParsPart(ResultSet _rs) {
+		ParsPart parsPart = null;
+		try {
+			String parsUid = _rs.getString(COL_PARS_PART_PARS_UID);
+			parsPart = ParsPart.getInstance(parseUid(_rs), parsUid, parseObjectCreateTime(_rs),
+					parseObjectUpdateTime(_rs));
+			/* pack attributes */
+			parsPart.setAssignPart(_rs.getBoolean(COL_PARS_PART_ASSIGN_PART));
+			parsPart.setPartUid(_rs.getString(COL_PARS_PART_PART_UID));
+			parsPart.setPartPin(_rs.getString(COL_PARS_PART_PART_PIN));
+			parsPart.setPartReqQty(_rs.getDouble(COL_PARS_PART_PART_REQ_QTY));
+			return parsPart;
+		} catch (SQLException e) {
+			LogUtil.log(log, e, Level.ERROR);
+			return null;
+		}
+	}
+	
+	ParsPart loadParsPart(String _uid) {
+		return loadObject(TB_MBOM_PARS_PART, _uid, this::parseParsPart);
+	}
+
+	List<ParsPart> loadParsPartList(String _parsUid){
+		return loadObjectList(TB_MBOM_PARS_PART, COL_PARS_PART_PARS_UID, _parsUid, this::parseParsPart);
+	}
+
+	List<ParsPart> loadParsPartListByPart(String _partUid){
+		return loadObjectList(TB_MBOM_PARS_PART, COL_PARS_PART_PART_UID, _partUid, this::parseParsPart);
 	}
 
 }

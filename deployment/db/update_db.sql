@@ -57,3 +57,29 @@ CREATE TABLE `mbom_part_acq_r_s` (
 
 -- mh_pc
 
+CREATE TABLE `mbom_pars_proc` (
+  `uid` varchar(45) NOT NULL,
+  `pars_uid` varchar(45) DEFAULT NULL,
+  `seq` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `desp` varchar(200) DEFAULT NULL,
+  `assign_proc` tinyint DEFAULT NULL,
+  `proc_uid` varchar(45) DEFAULT NULL,
+  `proc_id` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `mbom_pars_part` (
+  `uid` varchar(45) NOT NULL,
+  `pars_uid` varchar(45) DEFAULT NULL,
+  `assign_part` tinyint DEFAULT NULL,
+  `part_uid` varchar(45) DEFAULT NULL,
+  `part_pin` varchar(45) DEFAULT NULL,
+  `part_req_qty` double DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+

@@ -4,8 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import ekp.mbom.ParsProc;
-import ekp.mbom.dto.ParsProcCreateObj;
+import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcRemote;
 import ekp.serviceFacade.rmi.mbom.PartAcqRoutingStepCreateObjRemote;
@@ -52,7 +51,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public PartAcqRoutingStepRemote loadPartAcqRoutingStep(String _partAcqUid, String _id) throws RemoteException;
 
 	public List<PartAcqRoutingStepRemote> loadPartAcqRoutingStepList(String _partAcqUid) throws RemoteException;
-	
+
 	// -------------------------------------------------------------------------------
 	// -----------------------------------ParsProc------------------------------------
 	public ParsProcRemote createParsProc(ParsProcCreateObjRemote _dto) throws RemoteException;
@@ -64,9 +63,19 @@ public interface EkpKernelServiceRemote extends Remote {
 	public List<ParsProcRemote> loadParsProcList(String _parsUid) throws RemoteException;
 
 	public List<ParsProcRemote> loadParsProcListByProc(String _procUid) throws RemoteException;
-	
+
 	public boolean parsProcAssignProc(String _uid, String _procUid, String _procId) throws RemoteException;
 
 	public boolean parsProcRevertAssignProc(String _uid) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------ParsPart------------------------------------
+	public ParsPartRemote createParsPart(String _parsUid) throws RemoteException;
+	public boolean deleteParsPart(String _uid) throws RemoteException;
+	public ParsPartRemote loadParsPart(String _uid) throws RemoteException;
+	public List<ParsPartRemote> loadParsPartList(String _parsUid) throws RemoteException;
+	public List<ParsPartRemote> loadParsPartListByPart(String _partUid) throws RemoteException;
+	public boolean parsPartAssignPart(String _uid, String _partUid, String _partPin, double _partReqQty) throws RemoteException;
+	public boolean parsePartRevertAssignPart(String _uid) throws RemoteException;
 
 }
