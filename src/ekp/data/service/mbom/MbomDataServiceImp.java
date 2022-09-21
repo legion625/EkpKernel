@@ -12,6 +12,8 @@ import ekp.mbom.ParsProc;
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
 import ekp.mbom.PartAcquisition;
+import ekp.mbom.PartCfg;
+import ekp.mbom.PartCfgConj;
 
 public class MbomDataServiceImp implements MbomDataService {
 	private Logger log = LoggerFactory.getLogger(MbomDataServiceImp.class);
@@ -20,6 +22,7 @@ public class MbomDataServiceImp implements MbomDataService {
 
 	// dao
 	private PartDao partDao;
+	private PartCfgDao partCfgDao;
 
 	@Override
 	public void register(Map<String, String> _params) {
@@ -30,6 +33,7 @@ public class MbomDataServiceImp implements MbomDataService {
 
 		// dao
 		partDao = new PartDao(source);
+		partCfgDao = new PartCfgDao(source);
 	}
 
 	@Override
@@ -165,6 +169,50 @@ public class MbomDataServiceImp implements MbomDataService {
 	@Override
 	public List<ParsPart> loadParsPartListByPart(String _partUid) {
 		return partDao.loadParsPartListByPart(_partUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------PartCfg------------------------------------
+	@Override
+	public boolean savePartCfg(PartCfg _pc) {
+		return partCfgDao.savePartCfg(_pc);
+	}
+
+	@Override
+	public boolean deletePartCfg(String _uid) {
+		return partCfgDao.deletePartCfg(_uid);
+	}
+
+	@Override
+	public PartCfg loadPartCfg(String _uid) {
+		return partCfgDao.loadPartCfg(_uid);
+	}
+
+	@Override
+	public List<PartCfg> loadPartCfgList(String _rootPartUid) {
+		return partCfgDao.loadPartCfgList(_rootPartUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PartCfgConj----------------------------------
+	@Override
+	public boolean savePartCfgConj(PartCfgConj _pcc) {
+		return partCfgDao.savePartCfgConj(_pcc);
+	}
+
+	@Override
+	public boolean deletePartCfgConj(String _uid) {
+		return partCfgDao.deletePartCfgConj(_uid);
+	}
+
+	@Override
+	public PartCfgConj loadPartCfgConj(String _uid) {
+		return partCfgDao.loadPartCfgConj(_uid);
+	}
+
+	@Override
+	public List<PartCfgConj> loadPartCfgConjList(String _partCfgUid) {
+		return partCfgDao.loadPartCfgConjList(_partCfgUid);
 	}
 
 }

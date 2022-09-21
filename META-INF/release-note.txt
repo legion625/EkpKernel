@@ -1,3 +1,6 @@
+[change]
+1. [MBOM] Add 'PartCfg' and 'PartCfgConj'.
+
 Min-Hua, 2022.09.21
 [change]
 1. [MBOM] Add 'PartAcqRoutingStep', 'PartAcqRoutingStepProcess', and 'PartAcqRoutingStepPart'.

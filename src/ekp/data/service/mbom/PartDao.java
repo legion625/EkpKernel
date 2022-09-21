@@ -30,7 +30,8 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_P_NAME = "name";
 
 	boolean savePart(Part _p) {
-		DbColumn<Part>[] cols = new DbColumn[] { DbColumn.of(COL_P_PIN, ColType.STRING, Part::getPin), //
+		DbColumn<Part>[] cols = new DbColumn[] { //
+				DbColumn.of(COL_P_PIN, ColType.STRING, Part::getPin), //
 				DbColumn.of(COL_P_NAME, ColType.STRING, Part::getName), //
 		};
 		return saveObject(TB_MBOM_PART, cols, _p);
@@ -170,7 +171,7 @@ public class PartDao extends AbstractMySqlDao {
 		return loadObjectList(TB_MBOM_PART_ACQ_ROUTING_STEP, COL_PARS_PART_ACQ_UID, _partAcqUid,
 				this::parsePartAcqRoutingStep);
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// -----------------------------------ParsProc------------------------------------
 	private final static String TB_MBOM_PARS_PROC = "mbom_pars_proc";
@@ -181,7 +182,7 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_PARS_PROC_ASSIGN_PROC = "assign_proc";
 	private final static String COL_PARS_PROC_PROC_UID = "proc_uid";
 	private final static String COL_PARS_PROC_PROC_ID = "proc_id";
-	
+
 	boolean saveParsProc(ParsProc _parsProc) {
 		DbColumn<ParsProc>[] cols = new DbColumn[] {
 				DbColumn.of(COL_PARS_PROC_PARS_UID, ColType.STRING, ParsProc::getParsUid), //
@@ -224,15 +225,13 @@ public class PartDao extends AbstractMySqlDao {
 	}
 
 	List<ParsProc> loadParsProcList(String _parsUid) {
-		return loadObjectList(TB_MBOM_PARS_PROC, COL_PARS_PROC_PARS_UID, _parsUid,
-				this::parseParsProc);
+		return loadObjectList(TB_MBOM_PARS_PROC, COL_PARS_PROC_PARS_UID, _parsUid, this::parseParsProc);
 	}
 
 	List<ParsProc> loadParsProcListByProc(String _processUid) {
-		return loadObjectList(TB_MBOM_PARS_PROC, COL_PARS_PROC_PROC_UID, _processUid,
-				this::parseParsProc);
+		return loadObjectList(TB_MBOM_PARS_PROC, COL_PARS_PROC_PROC_UID, _processUid, this::parseParsProc);
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// -----------------------------------ParsPart------------------------------------
 	private final static String TB_MBOM_PARS_PART = "mbom_pars_part";
@@ -241,7 +240,7 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_PARS_PART_PART_UID = "part_uid";
 	private final static String COL_PARS_PART_PART_PIN = "part_pin";
 	private final static String COL_PARS_PART_PART_REQ_QTY = "part_req_qty";
-	
+
 	boolean saveParsPart(ParsPart _parsPart) {
 		DbColumn<ParsPart>[] cols = new DbColumn[] {
 				DbColumn.of(COL_PARS_PART_PARS_UID, ColType.STRING, ParsPart::getParsUid), //
@@ -274,16 +273,16 @@ public class PartDao extends AbstractMySqlDao {
 			return null;
 		}
 	}
-	
+
 	ParsPart loadParsPart(String _uid) {
 		return loadObject(TB_MBOM_PARS_PART, _uid, this::parseParsPart);
 	}
 
-	List<ParsPart> loadParsPartList(String _parsUid){
+	List<ParsPart> loadParsPartList(String _parsUid) {
 		return loadObjectList(TB_MBOM_PARS_PART, COL_PARS_PART_PARS_UID, _parsUid, this::parseParsPart);
 	}
 
-	List<ParsPart> loadParsPartListByPart(String _partUid){
+	List<ParsPart> loadParsPartListByPart(String _partUid) {
 		return loadObjectList(TB_MBOM_PARS_PART, COL_PARS_PART_PART_UID, _partUid, this::parseParsPart);
 	}
 
