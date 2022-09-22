@@ -1,5 +1,8 @@
 package ekp.rmi;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.rmi.RemoteException;
 
 import org.junit.Assert;
@@ -9,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.serviceFacade.rmi.EkpKernelServiceRemote;
+import ekp.serviceFacade.rmi.mbom.PartCreateObjRemote;
+import ekp.serviceFacade.rmi.mbom.PartRemote;
 import legion.datasource.manager.DSManager;
 
 public class EkpKernelRmiTest extends AbstractEkpKernelRmiInitTest {
@@ -22,9 +27,34 @@ public class EkpKernelRmiTest extends AbstractEkpKernelRmiInitTest {
 		Assert.assertNotNull(serviceRemote);
 	}
 	
+	// -------------------------------------------------------------------------------
 	@Test
 	public void test() throws RemoteException {
 		log.debug("serviceRemote.testCallBack(): {}", serviceRemote.testCallBack());
 		System.out.println("123");
 	}
+	
+	// -------------------------------------------------------------------------------
+	// -------------------------------------Mbom--------------------------------------
+	@Test
+	public void testCreatePart() throws RemoteException {
+		PartCreateObjRemote partCo = new PartCreateObjRemote();
+		partCo.setPin("A1");
+		partCo.setName("快樂機器人");
+
+		PartRemote partRemote = serviceRemote.createPart(partCo);
+		assertNotNull(partRemote);
+		log.debug("{}\t{}\t{}", partRemote.getUid(), partRemote.getPin(), partRemote.getName());
+	}
+	
+	@Test
+	public void testLoadPart() throws RemoteException {
+		PartRemote part1 = serviceRemote.loadPart("2022!2!8!1");
+		PartRemote part2 = serviceRemote.loadPartByPin("A1");
+		log.debug("{}\t{}", part1.getUid(), part2.getUid());
+		assertTrue(part1.equals(part2));
+		
+	}
+	
+
 }
