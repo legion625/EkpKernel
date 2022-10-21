@@ -5,9 +5,12 @@ import ekp.mbom.ParsProc;
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
 import ekp.mbom.PartAcquisition;
+import ekp.mbom.PartCfg;
+import ekp.mbom.PartCfgConj;
 import ekp.mbom.dto.ParsProcCreateObj;
 import ekp.mbom.dto.PartAcqRoutingStepCreateObj;
 import ekp.mbom.dto.PartAcquisitionCreateObj;
+import ekp.mbom.dto.PartCfgCreateObj;
 import ekp.mbom.dto.PartCreateObj;
 
 public class MbomFO {
@@ -110,4 +113,42 @@ public class MbomFO {
 		return remote;
 	}
 
+	// -------------------------------------------------------------------------------
+	// ------------------------------------PartCfg------------------------------------
+	public static PartCfgRemote parsePartCfgRemote(PartCfg _obj) {
+		PartCfgRemote remote = new PartCfgRemote(_obj.getUid(), _obj.getObjectCreateTime(),
+				_obj.getObjectUpdateTime());
+		remote.setRootPartUid(_obj.getRootPartUid());
+		remote.setRootPartPin(_obj.getRootPartPin());
+		remote.setStatus(_obj.getStatus());
+		remote.setId(_obj.getId());
+		remote.setName(_obj.getName());
+		remote.setDesp(_obj.getDesp());
+		return remote;
+	}
+	
+	public static PartCfgCreateObj parsePartCfgCreateObj(PartCfgCreateObjRemote _remote) {
+		PartCfgCreateObj dto = new 	PartCfgCreateObj();
+		dto.setRootPartUid(_remote.getRootPartUid());
+		dto.setRootPartPin(_remote.getRootPartPin());
+		dto.setId(_remote.getId());
+		dto.setName(_remote.getName());
+		dto.setDesp(_remote.getDesp());
+		return dto;
+	}
+	
+	
+	// TODO
+	
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PartCfgConj----------------------------------
+	public static PartCfgConjRemote parsePartCfgConjRemote(PartCfgConj _obj) {
+		PartCfgConjRemote remote = new PartCfgConjRemote(_obj.getUid(), _obj.getObjectCreateTime(),
+				_obj.getObjectUpdateTime());
+		remote.setPartCfgUid(_obj.getPartCfgUid());
+		remote.setPartAcqUid(_obj.getPartAcqUid());
+		return remote;
+	}
+	
+	
 }

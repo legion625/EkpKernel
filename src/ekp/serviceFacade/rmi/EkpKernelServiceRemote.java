@@ -4,6 +4,9 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import ekp.mbom.PartCfg;
+import ekp.mbom.PartCfgConj;
+import ekp.mbom.dto.PartCfgCreateObj;
 import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcRemote;
@@ -11,6 +14,9 @@ import ekp.serviceFacade.rmi.mbom.PartAcqRoutingStepCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartAcqRoutingStepRemote;
 import ekp.serviceFacade.rmi.mbom.PartAcquisitionCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartAcquisitionRemote;
+import ekp.serviceFacade.rmi.mbom.PartCfgConjRemote;
+import ekp.serviceFacade.rmi.mbom.PartCfgCreateObjRemote;
+import ekp.serviceFacade.rmi.mbom.PartCfgRemote;
 import ekp.serviceFacade.rmi.mbom.PartCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartRemote;
 
@@ -77,5 +83,33 @@ public interface EkpKernelServiceRemote extends Remote {
 	public List<ParsPartRemote> loadParsPartListByPart(String _partUid) throws RemoteException;
 	public boolean parsPartAssignPart(String _uid, String _partUid, String _partPin, double _partReqQty) throws RemoteException;
 	public boolean parsePartRevertAssignPart(String _uid) throws RemoteException;
+	
+	// -------------------------------------------------------------------------------
+	// ------------------------------------PartCfg------------------------------------
+	public PartCfgRemote createPartCfg(PartCfgCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deletePartCfg(String _uid) throws RemoteException;
+
+	public PartCfgRemote loadPartCfg(String _uid) throws RemoteException;
+
+	public List<PartCfgRemote> loadPartCfgList(String _rootPartUid) throws RemoteException;
+
+	public boolean partCfgStartEditing(String _uid) throws RemoteException;
+
+	public boolean partCfgRevertStartEditing(String _uid) throws RemoteException;
+
+	public boolean partCfgPublish(String _uid) throws RemoteException;
+
+	public boolean partCfgRevertPublish(String _uid) throws RemoteException;
+	
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PartCfgConj----------------------------------
+	public PartCfgConjRemote createPartCfgConj(String _partCfgUid, String _partAcqUid) throws RemoteException;
+
+	public boolean deletePartCfgConj(String _uid) throws RemoteException;
+
+	public PartCfgConjRemote loadPartCfgConj(String _uid) throws RemoteException;
+
+	public List<PartCfgConjRemote> loadPartCfgConjList(String _partCfgUid) throws RemoteException;
 
 }

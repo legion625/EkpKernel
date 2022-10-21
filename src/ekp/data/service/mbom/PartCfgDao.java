@@ -9,6 +9,8 @@ import org.slf4j.event.Level;
 import ekp.mbom.Part;
 import ekp.mbom.PartCfg;
 import ekp.mbom.PartCfgConj;
+import ekp.mbom.type.PartCfgStatus;
+import legion.Fsm;
 import legion.data.service.AbstractMySqlDao;
 import legion.data.service.AbstractMySqlDao.ColType;
 import legion.data.service.AbstractMySqlDao.DbColumn;
@@ -22,7 +24,25 @@ class PartCfgDao extends AbstractMySqlDao {
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------------PartCfg------------------------------------
+	private final static String TB_MBOM_PART_CFG = "mbom_part_cfg";
+	private final static String COL_PC_ROOT_PART_UID = "root_part_uid";
+	private final static String COL_PC_ROOT_PART_PIN = "root_part_pin";
+	private final static String COL_PC_STATUS_IDX = "status_idx";
+	private final static String COL_PC_ID = "id";
+	private final static String COL_PC_NAME = "name";
+	private final static String COL_PC_DESP = "desp";
+	
 	boolean savePartCfg(PartCfg _pc) {
+		DbColumn<PartCfg>[] cols = new DbColumn[] { //
+				DbColumn.of(COL_PC_ROOT_PART_UID, ColType.STRING, PartCfg::getRootPartUid), //
+				DbColumn.of(COL_PC_ROOT_PART_PIN, ColType.STRING, PartCfg::getRootPartPin), //
+				DbColumn.of(COL_PC_STATUS_IDX, ColType.INT, PartCfg::getStatus), //
+				DbColumn.of(COL_PC_ID, ColType.STRING, PartCfg::getRootPartPin), //
+				DbColumn.of(COL_PC_NAME, ColType.STRING, PartCfg::getRootPartPin), //
+				DbColumn.of(COL_PC_DESP, ColType.STRING, PartCfg::getRootPartPin), //
+		};
+		return saveObject(TB_MBOM_PART_CFG_CONJ, cols, _pcc);
+		
 		// TODO
 		return false;
 	}

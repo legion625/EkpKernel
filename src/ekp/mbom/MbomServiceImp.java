@@ -10,6 +10,7 @@ import ekp.data.MbomDataService;
 import ekp.mbom.dto.ParsProcCreateObj;
 import ekp.mbom.dto.PartAcqRoutingStepCreateObj;
 import ekp.mbom.dto.PartAcquisitionCreateObj;
+import ekp.mbom.dto.PartCfgCreateObj;
 import ekp.mbom.dto.PartCreateObj;
 import legion.DataServiceFactory;
 
@@ -176,6 +177,70 @@ public class MbomServiceImp implements MbomService {
 	@Override
 	public boolean parsePartRevertAssignPart(String _uid) {
 		return loadParsPart(_uid).revertAssignPart();
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------PartCfg------------------------------------
+	@Override
+	public PartCfg createPartCfg(PartCfgCreateObj _dto) {
+		return PartCfg.create(_dto);
+	}
+
+	@Override
+	public boolean deletePartCfg(String _uid) {
+		return loadPartCfg(_uid).delete();
+	}
+
+	@Override
+	public PartCfg loadPartCfg(String _uid) {
+		return dataService.loadPartCfg(_uid);
+	}
+
+	@Override
+	public List<PartCfg> loadPartCfgList(String _rootPartUid) {
+		return dataService.loadPartCfgList(_rootPartUid);
+	}
+
+	@Override
+	public boolean partCfgStartEditing(String _uid) {
+		return loadPartCfg(_uid).startEditing();
+	}
+
+	@Override
+	public boolean partCfgRevertStartEditing(String _uid) {
+		return loadPartCfg(_uid).revertStartEditing();
+	}
+
+	@Override
+	public boolean partCfgPublish(String _uid) {
+		return loadPartCfg(_uid).publish();
+	}
+
+	@Override
+	public boolean partCfgRevertPublish(String _uid) {
+		return loadPartCfg(_uid).revertPublish();
+	}
+
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PartCfgConj----------------------------------
+	@Override
+	public PartCfgConj createPartCfgConj(String _partCfgUid, String _partAcqUid) {
+		return PartCfgConj.create(_partCfgUid, _partAcqUid);
+	}
+
+	@Override
+	public boolean deletePartCfgConj(String _uid) {
+		return loadPartCfgConj(_uid).delete();
+	}
+
+	@Override
+	public PartCfgConj loadPartCfgConj(String _uid) {
+		return dataService.loadPartCfgConj(_uid);
+	}
+
+	@Override
+	public List<PartCfgConj> loadPartCfgConjList(String _partCfgUid) {
+		return dataService.loadPartCfgConjList(_partCfgUid);
 	}
 
 }

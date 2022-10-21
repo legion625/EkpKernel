@@ -13,6 +13,9 @@ import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcqRoutingStep;
 import ekp.mbom.PartAcquisition;
+import ekp.mbom.PartCfg;
+import ekp.mbom.PartCfgConj;
+import ekp.mbom.dto.PartCfgCreateObj;
 import ekp.serviceFacade.rmi.mbom.MbomFO;
 import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
@@ -21,6 +24,9 @@ import ekp.serviceFacade.rmi.mbom.PartAcqRoutingStepCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartAcqRoutingStepRemote;
 import ekp.serviceFacade.rmi.mbom.PartAcquisitionCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartAcquisitionRemote;
+import ekp.serviceFacade.rmi.mbom.PartCfgConjRemote;
+import ekp.serviceFacade.rmi.mbom.PartCfgCreateObjRemote;
+import ekp.serviceFacade.rmi.mbom.PartCfgRemote;
 import ekp.serviceFacade.rmi.mbom.PartCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartRemote;
 import legion.BusinessServiceFactory;
@@ -210,5 +216,74 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	@Override
 	public boolean parsePartRevertAssignPart(String _uid) throws RemoteException {
 		return mbomService.parsePartRevertAssignPart(_uid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------PartCfg------------------------------------
+	@Override
+	public PartCfgRemote createPartCfg(PartCfgCreateObjRemote _dto) throws RemoteException {
+		return MbomFO.parsePartCfgRemote(mbomService.createPartCfg(MbomFO.parsePartCfgCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deletePartCfg(String _uid) throws RemoteException {
+		return mbomService.deletePartCfg(_uid);
+	}
+
+	@Override
+	public PartCfgRemote loadPartCfg(String _uid) throws RemoteException {
+		return MbomFO.parsePartCfgRemote(mbomService.loadPartCfg(_uid));
+	}
+
+	@Override
+	public List<PartCfgRemote> loadPartCfgList(String _rootPartUid) throws RemoteException {
+		List<PartCfg> list = mbomService.loadPartCfgList(_rootPartUid);
+		List<PartCfgRemote> remoteList = list.stream().map(MbomFO::parsePartCfgRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public boolean partCfgStartEditing(String _uid) throws RemoteException {
+		return mbomService.partCfgStartEditing(_uid);
+	}
+
+	@Override
+	public boolean partCfgRevertStartEditing(String _uid) throws RemoteException {
+		return mbomService.partCfgRevertStartEditing(_uid);
+	}
+
+	@Override
+	public boolean partCfgPublish(String _uid) throws RemoteException {
+		return mbomService.partCfgPublish(_uid);
+	}
+
+	@Override
+	public boolean partCfgRevertPublish(String _uid) throws RemoteException {
+		return mbomService.partCfgRevertPublish(_uid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PartCfgConj----------------------------------
+	@Override
+	public PartCfgConjRemote createPartCfgConj(String _partCfgUid, String _partAcqUid) throws RemoteException {
+		return MbomFO.parsePartCfgConjRemote(mbomService.createPartCfgConj(_partCfgUid, _partAcqUid));
+	}
+
+	@Override
+	public boolean deletePartCfgConj(String _uid) throws RemoteException {
+		return mbomService.deletePartCfgConj(_uid);
+	}
+
+	@Override
+	public PartCfgConjRemote loadPartCfgConj(String _uid) throws RemoteException {
+		return MbomFO.parsePartCfgConjRemote(mbomService.loadPartCfgConj(_uid));
+	}
+
+	@Override
+	public List<PartCfgConjRemote> loadPartCfgConjList(String _partCfgUid) throws RemoteException {
+		List<PartCfgConj> list = mbomService.loadPartCfgConjList(_partCfgUid);
+		List<PartCfgConjRemote> remoteList = list.stream().map(MbomFO::parsePartCfgConjRemote)
+				.collect(Collectors.toList());
+		return remoteList;
 	}
 }

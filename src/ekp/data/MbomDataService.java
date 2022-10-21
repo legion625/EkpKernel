@@ -77,7 +77,6 @@ public interface MbomDataService extends IntegrationService {
 	public boolean deletePartCfg(String _uid);
 	public PartCfg loadPartCfg(String _uid);
 	public List<PartCfg> loadPartCfgList(String _rootPartUid);
-	// TODO
 	
 	// -------------------------------------------------------------------------------
 	// ----------------------------------PartCfgConj----------------------------------
