@@ -29,8 +29,6 @@ CREATE TABLE `mbom_part` (
   PRIMARY KEY (`uid`)
 ) ;
 
--- mh_sp8
-
 
 
 -- unstaging
@@ -86,8 +84,12 @@ CREATE TABLE `mbom_pars_part` (
 -- mh_pc
 CREATE TABLE `mbom_part_cfg` (
   `uid` varchar(45) NOT NULL,
-  `part_cfg_uid` varchar(45) DEFAULT NULL,
-  `part_acq_uid` varchar(45) DEFAULT NULL,
+  `root_part_uid` varchar(45) DEFAULT NULL,
+  `root_part_pin` varchar(45) DEFAULT NULL,
+  `status_idx` tinyint DEFAULT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `desp` varchar(200) DEFAULT NULL,
   `object_create_time` bigint DEFAULT NULL,
   `object_update_time` bigint DEFAULT NULL,
   PRIMARY KEY (`uid`)
@@ -101,3 +103,4 @@ CREATE TABLE `mbom_part_cfg_conj` (
   `object_update_time` bigint DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ;
+-- mh_sp8

@@ -36,32 +36,44 @@ class PartCfgDao extends AbstractMySqlDao {
 		DbColumn<PartCfg>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_PC_ROOT_PART_UID, ColType.STRING, PartCfg::getRootPartUid), //
 				DbColumn.of(COL_PC_ROOT_PART_PIN, ColType.STRING, PartCfg::getRootPartPin), //
-				DbColumn.of(COL_PC_STATUS_IDX, ColType.INT, PartCfg::getStatus), //
-				DbColumn.of(COL_PC_ID, ColType.STRING, PartCfg::getRootPartPin), //
-				DbColumn.of(COL_PC_NAME, ColType.STRING, PartCfg::getRootPartPin), //
-				DbColumn.of(COL_PC_DESP, ColType.STRING, PartCfg::getRootPartPin), //
+				DbColumn.of(COL_PC_STATUS_IDX, ColType.INT, PartCfg::getStatusIdx), //
+				DbColumn.of(COL_PC_ID, ColType.STRING, PartCfg::getId), //
+				DbColumn.of(COL_PC_NAME, ColType.STRING, PartCfg::getName), //
+				DbColumn.of(COL_PC_DESP, ColType.STRING, PartCfg::getDesp), //
 		};
-		return saveObject(TB_MBOM_PART_CFG_CONJ, cols, _pcc);
-		
-		// TODO
-		return false;
+		return saveObject(TB_MBOM_PART_CFG, cols, _pc);
 	}
 
 	boolean deletePartCfg(String _uid) {
-		// TODO
-		return false;
+		return deleteObject(TB_MBOM_PART_CFG, _uid);
 	}
 
+	private PartCfg parsePartCfg(ResultSet _rs) {
+		PartCfg pc = null;
+		try {
+			String rootPartUid = _rs.getString(COL_PC_ROOT_PART_UID);
+			String rootPartPin = _rs.getString(COL_PC_ROOT_PART_PIN);
+			PartCfgStatus status = PartCfgStatus.get(_rs.getInt(COL_PC_STATUS_IDX));
+			pc = PartCfg.getInstance(parseUid(_rs), rootPartUid, rootPartPin, status, parseObjectCreateTime(_rs),
+					parseObjectUpdateTime(_rs));
+			/* pack attributes */
+			pc.setId(_rs.getString(COL_PC_ID));
+			pc.setName(_rs.getString(COL_PC_NAME));
+			pc.setDesp(_rs.getString(COL_PC_DESP));
+			return pc;
+		} catch (SQLException e) {
+			LogUtil.log(log, e, Level.ERROR);
+			return null;
+		}
+	}
+	
 	PartCfg loadPartCfg(String _uid) {
-		// TODO
-		return null;
+		return loadObject(TB_MBOM_PART_CFG, _uid, this::parsePartCfg);
 	}
 
 	List<PartCfg> loadPartCfgList(String _rootPartUid) {
-		// TODO
-		return null;
+		return loadObjectList(TB_MBOM_PART_CFG, COL_PC_ROOT_PART_UID, _rootPartUid, this::parsePartCfg);
 	}
-	// TODO
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------PartCfgConj----------------------------------
