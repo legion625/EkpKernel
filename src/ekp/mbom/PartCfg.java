@@ -12,6 +12,7 @@ import static ekp.mbom.type.PartCfgStatus.*;
 public class PartCfg extends ObjectModel {
 
 	// -------------------------------------------------------------------------------
+	// ----------------------------------Attributes-----------------------------------
 	private String rootPartUid; // ref data key
 	private String rootPartPin; // ref biz key
 
@@ -97,7 +98,7 @@ public class PartCfg extends ObjectModel {
 	public int getStatusIdx() {
 		return (getStatus() == null ? PartCfgStatus.UNDEFINED : getStatus()).getIdx();
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------ObjectModel----------------------------------
 	@Override
@@ -109,7 +110,7 @@ public class PartCfg extends ObjectModel {
 	protected boolean delete() {
 		return DataServiceFactory.getInstance().getService(MbomDataService.class).deletePartCfg(this.getUid());
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// ------------------------------------status-------------------------------------
 	private boolean backtoStatusInit() {
