@@ -1,13 +1,15 @@
 package ekp.mbom;
 
+import static ekp.mbom.type.PartCfgStatus.EDITING;
+import static ekp.mbom.type.PartCfgStatus.INIT;
+import static ekp.mbom.type.PartCfgStatus.PUBLISHED;
+
 import ekp.data.MbomDataService;
 import ekp.mbom.dto.PartCfgCreateObj;
 import ekp.mbom.type.PartCfgStatus;
 import legion.DataServiceFactory;
 import legion.Fsm;
 import legion.ObjectModel;
-
-import static ekp.mbom.type.PartCfgStatus.*;
 
 public class PartCfg extends ObjectModel {
 
@@ -131,7 +133,7 @@ public class PartCfg extends ObjectModel {
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------------PartCfg------------------------------------
-	static PartCfg create(PartCfgCreateObj _dto) {
+	public static PartCfg create(PartCfgCreateObj _dto) {
 		PartCfg pc = newInstance(_dto.getRootPartUid(), _dto.getRootPartPin());
 		// status init
 		pc.setId(_dto.getId());

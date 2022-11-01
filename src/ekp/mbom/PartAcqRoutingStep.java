@@ -64,7 +64,7 @@ public class PartAcqRoutingStep extends ObjectModel {
 	public void setDesp(String desp) {
 		this.desp = desp;
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------ObjectModel----------------------------------
 	@Override
@@ -76,7 +76,7 @@ public class PartAcqRoutingStep extends ObjectModel {
 	protected boolean delete() {
 		return DataServiceFactory.getInstance().getService(MbomDataService.class).deletePartAcqRoutingStep(getUid());
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	static PartAcqRoutingStep create(PartAcqRoutingStepCreateObj _dto) {
@@ -86,6 +86,6 @@ public class PartAcqRoutingStep extends ObjectModel {
 		pars.setDesp(_dto.getDesp());
 		return pars.save() ? pars : null;
 	}
-	
+
 
 }

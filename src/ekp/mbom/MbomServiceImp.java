@@ -12,6 +12,9 @@ import ekp.mbom.dto.PartAcqRoutingStepCreateObj;
 import ekp.mbom.dto.PartAcquisitionCreateObj;
 import ekp.mbom.dto.PartCfgCreateObj;
 import ekp.mbom.dto.PartCreateObj;
+import ekp.mbom.dto.ProdCreateObj;
+import ekp.mbom.dto.ProdCtlCreateObj;
+import ekp.mbom.dto.ProdModCreateObj;
 import legion.DataServiceFactory;
 
 public class MbomServiceImp implements MbomService {
@@ -241,6 +244,156 @@ public class MbomServiceImp implements MbomService {
 	@Override
 	public List<PartCfgConj> loadPartCfgConjList(String _partCfgUid) {
 		return dataService.loadPartCfgConjList(_partCfgUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// -------------------------------------Prod--------------------------------------
+	@Override
+	public Prod createProd(ProdCreateObj _dto) {
+		return Prod.create(_dto);
+	}
+
+	@Override
+	public boolean deleteProd(String _uid) {
+		return loadProd(_uid).delete();
+	}
+
+	@Override
+	public Prod loadProd(String _uid) {
+		return dataService.loadProd(_uid);
+	}
+
+	@Override
+	public List<Prod> loadProdList() {
+		return dataService.loadProdList();
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------ProdCtl------------------------------------
+	@Override
+	public ProdCtl createProdCtl(ProdCtlCreateObj _dto) {
+		return ProdCtl.create(_dto);
+	}
+
+	@Override
+	public boolean deleteProdCtl(String _uid) {
+		return loadProdCtl(_uid).delete();
+	}
+
+	@Override
+	public ProdCtl loadProdCtl(String _uid) {
+		return dataService.loadProdCtl(_uid);
+	}
+
+	@Override
+	public List<ProdCtl> loadProdCtlList(String _parentUid) {
+		return dataService.loadProdCtlList(_parentUid);
+	}
+
+	@Override
+	public List<ProdCtl> loadProdCtlListLv1(String _prodUid) {
+		return dataService.loadProdCtlListLv1(_prodUid);
+	}
+
+	@Override
+	public boolean prodCtlAssignParent(String _uid, String _parentUid, String _parentId) {
+		return loadProdCtl(_uid).assignParent(_parentUid, _parentId);
+	}
+
+	@Override
+	public boolean prodCtlUnassignParent(String _uid) {
+		return loadProdCtl(_uid).unassignParent();
+	}
+
+	@Override
+	public boolean prodCtlAssignProd(String _uid, String _prodUid) {
+		return loadProdCtl(_uid).assignProd(_prodUid);
+	}
+
+	@Override
+	public boolean prodCtlUnassignProd(String _uid) {
+		return loadProdCtl(_uid).unassignProd();
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------ProdCtlPartCfgConj-------------------------------
+	@Override
+	public ProdCtlPartCfgConj createProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid) {
+		return ProdCtlPartCfgConj.create(_prodCtlUid, _partCfgUid);
+	}
+
+	@Override
+	public boolean deleteProdCtlPartCfgConj(String _uid) {
+		return loadProdCtlPartCfgConj(_uid).delete();
+	}
+
+	@Override
+	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _uid) {
+		return dataService.loadProdCtlPartCfgConj(_uid);
+	}
+
+	@Override
+	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList1(String _prodCtlUid) {
+		return dataService.loadProdCtlPartCfgConjList1(_prodCtlUid);
+	}
+
+	@Override
+	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList2(String _partCfgUid) {
+		return dataService.loadProdCtlPartCfgConjList2(_partCfgUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------ProdMod------------------------------------
+	@Override
+	public ProdMod createProdMod(ProdModCreateObj _dto) {
+		return ProdMod.create(_dto);
+	}
+
+	@Override
+	public boolean deleteProdMod(String _uid) {
+		return loadProdMod(_uid).delete();
+	}
+
+	@Override
+	public ProdMod loadProdMod(String _uid) {
+		return dataService.loadProdMod(_uid);
+	}
+
+	@Override
+	public List<ProdMod> loadProdModList(String _prodUid) {
+		return dataService.loadProdModList(_prodUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ----------------------------------ProdModItem----------------------------------
+	@Override
+	public ProdModItem createProdModItem(String prodModUid, String prodCtlUid) {
+		return ProdModItem.create(prodModUid, prodCtlUid);
+	}
+
+	@Override
+	public boolean deleteProdModItem(String _uid) {
+		return loadProdModItem(_uid).delete();
+	}
+
+	@Override
+	public ProdModItem loadProdModItem(String _uid) {
+		return dataService.loadProdModItem(_uid);
+	}
+
+	@Override
+	public List<ProdModItem> loadProdModItemList(String _prodModUid) {
+		return dataService.loadProdModItemList(_prodModUid);
+	}
+
+	@Override
+	public boolean prodModItemAssignPartCfg(String _uid, String _partCfgUid) {
+		return loadProdModItem(_uid).assignPartCfg(_partCfgUid);
+	}
+
+	@Override
+	public boolean prodModItemUnassignPartCfg(String _uid) {
+		return loadProdModItem(_uid).unassignPartCfg();
 	}
 
 }

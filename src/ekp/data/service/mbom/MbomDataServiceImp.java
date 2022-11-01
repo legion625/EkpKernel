@@ -14,6 +14,11 @@ import ekp.mbom.PartAcqRoutingStep;
 import ekp.mbom.PartAcquisition;
 import ekp.mbom.PartCfg;
 import ekp.mbom.PartCfgConj;
+import ekp.mbom.Prod;
+import ekp.mbom.ProdCtl;
+import ekp.mbom.ProdCtlPartCfgConj;
+import ekp.mbom.ProdMod;
+import ekp.mbom.ProdModItem;
 
 public class MbomDataServiceImp implements MbomDataService {
 	private Logger log = LoggerFactory.getLogger(MbomDataServiceImp.class);
@@ -23,6 +28,7 @@ public class MbomDataServiceImp implements MbomDataService {
 	// dao
 	private PartDao partDao;
 	private PartCfgDao partCfgDao;
+	private ProdDao prodDao;
 
 	@Override
 	public void register(Map<String, String> _params) {
@@ -34,6 +40,7 @@ public class MbomDataServiceImp implements MbomDataService {
 		// dao
 		partDao = new PartDao(source);
 		partCfgDao = new PartCfgDao(source);
+		prodDao = new ProdDao(source);
 	}
 
 	@Override
@@ -213,6 +220,126 @@ public class MbomDataServiceImp implements MbomDataService {
 	@Override
 	public List<PartCfgConj> loadPartCfgConjList(String _partCfgUid) {
 		return partCfgDao.loadPartCfgConjList(_partCfgUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// -------------------------------------Prod--------------------------------------
+	@Override
+	public boolean saveProd(Prod _p) {
+		return prodDao.saveProd(_p);
+	}
+
+	@Override
+	public boolean deleteProd(String _uid) {
+		return prodDao.deleteProd(_uid);
+	}
+
+	@Override
+	public Prod loadProd(String _uid) {
+		return prodDao.loadProd(_uid);
+	}
+
+	@Override
+	public List<Prod> loadProdList() {
+		return prodDao.loadProdList();
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------ProdCtl------------------------------------
+	@Override
+	public boolean saveProdCtl(ProdCtl _pc) {
+		return prodDao.saveProdCtl(_pc);
+	}
+
+	@Override
+	public boolean deleteProdCtl(String _uid) {
+		return prodDao.deleteProdCtl(_uid);
+	}
+
+	@Override
+	public ProdCtl loadProdCtl(String _uid) {
+		return prodDao.loadProdCtl(_uid);
+	}
+
+	@Override
+	public List<ProdCtl> loadProdCtlList(String _parentUid) {
+		return prodDao.loadProdCtlList(_parentUid);
+	}
+
+	@Override
+	public List<ProdCtl> loadProdCtlListLv1(String _prodUid) {
+		return prodDao.loadProdCtlListLv1(_prodUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------ProdCtlPartCfgConj-------------------------------
+	@Override
+	public boolean saveProdCtlPartCfgConj(ProdCtlPartCfgConj _pcpcc) {
+		return prodDao.saveProdCtlPartCfgConj(_pcpcc);
+	}
+
+	@Override
+	public boolean deleteProdCtlPartCfgConj(String _uid) {
+		return prodDao.deleteProdCtlPartCfgConj(_uid);
+	}
+
+	@Override
+	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _uid) {
+		return prodDao.loadProdCtlPartCfgConj(_uid);
+	}
+
+	@Override
+	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList1(String _prodCtlUid) {
+		return prodDao.loadProdCtlPartCfgConjList1(_prodCtlUid);
+	}
+
+	@Override
+	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList2(String _partCfgUid) {
+		return prodDao.loadProdCtlPartCfgConjList2(_partCfgUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------ProdMod------------------------------------
+	@Override
+	public boolean saveProdMod(ProdMod _pm) {
+		return prodDao.saveProdMod(_pm);
+	}
+
+	@Override
+	public boolean deleteProdMod(String _uid) {
+		return prodDao.deleteProdMod(_uid);
+	}
+
+	@Override
+	public ProdMod loadProdMod(String _uid) {
+		return prodDao.loadProdMod(_uid);
+	}
+
+	@Override
+	public List<ProdMod> loadProdModList(String _prodUid) {
+		return prodDao.loadProdModList(_prodUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ----------------------------------ProdModItem----------------------------------
+	@Override
+	public boolean saveProdModItem(ProdModItem _pmi) {
+		return prodDao.saveProdModItem(_pmi);
+	}
+
+	@Override
+	public boolean deleteProdModItem(String _uid) {
+		return prodDao.deleteProdModItem(_uid);
+	}
+
+	@Override
+	public ProdModItem loadProdModItem(String _uid) {
+		return prodDao.loadProdModItem(_uid);
+	}
+
+	@Override
+	public List<ProdModItem> loadProdModItemList(String _prodModUid) {
+		return prodDao.loadProdModItemList(_prodModUid);
 	}
 
 }

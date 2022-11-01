@@ -15,7 +15,11 @@ import ekp.mbom.PartAcqRoutingStep;
 import ekp.mbom.PartAcquisition;
 import ekp.mbom.PartCfg;
 import ekp.mbom.PartCfgConj;
-import ekp.mbom.dto.PartCfgCreateObj;
+import ekp.mbom.Prod;
+import ekp.mbom.ProdCtl;
+import ekp.mbom.ProdCtlPartCfgConj;
+import ekp.mbom.ProdMod;
+import ekp.mbom.ProdModItem;
 import ekp.serviceFacade.rmi.mbom.MbomFO;
 import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
@@ -29,6 +33,14 @@ import ekp.serviceFacade.rmi.mbom.PartCfgCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartCfgRemote;
 import ekp.serviceFacade.rmi.mbom.PartCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartRemote;
+import ekp.serviceFacade.rmi.mbom.ProdCreateObjRemote;
+import ekp.serviceFacade.rmi.mbom.ProdCtlCreateObjRemote;
+import ekp.serviceFacade.rmi.mbom.ProdCtlPartCfgConjRemote;
+import ekp.serviceFacade.rmi.mbom.ProdCtlRemote;
+import ekp.serviceFacade.rmi.mbom.ProdModCreateObjRemote;
+import ekp.serviceFacade.rmi.mbom.ProdModItemRemote;
+import ekp.serviceFacade.rmi.mbom.ProdModRemote;
+import ekp.serviceFacade.rmi.mbom.ProdRemote;
 import legion.BusinessServiceFactory;
 
 public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements EkpKernelServiceRemote {
@@ -285,5 +297,173 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<PartCfgConjRemote> remoteList = list.stream().map(MbomFO::parsePartCfgConjRemote)
 				.collect(Collectors.toList());
 		return remoteList;
+	}
+
+	// -------------------------------------------------------------------------------
+	// -------------------------------------Prod--------------------------------------
+	@Override
+	public ProdRemote createProd(ProdCreateObjRemote _dto) throws RemoteException {
+		return MbomFO.parseProdRemote(mbomService.createProd(MbomFO.parseProdCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteProd(String _uid) throws RemoteException {
+		return mbomService.deleteProd(_uid);
+	}
+
+	@Override
+	public ProdRemote loadProd(String _uid) throws RemoteException {
+		return MbomFO.parseProdRemote(mbomService.loadProd(_uid));
+	}
+
+	@Override
+	public List<ProdRemote> loadProdList() throws RemoteException {
+		List<Prod> list = mbomService.loadProdList();
+		List<ProdRemote> remoteList = list.stream().map(MbomFO::parseProdRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------ProdCtl------------------------------------
+	@Override
+	public ProdCtlRemote createProdCtl(ProdCtlCreateObjRemote _dto) throws RemoteException {
+		return MbomFO.parseProdCtlRemote(mbomService.createProdCtl(MbomFO.parseProdCtlCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteProdCtl(String _uid) throws RemoteException {
+		return mbomService.deleteProdCtl(_uid);
+	}
+
+	@Override
+	public ProdCtlRemote loadProdCtl(String _uid) throws RemoteException {
+		return MbomFO.parseProdCtlRemote(mbomService.loadProdCtl(_uid));
+	}
+
+	@Override
+	public List<ProdCtlRemote> loadProdCtlList(String _parentUid) throws RemoteException {
+		List<ProdCtl> list = mbomService.loadProdCtlList(_parentUid);
+		List<ProdCtlRemote> remoteList = list.stream().map(MbomFO::parseProdCtlRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public List<ProdCtlRemote> loadProdCtlListLv1(String _prodUid) throws RemoteException {
+		List<ProdCtl> list = mbomService.loadProdCtlListLv1(_prodUid);
+		List<ProdCtlRemote> remoteList = list.stream().map(MbomFO::parseProdCtlRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public boolean prodCtlAssignParent(String _uid, String _parentUid, String _parentId) throws RemoteException {
+		return mbomService.prodCtlAssignParent(_uid, _parentUid, _parentId);
+	}
+
+	@Override
+	public boolean prodCtlUnassignParent(String _uid) throws RemoteException {
+		return mbomService.prodCtlUnassignParent(_uid);
+	}
+
+	@Override
+	public boolean prodCtlAssignProd(String _uid, String _prodUid) throws RemoteException {
+		return mbomService.prodCtlAssignProd(_uid, _prodUid);
+	}
+
+	@Override
+	public boolean prodCtlUnassignProd(String _uid) throws RemoteException {
+		return mbomService.prodCtlUnassignProd(_uid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------ProdCtlPartCfgConj-------------------------------
+	@Override
+	public ProdCtlPartCfgConjRemote createProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid)
+			throws RemoteException {
+		return MbomFO.parseProdCtlPartCfgConjRemote(mbomService.createProdCtlPartCfgConj(_prodCtlUid, _partCfgUid));
+	}
+
+	@Override
+	public boolean deleteProdCtlPartCfgConj(String _uid) throws RemoteException {
+		return mbomService.deleteProdCtlPartCfgConj(_uid);
+	}
+
+	@Override
+	public ProdCtlPartCfgConjRemote loadProdCtlPartCfgConj(String _uid) throws RemoteException {
+		return MbomFO.parseProdCtlPartCfgConjRemote(mbomService.loadProdCtlPartCfgConj(_uid));
+	}
+
+	@Override
+	public List<ProdCtlPartCfgConjRemote> loadProdCtlPartCfgConjList1(String _prodCtlUid) throws RemoteException {
+		List<ProdCtlPartCfgConj> list = mbomService.loadProdCtlPartCfgConjList1(_prodCtlUid);
+		List<ProdCtlPartCfgConjRemote> remoteList = list.stream().map(MbomFO::parseProdCtlPartCfgConjRemote)
+				.collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public List<ProdCtlPartCfgConjRemote> loadProdCtlPartCfgConjList2(String _partCfgUid) throws RemoteException {
+		List<ProdCtlPartCfgConj> list = mbomService.loadProdCtlPartCfgConjList2(_partCfgUid);
+		List<ProdCtlPartCfgConjRemote> remoteList = list.stream().map(MbomFO::parseProdCtlPartCfgConjRemote)
+				.collect(Collectors.toList());
+		return remoteList;
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------ProdMod------------------------------------
+	@Override
+	public ProdModRemote createProdMod(ProdModCreateObjRemote _dto) throws RemoteException {
+		return MbomFO.parseProdModRemote(mbomService.createProdMod(MbomFO.parseProdModCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteProdMod(String _uid) throws RemoteException {
+		return mbomService.deleteProdMod(_uid);
+	}
+
+	@Override
+	public ProdModRemote loadProdMod(String _uid) throws RemoteException {
+		return MbomFO.parseProdModRemote(mbomService.loadProdMod(_uid));
+	}
+
+	@Override
+	public List<ProdModRemote> loadProdModList(String _prodUid) throws RemoteException {
+		List<ProdMod> list = mbomService.loadProdModList(_prodUid);
+		List<ProdModRemote> remoteList = list.stream().map(MbomFO::parseProdModRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	// -------------------------------------------------------------------------------
+	// ----------------------------------ProdModItem----------------------------------
+	@Override
+	public ProdModItemRemote createProdModItem(String prodModUid, String prodCtlUid) throws RemoteException {
+		return MbomFO.parseProdModItemRemote(mbomService.createProdModItem(prodModUid, prodCtlUid));
+	}
+
+	@Override
+	public boolean deleteProdModItem(String _uid) throws RemoteException {
+		return mbomService.deleteProdModItem(_uid);
+	}
+
+	@Override
+	public ProdModItemRemote loadProdModItem(String _uid) throws RemoteException {
+		return MbomFO.parseProdModItemRemote(mbomService.loadProdModItem(_uid));
+	}
+
+	@Override
+	public List<ProdModItemRemote> loadProdModItemList(String _prodModUid) throws RemoteException {
+		List<ProdModItem> list = mbomService.loadProdModItemList(_prodModUid);
+		List<ProdModItemRemote> remoteList = list.stream().map(MbomFO::parseProdModItemRemote)
+				.collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public boolean prodModItemAssignPartCfg(String _uid, String _partCfgUid) throws RemoteException {
+		return mbomService.prodModItemAssignPartCfg(_uid, _partCfgUid);
+	}
+
+	@Override
+	public boolean prodModItemUnassignPartCfg(String _uid) throws RemoteException {
+		return mbomService.prodModItemUnassignPartCfg(_uid);
 	}
 }

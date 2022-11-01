@@ -5,8 +5,9 @@ import legion.DataServiceFactory;
 import legion.ObjectModel;
 
 public class PartCfgConj extends ObjectModel {
+	// -------------------------------------------------------------------------------
+	// ----------------------------------Attributes-----------------------------------
 	private String partCfgUid;
-	
 	private String partAcqUid;
 
 	// -------------------------------------------------------------------------------
@@ -21,7 +22,7 @@ public class PartCfgConj extends ObjectModel {
 		return pcc;
 	}
 
-	public static PartCfgConj getInstance(String uid,String partCfgUid, long objectCreateTime, long objectUpdateTime) {
+	public static PartCfgConj getInstance(String uid, String partCfgUid, long objectCreateTime, long objectUpdateTime) {
 		PartCfgConj pcc = new PartCfgConj(partCfgUid);
 		pcc.configGetInstance(uid, objectCreateTime, objectUpdateTime);
 		return pcc;

@@ -81,7 +81,6 @@ CREATE TABLE `mbom_pars_part` (
   PRIMARY KEY (`uid`)
 ) ;
 
--- mh_pc
 CREATE TABLE `mbom_part_cfg` (
   `uid` varchar(45) NOT NULL,
   `root_part_uid` varchar(45) DEFAULT NULL,
@@ -104,3 +103,58 @@ CREATE TABLE `mbom_part_cfg_conj` (
   PRIMARY KEY (`uid`)
 ) ;
 -- mh_sp8
+-- mh_pc
+
+CREATE TABLE `mbom_prod` (
+  `uid` varchar(45) NOT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `mbom_prod_ctl` (
+  `uid` varchar(45) NOT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `lv` tinyint DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `req` tinyint DEFAULT NULL,
+  `parent_uid` varchar(45) DEFAULT NULL,
+  `parent_id` varchar(45) DEFAULT NULL,
+  `prod_uid` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `mbom_prod_ctl_part_cfg_conj` (
+  `uid` varchar(45) NOT NULL,
+  `prod_ctl_uid` varchar(45) DEFAULT NULL,
+  `part_cfg_uid` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `mbom_prod_mod` (
+  `uid` varchar(45) NOT NULL,
+  `prod_uid` varchar(45) DEFAULT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `desp` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `mbom_prod_mod_item` (
+  `uid` varchar(45) NOT NULL,
+  `prod_mod_uid` varchar(45) DEFAULT NULL,
+  `prod_ctl_uid` varchar(45) DEFAULT NULL,
+  `part_cfg_assigned` tinyint DEFAULT NULL,
+  `part_cfg_uid` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
