@@ -10,7 +10,7 @@ import ekp.TestUtil;
 import ekp.data.MbomDataService;
 import legion.DataServiceFactory;
 
-public class BizObjPartTest extends AbstractEkpInitTest{
+public class BizObjPartCfgConjTest extends AbstractEkpInitTest {
 	private static MbomDataService dataService = DataServiceFactory.getInstance().getService(MbomDataService.class);
 
 	private String targetUid;
@@ -19,64 +19,65 @@ public class BizObjPartTest extends AbstractEkpInitTest{
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("pin1", "name1");
-		target2 = new Target("pin2", "name2");
+		target1 = new Target("partCfgUid1", "partAcqUid1");
+		target2 = new Target("partCfgUid2", "partAcqUid2");
 	}
 
 	@Test
 	public void testCRUD() throws Throwable {
-		testCreatePart();
-		testUpdatePart();
-		testDeletePart();
+		testCreatePartCfgConj();
+		testUpdatePartCfgConj();
+		testDeletePartCfgConj();
 	}
 
 	@Test
 	@Ignore
-	public void testCreatePart() throws Throwable {
+	public void testCreatePartCfgConj() throws Throwable {
 		/* create */
-		Part obj = Part.newInstance();
+		PartCfgConj obj = PartCfgConj.newInstance(target1.partCfgUid);
 		PropertyUtils.copyProperties(obj, target1);
 		assert obj.save();
 		targetUid = obj.getUid();
 		/* load */
-		obj = dataService.loadPart(targetUid);
+		obj = dataService.loadPartCfgConj(targetUid);
 		TestUtil.assertObjEqual(target1, obj);
 	}
 
 	@Test
 	@Ignore
-	public void testUpdatePart() throws Throwable {
-		Part obj = dataService.loadPart(targetUid);
+	public void testUpdatePartCfgConj() throws Throwable {
+		PartCfgConj obj = dataService.loadPartCfgConj(targetUid);
 		PropertyUtils.copyProperties(obj, target2);
 		assert obj.save();
 		/* load */
-		obj = dataService.loadPart(targetUid);
+		obj = dataService.loadPartCfgConj(targetUid);
 		TestUtil.assertObjEqual(target2, obj);
 	}
 
 	@Test
 	@Ignore
-	public void testDeletePart() {
-		assert dataService.loadPart(targetUid).delete();
+	public void testDeletePartCfgConj() {
+		assert dataService.loadPartCfgConj(targetUid).delete();
 	}
 
 	// -------------------------------------------------------------------------------
 	public class Target {
+		private String partCfgUid;
 
-		private String pin;
-		private String name;
+		private String partAcqUid;
 
-		private Target(String pin, String name) {
-			this.pin = pin;
-			this.name = name;
+		private Target(String partCfgUid, String partAcqUid) {
+			super();
+			this.partCfgUid = partCfgUid;
+			this.partAcqUid = partAcqUid;
 		}
 
-		public String getPin() {
-			return pin;
+		public String getPartCfgUid() {
+			return partCfgUid;
 		}
 
-		public String getName() {
-			return name;
+		public String getPartAcqUid() {
+			return partAcqUid;
 		}
 
 	}

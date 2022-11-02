@@ -1,42 +1,41 @@
 package ekp.mbom;
 
 import ekp.data.MbomDataService;
-import ekp.mbom.dto.PartCreateObj;
+import ekp.mbom.dto.ProdCreateObj;
 import legion.DataServiceFactory;
 import legion.ObjectModel;
 
-public class Part extends ObjectModel {
-
+public class Prod extends ObjectModel {
 	// -------------------------------------------------------------------------------
 	// ----------------------------------Attributes-----------------------------------
-	private String pin; // biz key
-	private String name;
+	private String id; // 型號 biz key
+	private String name; // 名稱
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
-	private Part() {
+	private Prod() {
 	}
 
-	static Part newInstance() {
-		Part p = new Part();
+	static Prod newInstance() {
+		Prod p = new Prod();
 		p.configNewInstance();
 		return p;
 	}
 
-	public static Part getInstance(String _uid, long _objectCreateTime, long _objectUpdateTime) {
-		Part p = new Part();
+	public static Prod getInstance(String _uid, long _objectCreateTime, long _objectUpdateTime) {
+		Prod p = new Prod();
 		p.configGetInstance(_uid, _objectCreateTime, _objectUpdateTime);
 		return p;
 	}
 
 	// -------------------------------------------------------------------------------
 	// ---------------------------------getter&setter---------------------------------
-	public String getPin() {
-		return pin;
+	public String getId() {
+		return id;
 	}
 
-	public void setPin(String pin) {
-		this.pin = pin;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -51,19 +50,19 @@ public class Part extends ObjectModel {
 	// ----------------------------------ObjectModel----------------------------------
 	@Override
 	protected boolean save() {
-		return DataServiceFactory.getInstance().getService(MbomDataService.class).savePart(this);
+		return DataServiceFactory.getInstance().getService(MbomDataService.class).saveProd(this);
 	}
 
 	@Override
 	protected boolean delete() {
-		return DataServiceFactory.getInstance().getService(MbomDataService.class).deletePart(getUid());
+		return DataServiceFactory.getInstance().getService(MbomDataService.class).deleteProd(getUid());
 	}
 
 	// -------------------------------------------------------------------------------
-	// -------------------------------------Part--------------------------------------
-	static Part create(PartCreateObj _dto) {
-		Part p = newInstance();
-		p.setPin(_dto.getPin());
+	// -------------------------------------Prod--------------------------------------
+	public static Prod create(ProdCreateObj _dto) {
+		Prod p = newInstance();
+		p.setId(_dto.getId());
 		p.setName(_dto.getName());
 		return p.save() ? p : null;
 	}

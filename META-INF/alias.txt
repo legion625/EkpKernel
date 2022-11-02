@@ -1,0 +1,16 @@
+/* all */
+conj: conjunction (class)
+req: required
+
+/* mbom */
+acq: acquisition
+cfg: configuration
+ctl: catalog
+mod: model
+pars: part acquisition routing step
+prod: product
+prodCtl: product catalog
+prodMod: product model
+
+/* prodcution planning */
+proc: procedure

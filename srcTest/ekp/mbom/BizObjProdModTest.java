@@ -10,7 +10,7 @@ import ekp.TestUtil;
 import ekp.data.MbomDataService;
 import legion.DataServiceFactory;
 
-public class BizObjPartTest extends AbstractEkpInitTest{
+public class BizObjProdModTest extends AbstractEkpInitTest {
 	private static MbomDataService dataService = DataServiceFactory.getInstance().getService(MbomDataService.class);
 
 	private String targetUid;
@@ -19,64 +19,76 @@ public class BizObjPartTest extends AbstractEkpInitTest{
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("pin1", "name1");
-		target2 = new Target("pin2", "name2");
+		target1 = new Target("prodUid1", "id1", "name1", "desp1");
+		target2 = new Target("prodUid2", "id2", "name2", "desp2");
 	}
 
 	@Test
 	public void testCRUD() throws Throwable {
-		testCreatePart();
-		testUpdatePart();
-		testDeletePart();
+		testCreateProdMod();
+		testUpdateProdMod();
+		testDeleteProdMod();
 	}
 
 	@Test
 	@Ignore
-	public void testCreatePart() throws Throwable {
+	public void testCreateProdMod() throws Throwable {
 		/* create */
-		Part obj = Part.newInstance();
+		ProdMod obj = ProdMod.newInstance(target1.prodUid);
 		PropertyUtils.copyProperties(obj, target1);
 		assert obj.save();
 		targetUid = obj.getUid();
 		/* load */
-		obj = dataService.loadPart(targetUid);
+		obj = dataService.loadProdMod(targetUid);
 		TestUtil.assertObjEqual(target1, obj);
 	}
 
 	@Test
 	@Ignore
-	public void testUpdatePart() throws Throwable {
-		Part obj = dataService.loadPart(targetUid);
+	public void testUpdateProdMod() throws Throwable {
+		ProdMod obj = dataService.loadProdMod(targetUid);
 		PropertyUtils.copyProperties(obj, target2);
 		assert obj.save();
 		/* load */
-		obj = dataService.loadPart(targetUid);
+		obj = dataService.loadProdMod(targetUid);
 		TestUtil.assertObjEqual(target2, obj);
 	}
 
 	@Test
 	@Ignore
-	public void testDeletePart() {
-		assert dataService.loadPart(targetUid).delete();
+	public void testDeleteProdMod() {
+		assert dataService.loadProdMod(targetUid).delete();
 	}
 
 	// -------------------------------------------------------------------------------
 	public class Target {
-
-		private String pin;
+		private String prodUid; // 對應的產品項 biz key
+		//
+		private String id; // 識別碼 biz key
 		private String name;
+		private String desp;
 
-		private Target(String pin, String name) {
-			this.pin = pin;
+		private Target(String prodUid, String id, String name, String desp) {
+			this.prodUid = prodUid;
+			this.id = id;
 			this.name = name;
+			this.desp = desp;
 		}
 
-		public String getPin() {
-			return pin;
+		public String getProdUid() {
+			return prodUid;
+		}
+
+		public String getId() {
+			return id;
 		}
 
 		public String getName() {
 			return name;
+		}
+
+		public String getDesp() {
+			return desp;
 		}
 
 	}
