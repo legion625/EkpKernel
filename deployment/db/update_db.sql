@@ -30,8 +30,8 @@ CREATE TABLE `mbom_part` (
 ) ;
 
 
+-- 0.1.0.1 -> 0.1.1
 
--- unstaging
 CREATE TABLE `mbom_part_acq` (
   `uid` varchar(45) NOT NULL,
   `part_uid` varchar(45) DEFAULT NULL,
@@ -158,3 +158,6 @@ CREATE TABLE `mbom_prod_mod_item` (
   `object_update_time` bigint DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ;
+
+
+-- unstaging

@@ -78,6 +78,29 @@ CREATE TABLE `mbom_part_cfg` (
   PRIMARY KEY (`uid`)
 ) ;
 
+CREATE TABLE `mbom_prod` (
+  `uid` varchar(45) NOT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `mbom_prod_ctl` (
+  `uid` varchar(45) NOT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `lv` tinyint(4) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `req` tinyint(4) DEFAULT NULL,
+  `parent_uid` varchar(45) DEFAULT NULL,
+  `parent_id` varchar(45) DEFAULT NULL,
+  `prod_uid` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
 CREATE TABLE `mbom_prod_mod_item` (
   `uid` varchar(45) NOT NULL,
   `prod_mod_uid` varchar(45) DEFAULT NULL,
@@ -118,15 +141,6 @@ CREATE TABLE `mbom_prod_ctl` (
   `parent_uid` varchar(45) DEFAULT NULL,
   `parent_id` varchar(45) DEFAULT NULL,
   `prod_uid` varchar(45) DEFAULT NULL,
-  `object_create_time` bigint(20) DEFAULT NULL,
-  `object_update_time` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`uid`)
-) ;
-
-CREATE TABLE `mbom_prod` (
-  `uid` varchar(45) NOT NULL,
-  `id` varchar(45) DEFAULT NULL,
-  `name` varchar(45) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
