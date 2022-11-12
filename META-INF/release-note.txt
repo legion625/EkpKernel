@@ -1,22 +1,13 @@
-Min-Hua, 2022.11.01
+------------------------------------------------------------------------------
+v0.1.1 released by Min-Hua, 2022.11.02
 [change]
-1 [MBOM] Add 'Prod', 'ProdCtl', 'ProdCtlPartCfgConj', 'ProdMod', and 'ProdModItem'.
+1. [MBOM] Add 'PartAcquisition', 'PartAcqRoutingStep', 'PartAcqRoutingStepProcess', and 'PartAcqRoutingStepPart'.
+2. [MBOM] Add 'PartCfg' and 'PartCfgConj'.
+3. [MBOM] Add 'Prod', 'ProdCtl', 'ProdCtlPartCfgConj', 'ProdMod', and 'ProdModItem'.
+4. [MBOM] Add related services.
 
-Min-Hua, 2022.10.23
-[change]
-1. [MBOM] Add 'PartCfg' and 'PartCfgConj'.
-
-Min-Hua, 2022.09.22
 [lib]
 1. legionmodule_0.10.4 -> 0.11.0
-
-Min-Hua, 2022.09.21
-[change]
-1. [MBOM] Add 'PartAcqRoutingStep', 'PartAcqRoutingStepProcess', and 'PartAcqRoutingStepPart'.
-
-Min-Hua, 2022.09.18
-[change]
-1. [MBOM]Add 'PartAcquisition' and related services.
 
 ------------------------------------------------------------------------------
 v0.1.0.1 released by Min-Hua, 2022.09.09
