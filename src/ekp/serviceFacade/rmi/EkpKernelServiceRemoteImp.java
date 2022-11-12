@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import ekp.mbom.MbomService;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
+import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
 import ekp.mbom.PartAcquisition;
 import ekp.mbom.PartCfg;
@@ -76,12 +77,14 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public PartRemote loadPart(String _uid) throws RemoteException {
-		return MbomFO.parsePartRemote(mbomService.loadPart(_uid));
+		Part obj = mbomService.loadPart(_uid);
+		return obj == null ? null : MbomFO.parsePartRemote(obj);
 	}
 
 	@Override
 	public PartRemote loadPartByPin(String _pin) throws RemoteException {
-		return MbomFO.parsePartRemote(mbomService.loadPartByPin(_pin));
+		Part obj = mbomService.loadPartByPin(_pin);
+		return obj == null ? null : MbomFO.parsePartRemote(obj);
 	}
 
 	// -------------------------------------------------------------------------------
@@ -99,12 +102,14 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public PartAcquisitionRemote loadPartAcquisition(String _uid) throws RemoteException {
-		return MbomFO.parsePartAcquisitionRemote(mbomService.loadPartAcquisition(_uid));
+		PartAcquisition obj = mbomService.loadPartAcquisition(_uid);
+		return obj == null ? null : MbomFO.parsePartAcquisitionRemote(obj);
 	}
 
 	@Override
 	public PartAcquisitionRemote loadPartAcquisitionById(String _id) throws RemoteException {
-		return MbomFO.parsePartAcquisitionRemote(mbomService.loadPartAcquisitionById(_id));
+		PartAcquisition obj = mbomService.loadPartAcquisitionById(_id);
+		return obj == null ? null : MbomFO.parsePartAcquisitionRemote(obj);
 	}
 
 	@Override
@@ -131,12 +136,14 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public PartAcqRoutingStepRemote loadPartAcqRoutingStep(String _uid) throws RemoteException {
-		return MbomFO.parsePartAcqRoutingStepRemote(mbomService.loadPartAcqRoutingStep(_uid));
+		PartAcqRoutingStep obj = mbomService.loadPartAcqRoutingStep(_uid);
+		return obj == null ? null : MbomFO.parsePartAcqRoutingStepRemote(obj);
 	}
 
 	@Override
 	public PartAcqRoutingStepRemote loadPartAcqRoutingStep(String _partAcqUid, String _id) throws RemoteException {
-		return MbomFO.parsePartAcqRoutingStepRemote(mbomService.loadPartAcqRoutingStep(_partAcqUid, _id));
+		PartAcqRoutingStep obj = mbomService.loadPartAcqRoutingStep(_partAcqUid, _id);
+		return obj == null ? null : MbomFO.parsePartAcqRoutingStepRemote(obj);
 	}
 
 	@Override
@@ -161,7 +168,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public ParsProcRemote loadParsProc(String _uid) throws RemoteException {
-		return MbomFO.parseParsProcRemote(mbomService.loadParsProc(_uid));
+		ParsProc obj = mbomService.loadParsProc(_uid);
+		return obj == null ? null : MbomFO.parseParsProcRemote(obj);
 	}
 
 	@Override
@@ -202,7 +210,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public ParsPartRemote loadParsPart(String _uid) throws RemoteException {
-		return MbomFO.parseParsPartRemote(mbomService.loadParsPart(_uid));
+		ParsPart obj = mbomService.loadParsPart(_uid);
+		return obj == null ? null : MbomFO.parseParsPartRemote(obj);
 	}
 
 	@Override
@@ -244,7 +253,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public PartCfgRemote loadPartCfg(String _uid) throws RemoteException {
-		return MbomFO.parsePartCfgRemote(mbomService.loadPartCfg(_uid));
+		PartCfg obj = mbomService.loadPartCfg(_uid);
+		return obj == null ? null : MbomFO.parsePartCfgRemote(obj);
 	}
 
 	@Override
@@ -288,7 +298,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public PartCfgConjRemote loadPartCfgConj(String _uid) throws RemoteException {
-		return MbomFO.parsePartCfgConjRemote(mbomService.loadPartCfgConj(_uid));
+		PartCfgConj obj = mbomService.loadPartCfgConj(_uid);
+		return obj == null ? null : MbomFO.parsePartCfgConjRemote(obj);
 	}
 
 	@Override
@@ -313,7 +324,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public ProdRemote loadProd(String _uid) throws RemoteException {
-		return MbomFO.parseProdRemote(mbomService.loadProd(_uid));
+		Prod obj = mbomService.loadProd(_uid);
+		return obj == null ? null : MbomFO.parseProdRemote(obj);
 	}
 
 	@Override
@@ -337,7 +349,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public ProdCtlRemote loadProdCtl(String _uid) throws RemoteException {
-		return MbomFO.parseProdCtlRemote(mbomService.loadProdCtl(_uid));
+		ProdCtl obj = mbomService.loadProdCtl(_uid);
+		return obj == null ? null : MbomFO.parseProdCtlRemote(obj);
 	}
 
 	@Override
@@ -389,7 +402,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public ProdCtlPartCfgConjRemote loadProdCtlPartCfgConj(String _uid) throws RemoteException {
-		return MbomFO.parseProdCtlPartCfgConjRemote(mbomService.loadProdCtlPartCfgConj(_uid));
+		ProdCtlPartCfgConj obj = mbomService.loadProdCtlPartCfgConj(_uid);
+		return obj == null ? null : MbomFO.parseProdCtlPartCfgConjRemote(obj);
 	}
 
 	@Override
@@ -422,7 +436,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public ProdModRemote loadProdMod(String _uid) throws RemoteException {
-		return MbomFO.parseProdModRemote(mbomService.loadProdMod(_uid));
+		ProdMod obj = mbomService.loadProdMod(_uid);
+		return obj == null ? null : MbomFO.parseProdModRemote(obj);
 	}
 
 	@Override
@@ -446,7 +461,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public ProdModItemRemote loadProdModItem(String _uid) throws RemoteException {
-		return MbomFO.parseProdModItemRemote(mbomService.loadProdModItem(_uid));
+		ProdModItem obj = mbomService.loadProdModItem(_uid);
+		return obj == null ? null : MbomFO.parseProdModItemRemote(obj);
 	}
 
 	@Override
