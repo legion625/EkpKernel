@@ -8,14 +8,16 @@ import legion.ObjectModel;
 public class Part extends ObjectModel {
 
 	// -------------------------------------------------------------------------------
-	private String pin;
+	// ----------------------------------Attributes-----------------------------------
+	private String pin; // biz key
 	private String name;
 
 	// -------------------------------------------------------------------------------
+	// ----------------------------------constructor----------------------------------
 	private Part() {
 	}
 
-	protected static Part newInstance() {
+	static Part newInstance() {
 		Part p = new Part();
 		p.configNewInstance();
 		return p;
@@ -46,6 +48,7 @@ public class Part extends ObjectModel {
 	}
 
 	// -------------------------------------------------------------------------------
+	// ----------------------------------ObjectModel----------------------------------
 	@Override
 	protected boolean save() {
 		return DataServiceFactory.getInstance().getService(MbomDataService.class).savePart(this);
@@ -57,13 +60,12 @@ public class Part extends ObjectModel {
 	}
 
 	// -------------------------------------------------------------------------------
+	// -------------------------------------Part--------------------------------------
 	static Part create(PartCreateObj _dto) {
 		Part p = newInstance();
 		p.setPin(_dto.getPin());
 		p.setName(_dto.getName());
-		if (p.save())
-			return p;
-		return null;
+		return p.save() ? p : null;
 	}
 
 }
