@@ -134,6 +134,7 @@ public interface MbomDataService extends IntegrationService {
 	public boolean saveProdMod(ProdMod _pm);
 	public boolean deleteProdMod(String _uid);
 	public ProdMod loadProdMod(String _uid);
+	public ProdMod loadProdModById(String _id);
 	public List<ProdMod> loadProdModList(String _prodUid);
 	
 	// -------------------------------------------------------------------------------
@@ -141,6 +142,8 @@ public interface MbomDataService extends IntegrationService {
 	public boolean saveProdModItem(ProdModItem _pmi);
 	public boolean deleteProdModItem(String _uid);
 	public ProdModItem loadProdModItem(String _uid);
+	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid);
+	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid);
 	public List<ProdModItem> loadProdModItemList(String _prodModUid);
 	
 	

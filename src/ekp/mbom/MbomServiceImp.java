@@ -161,7 +161,7 @@ public class MbomServiceImp implements MbomService {
 	public ParsPart loadParsPart(String _uid) {
 		return dataService.loadParsPart(_uid);
 	}
-	
+
 	@Override
 	public ParsPart loadParsPart(String _parsUid, String _partuid) {
 		return dataService.loadParsPart(_parsUid, _partuid);
@@ -203,6 +203,7 @@ public class MbomServiceImp implements MbomService {
 	public PartCfg loadPartCfg(String _uid) {
 		return dataService.loadPartCfg(_uid);
 	}
+
 	@Override
 	public PartCfg loadPartCfgById(String _id) {
 		return dataService.loadPartCfgById(_id);
@@ -249,7 +250,7 @@ public class MbomServiceImp implements MbomService {
 	public PartCfgConj loadPartCfgConj(String _uid) {
 		return dataService.loadPartCfgConj(_uid);
 	}
-	
+
 	@Override
 	public PartCfgConj loadPartCfgConj(String _partCfgUid, String _partAcqUid) {
 		return dataService.loadPartCfgConj(_partCfgUid, _partAcqUid);
@@ -276,12 +277,12 @@ public class MbomServiceImp implements MbomService {
 	public Prod loadProd(String _uid) {
 		return dataService.loadProd(_uid);
 	}
-	
+
 	@Override
 	public Prod loadProdById(String _id) {
 		return dataService.loadProdById(_id);
 	}
-	
+
 	@Override
 	public List<Prod> loadProdList() {
 		return dataService.loadProdList();
@@ -303,7 +304,7 @@ public class MbomServiceImp implements MbomService {
 	public ProdCtl loadProdCtl(String _uid) {
 		return dataService.loadProdCtl(_uid);
 	}
-	
+
 	@Override
 	public ProdCtl loadProdCtlById(String _id) {
 		return dataService.loadProdCtlById(_id);
@@ -355,7 +356,7 @@ public class MbomServiceImp implements MbomService {
 	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _uid) {
 		return dataService.loadProdCtlPartCfgConj(_uid);
 	}
-	
+
 	@Override
 	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid) {
 		return dataService.loadProdCtlPartCfgConj(_prodCtlUid, _partCfgUid);
@@ -389,6 +390,11 @@ public class MbomServiceImp implements MbomService {
 	}
 
 	@Override
+	public ProdMod loadProdModById(String _id) {
+		return dataService.loadProdModById(_id);
+	}
+
+	@Override
 	public List<ProdMod> loadProdModList(String _prodUid) {
 		return dataService.loadProdModList(_prodUid);
 	}
@@ -408,6 +414,16 @@ public class MbomServiceImp implements MbomService {
 	@Override
 	public ProdModItem loadProdModItem(String _uid) {
 		return dataService.loadProdModItem(_uid);
+	}
+
+	@Override
+	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid) {
+		return dataService.loadProdModItem(_prodModUid, _prodCtlUid);
+	}
+
+	@Override
+	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid) {
+		return dataService.loadProdModItem(_prodModUid, _prodCtlUid, _partCfgUid);
 	}
 
 	@Override

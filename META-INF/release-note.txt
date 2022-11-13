@@ -1,6 +1,8 @@
 [change]
 1. [MBOM] Update service interfaces.
-  - loadPartAcquisition, loadParsPart, parsPartRevertAssignPart, loadPartCfgById, loadPartCfgConj, loadProdById, loadProdCtlById, loadProdCtlPartCfgConj
+  - loadPartAcquisition, loadParsPart, parsPartRevertAssignPart
+  - loadPartCfgById, loadPartCfgConj,
+  - loadProdById, loadProdCtlById, loadProdCtlPartCfgConj, loadProdModById, loadProModItem
   
 Min-Hua, 2022.11.13
 [lib]

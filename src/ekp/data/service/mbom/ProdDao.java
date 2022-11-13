@@ -121,9 +121,9 @@ public class ProdDao extends AbstractMySqlDao {
 	ProdCtl loadProdCtl(String _uid) {
 		return loadObject(TB_MBOM_PROD_CTL, _uid, this::parseProdCtl);
 	}
-	
+
 	ProdCtl loadProdCtlById(String _id) {
-		return loadObject(TB_MBOM_PROD_CTL,COL_PC_ID,  _id, this::parseProdCtl);
+		return loadObject(TB_MBOM_PROD_CTL, COL_PC_ID, _id, this::parseProdCtl);
 	}
 
 	List<ProdCtl> loadProdCtlList(String _parentUid) {
@@ -172,11 +172,11 @@ public class ProdDao extends AbstractMySqlDao {
 	ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _uid) {
 		return loadObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, _uid, this::parseProdCtlPartCfgConj);
 	}
-	
+
 	ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid) {
 		Map<String, String> map = new HashMap<>();
-		map.put(COL_PCPCC_PROD_CTL_UID,_prodCtlUid);
-		map.put(COL_PCPCC_PART_CFG_UID,_partCfgUid);
+		map.put(COL_PCPCC_PROD_CTL_UID, _prodCtlUid);
+		map.put(COL_PCPCC_PART_CFG_UID, _partCfgUid);
 		return loadObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, map, this::parseProdCtlPartCfgConj);
 	}
 
@@ -199,7 +199,8 @@ public class ProdDao extends AbstractMySqlDao {
 	private final static String COL_PM_DESP = "desp";
 
 	boolean saveProdMod(ProdMod _pm) {
-		DbColumn<ProdMod>[] cols = new DbColumn[] { DbColumn.of(COL_PM_PROD_UID, ColType.STRING, ProdMod::getProdUid, 45), //
+		DbColumn<ProdMod>[] cols = new DbColumn[] {
+				DbColumn.of(COL_PM_PROD_UID, ColType.STRING, ProdMod::getProdUid, 45), //
 				DbColumn.of(COL_PM_ID, ColType.STRING, ProdMod::getId, 45), //
 				DbColumn.of(COL_PM_NAME, ColType.STRING, ProdMod::getName, 45), //
 				DbColumn.of(COL_PM_DESP, ColType.STRING, ProdMod::getDesp, 45), //
@@ -229,6 +230,10 @@ public class ProdDao extends AbstractMySqlDao {
 
 	ProdMod loadProdMod(String _uid) {
 		return loadObject(TB_MBOM_PROD_MOD, _uid, this::parseProdMod);
+	}
+
+	ProdMod loadProdModById(String _id) {
+		return loadObject(TB_MBOM_PROD_MOD, COL_PM_ID, _id, this::parseProdMod);
 	}
 
 	List<ProdMod> loadProdModList(String _prodUid) {
@@ -276,6 +281,21 @@ public class ProdDao extends AbstractMySqlDao {
 
 	ProdModItem loadProdModItem(String _uid) {
 		return loadObject(TB_MBOM_PROD_MOD_ITEM, _uid, this::parseProdModItem);
+	}
+
+	ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PMI_PROD_MOD_UID, _prodModUid);
+		map.put(COL_PMI_PROD_CTL_UID, _prodCtlUid);
+		return loadObject(TB_MBOM_PROD_MOD_ITEM, map, this::parseProdModItem);
+	}
+
+	ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PMI_PROD_MOD_UID, _prodModUid);
+		map.put(COL_PMI_PROD_CTL_UID, _prodCtlUid);
+		map.put(COL_PMI_PART_CFG_UID, _partCfgUid);
+		return loadObject(TB_MBOM_PROD_MOD_ITEM, map, this::parseProdModItem);
 	}
 
 	List<ProdModItem> loadProdModItemList(String _prodModUid) {
