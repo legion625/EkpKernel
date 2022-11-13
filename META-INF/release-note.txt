@@ -4,13 +4,16 @@ v0.1.2 released by Min-Hua, 2022.11.13
 1. [MBOM] Update service interfaces.
   - loadPartAcquisition, loadParsPart, parsPartRevertAssignPart
   - loadPartCfgById, loadPartCfgConj,
-  - loadProdById, loadProdCtlById, loadProdCtlPartCfgConj, loadProdModById, loadProModItem
+  - loadProdById, loadProdCtlById, loadProdCtlPartCfgConj, loadProdModById, loadProdModItem
 2. Update loadObject-related services and prevent from throwing exception with 'null' values. 
 3. Minor changes.
   - Adjust the length of 'desp' in ProdMod from 45 to 200.
-  
+
 [lib]
 1. legionmodule_0.11.0 -> 0.12.2
+
+[deployment]
+1. Adjust the length of 'desp' in ProdMod from 45 to 200.
 
 ------------------------------------------------------------------------------
 v0.1.1 released by Min-Hua, 2022.11.02
