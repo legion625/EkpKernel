@@ -2,7 +2,9 @@ package ekp.data.service.mbom;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.event.Level;
 
@@ -61,6 +63,10 @@ public class ProdDao extends AbstractMySqlDao {
 		return loadObject(TB_MBOM_PROD, _uid, this::parseProd);
 	}
 
+	Prod loadProdById(String _id) {
+		return loadObject(TB_MBOM_PROD, COL_P_ID, _id, this::parseProd);
+	}
+
 	List<Prod> loadProdList() {
 		return loadObjectList(TB_MBOM_PROD, this::parseProd);
 	}
@@ -115,6 +121,10 @@ public class ProdDao extends AbstractMySqlDao {
 	ProdCtl loadProdCtl(String _uid) {
 		return loadObject(TB_MBOM_PROD_CTL, _uid, this::parseProdCtl);
 	}
+	
+	ProdCtl loadProdCtlById(String _id) {
+		return loadObject(TB_MBOM_PROD_CTL,COL_PC_ID,  _id, this::parseProdCtl);
+	}
 
 	List<ProdCtl> loadProdCtlList(String _parentUid) {
 		return loadObjectList(TB_MBOM_PROD_CTL, COL_PC_PARENT_UID, _parentUid, this::parseProdCtl);
@@ -161,6 +171,13 @@ public class ProdDao extends AbstractMySqlDao {
 
 	ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _uid) {
 		return loadObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, _uid, this::parseProdCtlPartCfgConj);
+	}
+	
+	ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PCPCC_PROD_CTL_UID,_prodCtlUid);
+		map.put(COL_PCPCC_PART_CFG_UID,_partCfgUid);
+		return loadObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, map, this::parseProdCtlPartCfgConj);
 	}
 
 	List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList1(String _prodCtlUid) {

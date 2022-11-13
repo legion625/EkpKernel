@@ -109,8 +109,11 @@ public class PartDao extends AbstractMySqlDao {
 		return loadObject(TB_MBOM_PART_ACQUISITION, _uid, this::parsePartAcquisition);
 	}
 
-	PartAcquisition loadPartAcquisitionById(String _id) {
-		return loadObject(TB_MBOM_PART_ACQUISITION, COL_PA_ID, _id, this::parsePartAcquisition);
+	PartAcquisition loadPartAcquisition(String _partPin, String _id) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PA_PART_PIN, _partPin);
+		map.put(COL_PA_ID, _id);
+		return loadObject(TB_MBOM_PART_ACQUISITION, map, this::parsePartAcquisition);
 	}
 
 	List<PartAcquisition> loadPartAcquisitionList(String _partUid) {
@@ -276,6 +279,13 @@ public class PartDao extends AbstractMySqlDao {
 
 	ParsPart loadParsPart(String _uid) {
 		return loadObject(TB_MBOM_PARS_PART, _uid, this::parseParsPart);
+	}
+	
+	ParsPart loadParsPart(String _parsUid, String _partuid) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PARS_PART_PARS_UID, _parsUid);
+		map.put(COL_PARS_PART_PART_UID, _partuid);
+		return loadObject(TB_MBOM_PARS_PART, map, this::parseParsPart);
 	}
 
 	List<ParsPart> loadParsPartList(String _parsUid) {

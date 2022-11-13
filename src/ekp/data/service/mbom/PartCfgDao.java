@@ -2,7 +2,9 @@ package ekp.data.service.mbom;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.event.Level;
 
@@ -31,7 +33,7 @@ class PartCfgDao extends AbstractMySqlDao {
 	private final static String COL_PC_ID = "id";
 	private final static String COL_PC_NAME = "name";
 	private final static String COL_PC_DESP = "desp";
-	
+
 	boolean savePartCfg(PartCfg _pc) {
 		DbColumn<PartCfg>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_PC_ROOT_PART_UID, ColType.STRING, PartCfg::getRootPartUid), //
@@ -66,9 +68,13 @@ class PartCfgDao extends AbstractMySqlDao {
 			return null;
 		}
 	}
-	
+
 	PartCfg loadPartCfg(String _uid) {
 		return loadObject(TB_MBOM_PART_CFG, _uid, this::parsePartCfg);
+	}
+
+	PartCfg loadPartCfgById(String _id) {
+		return loadObject(TB_MBOM_PART_CFG, COL_PC_ID, _id, this::parsePartCfg);
 	}
 
 	List<PartCfg> loadPartCfgList(String _rootPartUid) {
@@ -110,6 +116,13 @@ class PartCfgDao extends AbstractMySqlDao {
 
 	PartCfgConj loadPartCfgConj(String _uid) {
 		return loadObject(TB_MBOM_PART_CFG_CONJ, _uid, this::parsePartCfgConj);
+	}
+
+	PartCfgConj loadPartCfgConj(String _partCfgUid, String _partAcqUid) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PCC_PART_CFG_UID, _partCfgUid);
+		map.put(COL_PCC_PART_ACQ_UID, _partAcqUid);
+		return loadObject(TB_MBOM_PART_CFG_CONJ, map, this::parsePartCfgConj);
 	}
 
 	List<PartCfgConj> loadPartCfgConjList(String _partCfgUid) {

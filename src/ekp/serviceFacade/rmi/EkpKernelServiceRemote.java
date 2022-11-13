@@ -57,7 +57,7 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public PartAcquisitionRemote loadPartAcquisition(String _uid) throws RemoteException;
 
-	public PartAcquisitionRemote loadPartAcquisitionById(String _id) throws RemoteException;
+	public PartAcquisitionRemote loadPartAcquisition(String _partPin, String _id) throws RemoteException;
 
 	public List<PartAcquisitionRemote> loadPartAcquisitionList(String _partUid) throws RemoteException;
 
@@ -97,6 +97,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteParsPart(String _uid) throws RemoteException;
 
 	public ParsPartRemote loadParsPart(String _uid) throws RemoteException;
+	
+	public ParsPartRemote loadParsPart(String _parsUid, String _partuid) throws RemoteException;
 
 	public List<ParsPartRemote> loadParsPartList(String _parsUid) throws RemoteException;
 
@@ -105,7 +107,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean parsPartAssignPart(String _uid, String _partUid, String _partPin, double _partReqQty)
 			throws RemoteException;
 
-	public boolean parsePartRevertAssignPart(String _uid) throws RemoteException;
+	public boolean parsPartRevertAssignPart(String _uid) throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------------PartCfg------------------------------------
@@ -114,6 +116,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deletePartCfg(String _uid) throws RemoteException;
 
 	public PartCfgRemote loadPartCfg(String _uid) throws RemoteException;
+	
+	public PartCfgRemote loadPartCfgById(String _id) throws RemoteException;
 
 	public List<PartCfgRemote> loadPartCfgList(String _rootPartUid) throws RemoteException;
 
@@ -132,7 +136,9 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deletePartCfgConj(String _uid) throws RemoteException;
 
 	public PartCfgConjRemote loadPartCfgConj(String _uid) throws RemoteException;
-
+	
+	public PartCfgConjRemote loadPartCfgConj(String _partCfgUid, String _partAcqUid) throws RemoteException;
+	
 	public List<PartCfgConjRemote> loadPartCfgConjList(String _partCfgUid) throws RemoteException;
 
 	// -------------------------------------------------------------------------------
@@ -142,6 +148,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteProd(String _uid) throws RemoteException;
 
 	public ProdRemote loadProd(String _uid) throws RemoteException;
+	
+	public ProdRemote loadProdById(String _id) throws RemoteException;
 
 	public List<ProdRemote> loadProdList() throws RemoteException;
 
@@ -152,6 +160,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteProdCtl(String _uid) throws RemoteException;
 
 	public ProdCtlRemote loadProdCtl(String _uid) throws RemoteException;
+	
+	public ProdCtlRemote loadProdCtlById(String _id) throws RemoteException;
 
 	public List<ProdCtlRemote> loadProdCtlList(String _parentUid) throws RemoteException;
 
@@ -173,6 +183,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteProdCtlPartCfgConj(String _uid) throws RemoteException;
 
 	public ProdCtlPartCfgConjRemote loadProdCtlPartCfgConj(String _uid) throws RemoteException;
+	
+	public ProdCtlPartCfgConjRemote loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid) throws RemoteException;
 
 	public List<ProdCtlPartCfgConjRemote> loadProdCtlPartCfgConjList1(String _prodCtlUid) throws RemoteException;
 
