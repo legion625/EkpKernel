@@ -3,6 +3,8 @@
   - loadPartAcquisition, loadParsPart, parsPartRevertAssignPart
   - loadPartCfgById, loadPartCfgConj,
   - loadProdById, loadProdCtlById, loadProdCtlPartCfgConj, loadProdModById, loadProModItem
+2. Minor changes
+  - Adjust the length of 'desp' in ProdMod from 45 to 200.
   
 Min-Hua, 2022.11.13
 [lib]
