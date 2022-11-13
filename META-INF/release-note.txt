@@ -1,6 +1,10 @@
 [change]
 1. [MBOM] Update service interfaces.
   - loadPartAcquisition, loadParsPart, parsPartRevertAssignPart, loadPartCfgById, loadPartCfgConj, loadProdById, loadProdCtlById, loadProdCtlPartCfgConj
+  
+Min-Hua, 2022.11.13
+[lib]
+1. legionmodule_0.11.0 -> 0.12.2
 
 Min-Hua, 2022.11.12
 [change]

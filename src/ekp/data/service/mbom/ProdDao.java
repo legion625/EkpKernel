@@ -35,8 +35,8 @@ public class ProdDao extends AbstractMySqlDao {
 
 	boolean saveProd(Prod _p) {
 		DbColumn<Prod>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_P_ID, ColType.STRING, Prod::getId), //
-				DbColumn.of(COL_P_NAME, ColType.STRING, Prod::getName), //
+				DbColumn.of(COL_P_ID, ColType.STRING, Prod::getId, 45), //
+				DbColumn.of(COL_P_NAME, ColType.STRING, Prod::getName, 45), //
 		};
 		return saveObject(TB_MBOM_PROD, cols, _p);
 	}
@@ -84,13 +84,13 @@ public class ProdDao extends AbstractMySqlDao {
 
 	boolean saveProdCtl(ProdCtl _pc) {
 		DbColumn<ProdCtl>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_PC_ID, ColType.STRING, ProdCtl::getId), //
+				DbColumn.of(COL_PC_ID, ColType.STRING, ProdCtl::getId, 45), //
 				DbColumn.of(COL_PC_LV, ColType.INT, ProdCtl::getLv), //
-				DbColumn.of(COL_PC_NAME, ColType.STRING, ProdCtl::getName), //
+				DbColumn.of(COL_PC_NAME, ColType.STRING, ProdCtl::getName, 45), //
 				DbColumn.of(COL_PC_REQ, ColType.BOOLEAN, ProdCtl::isReq), //
-				DbColumn.of(COL_PC_PARENT_UID, ColType.STRING, ProdCtl::getParentUid), //
-				DbColumn.of(COL_PC_PARENT_ID, ColType.STRING, ProdCtl::getParentId), //
-				DbColumn.of(COL_PC_PROD_UID, ColType.STRING, ProdCtl::getProdUid), //
+				DbColumn.of(COL_PC_PARENT_UID, ColType.STRING, ProdCtl::getParentUid, 45), //
+				DbColumn.of(COL_PC_PARENT_ID, ColType.STRING, ProdCtl::getParentId, 45), //
+				DbColumn.of(COL_PC_PROD_UID, ColType.STRING, ProdCtl::getProdUid, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_CTL, cols, _pc);
 	}
@@ -143,8 +143,8 @@ public class ProdDao extends AbstractMySqlDao {
 
 	boolean saveProdCtlPartCfgConj(ProdCtlPartCfgConj _pcpcc) {
 		DbColumn<ProdCtlPartCfgConj>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_PCPCC_PROD_CTL_UID, ColType.STRING, ProdCtlPartCfgConj::getProdCtlUid), //
-				DbColumn.of(COL_PCPCC_PART_CFG_UID, ColType.STRING, ProdCtlPartCfgConj::getPartCfgUid), //
+				DbColumn.of(COL_PCPCC_PROD_CTL_UID, ColType.STRING, ProdCtlPartCfgConj::getProdCtlUid, 45), //
+				DbColumn.of(COL_PCPCC_PART_CFG_UID, ColType.STRING, ProdCtlPartCfgConj::getPartCfgUid, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, cols, _pcpcc);
 	}
@@ -199,10 +199,10 @@ public class ProdDao extends AbstractMySqlDao {
 	private final static String COL_PM_DESP = "desp";
 
 	boolean saveProdMod(ProdMod _pm) {
-		DbColumn<ProdMod>[] cols = new DbColumn[] { DbColumn.of(COL_PM_PROD_UID, ColType.STRING, ProdMod::getProdUid), //
-				DbColumn.of(COL_PM_ID, ColType.STRING, ProdMod::getId), //
-				DbColumn.of(COL_PM_NAME, ColType.STRING, ProdMod::getName), //
-				DbColumn.of(COL_PM_DESP, ColType.STRING, ProdMod::getDesp), //
+		DbColumn<ProdMod>[] cols = new DbColumn[] { DbColumn.of(COL_PM_PROD_UID, ColType.STRING, ProdMod::getProdUid, 45), //
+				DbColumn.of(COL_PM_ID, ColType.STRING, ProdMod::getId, 45), //
+				DbColumn.of(COL_PM_NAME, ColType.STRING, ProdMod::getName, 45), //
+				DbColumn.of(COL_PM_DESP, ColType.STRING, ProdMod::getDesp, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_MOD, cols, _pm);
 	}
@@ -245,10 +245,10 @@ public class ProdDao extends AbstractMySqlDao {
 
 	boolean saveProdModItem(ProdModItem _pmi) {
 		DbColumn<ProdModItem>[] cols = new DbColumn[] {
-				DbColumn.of(COL_PMI_PROD_MOD_UID, ColType.STRING, ProdModItem::getProdModUid), //
-				DbColumn.of(COL_PMI_PROD_CTL_UID, ColType.STRING, ProdModItem::getProdCtlUid), //
+				DbColumn.of(COL_PMI_PROD_MOD_UID, ColType.STRING, ProdModItem::getProdModUid, 45), //
+				DbColumn.of(COL_PMI_PROD_CTL_UID, ColType.STRING, ProdModItem::getProdCtlUid, 45), //
 				DbColumn.of(COL_PMI_PART_CFG_ASSIGNED, ColType.BOOLEAN, ProdModItem::isPartCfgAssigned), //
-				DbColumn.of(COL_PMI_PART_CFG_UID, ColType.STRING, ProdModItem::getPartCfgUid), //
+				DbColumn.of(COL_PMI_PART_CFG_UID, ColType.STRING, ProdModItem::getPartCfgUid, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_MOD_ITEM, cols, _pmi);
 	}

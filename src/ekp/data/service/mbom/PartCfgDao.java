@@ -36,12 +36,12 @@ class PartCfgDao extends AbstractMySqlDao {
 
 	boolean savePartCfg(PartCfg _pc) {
 		DbColumn<PartCfg>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_PC_ROOT_PART_UID, ColType.STRING, PartCfg::getRootPartUid), //
-				DbColumn.of(COL_PC_ROOT_PART_PIN, ColType.STRING, PartCfg::getRootPartPin), //
+				DbColumn.of(COL_PC_ROOT_PART_UID, ColType.STRING, PartCfg::getRootPartUid, 45), //
+				DbColumn.of(COL_PC_ROOT_PART_PIN, ColType.STRING, PartCfg::getRootPartPin, 45), //
 				DbColumn.of(COL_PC_STATUS_IDX, ColType.INT, PartCfg::getStatusIdx), //
-				DbColumn.of(COL_PC_ID, ColType.STRING, PartCfg::getId), //
-				DbColumn.of(COL_PC_NAME, ColType.STRING, PartCfg::getName), //
-				DbColumn.of(COL_PC_DESP, ColType.STRING, PartCfg::getDesp), //
+				DbColumn.of(COL_PC_ID, ColType.STRING, PartCfg::getId, 45), //
+				DbColumn.of(COL_PC_NAME, ColType.STRING, PartCfg::getName, 45), //
+				DbColumn.of(COL_PC_DESP, ColType.STRING, PartCfg::getDesp, 200), //
 		};
 		return saveObject(TB_MBOM_PART_CFG, cols, _pc);
 	}
@@ -89,8 +89,8 @@ class PartCfgDao extends AbstractMySqlDao {
 
 	boolean savePartCfgConj(PartCfgConj _pcc) {
 		DbColumn<PartCfgConj>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_PCC_PART_CFG_UID, ColType.STRING, PartCfgConj::getPartCfgUid), //
-				DbColumn.of(COL_PCC_PART_ACQ_UID, ColType.STRING, PartCfgConj::getPartAcqUid), //
+				DbColumn.of(COL_PCC_PART_CFG_UID, ColType.STRING, PartCfgConj::getPartCfgUid, 45), //
+				DbColumn.of(COL_PCC_PART_ACQ_UID, ColType.STRING, PartCfgConj::getPartAcqUid, 45), //
 		};
 		return saveObject(TB_MBOM_PART_CFG_CONJ, cols, _pcc);
 	}
