@@ -103,7 +103,7 @@ CREATE TABLE `mbom_part_cfg_conj` (
   PRIMARY KEY (`uid`)
 ) ;
 -- mh_sp8
--- mh_pc
+
 
 CREATE TABLE `mbom_prod` (
   `uid` varchar(45) NOT NULL,
@@ -161,3 +161,7 @@ CREATE TABLE `mbom_prod_mod_item` (
 
 
 -- unstaging
+ALTER TABLE `mbom_prod_mod` 
+CHANGE COLUMN `desp` `desp` VARCHAR(200) NULL DEFAULT NULL ;
+
+-- mh_pc
