@@ -2,7 +2,9 @@ package ekp.data.service.mbom;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.event.Level;
 
@@ -31,15 +33,15 @@ class PartCfgDao extends AbstractMySqlDao {
 	private final static String COL_PC_ID = "id";
 	private final static String COL_PC_NAME = "name";
 	private final static String COL_PC_DESP = "desp";
-	
+
 	boolean savePartCfg(PartCfg _pc) {
 		DbColumn<PartCfg>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_PC_ROOT_PART_UID, ColType.STRING, PartCfg::getRootPartUid), //
-				DbColumn.of(COL_PC_ROOT_PART_PIN, ColType.STRING, PartCfg::getRootPartPin), //
+				DbColumn.of(COL_PC_ROOT_PART_UID, ColType.STRING, PartCfg::getRootPartUid, 45), //
+				DbColumn.of(COL_PC_ROOT_PART_PIN, ColType.STRING, PartCfg::getRootPartPin, 45), //
 				DbColumn.of(COL_PC_STATUS_IDX, ColType.INT, PartCfg::getStatusIdx), //
-				DbColumn.of(COL_PC_ID, ColType.STRING, PartCfg::getId), //
-				DbColumn.of(COL_PC_NAME, ColType.STRING, PartCfg::getName), //
-				DbColumn.of(COL_PC_DESP, ColType.STRING, PartCfg::getDesp), //
+				DbColumn.of(COL_PC_ID, ColType.STRING, PartCfg::getId, 45), //
+				DbColumn.of(COL_PC_NAME, ColType.STRING, PartCfg::getName, 45), //
+				DbColumn.of(COL_PC_DESP, ColType.STRING, PartCfg::getDesp, 200), //
 		};
 		return saveObject(TB_MBOM_PART_CFG, cols, _pc);
 	}
@@ -66,9 +68,13 @@ class PartCfgDao extends AbstractMySqlDao {
 			return null;
 		}
 	}
-	
+
 	PartCfg loadPartCfg(String _uid) {
 		return loadObject(TB_MBOM_PART_CFG, _uid, this::parsePartCfg);
+	}
+
+	PartCfg loadPartCfgById(String _id) {
+		return loadObject(TB_MBOM_PART_CFG, COL_PC_ID, _id, this::parsePartCfg);
 	}
 
 	List<PartCfg> loadPartCfgList(String _rootPartUid) {
@@ -83,8 +89,8 @@ class PartCfgDao extends AbstractMySqlDao {
 
 	boolean savePartCfgConj(PartCfgConj _pcc) {
 		DbColumn<PartCfgConj>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_PCC_PART_CFG_UID, ColType.STRING, PartCfgConj::getPartCfgUid), //
-				DbColumn.of(COL_PCC_PART_ACQ_UID, ColType.STRING, PartCfgConj::getPartAcqUid), //
+				DbColumn.of(COL_PCC_PART_CFG_UID, ColType.STRING, PartCfgConj::getPartCfgUid, 45), //
+				DbColumn.of(COL_PCC_PART_ACQ_UID, ColType.STRING, PartCfgConj::getPartAcqUid, 45), //
 		};
 		return saveObject(TB_MBOM_PART_CFG_CONJ, cols, _pcc);
 	}
@@ -110,6 +116,13 @@ class PartCfgDao extends AbstractMySqlDao {
 
 	PartCfgConj loadPartCfgConj(String _uid) {
 		return loadObject(TB_MBOM_PART_CFG_CONJ, _uid, this::parsePartCfgConj);
+	}
+
+	PartCfgConj loadPartCfgConj(String _partCfgUid, String _partAcqUid) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PCC_PART_CFG_UID, _partCfgUid);
+		map.put(COL_PCC_PART_ACQ_UID, _partAcqUid);
+		return loadObject(TB_MBOM_PART_CFG_CONJ, map, this::parsePartCfgConj);
 	}
 
 	List<PartCfgConj> loadPartCfgConjList(String _partCfgUid) {

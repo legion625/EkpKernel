@@ -88,8 +88,8 @@ public class MbomDataServiceImp implements MbomDataService {
 	}
 
 	@Override
-	public PartAcquisition loadPartAcquisitionById(String _id) {
-		return partDao.loadPartAcquisitionById(_id);
+	public PartAcquisition loadPartAcquisition(String _partPin, String _id) {
+		return partDao.loadPartAcquisition(_partPin, _id);
 	}
 
 	@Override
@@ -169,6 +169,11 @@ public class MbomDataServiceImp implements MbomDataService {
 	}
 
 	@Override
+	public ParsPart loadParsPart(String _parsUid, String _partuid) {
+		return partDao.loadParsPart(_parsUid, _partuid);
+	}
+
+	@Override
 	public List<ParsPart> loadParsPartList(String _parsUid) {
 		return partDao.loadParsPartList(_parsUid);
 	}
@@ -196,6 +201,11 @@ public class MbomDataServiceImp implements MbomDataService {
 	}
 
 	@Override
+	public PartCfg loadPartCfgById(String _id) {
+		return partCfgDao.loadPartCfgById(_id);
+	}
+
+	@Override
 	public List<PartCfg> loadPartCfgList(String _rootPartUid) {
 		return partCfgDao.loadPartCfgList(_rootPartUid);
 	}
@@ -215,6 +225,11 @@ public class MbomDataServiceImp implements MbomDataService {
 	@Override
 	public PartCfgConj loadPartCfgConj(String _uid) {
 		return partCfgDao.loadPartCfgConj(_uid);
+	}
+
+	@Override
+	public PartCfgConj loadPartCfgConj(String _partCfgUid, String _partAcqUid) {
+		return partCfgDao.loadPartCfgConj(_partCfgUid, _partAcqUid);
 	}
 
 	@Override
@@ -240,6 +255,11 @@ public class MbomDataServiceImp implements MbomDataService {
 	}
 
 	@Override
+	public Prod loadProdById(String _id) {
+		return prodDao.loadProdById(_id);
+	}
+
+	@Override
 	public List<Prod> loadProdList() {
 		return prodDao.loadProdList();
 	}
@@ -259,6 +279,11 @@ public class MbomDataServiceImp implements MbomDataService {
 	@Override
 	public ProdCtl loadProdCtl(String _uid) {
 		return prodDao.loadProdCtl(_uid);
+	}
+
+	@Override
+	public ProdCtl loadProdCtlById(String _id) {
+		return prodDao.loadProdCtlById(_id);
 	}
 
 	@Override
@@ -289,6 +314,11 @@ public class MbomDataServiceImp implements MbomDataService {
 	}
 
 	@Override
+	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid) {
+		return prodDao.loadProdCtlPartCfgConj(_prodCtlUid, _partCfgUid);
+	}
+
+	@Override
 	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList1(String _prodCtlUid) {
 		return prodDao.loadProdCtlPartCfgConjList1(_prodCtlUid);
 	}
@@ -314,6 +344,10 @@ public class MbomDataServiceImp implements MbomDataService {
 	public ProdMod loadProdMod(String _uid) {
 		return prodDao.loadProdMod(_uid);
 	}
+	@Override
+	public ProdMod loadProdModById(String _id) {
+		return prodDao.loadProdModById(_id);
+	}
 
 	@Override
 	public List<ProdMod> loadProdModList(String _prodUid) {
@@ -335,6 +369,16 @@ public class MbomDataServiceImp implements MbomDataService {
 	@Override
 	public ProdModItem loadProdModItem(String _uid) {
 		return prodDao.loadProdModItem(_uid);
+	}
+
+	@Override
+	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid) {
+		return prodDao.loadProdModItem(_prodModUid, _prodCtlUid);
+	}
+
+	@Override
+	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid) {
+		return prodDao.loadProdModItem(_prodModUid, _prodCtlUid, _partCfgUid);
 	}
 
 	@Override

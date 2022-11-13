@@ -31,8 +31,8 @@ public class PartDao extends AbstractMySqlDao {
 
 	boolean savePart(Part _p) {
 		DbColumn<Part>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_P_PIN, ColType.STRING, Part::getPin), //
-				DbColumn.of(COL_P_NAME, ColType.STRING, Part::getName), //
+				DbColumn.of(COL_P_PIN, ColType.STRING, Part::getPin, 45), //
+				DbColumn.of(COL_P_NAME, ColType.STRING, Part::getName, 45), //
 		};
 		return saveObject(TB_MBOM_PART, cols, _p);
 	}
@@ -73,11 +73,11 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_PA_TYPE_IDX = "type_idx";
 
 	boolean savePartAcquisition(PartAcquisition _pa) {
-		DbColumn<PartAcquisition>[] cols = new DbColumn[] {
-				DbColumn.of(COL_PA_PART_UID, ColType.STRING, PartAcquisition::getPartUid), //
-				DbColumn.of(COL_PA_PART_PIN, ColType.STRING, PartAcquisition::getPartPin), //
-				DbColumn.of(COL_PA_ID, ColType.STRING, PartAcquisition::getId), //
-				DbColumn.of(COL_PA_NAME, ColType.STRING, PartAcquisition::getName), //
+		DbColumn<PartAcquisition>[] cols = new DbColumn[] { //
+				DbColumn.of(COL_PA_PART_UID, ColType.STRING, PartAcquisition::getPartUid, 45), //
+				DbColumn.of(COL_PA_PART_PIN, ColType.STRING, PartAcquisition::getPartPin, 45), //
+				DbColumn.of(COL_PA_ID, ColType.STRING, PartAcquisition::getId, 45), //
+				DbColumn.of(COL_PA_NAME, ColType.STRING, PartAcquisition::getName, 45), //
 				DbColumn.of(COL_PA_TYPE_IDX, ColType.INT, PartAcquisition::getTypeIdx), //
 		};
 		return saveObject(TB_MBOM_PART_ACQUISITION, cols, _pa);
@@ -109,8 +109,11 @@ public class PartDao extends AbstractMySqlDao {
 		return loadObject(TB_MBOM_PART_ACQUISITION, _uid, this::parsePartAcquisition);
 	}
 
-	PartAcquisition loadPartAcquisitionById(String _id) {
-		return loadObject(TB_MBOM_PART_ACQUISITION, COL_PA_ID, _id, this::parsePartAcquisition);
+	PartAcquisition loadPartAcquisition(String _partPin, String _id) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PA_PART_PIN, _partPin);
+		map.put(COL_PA_ID, _id);
+		return loadObject(TB_MBOM_PART_ACQUISITION, map, this::parsePartAcquisition);
 	}
 
 	List<PartAcquisition> loadPartAcquisitionList(String _partUid) {
@@ -126,11 +129,11 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_PARS_DESP = "desp";
 
 	boolean savePartAcqRoutingStep(PartAcqRoutingStep _pars) {
-		DbColumn<PartAcqRoutingStep>[] cols = new DbColumn[] {
-				DbColumn.of(COL_PARS_PART_ACQ_UID, ColType.STRING, PartAcqRoutingStep::getPartAcqUid), //
-				DbColumn.of(COL_PARS_ID, ColType.STRING, PartAcqRoutingStep::getId), //
-				DbColumn.of(COL_PARS_NAME, ColType.STRING, PartAcqRoutingStep::getName), //
-				DbColumn.of(COL_PARS_DESP, ColType.STRING, PartAcqRoutingStep::getDesp), //
+		DbColumn<PartAcqRoutingStep>[] cols = new DbColumn[] { //
+				DbColumn.of(COL_PARS_PART_ACQ_UID, ColType.STRING, PartAcqRoutingStep::getPartAcqUid , 45), //
+				DbColumn.of(COL_PARS_ID, ColType.STRING, PartAcqRoutingStep::getId,45), //
+				DbColumn.of(COL_PARS_NAME, ColType.STRING, PartAcqRoutingStep::getName,45), //
+				DbColumn.of(COL_PARS_DESP, ColType.STRING, PartAcqRoutingStep::getDesp,200), //
 		};
 		return saveObject(TB_MBOM_PART_ACQ_ROUTING_STEP, cols, _pars);
 	}
@@ -184,14 +187,14 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_PARS_PROC_PROC_ID = "proc_id";
 
 	boolean saveParsProc(ParsProc _parsProc) {
-		DbColumn<ParsProc>[] cols = new DbColumn[] {
-				DbColumn.of(COL_PARS_PROC_PARS_UID, ColType.STRING, ParsProc::getParsUid), //
-				DbColumn.of(COL_PARS_PROC_SEQ, ColType.STRING, ParsProc::getSeq), //
-				DbColumn.of(COL_PARS_PROC_NAME, ColType.STRING, ParsProc::getName), //
-				DbColumn.of(COL_PARS_PROC_DESP, ColType.STRING, ParsProc::getDesp), //
+		DbColumn<ParsProc>[] cols = new DbColumn[] { // 
+				DbColumn.of(COL_PARS_PROC_PARS_UID, ColType.STRING, ParsProc::getParsUid, 45), //
+				DbColumn.of(COL_PARS_PROC_SEQ, ColType.STRING, ParsProc::getSeq, 45), //
+				DbColumn.of(COL_PARS_PROC_NAME, ColType.STRING, ParsProc::getName, 45), //
+				DbColumn.of(COL_PARS_PROC_DESP, ColType.STRING, ParsProc::getDesp, 200), //
 				DbColumn.of(COL_PARS_PROC_ASSIGN_PROC, ColType.BOOLEAN, ParsProc::isAssignProc), //
-				DbColumn.of(COL_PARS_PROC_PROC_UID, ColType.STRING, ParsProc::getProcUid), //
-				DbColumn.of(COL_PARS_PROC_PROC_ID, ColType.STRING, ParsProc::getProcId), //
+				DbColumn.of(COL_PARS_PROC_PROC_UID, ColType.STRING, ParsProc::getProcUid, 45), //
+				DbColumn.of(COL_PARS_PROC_PROC_ID, ColType.STRING, ParsProc::getProcId, 45), //
 		};
 		return saveObject(TB_MBOM_PARS_PROC, cols, _parsProc);
 	}
@@ -243,10 +246,10 @@ public class PartDao extends AbstractMySqlDao {
 
 	boolean saveParsPart(ParsPart _parsPart) {
 		DbColumn<ParsPart>[] cols = new DbColumn[] {
-				DbColumn.of(COL_PARS_PART_PARS_UID, ColType.STRING, ParsPart::getParsUid), //
+				DbColumn.of(COL_PARS_PART_PARS_UID, ColType.STRING, ParsPart::getParsUid, 45), //
 				DbColumn.of(COL_PARS_PART_ASSIGN_PART, ColType.BOOLEAN, ParsPart::isAssignPart), //
-				DbColumn.of(COL_PARS_PART_PART_UID, ColType.STRING, ParsPart::getPartUid), //
-				DbColumn.of(COL_PARS_PART_PART_PIN, ColType.STRING, ParsPart::getPartPin), //
+				DbColumn.of(COL_PARS_PART_PART_UID, ColType.STRING, ParsPart::getPartUid, 45), //
+				DbColumn.of(COL_PARS_PART_PART_PIN, ColType.STRING, ParsPart::getPartPin, 45), //
 				DbColumn.of(COL_PARS_PART_PART_REQ_QTY, ColType.DOUBLE, ParsPart::getPartReqQty), //
 		};
 		return saveObject(TB_MBOM_PARS_PART, cols, _parsPart);
@@ -276,6 +279,13 @@ public class PartDao extends AbstractMySqlDao {
 
 	ParsPart loadParsPart(String _uid) {
 		return loadObject(TB_MBOM_PARS_PART, _uid, this::parseParsPart);
+	}
+	
+	ParsPart loadParsPart(String _parsUid, String _partuid) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PARS_PART_PARS_UID, _parsUid);
+		map.put(COL_PARS_PART_PART_UID, _partuid);
+		return loadObject(TB_MBOM_PARS_PART, map, this::parseParsPart);
 	}
 
 	List<ParsPart> loadParsPartList(String _parsUid) {

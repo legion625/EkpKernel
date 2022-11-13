@@ -2,7 +2,9 @@ package ekp.data.service.mbom;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.event.Level;
 
@@ -33,8 +35,8 @@ public class ProdDao extends AbstractMySqlDao {
 
 	boolean saveProd(Prod _p) {
 		DbColumn<Prod>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_P_ID, ColType.STRING, Prod::getId), //
-				DbColumn.of(COL_P_NAME, ColType.STRING, Prod::getName), //
+				DbColumn.of(COL_P_ID, ColType.STRING, Prod::getId, 45), //
+				DbColumn.of(COL_P_NAME, ColType.STRING, Prod::getName, 45), //
 		};
 		return saveObject(TB_MBOM_PROD, cols, _p);
 	}
@@ -61,6 +63,10 @@ public class ProdDao extends AbstractMySqlDao {
 		return loadObject(TB_MBOM_PROD, _uid, this::parseProd);
 	}
 
+	Prod loadProdById(String _id) {
+		return loadObject(TB_MBOM_PROD, COL_P_ID, _id, this::parseProd);
+	}
+
 	List<Prod> loadProdList() {
 		return loadObjectList(TB_MBOM_PROD, this::parseProd);
 	}
@@ -78,13 +84,13 @@ public class ProdDao extends AbstractMySqlDao {
 
 	boolean saveProdCtl(ProdCtl _pc) {
 		DbColumn<ProdCtl>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_PC_ID, ColType.STRING, ProdCtl::getId), //
+				DbColumn.of(COL_PC_ID, ColType.STRING, ProdCtl::getId, 45), //
 				DbColumn.of(COL_PC_LV, ColType.INT, ProdCtl::getLv), //
-				DbColumn.of(COL_PC_NAME, ColType.STRING, ProdCtl::getName), //
+				DbColumn.of(COL_PC_NAME, ColType.STRING, ProdCtl::getName, 45), //
 				DbColumn.of(COL_PC_REQ, ColType.BOOLEAN, ProdCtl::isReq), //
-				DbColumn.of(COL_PC_PARENT_UID, ColType.STRING, ProdCtl::getParentUid), //
-				DbColumn.of(COL_PC_PARENT_ID, ColType.STRING, ProdCtl::getParentId), //
-				DbColumn.of(COL_PC_PROD_UID, ColType.STRING, ProdCtl::getProdUid), //
+				DbColumn.of(COL_PC_PARENT_UID, ColType.STRING, ProdCtl::getParentUid, 45), //
+				DbColumn.of(COL_PC_PARENT_ID, ColType.STRING, ProdCtl::getParentId, 45), //
+				DbColumn.of(COL_PC_PROD_UID, ColType.STRING, ProdCtl::getProdUid, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_CTL, cols, _pc);
 	}
@@ -116,6 +122,10 @@ public class ProdDao extends AbstractMySqlDao {
 		return loadObject(TB_MBOM_PROD_CTL, _uid, this::parseProdCtl);
 	}
 
+	ProdCtl loadProdCtlById(String _id) {
+		return loadObject(TB_MBOM_PROD_CTL, COL_PC_ID, _id, this::parseProdCtl);
+	}
+
 	List<ProdCtl> loadProdCtlList(String _parentUid) {
 		return loadObjectList(TB_MBOM_PROD_CTL, COL_PC_PARENT_UID, _parentUid, this::parseProdCtl);
 	}
@@ -133,8 +143,8 @@ public class ProdDao extends AbstractMySqlDao {
 
 	boolean saveProdCtlPartCfgConj(ProdCtlPartCfgConj _pcpcc) {
 		DbColumn<ProdCtlPartCfgConj>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_PCPCC_PROD_CTL_UID, ColType.STRING, ProdCtlPartCfgConj::getProdCtlUid), //
-				DbColumn.of(COL_PCPCC_PART_CFG_UID, ColType.STRING, ProdCtlPartCfgConj::getPartCfgUid), //
+				DbColumn.of(COL_PCPCC_PROD_CTL_UID, ColType.STRING, ProdCtlPartCfgConj::getProdCtlUid, 45), //
+				DbColumn.of(COL_PCPCC_PART_CFG_UID, ColType.STRING, ProdCtlPartCfgConj::getPartCfgUid, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, cols, _pcpcc);
 	}
@@ -163,6 +173,13 @@ public class ProdDao extends AbstractMySqlDao {
 		return loadObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, _uid, this::parseProdCtlPartCfgConj);
 	}
 
+	ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PCPCC_PROD_CTL_UID, _prodCtlUid);
+		map.put(COL_PCPCC_PART_CFG_UID, _partCfgUid);
+		return loadObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, map, this::parseProdCtlPartCfgConj);
+	}
+
 	List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList1(String _prodCtlUid) {
 		return loadObjectList(TB_MBOM_PROD_CTL_PART_CFG_CONJ, COL_PCPCC_PROD_CTL_UID, _prodCtlUid,
 				this::parseProdCtlPartCfgConj);
@@ -182,10 +199,11 @@ public class ProdDao extends AbstractMySqlDao {
 	private final static String COL_PM_DESP = "desp";
 
 	boolean saveProdMod(ProdMod _pm) {
-		DbColumn<ProdMod>[] cols = new DbColumn[] { DbColumn.of(COL_PM_PROD_UID, ColType.STRING, ProdMod::getProdUid), //
-				DbColumn.of(COL_PM_ID, ColType.STRING, ProdMod::getId), //
-				DbColumn.of(COL_PM_NAME, ColType.STRING, ProdMod::getName), //
-				DbColumn.of(COL_PM_DESP, ColType.STRING, ProdMod::getDesp), //
+		DbColumn<ProdMod>[] cols = new DbColumn[] {
+				DbColumn.of(COL_PM_PROD_UID, ColType.STRING, ProdMod::getProdUid, 45), //
+				DbColumn.of(COL_PM_ID, ColType.STRING, ProdMod::getId, 45), //
+				DbColumn.of(COL_PM_NAME, ColType.STRING, ProdMod::getName, 45), //
+				DbColumn.of(COL_PM_DESP, ColType.STRING, ProdMod::getDesp, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_MOD, cols, _pm);
 	}
@@ -214,6 +232,10 @@ public class ProdDao extends AbstractMySqlDao {
 		return loadObject(TB_MBOM_PROD_MOD, _uid, this::parseProdMod);
 	}
 
+	ProdMod loadProdModById(String _id) {
+		return loadObject(TB_MBOM_PROD_MOD, COL_PM_ID, _id, this::parseProdMod);
+	}
+
 	List<ProdMod> loadProdModList(String _prodUid) {
 		return loadObjectList(TB_MBOM_PROD_MOD, COL_PM_PROD_UID, _prodUid, this::parseProdMod);
 	}
@@ -228,10 +250,10 @@ public class ProdDao extends AbstractMySqlDao {
 
 	boolean saveProdModItem(ProdModItem _pmi) {
 		DbColumn<ProdModItem>[] cols = new DbColumn[] {
-				DbColumn.of(COL_PMI_PROD_MOD_UID, ColType.STRING, ProdModItem::getProdModUid), //
-				DbColumn.of(COL_PMI_PROD_CTL_UID, ColType.STRING, ProdModItem::getProdCtlUid), //
+				DbColumn.of(COL_PMI_PROD_MOD_UID, ColType.STRING, ProdModItem::getProdModUid, 45), //
+				DbColumn.of(COL_PMI_PROD_CTL_UID, ColType.STRING, ProdModItem::getProdCtlUid, 45), //
 				DbColumn.of(COL_PMI_PART_CFG_ASSIGNED, ColType.BOOLEAN, ProdModItem::isPartCfgAssigned), //
-				DbColumn.of(COL_PMI_PART_CFG_UID, ColType.STRING, ProdModItem::getPartCfgUid), //
+				DbColumn.of(COL_PMI_PART_CFG_UID, ColType.STRING, ProdModItem::getPartCfgUid, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_MOD_ITEM, cols, _pmi);
 	}
@@ -259,6 +281,21 @@ public class ProdDao extends AbstractMySqlDao {
 
 	ProdModItem loadProdModItem(String _uid) {
 		return loadObject(TB_MBOM_PROD_MOD_ITEM, _uid, this::parseProdModItem);
+	}
+
+	ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PMI_PROD_MOD_UID, _prodModUid);
+		map.put(COL_PMI_PROD_CTL_UID, _prodCtlUid);
+		return loadObject(TB_MBOM_PROD_MOD_ITEM, map, this::parseProdModItem);
+	}
+
+	ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid) {
+		Map<String, String> map = new HashMap<>();
+		map.put(COL_PMI_PROD_MOD_UID, _prodModUid);
+		map.put(COL_PMI_PROD_CTL_UID, _prodCtlUid);
+		map.put(COL_PMI_PART_CFG_UID, _partCfgUid);
+		return loadObject(TB_MBOM_PROD_MOD_ITEM, map, this::parseProdModItem);
 	}
 
 	List<ProdModItem> loadProdModItemList(String _prodModUid) {
