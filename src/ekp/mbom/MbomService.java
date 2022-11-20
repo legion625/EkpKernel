@@ -2,6 +2,7 @@ package ekp.mbom;
 
 import java.util.List;
 
+import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.mbom.dto.ParsProcCreateObj;
 import ekp.mbom.dto.PartAcqRoutingStepCreateObj;
 import ekp.mbom.dto.PartAcquisitionCreateObj;
@@ -12,6 +13,7 @@ import ekp.mbom.dto.ProdCtlCreateObj;
 import ekp.mbom.dto.ProdModCreateObj;
 import ekp.serviceFacade.rmi.mbom.PartCfgConjRemote;
 import legion.BusinessService;
+import legion.util.query.QueryOperation;
 
 public interface MbomService extends BusinessService {
 
@@ -24,6 +26,8 @@ public interface MbomService extends BusinessService {
 	public Part loadPart(String _uid);
 
 	public Part loadPartByPin(String _pin);
+	
+	public QueryOperation<PartQueryParam, Part> searchPart(QueryOperation<PartQueryParam, Part> _param);
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------

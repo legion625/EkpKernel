@@ -4,6 +4,7 @@ import java.util.List;
 
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
+import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
@@ -15,6 +16,7 @@ import ekp.mbom.ProdCtlPartCfgConj;
 import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
 import legion.IntegrationService;
+import legion.util.query.QueryOperation;
 
 public interface MbomDataService extends IntegrationService {
 
@@ -27,6 +29,8 @@ public interface MbomDataService extends IntegrationService {
 	public Part loadPart(String _uid);
 
 	public Part loadPartByPin(String _pin);
+	
+	public QueryOperation<PartQueryParam, Part> searchPart(QueryOperation<PartQueryParam, Part> _param);
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------

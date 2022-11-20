@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.data.MbomDataService;
+import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.Part;
@@ -19,6 +20,7 @@ import ekp.mbom.ProdCtl;
 import ekp.mbom.ProdCtlPartCfgConj;
 import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
+import legion.util.query.QueryOperation;
 
 public class MbomDataServiceImp implements MbomDataService {
 	private Logger log = LoggerFactory.getLogger(MbomDataServiceImp.class);
@@ -68,6 +70,11 @@ public class MbomDataServiceImp implements MbomDataService {
 	@Override
 	public Part loadPartByPin(String _pin) {
 		return partDao.loadPartByPin(_pin);
+	}
+	
+	@Override
+	public QueryOperation<PartQueryParam, Part> searchPart(QueryOperation<PartQueryParam, Part> _param){
+		return partDao.searchPart(_param);
 	}
 
 	// -------------------------------------------------------------------------------

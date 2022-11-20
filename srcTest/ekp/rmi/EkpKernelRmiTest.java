@@ -11,10 +11,14 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mysql.cj.Query;
+
+import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.serviceFacade.rmi.EkpKernelServiceRemote;
 import ekp.serviceFacade.rmi.mbom.PartCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartRemote;
 import legion.datasource.manager.DSManager;
+import legion.util.query.QueryOperation;
 
 public class EkpKernelRmiTest extends AbstractEkpKernelRmiInitTest {
 	private static Logger log = LoggerFactory.getLogger(EkpKernelRmiTest.class);
@@ -56,5 +60,14 @@ public class EkpKernelRmiTest extends AbstractEkpKernelRmiInitTest {
 		
 	}
 	
+	@Test
+	public void testSearchPart() throws RemoteException {
+		QueryOperation<PartQueryParam, PartRemote> paramRemote = new QueryOperation<>();
+		paramRemote.setLimit(5);
+		paramRemote = serviceRemote.searchPart(paramRemote);
+		log.debug("paramRemote.getTotal(): {}", paramRemote.getTotal());
+		log.debug("limit: {}\t{}", paramRemote.getLimit()[0], paramRemote.getLimit()[1]);
+		log.debug("paramRemote.getQueryResult().size(): {}", paramRemote.getQueryResult().size());
+	}
 
 }

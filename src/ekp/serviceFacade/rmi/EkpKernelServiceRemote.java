@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcRemote;
@@ -24,6 +25,7 @@ import ekp.serviceFacade.rmi.mbom.ProdModCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModItemRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
+import legion.util.query.QueryOperation;
 
 public interface EkpKernelServiceRemote extends Remote {
 	public boolean testCallBack() throws RemoteException;
@@ -37,6 +39,9 @@ public interface EkpKernelServiceRemote extends Remote {
 	public PartRemote loadPart(String _uid) throws RemoteException;
 
 	public PartRemote loadPartByPin(String _pin) throws RemoteException;
+	
+	public QueryOperation<PartQueryParam, PartRemote> searchPart(QueryOperation<PartQueryParam, PartRemote> _param)
+			throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------

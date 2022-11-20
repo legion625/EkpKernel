@@ -8,6 +8,9 @@ cfg: configuration
 ctl: catalog
 mod: model
 pars: part acquisition routing step
+partAcq: part acquisition
+ppart: part acquisition routing step - part
+pproc: part acquisition routing step - proc
 prod: product
 prodCtl: product catalog
 prodMod: product model

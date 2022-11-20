@@ -10,12 +10,14 @@ import org.slf4j.event.Level;
 
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
+import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
 import ekp.mbom.type.PartAcquisitionType;
 import legion.data.service.AbstractMySqlDao;
 import legion.util.LogUtil;
+import legion.util.query.QueryOperation;
 
 public class PartDao extends AbstractMySqlDao {
 
@@ -61,6 +63,24 @@ public class PartDao extends AbstractMySqlDao {
 
 	Part loadPartByPin(String _pin) {
 		return loadObject(TB_MBOM_PART, COL_P_PIN, _pin, this::parsePart);
+	}
+	
+	
+	private String parsePartQueryParamMapping(PartQueryParam _p) {
+		switch (_p) {
+		/* part */
+		case PIN:
+			return COL_P_PIN;
+		case NAME:
+			return COL_P_NAME;
+		default:
+			log.error("PartQueryParam error.");
+			return null;
+		}
+	}
+
+	QueryOperation<PartQueryParam, Part> searchPart(QueryOperation<PartQueryParam, Part> _param) {
+		return searchObject(TB_MBOM_PART, _param, this::parsePartQueryParamMapping, this::parsePart);
 	}
 
 	// -------------------------------------------------------------------------------
