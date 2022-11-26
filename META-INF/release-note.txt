@@ -1,15 +1,9 @@
-Min-Hua, 2022.11.27
-[change]
-1. [MBOM] Change attributes
-  - pars: rename "id" to "seq", update service "loadPartAcqRoutingStep".
-  
-[deployment]
-1. [MBOM] Change attributes.
-
-Min-Hua, 2022.11.27
+------------------------------------------------------------------------------
+v0.1.4 released by Min-Hua, 2022.11.27
 [change]
 1. [MBOM] Change attributes
   - part: add "unit".  
+  - pars: rename "id" to "seq", update service "loadPartAcqRoutingStep".
   
 [deployment]
 1. [MBOM] Change attributes.
