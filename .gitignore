@@ -25,6 +25,7 @@ hs_err_pid*
 
 .classpath
 .project
+.settings
 /src/datasource.xml
 /src/logback-conf.xml
 /src/ServiceModule.xml

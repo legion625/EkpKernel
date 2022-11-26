@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ekp.DebugLogMark;
+import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.mbom.MbomService;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
@@ -43,6 +45,7 @@ import ekp.serviceFacade.rmi.mbom.ProdModItemRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
 import legion.BusinessServiceFactory;
+import legion.util.query.QueryOperation;
 
 public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements EkpKernelServiceRemote {
 
@@ -85,6 +88,21 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public PartRemote loadPartByPin(String _pin) throws RemoteException {
 		Part obj = mbomService.loadPartByPin(_pin);
 		return obj == null ? null : MbomFO.parsePartRemote(obj);
+	}
+	
+	@Override
+	public QueryOperation<PartQueryParam, PartRemote> searchPart(QueryOperation<PartQueryParam, PartRemote> _param)
+			throws RemoteException{
+		
+		QueryOperation<PartQueryParam, Part> param = (QueryOperation<PartQueryParam, Part>) _param.copy();
+		param = mbomService.searchPart(param);
+		log.debug("param.getTotal(): {}", param.getTotal());
+		log.debug("limit: {}\t{}", param.getLimit()[0], param.getLimit()[1]);
+		log.debug("param.getQueryResult().size(): {}", param.getQueryResult().size());
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(MbomFO::parsePartRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
 	}
 
 	// -------------------------------------------------------------------------------
@@ -323,6 +341,14 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	@Override
 	public List<PartCfgConjRemote> loadPartCfgConjList(String _partCfgUid) throws RemoteException {
 		List<PartCfgConj> list = mbomService.loadPartCfgConjList(_partCfgUid);
+		List<PartCfgConjRemote> remoteList = list.stream().map(MbomFO::parsePartCfgConjRemote)
+				.collect(Collectors.toList());
+		return remoteList;
+	}
+	
+	@Override
+	public List<PartCfgConjRemote> loadPartCfgConjListByPartAcq(String _partAcqUid) throws RemoteException{
+		List<PartCfgConj> list = mbomService.loadPartCfgConjListByPartAcq(_partAcqUid);
 		List<PartCfgConjRemote> remoteList = list.stream().map(MbomFO::parsePartCfgConjRemote)
 				.collect(Collectors.toList());
 		return remoteList;

@@ -160,8 +160,10 @@ CREATE TABLE `mbom_prod_mod_item` (
 ) ;
 
 
--- unstaging
+-- 0.1.1 -> 0.1.2
 ALTER TABLE `mbom_prod_mod` 
 CHANGE COLUMN `desp` `desp` VARCHAR(200) NULL DEFAULT NULL ;
 
 -- mh_pc
+
+-- unstaging

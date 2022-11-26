@@ -54,7 +54,7 @@ public class EkpKernelRmiServer {
 
 //	private String keyStoreConfName = "";
 	private int port;
-//	private boolean ssl = true; // FIXME
+//	private boolean ssl = true; // FIXME not implemented yet...
 	private boolean ssl = false;
 
 	// -------------------------------------------------------------------------------
