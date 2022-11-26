@@ -12,6 +12,7 @@
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdCtlCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartCfgRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdModCreateObjRemote.java"/>
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.data.service.mbom.query"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdCtlRemote.java"/>
