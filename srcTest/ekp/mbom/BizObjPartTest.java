@@ -8,6 +8,7 @@ import org.junit.Test;
 import ekp.AbstractEkpInitTest;
 import ekp.TestUtil;
 import ekp.data.MbomDataService;
+import ekp.mbom.type.PartUnit;
 import legion.DataServiceFactory;
 
 public class BizObjPartTest extends AbstractEkpInitTest{
@@ -19,8 +20,8 @@ public class BizObjPartTest extends AbstractEkpInitTest{
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("pin1", "name1");
-		target2 = new Target("pin2", "name2");
+		target1 = new Target("pin1", "name1", PartUnit.EA);
+		target2 = new Target("pin2", "name2", PartUnit.GRAM);
 	}
 
 	@Test
@@ -65,10 +66,12 @@ public class BizObjPartTest extends AbstractEkpInitTest{
 
 		private String pin;
 		private String name;
+		private PartUnit unit;
 
-		private Target(String pin, String name) {
+		private Target(String pin, String name, PartUnit unit) {
 			this.pin = pin;
 			this.name = name;
+			this.unit = unit;
 		}
 
 		public String getPin() {
@@ -77,6 +80,10 @@ public class BizObjPartTest extends AbstractEkpInitTest{
 
 		public String getName() {
 			return name;
+		}
+
+		public PartUnit getUnit() {
+			return unit;
 		}
 
 	}

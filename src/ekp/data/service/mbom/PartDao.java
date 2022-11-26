@@ -15,6 +15,7 @@ import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
 import ekp.mbom.type.PartAcquisitionType;
+import ekp.mbom.type.PartUnit;
 import legion.data.service.AbstractMySqlDao;
 import legion.util.LogUtil;
 import legion.util.query.QueryOperation;
@@ -30,11 +31,13 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String TB_MBOM_PART = "mbom_part";
 	private final static String COL_P_PIN = "pin";
 	private final static String COL_P_NAME = "name";
+	private final static String COL_P_UNIT_IDX = "unit_idx";
 
 	boolean savePart(Part _p) {
 		DbColumn<Part>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_P_PIN, ColType.STRING, Part::getPin, 45), //
 				DbColumn.of(COL_P_NAME, ColType.STRING, Part::getName, 45), //
+				DbColumn.of(COL_P_UNIT_IDX, ColType.INT, Part::getUnitIdx, 45), //
 		};
 		return saveObject(TB_MBOM_PART, cols, _p);
 	}
@@ -50,6 +53,7 @@ public class PartDao extends AbstractMySqlDao {
 			/* pack attributes */
 			p.setPin(_rs.getString(COL_P_PIN));
 			p.setName(_rs.getString(COL_P_NAME));
+			p.setUnit(PartUnit.get(_rs.getInt(COL_P_UNIT_IDX)));
 			return p;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
@@ -73,6 +77,8 @@ public class PartDao extends AbstractMySqlDao {
 			return COL_P_PIN;
 		case NAME:
 			return COL_P_NAME;
+		case UNIT_IDX:
+			return COL_P_UNIT_IDX;
 		default:
 			log.error("PartQueryParam error.");
 			return null;

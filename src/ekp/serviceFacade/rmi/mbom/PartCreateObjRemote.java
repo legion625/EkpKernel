@@ -2,9 +2,12 @@ package ekp.serviceFacade.rmi.mbom;
 
 import java.io.Serializable;
 
+import ekp.mbom.type.PartUnit;
+
 public class PartCreateObjRemote implements Serializable {
 	private String pin;
 	private String name;
+	private PartUnit unit;
 
 	public String getPin() {
 		return pin;
@@ -20,5 +23,13 @@ public class PartCreateObjRemote implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public PartUnit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(PartUnit unit) {
+		this.unit = unit;
 	}
 }

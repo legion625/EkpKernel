@@ -29,6 +29,7 @@ public class MbomFO {
 		PartRemote remote = new PartRemote(_obj.getUid(), _obj.getObjectCreateTime(), _obj.getObjectUpdateTime());
 		remote.setPin(_obj.getPin());
 		remote.setName(_obj.getName());
+		remote.setUnit(_obj.getUnit());
 		return remote;
 	}
 
@@ -36,6 +37,7 @@ public class MbomFO {
 		PartCreateObj dto = new PartCreateObj();
 		dto.setPin(_remote.getPin());
 		dto.setName(_remote.getName());
+		dto.setUnit(_remote.getUnit());
 		return dto;
 	}
 

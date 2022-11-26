@@ -2,6 +2,7 @@ package ekp.mbom;
 
 import ekp.data.MbomDataService;
 import ekp.mbom.dto.PartCreateObj;
+import ekp.mbom.type.PartUnit;
 import legion.DataServiceFactory;
 import legion.ObjectModel;
 
@@ -11,6 +12,7 @@ public class Part extends ObjectModel {
 	// ----------------------------------Attributes-----------------------------------
 	private String pin; // biz key
 	private String name;
+	private PartUnit unit;
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
@@ -47,6 +49,19 @@ public class Part extends ObjectModel {
 		this.name = name;
 	}
 
+	public PartUnit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(PartUnit unit) {
+		this.unit = unit;
+	}
+	
+	// -------------------------------------------------------------------------------
+	public int getUnitIdx() {
+		return (getUnit() == null ? PartUnit.UNDEFINED : getUnit()).getIdx();
+	}
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------ObjectModel----------------------------------
 	@Override
@@ -65,6 +80,7 @@ public class Part extends ObjectModel {
 		Part p = newInstance();
 		p.setPin(_dto.getPin());
 		p.setName(_dto.getName());
+		p.setUnit(_dto.getUnit());
 		return p.save() ? p : null;
 	}
 
