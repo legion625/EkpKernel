@@ -15,6 +15,7 @@ import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
 import ekp.mbom.type.PartAcquisitionType;
+import ekp.mbom.type.PartUnit;
 import legion.data.service.AbstractMySqlDao;
 import legion.util.LogUtil;
 import legion.util.query.QueryOperation;
@@ -30,11 +31,13 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String TB_MBOM_PART = "mbom_part";
 	private final static String COL_P_PIN = "pin";
 	private final static String COL_P_NAME = "name";
+	private final static String COL_P_UNIT_IDX = "unit_idx";
 
 	boolean savePart(Part _p) {
 		DbColumn<Part>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_P_PIN, ColType.STRING, Part::getPin, 45), //
 				DbColumn.of(COL_P_NAME, ColType.STRING, Part::getName, 45), //
+				DbColumn.of(COL_P_UNIT_IDX, ColType.INT, Part::getUnitIdx, 45), //
 		};
 		return saveObject(TB_MBOM_PART, cols, _p);
 	}
@@ -50,6 +53,7 @@ public class PartDao extends AbstractMySqlDao {
 			/* pack attributes */
 			p.setPin(_rs.getString(COL_P_PIN));
 			p.setName(_rs.getString(COL_P_NAME));
+			p.setUnit(PartUnit.get(_rs.getInt(COL_P_UNIT_IDX)));
 			return p;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
@@ -73,6 +77,8 @@ public class PartDao extends AbstractMySqlDao {
 			return COL_P_PIN;
 		case NAME:
 			return COL_P_NAME;
+		case UNIT_IDX:
+			return COL_P_UNIT_IDX;
 		default:
 			log.error("PartQueryParam error.");
 			return null;
@@ -144,14 +150,14 @@ public class PartDao extends AbstractMySqlDao {
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	private final static String TB_MBOM_PART_ACQ_ROUTING_STEP = "mbom_part_acq_r_s";
 	private final static String COL_PARS_PART_ACQ_UID = "part_acq_uid";
-	private final static String COL_PARS_ID = "id";
+	private final static String COL_PARS_SEQ = "seq";
 	private final static String COL_PARS_NAME = "name";
 	private final static String COL_PARS_DESP = "desp";
 
 	boolean savePartAcqRoutingStep(PartAcqRoutingStep _pars) {
 		DbColumn<PartAcqRoutingStep>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_PARS_PART_ACQ_UID, ColType.STRING, PartAcqRoutingStep::getPartAcqUid , 45), //
-				DbColumn.of(COL_PARS_ID, ColType.STRING, PartAcqRoutingStep::getId,45), //
+				DbColumn.of(COL_PARS_SEQ, ColType.STRING, PartAcqRoutingStep::getSeq,45), //
 				DbColumn.of(COL_PARS_NAME, ColType.STRING, PartAcqRoutingStep::getName,45), //
 				DbColumn.of(COL_PARS_DESP, ColType.STRING, PartAcqRoutingStep::getDesp,200), //
 		};
@@ -169,7 +175,7 @@ public class PartDao extends AbstractMySqlDao {
 			pars = PartAcqRoutingStep.getInstance(parseUid(_rs), partAcqUid, parseObjectCreateTime(_rs),
 					parseObjectUpdateTime(_rs));
 			/* pack attributes */
-			pars.setId(_rs.getString(COL_PARS_ID));
+			pars.setSeq(_rs.getString(COL_PARS_SEQ));
 			pars.setName(_rs.getString(COL_PARS_NAME));
 			pars.setDesp(_rs.getString(COL_PARS_DESP));
 			return pars;
@@ -183,10 +189,10 @@ public class PartDao extends AbstractMySqlDao {
 		return loadObject(TB_MBOM_PART_ACQ_ROUTING_STEP, _uid, this::parsePartAcqRoutingStep);
 	}
 
-	PartAcqRoutingStep loadPartAcqRoutingStep(String _partAcqUid, String _id) {
+	PartAcqRoutingStep loadPartAcqRoutingStep(String _partAcqUid, String _seq) {
 		Map<String, String> keyValueMap = new HashMap<>();
 		keyValueMap.put(COL_PARS_PART_ACQ_UID, _partAcqUid);
-		keyValueMap.put(COL_PARS_ID, _id);
+		keyValueMap.put(COL_PARS_SEQ, _seq);
 		return loadObject(TB_MBOM_PART_ACQ_ROUTING_STEP, keyValueMap, this::parsePartAcqRoutingStep);
 	}
 

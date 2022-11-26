@@ -8,7 +8,7 @@ import legion.ObjectModel;
 public class PartAcqRoutingStep extends ObjectModel {
 	private String partAcqUid; // ref data key
 
-	private String id; // routing step id
+	private String seq; // routing step id
 	private String name;
 	private String desp;
 
@@ -41,12 +41,12 @@ public class PartAcqRoutingStep extends ObjectModel {
 		this.partAcqUid = partAcqUid;
 	}
 
-	public String getId() {
-		return id;
+	public String getSeq() {
+		return seq;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setSeq(String seq) {
+		this.seq = seq;
 	}
 
 	public String getName() {
@@ -81,7 +81,7 @@ public class PartAcqRoutingStep extends ObjectModel {
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	static PartAcqRoutingStep create(PartAcqRoutingStepCreateObj _dto) {
 		PartAcqRoutingStep pars = newInstance(_dto.getPartAcqUid());
-		pars.setId(_dto.getId());
+		pars.setSeq(_dto.getSeq());
 		pars.setName(_dto.getName());
 		pars.setDesp(_dto.getDesp());
 		return pars.save() ? pars : null;

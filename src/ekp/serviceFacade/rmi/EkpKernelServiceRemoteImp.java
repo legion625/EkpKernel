@@ -159,8 +159,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	}
 
 	@Override
-	public PartAcqRoutingStepRemote loadPartAcqRoutingStep(String _partAcqUid, String _id) throws RemoteException {
-		PartAcqRoutingStep obj = mbomService.loadPartAcqRoutingStep(_partAcqUid, _id);
+	public PartAcqRoutingStepRemote loadPartAcqRoutingStep(String _partAcqUid, String _seq) throws RemoteException {
+		PartAcqRoutingStep obj = mbomService.loadPartAcqRoutingStep(_partAcqUid, _seq);
 		return obj == null ? null : MbomFO.parsePartAcqRoutingStepRemote(obj);
 	}
 

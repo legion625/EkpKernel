@@ -28,6 +28,7 @@ CREATE TABLE `mbom_part` (
   `uid` varchar(45) NOT NULL,
   `pin` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
+  `unit_idx` tinyint(4) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
@@ -48,7 +49,7 @@ CREATE TABLE `mbom_part_acq` (
 CREATE TABLE `mbom_part_acq_r_s` (
   `uid` varchar(45) NOT NULL,
   `part_acq_uid` varchar(45) DEFAULT NULL,
-  `id` varchar(45) DEFAULT NULL,
+  `seq` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `desp` varchar(200) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
