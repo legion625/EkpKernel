@@ -164,7 +164,7 @@ CREATE TABLE `mbom_prod_mod_item` (
 ALTER TABLE `mbom_prod_mod` 
 CHANGE COLUMN `desp` `desp` VARCHAR(200) NULL DEFAULT NULL ;
 
--- 0.1.3 -> unstaging
+-- 0.1.3 -> 0.1.4
 ALTER TABLE `mbom_part` 
 ADD COLUMN `unit_idx` TINYINT NULL AFTER `name`;
 
