@@ -12,7 +12,7 @@ public class PartAcqRoutingStepRemote extends ObjectModelRemote {
 	// -----------------------------------attribute-----------------------------------
 	private String partAcqUid; // ref data key
 
-	private String id; // routing step id
+	private String seq; // routing step seq
 	private String name;
 	private String desp;
 
@@ -26,12 +26,12 @@ public class PartAcqRoutingStepRemote extends ObjectModelRemote {
 		this.partAcqUid = partAcqUid;
 	}
 
-	public String getId() {
-		return id;
+	public String getSeq() {
+		return seq;
 	}
 
-	void setId(String id) {
-		this.id = id;
+	void setSeq(String seq) {
+		this.seq = seq;
 	}
 
 	public String getName() {

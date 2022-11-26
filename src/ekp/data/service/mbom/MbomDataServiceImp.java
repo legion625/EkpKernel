@@ -122,8 +122,8 @@ public class MbomDataServiceImp implements MbomDataService {
 	}
 
 	@Override
-	public PartAcqRoutingStep loadPartAcqRoutingStep(String _partAcqUid, String _id) {
-		return partDao.loadPartAcqRoutingStep(_partAcqUid, _id);
+	public PartAcqRoutingStep loadPartAcqRoutingStep(String _partAcqUid, String _seq) {
+		return partDao.loadPartAcqRoutingStep(_partAcqUid, _seq);
 	}
 
 	@Override

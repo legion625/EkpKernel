@@ -64,7 +64,7 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public PartAcqRoutingStepRemote loadPartAcqRoutingStep(String _uid) throws RemoteException;
 
-	public PartAcqRoutingStepRemote loadPartAcqRoutingStep(String _partAcqUid, String _id) throws RemoteException;
+	public PartAcqRoutingStepRemote loadPartAcqRoutingStep(String _partAcqUid, String _seq) throws RemoteException;
 
 	public List<PartAcqRoutingStepRemote> loadPartAcqRoutingStepList(String _partAcqUid) throws RemoteException;
 

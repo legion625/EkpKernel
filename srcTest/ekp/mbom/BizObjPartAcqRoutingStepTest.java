@@ -19,8 +19,8 @@ public class BizObjPartAcqRoutingStepTest extends AbstractEkpInitTest {
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("partAcqUid1", "id1", "name1", "desp1");
-		target2 = new Target("partAcqUid2", "id2", "name2", "desp2");
+		target1 = new Target("partAcqUid1", "seq1", "name1", "desp1");
+		target2 = new Target("partAcqUid2", "seq2", "name2", "desp2");
 	}
 
 	@Test
@@ -64,14 +64,14 @@ public class BizObjPartAcqRoutingStepTest extends AbstractEkpInitTest {
 	public class Target {
 		private String partAcqUid; // ref data key
 
-		private String id; // routing step id
+		private String seq; // routing step seq
 		private String name;
 		private String desp;
 
-		private Target(String partAcqUid, String id, String name, String desp) {
+		private Target(String partAcqUid, String seq, String name, String desp) {
 			super();
 			this.partAcqUid = partAcqUid;
-			this.id = id;
+			this.seq = seq;
 			this.name = name;
 			this.desp = desp;
 		}
@@ -80,8 +80,8 @@ public class BizObjPartAcqRoutingStepTest extends AbstractEkpInitTest {
 			return partAcqUid;
 		}
 
-		public String getId() {
-			return id;
+		public String getSeq() {
+			return seq;
 		}
 
 		public String getName() {

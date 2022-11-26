@@ -49,7 +49,7 @@ public interface MbomService extends BusinessService {
 
 	public PartAcqRoutingStep loadPartAcqRoutingStep(String _uid);
 
-	public PartAcqRoutingStep loadPartAcqRoutingStep(String _partAcqUid, String _id);
+	public PartAcqRoutingStep loadPartAcqRoutingStep(String _partAcqUid, String _seq);
 
 	public List<PartAcqRoutingStep> loadPartAcqRoutingStepList(String _partAcqUid);
 

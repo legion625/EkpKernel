@@ -70,7 +70,7 @@ public class MbomFO {
 		PartAcqRoutingStepRemote remote = new PartAcqRoutingStepRemote(_obj.getUid(), _obj.getObjectCreateTime(),
 				_obj.getObjectUpdateTime());
 		remote.setPartAcqUid(_obj.getPartAcqUid());
-		remote.setId(_obj.getId());
+		remote.setSeq(_obj.getSeq());
 		remote.setName(_obj.getName());
 		remote.setDesp(_obj.getDesp());
 		return remote;
@@ -80,7 +80,7 @@ public class MbomFO {
 			PartAcqRoutingStepCreateObjRemote _remote) {
 		PartAcqRoutingStepCreateObj dto = new PartAcqRoutingStepCreateObj();
 		dto.setPartAcqUid(_remote.getPartAcqUid());
-		dto.setId(_remote.getId());
+		dto.setSeq(_remote.getSeq());
 		dto.setName(_remote.getName());
 		dto.setDesp(_remote.getDesp());
 		return dto;

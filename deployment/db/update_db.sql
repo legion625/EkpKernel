@@ -167,5 +167,8 @@ CHANGE COLUMN `desp` `desp` VARCHAR(200) NULL DEFAULT NULL ;
 -- 0.1.3 -> unstaging
 ALTER TABLE `mbom_part` 
 ADD COLUMN `unit_idx` TINYINT NULL AFTER `name`;
--- mh_pc
 
+ALTER TABLE `mbom_part_acq_r_s` 
+CHANGE COLUMN `id` `seq` VARCHAR(45) NULL DEFAULT NULL ;
+
+-- mh_pc
