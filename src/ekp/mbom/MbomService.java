@@ -118,7 +118,9 @@ public interface MbomService extends BusinessService {
 	public PartCfgConj loadPartCfgConj(String _partCfgUid, String _partAcqUid);
 
 	public List<PartCfgConj> loadPartCfgConjList(String _partCfgUid);
-
+	
+	public List<PartCfgConj> loadPartCfgConjListByPartAcq(String _partAcqUid);
+	
 	// -------------------------------------------------------------------------------
 	// -------------------------------------Prod--------------------------------------
 	public Prod createProd(ProdCreateObj _dto);

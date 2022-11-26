@@ -128,4 +128,9 @@ class PartCfgDao extends AbstractMySqlDao {
 	List<PartCfgConj> loadPartCfgConjList(String _partCfgUid) {
 		return loadObjectList(TB_MBOM_PART_CFG_CONJ, COL_PCC_PART_CFG_UID, _partCfgUid, this::parsePartCfgConj);
 	}
+	
+	List<PartCfgConj> loadPartCfgConjListByPartAcq(String _partAcqUid){
+		return loadObjectList(TB_MBOM_PART_CFG_CONJ, COL_PCC_PART_ACQ_UID, _partAcqUid, this::parsePartCfgConj);
+	}
 }
+

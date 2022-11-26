@@ -345,6 +345,14 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 				.collect(Collectors.toList());
 		return remoteList;
 	}
+	
+	@Override
+	public List<PartCfgConjRemote> loadPartCfgConjListByPartAcq(String _partAcqUid) throws RemoteException{
+		List<PartCfgConj> list = mbomService.loadPartCfgConjListByPartAcq(_partAcqUid);
+		List<PartCfgConjRemote> remoteList = list.stream().map(MbomFO::parsePartCfgConjRemote)
+				.collect(Collectors.toList());
+		return remoteList;
+	}
 
 	// -------------------------------------------------------------------------------
 	// -------------------------------------Prod--------------------------------------

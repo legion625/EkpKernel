@@ -134,6 +134,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public PartCfgConjRemote loadPartCfgConj(String _partCfgUid, String _partAcqUid) throws RemoteException;
 
 	public List<PartCfgConjRemote> loadPartCfgConjList(String _partCfgUid) throws RemoteException;
+	
+	public List<PartCfgConjRemote> loadPartCfgConjListByPartAcq(String _partAcqUid) throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// -------------------------------------Prod--------------------------------------

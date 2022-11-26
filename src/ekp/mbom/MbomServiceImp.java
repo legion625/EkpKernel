@@ -267,6 +267,11 @@ public class MbomServiceImp implements MbomService {
 	public List<PartCfgConj> loadPartCfgConjList(String _partCfgUid) {
 		return dataService.loadPartCfgConjList(_partCfgUid);
 	}
+	
+	@Override
+	public List<PartCfgConj> loadPartCfgConjListByPartAcq(String _partAcqUid){
+		return dataService.loadPartCfgConjListByPartAcq(_partAcqUid);
+	}
 
 	// -------------------------------------------------------------------------------
 	// -------------------------------------Prod--------------------------------------
