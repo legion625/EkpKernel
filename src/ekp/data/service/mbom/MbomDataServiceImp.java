@@ -20,6 +20,7 @@ import ekp.mbom.ProdCtl;
 import ekp.mbom.ProdCtlPartCfgConj;
 import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
+import ekp.mbom.dto.PpartSkewer;
 import legion.util.query.QueryOperation;
 
 public class MbomDataServiceImp implements MbomDataService {
@@ -188,6 +189,13 @@ public class MbomDataServiceImp implements MbomDataService {
 	@Override
 	public List<ParsPart> loadParsPartListByPart(String _partUid) {
 		return partDao.loadParsPartListByPart(_partUid);
+	}
+	
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PpartSkewer----------------------------------
+	@Override
+	public PpartSkewer loadPpartSkewer(String _uid) {
+		return partDao.loadPpartSkewer(_uid);
 	}
 
 	// -------------------------------------------------------------------------------

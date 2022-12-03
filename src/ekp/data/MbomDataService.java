@@ -15,6 +15,7 @@ import ekp.mbom.ProdCtl;
 import ekp.mbom.ProdCtlPartCfgConj;
 import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
+import ekp.mbom.dto.PpartSkewer;
 import legion.IntegrationService;
 import legion.util.query.QueryOperation;
 
@@ -81,7 +82,11 @@ public interface MbomDataService extends IntegrationService {
 	public List<ParsPart> loadParsPartList(String _parsUid);
 
 	public List<ParsPart> loadParsPartListByPart(String _partUid);
-
+	
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PpartSkewer----------------------------------
+	public PpartSkewer loadPpartSkewer(String _uid);
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------------PartCfg------------------------------------
 	public boolean savePartCfg(PartCfg _pc);
