@@ -5,6 +5,7 @@ import java.util.List;
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
 import ekp.data.service.mbom.query.PartQueryParam;
+import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
@@ -86,6 +87,9 @@ public interface MbomDataService extends IntegrationService {
 	// -------------------------------------------------------------------------------
 	// ----------------------------------PpartSkewer----------------------------------
 	public PpartSkewer loadPpartSkewer(String _uid);
+	
+	public QueryOperation<PpartSkewerQueryParam, PpartSkewer> searchPpartSkewer(
+			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p); 
 	
 	// -------------------------------------------------------------------------------
 	// ------------------------------------PartCfg------------------------------------
