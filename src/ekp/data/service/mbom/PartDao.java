@@ -14,6 +14,7 @@ import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
 import ekp.TestLogMark;
 import ekp.data.service.mbom.query.PartQueryParam;
+import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
@@ -28,7 +29,7 @@ import legion.util.LogUtil;
 import legion.util.query.QueryOperation;
 
 public class PartDao extends AbstractMySqlDao {
-	
+
 	PartDao(String source) {
 		super(source);
 	}
@@ -75,8 +76,7 @@ public class PartDao extends AbstractMySqlDao {
 	Part loadPartByPin(String _pin) {
 		return loadObject(TB_MBOM_PART, COL_P_PIN, _pin, this::parsePart);
 	}
-	
-	
+
 	private String parsePartQueryParamMapping(PartQueryParam _p) {
 		switch (_p) {
 		/* part */
@@ -163,10 +163,10 @@ public class PartDao extends AbstractMySqlDao {
 
 	boolean savePartAcqRoutingStep(PartAcqRoutingStep _pars) {
 		DbColumn<PartAcqRoutingStep>[] cols = new DbColumn[] { //
-				DbColumn.of(COL_PARS_PART_ACQ_UID, ColType.STRING, PartAcqRoutingStep::getPartAcqUid , 45), //
-				DbColumn.of(COL_PARS_SEQ, ColType.STRING, PartAcqRoutingStep::getSeq,45), //
-				DbColumn.of(COL_PARS_NAME, ColType.STRING, PartAcqRoutingStep::getName,45), //
-				DbColumn.of(COL_PARS_DESP, ColType.STRING, PartAcqRoutingStep::getDesp,200), //
+				DbColumn.of(COL_PARS_PART_ACQ_UID, ColType.STRING, PartAcqRoutingStep::getPartAcqUid, 45), //
+				DbColumn.of(COL_PARS_SEQ, ColType.STRING, PartAcqRoutingStep::getSeq, 45), //
+				DbColumn.of(COL_PARS_NAME, ColType.STRING, PartAcqRoutingStep::getName, 45), //
+				DbColumn.of(COL_PARS_DESP, ColType.STRING, PartAcqRoutingStep::getDesp, 200), //
 		};
 		return saveObject(TB_MBOM_PART_ACQ_ROUTING_STEP, cols, _pars);
 	}
@@ -220,7 +220,7 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_PARS_PROC_PROC_ID = "proc_id";
 
 	boolean saveParsProc(ParsProc _parsProc) {
-		DbColumn<ParsProc>[] cols = new DbColumn[] { // 
+		DbColumn<ParsProc>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_PARS_PROC_PARS_UID, ColType.STRING, ParsProc::getParsUid, 45), //
 				DbColumn.of(COL_PARS_PROC_SEQ, ColType.STRING, ParsProc::getSeq, 45), //
 				DbColumn.of(COL_PARS_PROC_NAME, ColType.STRING, ParsProc::getName, 45), //
@@ -313,7 +313,7 @@ public class PartDao extends AbstractMySqlDao {
 	ParsPart loadParsPart(String _uid) {
 		return loadObject(TB_MBOM_PARS_PART, _uid, this::parseParsPart);
 	}
-	
+
 	ParsPart loadParsPart(String _parsUid, String _partuid) {
 		Map<String, String> map = new HashMap<>();
 		map.put(COL_PARS_PART_PARS_UID, _parsUid);
@@ -328,16 +328,21 @@ public class PartDao extends AbstractMySqlDao {
 	List<ParsPart> loadParsPartListByPart(String _partUid) {
 		return loadObjectList(TB_MBOM_PARS_PART, COL_PARS_PART_PART_UID, _partUid, this::parseParsPart);
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------PpartSkewer----------------------------------
 	/* TableColPack */
-	private final static TableColPack PPART_SKEWER_P = TableColPack.of("p", TB_MBOM_PART, new String[] {COL_UID, COL_P_PIN, COL_P_NAME});
-	private final static TableColPack PPART_SKEWER_PA = TableColPack.of("pa", TB_MBOM_PART_ACQUISITION, new String[] {COL_UID, COL_PA_ID, COL_PA_NAME});
-	private final static TableColPack PPART_SKEWER_PARS = TableColPack.of("pars", TB_MBOM_PART_ACQ_ROUTING_STEP, new String[] {COL_PARS_SEQ, COL_PARS_NAME, COL_PARS_DESP});
+	private final static TableColPack PPART_SKEWER_P = TableColPack.of("p", TB_MBOM_PART,
+			new String[] { COL_UID, COL_P_PIN, COL_P_NAME });
+	private final static TableColPack PPART_SKEWER_PA = TableColPack.of("pa", TB_MBOM_PART_ACQUISITION,
+			new String[] { COL_UID, COL_PA_ID, COL_PA_NAME });
+	private final static TableColPack PPART_SKEWER_PARS = TableColPack.of("pars", TB_MBOM_PART_ACQ_ROUTING_STEP,
+			new String[] { COL_PARS_SEQ, COL_PARS_NAME, COL_PARS_DESP });
 	private final static TableColPack PPART_SKEWER_PPART = TableColPack.of(TB_MBOM_PARS_PART);
-	private final static TableColPack PPART_SKEWER_PPART_P = TableColPack.of("ppart_p", TB_MBOM_PART, new String[] {COL_P_NAME});
-	private final static TableColPack[] PPART_SKEWER_TCPs = new TableColPack[] {PPART_SKEWER_P, PPART_SKEWER_PA, PPART_SKEWER_PARS, PPART_SKEWER_PPART, PPART_SKEWER_PPART_P};
+	private final static TableColPack PPART_SKEWER_PPART_P = TableColPack.of("ppart_p", TB_MBOM_PART,
+			new String[] { COL_P_NAME });
+	private final static TableColPack[] PPART_SKEWER_TCPs = new TableColPack[] { PPART_SKEWER_P, PPART_SKEWER_PA,
+			PPART_SKEWER_PARS, PPART_SKEWER_PPART, PPART_SKEWER_PPART_P };
 	/* TableRel */
 	private final TableRel[] ppartSkewerTrs = new TableRel[] {
 			TableRel.of(PPART_SKEWER_P, PPART_SKEWER_PA, COL_UID, COL_PA_PART_UID), //
@@ -385,16 +390,59 @@ public class PartDao extends AbstractMySqlDao {
 			return null;
 		}
 	}
-	
+
 	PpartSkewer loadPpartSkewer(String _uid) {
 		log.debug("loadPpartSkewer");
 		log.error("loadPpartSkewer");
 		return loadSkewer(PPART_SKEWER_TCPs, ppartSkewerTrs, PPART_SKEWER_PPART.getSqlCol(COL_UID), _uid,
 				this::parsePpartSkewer);
 	}
-	
-	
-	
 
-	
+	private String parsePpartSkewerQueryParamMapping(PpartSkewerQueryParam _p) {
+		switch (_p) {
+		/* p */
+		case P_UID:
+			return PPART_SKEWER_P.getSqlCol(COL_UID);
+		case P_PIN:
+			return PPART_SKEWER_P.getSqlCol(COL_P_PIN);
+		case P_NAME:
+			return PPART_SKEWER_P.getSqlCol(COL_P_NAME);
+		/* pa */
+		case PA_UID:
+			return PPART_SKEWER_PA.getSqlCol(COL_UID);
+		case PA_ID:
+			return PPART_SKEWER_PA.getSqlCol(COL_PA_ID);
+		case PA_NAME:
+			return PPART_SKEWER_PA.getSqlCol(COL_PA_NAME);
+		/* pars */
+		case PARS_SEQ:
+			return PPART_SKEWER_PARS.getSqlCol(COL_PARS_SEQ);
+		case PARS_NAME:
+			return PPART_SKEWER_PARS.getSqlCol(COL_PARS_NAME);
+		case PARS_DESP:
+			return PPART_SKEWER_PARS.getSqlCol(COL_PARS_DESP);
+		/* ppart */
+		case PARS_UID:
+			return PPART_SKEWER_PPART.getSqlCol(COL_PARS_PART_PARS_UID);
+		case ASSIGN_PART:
+			return PPART_SKEWER_PPART.getSqlCol(COL_PARS_PART_ASSIGN_PART);
+		case PART_UID:
+			return PPART_SKEWER_PPART.getSqlCol(COL_PARS_PART_PART_UID);
+		case PART_PIN:
+			return PPART_SKEWER_PPART.getSqlCol(COL_PARS_PART_PART_PIN);
+		/* ppart-p */
+		case PART_NAME:
+			return PPART_SKEWER_PPART_P.getSqlCol(COL_P_NAME);
+
+		default:
+			return null;
+		}
+	}
+
+	QueryOperation<PpartSkewerQueryParam, PpartSkewer> searchPpartSkewer(
+			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p) {
+		return searchSkewer(PPART_SKEWER_TCPs, ppartSkewerTrs, _p, this::parsePpartSkewerQueryParamMapping,
+				this::parsePpartSkewer);
+	}
+
 }

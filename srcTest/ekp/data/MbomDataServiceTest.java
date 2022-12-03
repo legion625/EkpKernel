@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import ekp.AbstractEkpInitTest;
 import ekp.TestLogMark;
 import ekp.data.service.mbom.query.PartQueryParam;
+import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.Part;
 import ekp.mbom.dto.PpartSkewer;
 import legion.DataServiceFactory;
@@ -43,26 +45,23 @@ public class MbomDataServiceTest extends AbstractEkpInitTest {
 	// -------------------------------------------------------------------------------
 	// ----------------------------------PpartSkewer----------------------------------
 	@Test
+	@Ignore
 	public void testLoadPpartSkewer() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		String uid = "2022!48!7!3";
 		PpartSkewer s = dataService.loadPpartSkewer(uid);
 		log.debug("s: {}", s);
 		log.debug("describe: {}", PropertyUtils.describe(s));
+	}
+	
+	@Test
+	public void testSearchPpartSkewer() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		QueryOperation<PpartSkewerQueryParam, PpartSkewer> p = new QueryOperation<>(); 
+		p  =	dataService.searchPpartSkewer(p);
+		List<PpartSkewer> list = p.getQueryResult();
+		log.debug("list.size(): {}", list.size());
+		for(PpartSkewer s:  list) {
+			log.debug("PropertyUtils.describe(s): {}", PropertyUtils.describe(s));
+		}
 		
-		
-//		BeanUtil.getProperty(bean, property)
-//		public static Object getProperty(Object bean, String property) {
-//			Object object = bean;
-//			if (property != null) {
-//				try {
-//					object = PropertyUtils.getProperty(bean, property);
-//				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-//					log.error(e.getMessage());
-//					e.printStackTrace();
-//					return null;
-//				}
-//			}
-//			return object;
-//		}
 	}
 }
