@@ -1,6 +1,7 @@
 package ekp.data;
 
 import java.util.List;
+import java.util.Map;
 
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
@@ -19,6 +20,7 @@ import ekp.mbom.ProdModItem;
 import ekp.mbom.dto.PpartSkewer;
 import legion.IntegrationService;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public interface MbomDataService extends IntegrationService {
 
@@ -89,7 +91,9 @@ public interface MbomDataService extends IntegrationService {
 	public PpartSkewer loadPpartSkewer(String _uid);
 	
 	public QueryOperation<PpartSkewerQueryParam, PpartSkewer> searchPpartSkewer(
-			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p); 
+			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p,
+			Map<PpartSkewerQueryParam, QueryValue[]> _existsQvMap);
+	
 	
 	// -------------------------------------------------------------------------------
 	// ------------------------------------PartCfg------------------------------------

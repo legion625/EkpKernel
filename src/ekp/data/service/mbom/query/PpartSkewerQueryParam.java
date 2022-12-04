@@ -27,6 +27,18 @@ public enum PpartSkewerQueryParam implements QueryParam {
 	/* ppart-p */
 	PART_NAME("partName", "part name"), //
 
+	/* PartCfg */
+	PC_ROOT_PART_UID("pcRootPartUid", "part configuration root part uid"), //
+	PC_ROOT_PART_PIN("pcRootPartPin", "part configuration root part pin"), //
+//	@Deprecated
+//	PC_IDs("pcId", "part configuration id"), //
+	B_OF_PC$_PA_EXISTS("B_OF_PC$_PA_EXISTS", "B_OF_PC$_PA_EXISTS"), //
+	B_OF_PC$_PARENT_PART_EXISTS("PC_IDs_IN_PARENT_PA","PC_IDs_IN_PARENT_PA"), //
+	//
+	B_OF_PC_ROOT_PART("B_OF_PC_ROOT_PART", "B_OF_PC_ROOT_PART"), //
+
+	/* PartCfgConj */
+
 	;
 
 	private String id, desp;

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import legion.data.skewer.TableColPack;
 import legion.data.skewer.TableRel;
 import legion.util.LogUtil;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public class PartDao extends AbstractMySqlDao {
 
@@ -95,7 +97,7 @@ public class PartDao extends AbstractMySqlDao {
 	QueryOperation<PartQueryParam, Part> searchPart(QueryOperation<PartQueryParam, Part> _param) {
 		return searchObject(TB_MBOM_PART, _param, this::parsePartQueryParamMapping, this::parsePart);
 	}
-
+	
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
 	private final static String TB_MBOM_PART_ACQUISITION = "mbom_part_acq";
@@ -153,6 +155,18 @@ public class PartDao extends AbstractMySqlDao {
 		return loadObjectList(TB_MBOM_PART_ACQUISITION, COL_PA_PART_UID, _partUid, this::parsePartAcquisition);
 	}
 
+//	private static String packPaField(PpartSkewerQueryParam _p, String _tbPars, String _colParsPaUidCol) {
+//		String col = null;
+//		switch (_p) {
+//		case PC_IDs_IN_PARENT_PA:
+//			col = PartCfgDao.packPartCfgField(_p, TB_MBOM_PART_ACQUISITION);
+//			break;
+//		default:
+//			return null;
+//		}
+//		return packMasterQueryField(col, TB_MBOM_PART_ACQUISITION, COL_UID, _tbPars, _colParsPaUidCol);
+//	}
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	private final static String TB_MBOM_PART_ACQ_ROUTING_STEP = "mbom_part_acq_r_s";
@@ -207,6 +221,26 @@ public class PartDao extends AbstractMySqlDao {
 		return loadObjectList(TB_MBOM_PART_ACQ_ROUTING_STEP, COL_PARS_PART_ACQ_UID, _partAcqUid,
 				this::parsePartAcqRoutingStep);
 	}
+	
+	/** PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS */
+	static String packParsExistsField4PcIdsInParentPa(String _tbPcc, String _colPccPartAcqUid
+			, String _tbAliasPart, String _colPartUid) {
+		return packExistsField(_tbPcc, _colPccPartAcqUid, TB_MBOM_PART_ACQ_ROUTING_STEP, COL_PARS_PART_ACQ_UID,
+				packPpartExistsField4PcIdsInParentPa(TB_MBOM_PART_ACQ_ROUTING_STEP, COL_UID, _tbAliasPart,
+						_colPartUid));
+	}
+	
+//	private static String packParsField(PpartSkewerQueryParam _p, String _tbPpartSkewer, String _colPpartSkewerParsUid) {
+//		String col = null;
+//		switch (_p) {
+//		case PC_IDs_IN_PARENT_PA:
+//			col = packPaField(_p, TB_MBOM_PART_ACQ_ROUTING_STEP, COL_PARS_PART_ACQ_UID);
+//			break;
+//		default:
+//			return null;
+//		}
+//		return packMasterQueryField(col, TB_MBOM_PARS_PART, COL_UID, _tbPpartSkewer, _colPpartSkewerParsUid);
+//	}
 
 	// -------------------------------------------------------------------------------
 	// -----------------------------------ParsProc------------------------------------
@@ -328,6 +362,13 @@ public class PartDao extends AbstractMySqlDao {
 	List<ParsPart> loadParsPartListByPart(String _partUid) {
 		return loadObjectList(TB_MBOM_PARS_PART, COL_PARS_PART_PART_UID, _partUid, this::parseParsPart);
 	}
+	
+	/** PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS */
+	static String packPpartExistsField4PcIdsInParentPa(String _tbPars, String _colParsUid, String _tbAliasPart,
+			String _colPartUid) {
+		String ppartSubConditionSql = COL_PARS_PART_PART_UID + " = " + _tbAliasPart + "." + _colPartUid;
+		return packExistsField(_tbPars, _colParsUid, TB_MBOM_PARS_PART, COL_PARS_PART_PARS_UID, ppartSubConditionSql);
+	}
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------PpartSkewer----------------------------------
@@ -398,7 +439,8 @@ public class PartDao extends AbstractMySqlDao {
 				this::parsePpartSkewer);
 	}
 
-	private String parsePpartSkewerQueryParamMapping(PpartSkewerQueryParam _p) {
+	private String parsePpartSkewerQueryParamMapping(PpartSkewerQueryParam _p,
+			Map<PpartSkewerQueryParam, QueryValue[]> _inSelectQueryValueMap) {
 		switch (_p) {
 		/* p */
 		case P_UID:
@@ -434,15 +476,33 @@ public class PartDao extends AbstractMySqlDao {
 		case PART_NAME:
 			return PPART_SKEWER_PPART_P.getSqlCol(COL_P_NAME);
 
+		/* pc */
+		case PC_ROOT_PART_UID:
+		case PC_ROOT_PART_PIN:
+//		case PC_IDs:
+			return PartCfgDao.packPartCfgField(_p, PPART_SKEWER_PA.getAlias());
+		case B_OF_PC$_PA_EXISTS:
+			return PartCfgDao.packPartCfgFieldPartAcqExists(_p, _inSelectQueryValueMap, PPART_SKEWER_PA.getAlias(),
+					COL_UID);
+		case B_OF_PC$_PARENT_PART_EXISTS:
+			return PartCfgDao.packPartCfgFieldParentPartExists(_p, _inSelectQueryValueMap,
+					PPART_SKEWER_P.getAlias(), COL_UID);
+		case B_OF_PC_ROOT_PART:
+			String field = PartCfgDao.packPartCfgField(_p, PPART_SKEWER_PA.getAlias());
+			String fstr = "(" + field + " = " + PPART_SKEWER_P.getSqlCol(COL_UID) + ")";
+			return fstr;
+
 		default:
 			return null;
 		}
 	}
 
 	QueryOperation<PpartSkewerQueryParam, PpartSkewer> searchPpartSkewer(
-			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p) {
-		return searchSkewer(PPART_SKEWER_TCPs, ppartSkewerTrs, _p, this::parsePpartSkewerQueryParamMapping,
-				this::parsePpartSkewer);
+			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p,
+			Map<PpartSkewerQueryParam, QueryValue[]> _existsQvMap) {
+		Function<PpartSkewerQueryParam, String> queryParamMappingParser = p -> parsePpartSkewerQueryParamMapping(p,
+				_existsQvMap);
+		return searchSkewer(PPART_SKEWER_TCPs, ppartSkewerTrs, _p, queryParamMappingParser, this::parsePpartSkewer);
 	}
 
 }

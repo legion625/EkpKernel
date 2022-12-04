@@ -23,6 +23,7 @@ import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
 import ekp.mbom.dto.PpartSkewer;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public class MbomDataServiceImp implements MbomDataService {
 	private Logger log = LoggerFactory.getLogger(MbomDataServiceImp.class);
@@ -201,8 +202,8 @@ public class MbomDataServiceImp implements MbomDataService {
 	
 	@Override
 	public QueryOperation<PpartSkewerQueryParam, PpartSkewer> searchPpartSkewer(
-			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p){
-		return partDao.searchPpartSkewer(_p);
+			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p, Map<PpartSkewerQueryParam, QueryValue[]> _existsQvMap){
+		return partDao.searchPpartSkewer(_p, _existsQvMap);
 	}
 	
 	// -------------------------------------------------------------------------------

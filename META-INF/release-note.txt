@@ -1,6 +1,8 @@
 Min-Hua, 2022.12.04
 [change]
-1. [MBOM] Add PpartSkewer.
+1. [MBOM] Add PpartSkewer and related services.
+  - loadPpartSkewer, searchPpartSkewer
+
 
 ------------------------------------------------------------------------------
 v0.1.4 released by Min-Hua, 2022.11.27

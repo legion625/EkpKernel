@@ -511,6 +511,21 @@ public class AbstractMySqlDao extends AbstractDao {
 		sb.append(")");
 		return sb.toString();
 	}
+//	
+//	protected static String packDetailQueryField(String _targetDetailField, String _detailTable
+//			, String _conditionSql) {
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("(");
+//		sb.append("select group_concat( distinct( ").append(_targetDetailField).append(" )) from ")
+//				.append(_detailTable);
+//		sb.append(" where ").append(_conditionSql);
+////		append(_detailMasterKey).append(" = ").append(_masterTable).append(".").append(_masterKey);
+////		if (_fixConditionMap != null)
+////			for (String _key : _fixConditionMap.keySet())
+////				sb.append(" and ").append(_key).append(" = ").append(_fixConditionMap.get(_key));
+////		sb.append(")");
+//		return sb.toString();
+//	}
 
 	protected static String packConjQueryField(String _targetField2, String _table1, String _table2, String _conjTable,
 			String _conjUid1, String _conjUid2) {
@@ -525,6 +540,7 @@ public class AbstractMySqlDao extends AbstractDao {
 		sb.append(" where ").append(COL_UID).append(" in (");
 		sb.append("select ").append(_conjUid2).append(" from ").append(_conjTable).append(" where ").append(_conjUid1)
 				.append(" = ").append(_table1).append(".").append(COL_UID);
+		sb.append(")");
 		/* ConjFixConditionMap */
 		if (_conjFixConditionMap != null)
 			for (String _key : _conjFixConditionMap.keySet()) {
@@ -585,21 +601,55 @@ public class AbstractMySqlDao extends AbstractDao {
 		return packExistsField(_tb1, _keyCol1, _tb2, _keyCol2, conditionSql);
 	}
 
-	protected static <Q extends QueryParam, T, P extends QueryParam> String packExistsField(String _tb1,
+	protected static <Q extends QueryParam, T, P extends QueryParam> String packExistsField(String _tb
+			, Function<Q, String> _queryParamMappingParser,
+			Map<P, QueryValue[]> _inSelectQueryValueMap, ConjunctiveOp _qvsConjunctiveOp, P _p
+			, String _conditionSql
+			) {
+		String conditionSql = "";
+		if (_inSelectQueryValueMap != null) {
+			QueryValue[] _queryValues = _inSelectQueryValueMap.get(_p);
+			conditionSql = _queryValues == null ? ""
+					: combineQueryValue(_queryParamMappingParser, _queryValues, _qvsConjunctiveOp);
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(" exists (select 1 from ").append(_tb);
+		sb.append(" where 1=1");
+		if (!DataFO.isEmptyString(conditionSql)) {
+			sb.append(" and ").append(conditionSql);
+		}
+		//
+		if(!DataFO.isEmptyString(_conditionSql))
+			sb.append(" and ").append(_conditionSql);
+		sb.append(")");
+		return sb.toString();
+	}
+	
+//	protected static <Q extends QueryParam, T, P extends QueryParam> String packExistsField(String _tb1,
+	protected static String packExistsField(String _tb1,
 			String _keyCol1, String _tb2, String _keyCol2, String _conditionSql) {
-		return packExistsField(_tb1, _keyCol1, _tb2, _keyCol2, _conditionSql, true);
+//		return packExistsField(_tb1, _keyCol1, _tb2, _keyCol2, _conditionSql, true);
+		StringBuilder sb = new StringBuilder();
+		sb.append(" exists (select 1 from ").append(_tb2);
+		sb.append(" where ").append(_keyCol2).append(" = ").append(_tb1).append(".").append(_keyCol1);
+		if (!DataFO.isEmptyString(_conditionSql)) {
+			sb.append(" and ").append(_conditionSql);
+		}
+		sb.append(")");
+		return sb.toString();
 	}
 
-	protected static <Q extends QueryParam, T, P extends QueryParam> String packExistsField(String _tb1,
+//	protected static <Q extends QueryParam, T, P extends QueryParam> String packExistsField(String _tb1,
+	@Deprecated
+	protected static String packExistsField(String _tb1,
 			String _keyCol1, String _tb2, String _keyCol2, String _conditionSql, boolean _equalTrue) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" exists (select 1 from ").append(_tb2);
 		sb.append(" where ").append(_keyCol2).append(" = ").append(_tb1).append(".").append(_keyCol1);
 		if (!DataFO.isEmptyString(_conditionSql)) {
 			sb.append(" and ").append(_conditionSql);
-			if (_equalTrue)
-				sb.append(" = true");
-			else
+			if (!_equalTrue)
 				sb.append(" = false");
 		}
 		sb.append(")");
@@ -728,6 +778,7 @@ public class AbstractMySqlDao extends AbstractDao {
 		try {
 			ArrayList<Object> datas = new ArrayList<>();
 			String qstr = packSearchSkewerSql(datas, _tableColPacks, _tableRels, _param, _sqlParser, _queryParamMappingParser);
+			log.error("qstr: {}", qstr);
 			StringBuilder sb = new StringBuilder(qstr);
 			
 			// sort

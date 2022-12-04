@@ -1,19 +1,23 @@
 package ekp.mbom;
 
 import java.util.List;
+import java.util.Map;
 
 import ekp.data.service.mbom.query.PartQueryParam;
+import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.dto.ParsProcCreateObj;
 import ekp.mbom.dto.PartAcqRoutingStepCreateObj;
 import ekp.mbom.dto.PartAcquisitionCreateObj;
 import ekp.mbom.dto.PartCfgCreateObj;
 import ekp.mbom.dto.PartCreateObj;
+import ekp.mbom.dto.PpartSkewer;
 import ekp.mbom.dto.ProdCreateObj;
 import ekp.mbom.dto.ProdCtlCreateObj;
 import ekp.mbom.dto.ProdModCreateObj;
 import ekp.serviceFacade.rmi.mbom.PartCfgConjRemote;
 import legion.BusinessService;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public interface MbomService extends BusinessService {
 
@@ -87,6 +91,14 @@ public interface MbomService extends BusinessService {
 
 	public boolean parsPartRevertAssignPart(String _uid);
 
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PpartSkewer----------------------------------
+	public PpartSkewer loadPpartSkewer(String _uid);
+
+	public QueryOperation<PpartSkewerQueryParam, PpartSkewer> searchPpartSkewer(
+			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p,
+			Map<PpartSkewerQueryParam, QueryValue[]> _existsQvMap);
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------------PartCfg------------------------------------
 	public PartCfg createPartCfg(PartCfgCreateObj _dto);
