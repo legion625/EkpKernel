@@ -5,9 +5,15 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
+import javax.swing.SwingConstants;
+
+import org.slf4j.Logger;
 import org.slf4j.event.Level;
 
+import ekp.data.service.mbom.query.PartCfgQueryParam;
+import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.Part;
 import ekp.mbom.PartCfg;
 import ekp.mbom.PartCfgConj;
@@ -17,6 +23,8 @@ import legion.data.service.AbstractMySqlDao;
 import legion.data.service.AbstractMySqlDao.ColType;
 import legion.data.service.AbstractMySqlDao.DbColumn;
 import legion.util.LogUtil;
+import legion.util.query.QueryOperation.ConjunctiveOp;
+import legion.util.query.QueryOperation.QueryValue;
 
 class PartCfgDao extends AbstractMySqlDao {
 
@@ -80,6 +88,71 @@ class PartCfgDao extends AbstractMySqlDao {
 	List<PartCfg> loadPartCfgList(String _rootPartUid) {
 		return loadObjectList(TB_MBOM_PART_CFG, COL_PC_ROOT_PART_UID, _rootPartUid, this::parsePartCfg);
 	}
+	
+	private static String parsePartCfgQueryParamMapping(PartCfgQueryParam _p) {
+		String col = null;
+		switch (_p) {
+		case ROOT_PART_UID:
+			col = COL_PC_ROOT_PART_UID;
+			break;
+		case ROOT_PART_PIN:
+			col = COL_PC_ROOT_PART_PIN;
+			break;
+		case STATUS_IDX:
+			col = COL_PC_STATUS_IDX;
+			break;
+		case ID:
+			col = COL_PC_ID;
+			break;
+		case NAME:
+			col = COL_PC_NAME;
+			break;
+		case DESP:
+			col = COL_PC_DESP;
+			break;
+		default:
+			return null;
+		}
+		return col;
+	}
+	
+	static String packPartCfgField(PpartSkewerQueryParam _p, String _tbPartAcq) {
+		switch (_p) {
+		case PC_ROOT_PART_UID:
+			return packConjQueryField(COL_PC_ROOT_PART_UID, _tbPartAcq, TB_MBOM_PART_CFG, TB_MBOM_PART_CFG_CONJ,
+					COL_PCC_PART_ACQ_UID, COL_PCC_PART_CFG_UID);
+		case PC_ROOT_PART_PIN:
+			return packConjQueryField(COL_PC_ROOT_PART_PIN, _tbPartAcq, TB_MBOM_PART_CFG, TB_MBOM_PART_CFG_CONJ,
+					COL_PCC_PART_ACQ_UID, COL_PCC_PART_CFG_UID);
+//		case PC_IDs:
+//			return packConjQueryField(COL_PC_ID, _tbPartAcq, TB_MBOM_PART_CFG, TB_MBOM_PART_CFG_CONJ,
+//					COL_PCC_PART_ACQ_UID, COL_PCC_PART_CFG_UID);
+		case B_OF_PC_ROOT_PART:
+			return packConjQueryField(COL_PC_ROOT_PART_UID, _tbPartAcq, TB_MBOM_PART_CFG, TB_MBOM_PART_CFG_CONJ,
+					COL_PCC_PART_ACQ_UID, COL_PCC_PART_CFG_UID);
+		default:
+			return null;
+		}
+	}
+	
+	/** PpartSkewerQueryParam.B_OF_PC$_PA_EXISTS */
+	// FIXME
+	static String packPartCfgFieldPartAcqExists(PpartSkewerQueryParam _p,
+			Map<PpartSkewerQueryParam, QueryValue[]> _inSelectQueryValueMap, String _tbAliasPa, String _colPaUid) {
+		return packExistsField(TB_MBOM_PART_CFG, PartCfgDao::parsePartCfgQueryParamMapping, _inSelectQueryValueMap,
+				ConjunctiveOp.and, _p,
+//				COL_PCC_PART_ACQ_UID + " = " + _tbAliasPa + "." + _colPaUid
+				packPartCfgConjFieldPartAcqExists(TB_MBOM_PART_CFG, COL_UID, _tbAliasPa, _colPaUid)
+				);
+	}
+
+	/** PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS */
+	static String packPartCfgFieldParentPartExists(PpartSkewerQueryParam _p,
+			Map<PpartSkewerQueryParam, QueryValue[]> _inSelectQueryValueMap, String _tbAliasPart, String _colPartUid) {
+		return packExistsField(TB_MBOM_PART_CFG, PartCfgDao::parsePartCfgQueryParamMapping, _inSelectQueryValueMap,
+				ConjunctiveOp.and, _p,
+				packPartCfgConjExistsField4PcIdsInParentPa(TB_MBOM_PART_CFG, COL_UID, _tbAliasPart, _colPartUid));
+	}
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------PartCfgConj----------------------------------
@@ -132,5 +205,24 @@ class PartCfgDao extends AbstractMySqlDao {
 	List<PartCfgConj> loadPartCfgConjListByPartAcq(String _partAcqUid){
 		return loadObjectList(TB_MBOM_PART_CFG_CONJ, COL_PCC_PART_ACQ_UID, _partAcqUid, this::parsePartCfgConj);
 	}
+	
+	/** PpartSkewerQueryParam.B_OF_PC$_PA_EXISTS */
+	private static String packPartCfgConjFieldPartAcqExists(String _tbPc, String _colPcUid,
+			String _tbAliasPa, String _colPaUid) {
+		return packExistsField(_tbPc, _colPcUid, TB_MBOM_PART_CFG_CONJ, COL_PCC_PART_CFG_UID,
+				COL_PCC_PART_ACQ_UID + " = " + _tbAliasPa + "." + _colPaUid
+//				PartDao.packParsExistsField4PcIdsInParentPa(TB_MBOM_PART_CFG_CONJ, COL_PCC_PART_ACQ_UID, _tbAliasPart,
+//						_colPartUid)
+				);
+	} 
+	
+	/** PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS */
+	private static String packPartCfgConjExistsField4PcIdsInParentPa(String _tbPc, String _colPcUid,
+			String _tbAliasPart, String _colPartUid) {
+		return packExistsField(_tbPc, _colPcUid, TB_MBOM_PART_CFG_CONJ, COL_PCC_PART_CFG_UID,
+				PartDao.packParsExistsField4PcIdsInParentPa(TB_MBOM_PART_CFG_CONJ, COL_PCC_PART_ACQ_UID, _tbAliasPart,
+						_colPartUid));
+	}
+
 }
 

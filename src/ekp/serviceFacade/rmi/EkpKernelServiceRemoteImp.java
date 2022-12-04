@@ -3,6 +3,7 @@ package ekp.serviceFacade.rmi;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import ekp.DebugLogMark;
 import ekp.data.service.mbom.query.PartQueryParam;
+import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.MbomService;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
@@ -23,6 +25,7 @@ import ekp.mbom.ProdCtl;
 import ekp.mbom.ProdCtlPartCfgConj;
 import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
+import ekp.mbom.dto.PpartSkewer;
 import ekp.serviceFacade.rmi.mbom.MbomFO;
 import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
@@ -36,6 +39,7 @@ import ekp.serviceFacade.rmi.mbom.PartCfgCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartCfgRemote;
 import ekp.serviceFacade.rmi.mbom.PartCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartRemote;
+import ekp.serviceFacade.rmi.mbom.PpartSkewerRemote;
 import ekp.serviceFacade.rmi.mbom.ProdCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ProdCtlCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ProdCtlPartCfgConjRemote;
@@ -46,6 +50,7 @@ import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
 import legion.BusinessServiceFactory;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements EkpKernelServiceRemote {
 
@@ -93,7 +98,6 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	@Override
 	public QueryOperation<PartQueryParam, PartRemote> searchPart(QueryOperation<PartQueryParam, PartRemote> _param)
 			throws RemoteException{
-		
 		QueryOperation<PartQueryParam, Part> param = (QueryOperation<PartQueryParam, Part>) _param.copy();
 		param = mbomService.searchPart(param);
 		log.debug("param.getTotal(): {}", param.getTotal());
@@ -261,6 +265,30 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	@Override
 	public boolean parsPartRevertAssignPart(String _uid) throws RemoteException {
 		return mbomService.parsPartRevertAssignPart(_uid);
+	}
+	
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PpartSkewer----------------------------------
+	@Override
+	public PpartSkewerRemote loadPpartSkewer(String _uid) throws RemoteException {
+		PpartSkewer obj = mbomService.loadPpartSkewer(_uid);
+		return obj == null ? null : MbomFO.parsePpartSkewerRemote(obj);
+	}
+
+	@Override
+	public QueryOperation<PpartSkewerQueryParam, PpartSkewerRemote> searchPpartSkewer(
+			QueryOperation<PpartSkewerQueryParam, PpartSkewerRemote> _param,
+			Map<PpartSkewerQueryParam, QueryValue[]> _existsQvMap) throws RemoteException {
+		QueryOperation<PpartSkewerQueryParam, PpartSkewer> param = (QueryOperation<PpartSkewerQueryParam, PpartSkewer>) _param
+				.copy();
+		param = mbomService.searchPpartSkewer(param, _existsQvMap);
+		log.debug("param.getTotal(): {}", param.getTotal());
+		log.debug("limit: {}\t{}", param.getLimit()[0], param.getLimit()[1]);
+		log.debug("param.getQueryResult().size(): {}", param.getQueryResult().size());
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(MbomFO::parsePpartSkewerRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
 	}
 
 	// -------------------------------------------------------------------------------

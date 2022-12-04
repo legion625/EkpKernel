@@ -17,6 +17,7 @@ import ekp.mbom.dto.PartAcqRoutingStepCreateObj;
 import ekp.mbom.dto.PartAcquisitionCreateObj;
 import ekp.mbom.dto.PartCfgCreateObj;
 import ekp.mbom.dto.PartCreateObj;
+import ekp.mbom.dto.PpartSkewer;
 import ekp.mbom.dto.ProdCreateObj;
 import ekp.mbom.dto.ProdCtlCreateObj;
 import ekp.mbom.dto.ProdModCreateObj;
@@ -120,6 +121,43 @@ public class MbomFO {
 		remote.setPartUid(_obj.getPartUid());
 		remote.setPartPin(_obj.getPartPin());
 		remote.setPartReqQty(_obj.getPartReqQty());
+		return remote;
+	}
+	
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PpartSkewer----------------------------------
+	public static PpartSkewerRemote parsePpartSkewerRemote(PpartSkewer _skewer) {
+		PpartSkewerRemote remote = new PpartSkewerRemote();
+		/* p */
+		remote.setpUid(_skewer.getpUid());
+		remote.setpPin(_skewer.getpPin());
+		remote.setpName(_skewer.getpName());
+
+		/* pa */
+		remote.setPaUid(_skewer.getPaUid());
+		remote.setPaId(_skewer.getPaId());
+		remote.setPaName(_skewer.getPaName());
+
+		/* pars */
+		remote.setParsSeq(_skewer.getParsSeq());
+		remote.setParsName(_skewer.getParsName());
+		remote.setParsDesp(_skewer.getParsDesp());
+
+		/* ppart */
+		remote.setUid(_skewer.getUid());
+		remote.setObjectCreateTime(_skewer.getObjectCreateTime());
+		remote.setObjectUpdateTime(_skewer.getObjectUpdateTime());
+		remote.setParsUid(_skewer.getParsUid());
+
+		// assign part
+		remote.setAssignPart(_skewer.isAssignPart());
+		remote.setPartUid(_skewer.getPartUid());
+		remote.setPartPin(_skewer.getPartPin());
+		remote.setPartReqQty(_skewer.getPartReqQty());
+
+		/* ppart-p */
+		remote.setPartName(_skewer.getPartName());
+
 		return remote;
 	}
 

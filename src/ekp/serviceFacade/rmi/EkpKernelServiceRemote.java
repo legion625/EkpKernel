@@ -3,8 +3,11 @@ package ekp.serviceFacade.rmi;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 
 import ekp.data.service.mbom.query.PartQueryParam;
+import ekp.data.service.mbom.query.PpartSkewerQueryParam;
+import ekp.mbom.dto.PpartSkewer;
 import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcRemote;
@@ -17,6 +20,7 @@ import ekp.serviceFacade.rmi.mbom.PartCfgCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartCfgRemote;
 import ekp.serviceFacade.rmi.mbom.PartCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.PartRemote;
+import ekp.serviceFacade.rmi.mbom.PpartSkewerRemote;
 import ekp.serviceFacade.rmi.mbom.ProdCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ProdCtlCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ProdCtlPartCfgConjRemote;
@@ -26,6 +30,7 @@ import ekp.serviceFacade.rmi.mbom.ProdModItemRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public interface EkpKernelServiceRemote extends Remote {
 	public boolean testCallBack() throws RemoteException;
@@ -102,6 +107,14 @@ public interface EkpKernelServiceRemote extends Remote {
 			throws RemoteException;
 
 	public boolean parsPartRevertAssignPart(String _uid) throws RemoteException;
+	
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PpartSkewer----------------------------------
+	public PpartSkewerRemote loadPpartSkewer(String _uid) throws RemoteException;
+
+	public QueryOperation<PpartSkewerQueryParam, PpartSkewerRemote> searchPpartSkewer(
+			QueryOperation<PpartSkewerQueryParam, PpartSkewerRemote> _param,
+			Map<PpartSkewerQueryParam, QueryValue[]> _existsQvMap) throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------------PartCfg------------------------------------

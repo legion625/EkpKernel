@@ -1,3 +1,11 @@
+Min-Hua, 2022.12.04
+[change]
+1. [MBOM] Add PpartSkewer and related services.
+  - loadPpartSkewer, searchPpartSkewer
+
+[lib]
+1. legionmodule_0.12.2 -> 0.12.3
+
 ------------------------------------------------------------------------------
 v0.1.4 released by Min-Hua, 2022.11.27
 [change]

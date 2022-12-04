@@ -8,16 +8,19 @@ import org.slf4j.LoggerFactory;
 
 import ekp.data.MbomDataService;
 import ekp.data.service.mbom.query.PartQueryParam;
+import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.dto.ParsProcCreateObj;
 import ekp.mbom.dto.PartAcqRoutingStepCreateObj;
 import ekp.mbom.dto.PartAcquisitionCreateObj;
 import ekp.mbom.dto.PartCfgCreateObj;
 import ekp.mbom.dto.PartCreateObj;
+import ekp.mbom.dto.PpartSkewer;
 import ekp.mbom.dto.ProdCreateObj;
 import ekp.mbom.dto.ProdCtlCreateObj;
 import ekp.mbom.dto.ProdModCreateObj;
 import legion.DataServiceFactory;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public class MbomServiceImp implements MbomService {
 	private Logger log = LoggerFactory.getLogger(MbomServiceImp.class);
@@ -194,6 +197,20 @@ public class MbomServiceImp implements MbomService {
 		return loadParsPart(_uid).revertAssignPart();
 	}
 
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PpartSkewer----------------------------------
+	@Override
+	public PpartSkewer loadPpartSkewer(String _uid) {
+		return dataService.loadPpartSkewer(_uid);
+	}
+
+	@Override
+	public QueryOperation<PpartSkewerQueryParam, PpartSkewer> searchPpartSkewer(
+			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p,
+			Map<PpartSkewerQueryParam, QueryValue[]> _existsQvMap) {
+		return dataService.searchPpartSkewer(_p, _existsQvMap);
+	}
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------------PartCfg------------------------------------
 	@Override

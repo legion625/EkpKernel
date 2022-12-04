@@ -1,10 +1,12 @@
 package ekp.data;
 
 import java.util.List;
+import java.util.Map;
 
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
 import ekp.data.service.mbom.query.PartQueryParam;
+import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
@@ -15,8 +17,10 @@ import ekp.mbom.ProdCtl;
 import ekp.mbom.ProdCtlPartCfgConj;
 import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
+import ekp.mbom.dto.PpartSkewer;
 import legion.IntegrationService;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public interface MbomDataService extends IntegrationService {
 
@@ -81,7 +85,16 @@ public interface MbomDataService extends IntegrationService {
 	public List<ParsPart> loadParsPartList(String _parsUid);
 
 	public List<ParsPart> loadParsPartListByPart(String _partUid);
-
+	
+	// -------------------------------------------------------------------------------
+	// ----------------------------------PpartSkewer----------------------------------
+	public PpartSkewer loadPpartSkewer(String _uid);
+	
+	public QueryOperation<PpartSkewerQueryParam, PpartSkewer> searchPpartSkewer(
+			QueryOperation<PpartSkewerQueryParam, PpartSkewer> _p,
+			Map<PpartSkewerQueryParam, QueryValue[]> _existsQvMap);
+	
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------------PartCfg------------------------------------
 	public boolean savePartCfg(PartCfg _pc);
