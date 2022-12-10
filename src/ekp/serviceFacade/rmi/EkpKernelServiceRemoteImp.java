@@ -346,8 +346,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	}
 
 	@Override
-	public boolean partCfgPublish(String _uid) throws RemoteException {
-		return mbomService.partCfgPublish(_uid);
+	public boolean partCfgPublish(String _uid, long _publishTime) throws RemoteException {
+		return mbomService.partCfgPublish(_uid,  _publishTime);
 	}
 
 	@Override

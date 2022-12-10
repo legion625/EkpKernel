@@ -255,8 +255,8 @@ public class MbomServiceImp implements MbomService {
 	}
 
 	@Override
-	public boolean partCfgPublish(String _uid) {
-		return loadPartCfg(_uid).publish();
+	public boolean partCfgPublish(String _uid, long _publishTime) {
+		return loadPartCfg(_uid).publish(_publishTime);
 	}
 
 	@Override

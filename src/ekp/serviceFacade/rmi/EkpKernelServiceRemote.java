@@ -136,7 +136,7 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public boolean partCfgRevertStartEditing(String _uid) throws RemoteException;
 
-	public boolean partCfgPublish(String _uid) throws RemoteException;
+	public boolean partCfgPublish(String _uid, long _publishTime) throws RemoteException;
 
 	public boolean partCfgRevertPublish(String _uid) throws RemoteException;
 

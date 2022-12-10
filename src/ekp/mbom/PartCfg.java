@@ -23,7 +23,9 @@ public class PartCfg extends ObjectModel {
 	private String id; // biz key
 	private String name;
 	private String desp;
-
+	
+	private long publishTime;
+	
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
 	private PartCfg(String rootPartUid, String rootPartPin) {
@@ -95,6 +97,14 @@ public class PartCfg extends ObjectModel {
 	public void setDesp(String desp) {
 		this.desp = desp;
 	}
+	
+	public long getPublishTime() {
+		return publishTime;
+	}
+
+	public void setPublishTime(long publishTime) {
+		this.publishTime = publishTime;
+	}
 
 	// -------------------------------------------------------------------------------
 	public int getStatusIdx() {
@@ -139,6 +149,7 @@ public class PartCfg extends ObjectModel {
 		pc.setId(_dto.getId());
 		pc.setName(_dto.getName());
 		pc.setDesp(_dto.getDesp());
+		pc.setPublishTime(0); // not publish yet
 		return pc.save() ? pc : null;
 	}
 
@@ -154,15 +165,17 @@ public class PartCfg extends ObjectModel {
 		return save();
 	}
 
-	boolean publish() {
+	boolean publish(long _publishTime) {
 		if (!gotoStatusPublished())
 			return false;
+		setPublishTime(_publishTime);
 		return save();
 	}
 
 	boolean revertPublish() {
 		if (!backtoStatusEditing())
 			return false;
+		setPublishTime(0);
 		return save();
 	}
 

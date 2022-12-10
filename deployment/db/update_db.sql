@@ -172,3 +172,8 @@ ALTER TABLE `mbom_part_acq_r_s`
 CHANGE COLUMN `id` `seq` VARCHAR(45) NULL DEFAULT NULL ;
 
 -- mh_pc
+
+-- 0.1.5 -> unstaging
+ALTER TABLE `mbom_part_cfg` 
+ADD COLUMN `publish_time` BIGINT(20) NULL DEFAULT 0 AFTER `desp`;
+

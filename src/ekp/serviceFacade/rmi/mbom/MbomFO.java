@@ -172,6 +172,7 @@ public class MbomFO {
 		remote.setId(_obj.getId());
 		remote.setName(_obj.getName());
 		remote.setDesp(_obj.getDesp());
+		remote.setPublishTime(_obj.getPublishTime());
 		return remote;
 	}
 	

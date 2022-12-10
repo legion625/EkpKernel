@@ -118,7 +118,7 @@ public interface MbomService extends BusinessService {
 
 	public boolean partCfgRevertStartEditing(String _uid);
 
-	public boolean partCfgPublish(String _uid);
+	public boolean partCfgPublish(String _uid, long _publishTime);
 
 	public boolean partCfgRevertPublish(String _uid);
 
