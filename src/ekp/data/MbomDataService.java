@@ -1,10 +1,12 @@
 package ekp.data;
 
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
+import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.ParsPart;
@@ -18,6 +20,7 @@ import ekp.mbom.ProdCtlPartCfgConj;
 import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
 import ekp.mbom.dto.PpartSkewer;
+import ekp.serviceFacade.rmi.mbom.PartCfgRemote;
 import legion.IntegrationService;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
@@ -106,6 +109,8 @@ public interface MbomDataService extends IntegrationService {
 	public PartCfg loadPartCfgById(String _id);
 
 	public List<PartCfg> loadPartCfgList(String _rootPartUid);
+	
+	public QueryOperation<PartCfgQueryParam, PartCfg> searchPartCfg(QueryOperation<PartCfgQueryParam, PartCfg> _param);
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------PartCfgConj----------------------------------

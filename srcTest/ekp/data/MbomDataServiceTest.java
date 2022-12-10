@@ -18,7 +18,9 @@ import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.Part;
+import ekp.mbom.PartCfg;
 import ekp.mbom.dto.PpartSkewer;
+import ekp.mbom.type.PartCfgStatus;
 import legion.DataServiceFactory;
 import legion.util.BeanUtil;
 import legion.util.query.QueryOperation;
@@ -68,11 +70,19 @@ public class MbomDataServiceTest extends AbstractEkpInitTest {
 		//
 		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.B_OF_PC$_PA_EXISTS, equal, true));
 		existsQvMap.put(PpartSkewerQueryParam.B_OF_PC$_PA_EXISTS,
-				new QueryValue[] { QueryOperation.value(PartCfgQueryParam.ID, equal, "MAU") });
+				new QueryValue[] { QueryOperation.value(PartCfgQueryParam.ID, equal, "MTW") });
 		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.B_OF_PC_ROOT_PART, equal, false)); // 排除root
-		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS, equal, false)); // 沒上階(孤兒)
+		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS, equal, true)); // 沒上階(孤兒)
 		existsQvMap.put(PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS,
-				new QueryValue[] { QueryOperation.value(PartCfgQueryParam.ID, equal, "MAU") });
+				new QueryValue[] { QueryOperation.value(PartCfgQueryParam.ID, equal, "MTW") });
+		
+//		//
+//		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.PART_UID, CompareOp.equal, "2022!30!7!7"));
+//		p.appendCondition(
+//				QueryOperation.value(PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS, CompareOp.equal, true));
+//		existsQvMap.put(PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS, new QueryValue[] { //
+//				QueryOperation.value(PartCfgQueryParam.ID, CompareOp.equal, "MTW"), //
+//		});
 		
 		//
 		p  =	dataService.searchPpartSkewer(p, existsQvMap);
@@ -82,5 +92,19 @@ public class MbomDataServiceTest extends AbstractEkpInitTest {
 			log.debug("PropertyUtils.describe(s): {}", PropertyUtils.describe(s));
 		}
 		
+	}
+	
+	// -------------------------------------------------------------------------------
+	// ------------------------------------PartCfg------------------------------------
+	@Test
+	public void testSearchPartCfg() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		QueryOperation<PartCfgQueryParam, PartCfg> param = new QueryOperation<>();
+		param.appendCondition(QueryOperation.value(PartCfgQueryParam.STATUS_IDX,CompareOp.equal,PartCfgStatus.EDITING.getIdx()));
+		param = dataService.searchPartCfg(param);
+		List<PartCfg> list = param.getQueryResult();
+		log.debug("list.size(): {}", list.size());
+		for(PartCfg pc:  list) {
+			log.debug("PropertyUtils.describe(s): {}", PropertyUtils.describe(pc));
+		}
 	}
 }

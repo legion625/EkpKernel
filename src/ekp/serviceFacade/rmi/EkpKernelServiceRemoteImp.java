@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.DebugLogMark;
+import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.MbomService;
@@ -320,6 +321,18 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<PartCfg> list = mbomService.loadPartCfgList(_rootPartUid);
 		List<PartCfgRemote> remoteList = list.stream().map(MbomFO::parsePartCfgRemote).collect(Collectors.toList());
 		return remoteList;
+	}
+	
+	@Override
+	public QueryOperation<PartCfgQueryParam, PartCfgRemote> searchPartCfg(
+			QueryOperation<PartCfgQueryParam, PartCfgRemote> _param) throws RemoteException{
+		QueryOperation<PartCfgQueryParam, PartCfg> param = (QueryOperation<PartCfgQueryParam, PartCfg>) _param
+				.copy();
+		param = mbomService.searchPartCfg(param);
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(MbomFO::parsePartCfgRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
 	}
 
 	@Override

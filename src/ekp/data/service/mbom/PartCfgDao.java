@@ -23,6 +23,7 @@ import legion.data.service.AbstractMySqlDao;
 import legion.data.service.AbstractMySqlDao.ColType;
 import legion.data.service.AbstractMySqlDao.DbColumn;
 import legion.util.LogUtil;
+import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.ConjunctiveOp;
 import legion.util.query.QueryOperation.QueryValue;
 
@@ -114,6 +115,10 @@ class PartCfgDao extends AbstractMySqlDao {
 			return null;
 		}
 		return col;
+	}
+	
+	QueryOperation<PartCfgQueryParam, PartCfg> searchPartCfg(QueryOperation<PartCfgQueryParam, PartCfg> _param) {
+		return searchObject(TB_MBOM_PART_CFG, _param, PartCfgDao::parsePartCfgQueryParamMapping, this::parsePartCfg);
 	}
 	
 	static String packPartCfgField(PpartSkewerQueryParam _p, String _tbPartAcq) {

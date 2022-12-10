@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
+import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.dto.PpartSkewer;
@@ -127,6 +128,9 @@ public interface EkpKernelServiceRemote extends Remote {
 	public PartCfgRemote loadPartCfgById(String _id) throws RemoteException;
 
 	public List<PartCfgRemote> loadPartCfgList(String _rootPartUid) throws RemoteException;
+	
+	public QueryOperation<PartCfgQueryParam, PartCfgRemote> searchPartCfg(
+			QueryOperation<PartCfgQueryParam, PartCfgRemote> _param) throws RemoteException;
 
 	public boolean partCfgStartEditing(String _uid) throws RemoteException;
 

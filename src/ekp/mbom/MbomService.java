@@ -3,6 +3,7 @@ package ekp.mbom;
 import java.util.List;
 import java.util.Map;
 
+import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.dto.ParsProcCreateObj;
@@ -110,6 +111,8 @@ public interface MbomService extends BusinessService {
 	public PartCfg loadPartCfgById(String _id);
 
 	public List<PartCfg> loadPartCfgList(String _rootPartUid);
+	
+	public QueryOperation<PartCfgQueryParam, PartCfg> searchPartCfg(QueryOperation<PartCfgQueryParam, PartCfg> _param);
 
 	public boolean partCfgStartEditing(String _uid);
 
