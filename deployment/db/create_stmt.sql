@@ -38,9 +38,11 @@ CREATE TABLE `mbom_part_acq` (
   `uid` varchar(45) NOT NULL,
   `part_uid` varchar(45) DEFAULT NULL,
   `part_pin` varchar(45) DEFAULT NULL,
+  `status_idx` tinyint(4) DEFAULT '0',
   `id` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `type_idx` tinyint(4) DEFAULT NULL,
+  `publish_time` bigint(20) DEFAULT '0',
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
