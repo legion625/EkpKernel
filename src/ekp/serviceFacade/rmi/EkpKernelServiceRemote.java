@@ -61,6 +61,14 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public List<PartAcquisitionRemote> loadPartAcquisitionList(String _partUid) throws RemoteException;
 
+	public boolean partAcqStartEditing(String _uid) throws RemoteException;
+
+	public boolean partAcqRevertStartEditing(String _uid) throws RemoteException;
+
+	public boolean partAcqPublish(String _uid, long _publishTime) throws RemoteException;
+
+	public boolean partAcqRevertPublish(String _uid) throws RemoteException;
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	public PartAcqRoutingStepRemote createPartAcqRoutingStep(PartAcqRoutingStepCreateObjRemote _dto)

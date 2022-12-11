@@ -171,9 +171,15 @@ ADD COLUMN `unit_idx` TINYINT NULL AFTER `name`;
 ALTER TABLE `mbom_part_acq_r_s` 
 CHANGE COLUMN `id` `seq` VARCHAR(45) NULL DEFAULT NULL ;
 
--- mh_pc
-
 -- 0.1.5 -> unstaging
 ALTER TABLE `mbom_part_cfg` 
 ADD COLUMN `publish_time` BIGINT(20) NULL DEFAULT 0 AFTER `desp`;
 
+ALTER TABLE `mbom_part_acq` 
+ADD COLUMN `status_idx` TINYINT(4) NULL DEFAULT 0 AFTER `part_pin`,
+ADD COLUMN `publish_time` BIGINT(20) NULL DEFAULT 0 AFTER `type_idx`;
+
+/* data migration */
+-- update `mbom_part_acq` set status_idx = 2;
+
+-- mh_pc

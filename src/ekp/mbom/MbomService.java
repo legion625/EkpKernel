@@ -46,6 +46,14 @@ public interface MbomService extends BusinessService {
 
 	public List<PartAcquisition> loadPartAcquisitionList(String _partUid);
 
+	public boolean partAcqStartEditing(String _uid);
+
+	public boolean partAcqRevertStartEditing(String _uid);
+
+	public boolean partAcqPublish(String _uid, long _publishTime);
+
+	public boolean partAcqRevertPublish(String _uid);
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	public PartAcqRoutingStep createPartAcqRoutingStep(PartAcqRoutingStepCreateObj _dto);

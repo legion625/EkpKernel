@@ -143,6 +143,26 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		return remoteList;
 	}
 
+	@Override
+	public boolean partAcqStartEditing(String _uid) throws RemoteException {
+		return mbomService.partAcqStartEditing(_uid);
+	}
+
+	@Override
+	public boolean partAcqRevertStartEditing(String _uid) throws RemoteException {
+		return mbomService.partAcqRevertStartEditing(_uid);
+	}
+
+	@Override
+	public boolean partAcqPublish(String _uid, long _publishTime) throws RemoteException {
+		return mbomService.partAcqPublish(_uid, _publishTime);
+	}
+
+	@Override
+	public boolean partAcqRevertPublish(String _uid) throws RemoteException {
+		return mbomService.partAcqRevertPublish(_uid);
+	}
+
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	@Override

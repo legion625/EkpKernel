@@ -1,5 +1,6 @@
 package ekp.serviceFacade.rmi.mbom;
 
+import ekp.mbom.type.PartAcqStatus;
 import ekp.mbom.type.PartAcquisitionType;
 import legion.serviceFacade.rmi.ObjectModelRemote;
 
@@ -14,9 +15,13 @@ public class PartAcquisitionRemote extends ObjectModelRemote {
 	private String partUid; // ref data key
 	private String partPin; // ref biz key
 
+	private PartAcqStatus status;
+
 	private String id; // biz key
 	private String name;
 	private PartAcquisitionType type;
+
+	private long publishTime;
 
 	// -------------------------------------------------------------------------------
 	// ---------------------------------getter&setter---------------------------------
@@ -34,6 +39,14 @@ public class PartAcquisitionRemote extends ObjectModelRemote {
 
 	void setPartPin(String partPin) {
 		this.partPin = partPin;
+	}
+
+	public PartAcqStatus getStatus() {
+		return status;
+	}
+
+	void setStatus(PartAcqStatus status) {
+		this.status = status;
 	}
 
 	public String getId() {
@@ -58,6 +71,14 @@ public class PartAcquisitionRemote extends ObjectModelRemote {
 
 	void setType(PartAcquisitionType type) {
 		this.type = type;
+	}
+
+	public long getPublishTime() {
+		return publishTime;
+	}
+
+	void setPublishTime(long publishTime) {
+		this.publishTime = publishTime;
 	}
 
 }

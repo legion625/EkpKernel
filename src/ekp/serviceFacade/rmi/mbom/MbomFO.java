@@ -49,9 +49,11 @@ public class MbomFO {
 				_obj.getObjectUpdateTime());
 		remote.setPartUid(_obj.getPartUid());
 		remote.setPartPin(_obj.getPartPin());
+		remote.setStatus(_obj.getStatus());
 		remote.setId(_obj.getId());
 		remote.setName(_obj.getName());
 		remote.setType(_obj.getType());
+		remote.setPublishTime(_obj.getPublishTime());
 		return remote;
 	}
 

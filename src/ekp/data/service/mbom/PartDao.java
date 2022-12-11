@@ -19,11 +19,15 @@ import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
 import ekp.mbom.PartAcquisition;
+import ekp.mbom.PartCfg;
 import ekp.mbom.dto.PpartSkewer;
+import ekp.mbom.type.PartAcqStatus;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import legion.data.AbstractDao;
 import legion.data.service.AbstractMySqlDao;
+import legion.data.service.AbstractMySqlDao.ColType;
+import legion.data.service.AbstractMySqlDao.DbColumn;
 import legion.data.skewer.TableColPack;
 import legion.data.skewer.TableRel;
 import legion.util.LogUtil;
@@ -103,17 +107,21 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String TB_MBOM_PART_ACQUISITION = "mbom_part_acq";
 	private final static String COL_PA_PART_UID = "part_uid";
 	private final static String COL_PA_PART_PIN = "part_pin";
+	private final static String COL_PA_STATUS_IDX = "status_idx";
 	private final static String COL_PA_ID = "id";
 	private final static String COL_PA_NAME = "name";
 	private final static String COL_PA_TYPE_IDX = "type_idx";
+	private final static String COL_PA_PUBLISH_TIME = "publish_time";
 
 	boolean savePartAcquisition(PartAcquisition _pa) {
 		DbColumn<PartAcquisition>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_PA_PART_UID, ColType.STRING, PartAcquisition::getPartUid, 45), //
 				DbColumn.of(COL_PA_PART_PIN, ColType.STRING, PartAcquisition::getPartPin, 45), //
+				DbColumn.of(COL_PA_STATUS_IDX, ColType.INT, PartAcquisition::getStatusIdx), //
 				DbColumn.of(COL_PA_ID, ColType.STRING, PartAcquisition::getId, 45), //
 				DbColumn.of(COL_PA_NAME, ColType.STRING, PartAcquisition::getName, 45), //
 				DbColumn.of(COL_PA_TYPE_IDX, ColType.INT, PartAcquisition::getTypeIdx), //
+				DbColumn.of(COL_PA_PUBLISH_TIME, ColType.LONG, PartAcquisition::getPublishTime), //
 		};
 		return saveObject(TB_MBOM_PART_ACQUISITION, cols, _pa);
 	}
@@ -127,12 +135,14 @@ public class PartDao extends AbstractMySqlDao {
 		try {
 			String partUid = _rs.getString(COL_PA_PART_UID);
 			String partPin = _rs.getString(COL_PA_PART_PIN);
-			pa = PartAcquisition.getInstance(parseUid(_rs), partUid, partPin, parseObjectCreateTime(_rs),
+			PartAcqStatus status = PartAcqStatus.get(_rs.getInt(COL_PA_STATUS_IDX));
+			pa = PartAcquisition.getInstance(parseUid(_rs), partUid, partPin, status, parseObjectCreateTime(_rs),
 					parseObjectUpdateTime(_rs));
 			/* pack attributes */
 			pa.setId(_rs.getString(COL_PA_ID));
 			pa.setName(_rs.getString(COL_PA_NAME));
 			pa.setType(PartAcquisitionType.get(_rs.getInt(COL_PA_TYPE_IDX)));
+			pa.setPublishTime(_rs.getLong(COL_PA_PUBLISH_TIME));
 			return pa;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
@@ -155,18 +165,6 @@ public class PartDao extends AbstractMySqlDao {
 		return loadObjectList(TB_MBOM_PART_ACQUISITION, COL_PA_PART_UID, _partUid, this::parsePartAcquisition);
 	}
 
-//	private static String packPaField(PpartSkewerQueryParam _p, String _tbPars, String _colParsPaUidCol) {
-//		String col = null;
-//		switch (_p) {
-//		case PC_IDs_IN_PARENT_PA:
-//			col = PartCfgDao.packPartCfgField(_p, TB_MBOM_PART_ACQUISITION);
-//			break;
-//		default:
-//			return null;
-//		}
-//		return packMasterQueryField(col, TB_MBOM_PART_ACQUISITION, COL_UID, _tbPars, _colParsPaUidCol);
-//	}
-	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	private final static String TB_MBOM_PART_ACQ_ROUTING_STEP = "mbom_part_acq_r_s";
@@ -230,17 +228,6 @@ public class PartDao extends AbstractMySqlDao {
 						_colPartUid));
 	}
 	
-//	private static String packParsField(PpartSkewerQueryParam _p, String _tbPpartSkewer, String _colPpartSkewerParsUid) {
-//		String col = null;
-//		switch (_p) {
-//		case PC_IDs_IN_PARENT_PA:
-//			col = packPaField(_p, TB_MBOM_PART_ACQ_ROUTING_STEP, COL_PARS_PART_ACQ_UID);
-//			break;
-//		default:
-//			return null;
-//		}
-//		return packMasterQueryField(col, TB_MBOM_PARS_PART, COL_UID, _tbPpartSkewer, _colPpartSkewerParsUid);
-//	}
 
 	// -------------------------------------------------------------------------------
 	// -----------------------------------ParsProc------------------------------------

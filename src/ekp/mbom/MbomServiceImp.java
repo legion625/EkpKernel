@@ -91,7 +91,23 @@ public class MbomServiceImp implements MbomService {
 	public List<PartAcquisition> loadPartAcquisitionList(String _partUid) {
 		return dataService.loadPartAcquisitionList(_partUid);
 	}
-
+	@Override
+	public boolean partAcqStartEditing(String _uid) {
+		return loadPartAcquisition(_uid).startEditing();
+	}
+	@Override
+	public boolean partAcqRevertStartEditing(String _uid) {
+		return loadPartAcquisition(_uid).revertStartEditing();
+	}
+	@Override
+	public boolean partAcqPublish(String _uid, long _publishTime) {
+		return loadPartAcquisition(_uid).publish(_publishTime);
+	}
+	@Override
+	public boolean partAcqRevertPublish(String _uid) {
+		return loadPartAcquisition(_uid).revertPublish();
+	}
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	@Override
