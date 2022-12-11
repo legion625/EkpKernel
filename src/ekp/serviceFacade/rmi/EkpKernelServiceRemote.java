@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
+import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.dto.PpartSkewer;
@@ -60,6 +61,14 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public List<PartAcquisitionRemote> loadPartAcquisitionList(String _partUid) throws RemoteException;
 
+	public boolean partAcqStartEditing(String _uid) throws RemoteException;
+
+	public boolean partAcqRevertStartEditing(String _uid) throws RemoteException;
+
+	public boolean partAcqPublish(String _uid, long _publishTime) throws RemoteException;
+
+	public boolean partAcqRevertPublish(String _uid) throws RemoteException;
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	public PartAcqRoutingStepRemote createPartAcqRoutingStep(PartAcqRoutingStepCreateObjRemote _dto)
@@ -127,12 +136,15 @@ public interface EkpKernelServiceRemote extends Remote {
 	public PartCfgRemote loadPartCfgById(String _id) throws RemoteException;
 
 	public List<PartCfgRemote> loadPartCfgList(String _rootPartUid) throws RemoteException;
+	
+	public QueryOperation<PartCfgQueryParam, PartCfgRemote> searchPartCfg(
+			QueryOperation<PartCfgQueryParam, PartCfgRemote> _param) throws RemoteException;
 
 	public boolean partCfgStartEditing(String _uid) throws RemoteException;
 
 	public boolean partCfgRevertStartEditing(String _uid) throws RemoteException;
 
-	public boolean partCfgPublish(String _uid) throws RemoteException;
+	public boolean partCfgPublish(String _uid, long _publishTime) throws RemoteException;
 
 	public boolean partCfgRevertPublish(String _uid) throws RemoteException;
 

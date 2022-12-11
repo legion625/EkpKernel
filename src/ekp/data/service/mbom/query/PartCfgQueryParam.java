@@ -10,6 +10,7 @@ public enum PartCfgQueryParam implements QueryParam{
 	ID("id", "Id"), // 
 	NAME("name", "Name"), //
 	DESP("desp", "Description"), // 
+	PUBLISH_TIME("publish_time", "publish time"), //
 	
 	;
 

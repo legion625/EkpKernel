@@ -23,6 +23,7 @@ import legion.data.service.AbstractMySqlDao;
 import legion.data.service.AbstractMySqlDao.ColType;
 import legion.data.service.AbstractMySqlDao.DbColumn;
 import legion.util.LogUtil;
+import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.ConjunctiveOp;
 import legion.util.query.QueryOperation.QueryValue;
 
@@ -41,6 +42,8 @@ class PartCfgDao extends AbstractMySqlDao {
 	private final static String COL_PC_ID = "id";
 	private final static String COL_PC_NAME = "name";
 	private final static String COL_PC_DESP = "desp";
+	private final static String COL_PC_PUBLISH_TIME = "publish_time";
+	
 
 	boolean savePartCfg(PartCfg _pc) {
 		DbColumn<PartCfg>[] cols = new DbColumn[] { //
@@ -50,6 +53,7 @@ class PartCfgDao extends AbstractMySqlDao {
 				DbColumn.of(COL_PC_ID, ColType.STRING, PartCfg::getId, 45), //
 				DbColumn.of(COL_PC_NAME, ColType.STRING, PartCfg::getName, 45), //
 				DbColumn.of(COL_PC_DESP, ColType.STRING, PartCfg::getDesp, 200), //
+				DbColumn.of(COL_PC_PUBLISH_TIME, ColType.LONG, PartCfg::getPublishTime), //
 		};
 		return saveObject(TB_MBOM_PART_CFG, cols, _pc);
 	}
@@ -70,6 +74,7 @@ class PartCfgDao extends AbstractMySqlDao {
 			pc.setId(_rs.getString(COL_PC_ID));
 			pc.setName(_rs.getString(COL_PC_NAME));
 			pc.setDesp(_rs.getString(COL_PC_DESP));
+			pc.setPublishTime(_rs.getLong(COL_PC_PUBLISH_TIME));
 			return pc;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
@@ -110,10 +115,17 @@ class PartCfgDao extends AbstractMySqlDao {
 		case DESP:
 			col = COL_PC_DESP;
 			break;
+		case PUBLISH_TIME:
+			col = COL_PC_PUBLISH_TIME;
+			break;
 		default:
 			return null;
 		}
 		return col;
+	}
+	
+	QueryOperation<PartCfgQueryParam, PartCfg> searchPartCfg(QueryOperation<PartCfgQueryParam, PartCfg> _param) {
+		return searchObject(TB_MBOM_PART_CFG, _param, PartCfgDao::parsePartCfgQueryParamMapping, this::parsePartCfg);
 	}
 	
 	static String packPartCfgField(PpartSkewerQueryParam _p, String _tbPartAcq) {
@@ -124,9 +136,6 @@ class PartCfgDao extends AbstractMySqlDao {
 		case PC_ROOT_PART_PIN:
 			return packConjQueryField(COL_PC_ROOT_PART_PIN, _tbPartAcq, TB_MBOM_PART_CFG, TB_MBOM_PART_CFG_CONJ,
 					COL_PCC_PART_ACQ_UID, COL_PCC_PART_CFG_UID);
-//		case PC_IDs:
-//			return packConjQueryField(COL_PC_ID, _tbPartAcq, TB_MBOM_PART_CFG, TB_MBOM_PART_CFG_CONJ,
-//					COL_PCC_PART_ACQ_UID, COL_PCC_PART_CFG_UID);
 		case B_OF_PC_ROOT_PART:
 			return packConjQueryField(COL_PC_ROOT_PART_UID, _tbPartAcq, TB_MBOM_PART_CFG, TB_MBOM_PART_CFG_CONJ,
 					COL_PCC_PART_ACQ_UID, COL_PCC_PART_CFG_UID);

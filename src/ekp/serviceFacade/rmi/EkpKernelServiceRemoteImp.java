@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.DebugLogMark;
+import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.MbomService;
@@ -140,6 +141,26 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<PartAcquisitionRemote> remoteList = list.stream().map(MbomFO::parsePartAcquisitionRemote)
 				.collect(Collectors.toList());
 		return remoteList;
+	}
+
+	@Override
+	public boolean partAcqStartEditing(String _uid) throws RemoteException {
+		return mbomService.partAcqStartEditing(_uid);
+	}
+
+	@Override
+	public boolean partAcqRevertStartEditing(String _uid) throws RemoteException {
+		return mbomService.partAcqRevertStartEditing(_uid);
+	}
+
+	@Override
+	public boolean partAcqPublish(String _uid, long _publishTime) throws RemoteException {
+		return mbomService.partAcqPublish(_uid, _publishTime);
+	}
+
+	@Override
+	public boolean partAcqRevertPublish(String _uid) throws RemoteException {
+		return mbomService.partAcqRevertPublish(_uid);
 	}
 
 	// -------------------------------------------------------------------------------
@@ -321,6 +342,18 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<PartCfgRemote> remoteList = list.stream().map(MbomFO::parsePartCfgRemote).collect(Collectors.toList());
 		return remoteList;
 	}
+	
+	@Override
+	public QueryOperation<PartCfgQueryParam, PartCfgRemote> searchPartCfg(
+			QueryOperation<PartCfgQueryParam, PartCfgRemote> _param) throws RemoteException{
+		QueryOperation<PartCfgQueryParam, PartCfg> param = (QueryOperation<PartCfgQueryParam, PartCfg>) _param
+				.copy();
+		param = mbomService.searchPartCfg(param);
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(MbomFO::parsePartCfgRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
+	}
 
 	@Override
 	public boolean partCfgStartEditing(String _uid) throws RemoteException {
@@ -333,8 +366,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	}
 
 	@Override
-	public boolean partCfgPublish(String _uid) throws RemoteException {
-		return mbomService.partCfgPublish(_uid);
+	public boolean partCfgPublish(String _uid, long _publishTime) throws RemoteException {
+		return mbomService.partCfgPublish(_uid,  _publishTime);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package ekp.mbom;
 
+import java.time.LocalDate;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -8,8 +10,10 @@ import org.junit.Test;
 import ekp.AbstractEkpInitTest;
 import ekp.TestUtil;
 import ekp.data.MbomDataService;
+import ekp.mbom.type.PartAcqStatus;
 import ekp.mbom.type.PartAcquisitionType;
 import legion.DataServiceFactory;
+import legion.util.DateUtil;
 
 public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 	private static MbomDataService dataService = DataServiceFactory.getInstance().getService(MbomDataService.class);
@@ -20,8 +24,10 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("partUid1", "partPin1", "id1", "name1", PartAcquisitionType.PURCHASING);
-		target2 = new Target("partUid2", "partPin2", "id2", "name2", PartAcquisitionType.OUTSOURCING);
+		long time1 = DateUtil.toLong(LocalDate.now().plusDays(1));
+		long time2 = DateUtil.toLong(LocalDate.now().plusDays(2));
+		target1 = new Target("partUid1", "partPin1",PartAcqStatus.EDITING, "id1", "name1", PartAcquisitionType.PURCHASING, time1);
+		target2 = new Target("partUid2", "partPin2",PartAcqStatus.PUBLISHED, "id2", "name2", PartAcquisitionType.OUTSOURCING, time2);
 	}
 
 	@Test
@@ -66,17 +72,25 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 
 		private String partUid; // ref data key
 		private String partPin; // ref biz key
+		
+		private PartAcqStatus status;
 
 		private String id; // biz key
 		private String name;
 		private PartAcquisitionType type;
-		private Target(String partUid, String partPin, String id, String name, PartAcquisitionType type) {
+		
+		private long publishTime;
+		
+		private Target(String partUid, String partPin,PartAcqStatus status,
+				String id, String name, PartAcquisitionType type, long publishTime) {
 			super();
 			this.partUid = partUid;
 			this.partPin = partPin;
+			this.status = status;
 			this.id = id;
 			this.name = name;
 			this.type = type;
+			this.publishTime = publishTime;
 		}
 		public String getPartUid() {
 			return partUid;
@@ -84,6 +98,11 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 		public String getPartPin() {
 			return partPin;
 		}
+		
+		public PartAcqStatus getStatus() {
+			return status;
+		}
+		
 		public String getId() {
 			return id;
 		}
@@ -93,7 +112,12 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 		public PartAcquisitionType getType() {
 			return type;
 		}
+		
+		public long getPublishTime() {
+			return publishTime;
+		}
 
+		
 
 	}
 }

@@ -17,6 +17,8 @@ public class PartCfgRemote extends ObjectModelRemote {
 	private String name;
 	private String desp;
 
+	private long publishTime;
+	
 	public String getRootPartUid() {
 		return rootPartUid;
 	}
@@ -63,6 +65,14 @@ public class PartCfgRemote extends ObjectModelRemote {
 
 	void setDesp(String desp) {
 		this.desp = desp;
+	}
+
+	public long getPublishTime() {
+		return publishTime;
+	}
+
+	void setPublishTime(long publishTime) {
+		this.publishTime = publishTime;
 	}
 
 }

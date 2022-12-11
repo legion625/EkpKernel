@@ -1,5 +1,7 @@
 package ekp.mbom;
 
+import java.time.LocalDate;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -10,6 +12,7 @@ import ekp.TestUtil;
 import ekp.data.MbomDataService;
 import ekp.mbom.type.PartCfgStatus;
 import legion.DataServiceFactory;
+import legion.util.DateUtil;
 
 public class BizObjPartCfgTest extends AbstractEkpInitTest {
 	private static MbomDataService dataService = DataServiceFactory.getInstance().getService(MbomDataService.class);
@@ -20,8 +23,10 @@ public class BizObjPartCfgTest extends AbstractEkpInitTest {
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("rootPartUid1", "rootPartPin1", PartCfgStatus.EDITING, "id1", "name1", "desp1");
-		target2 = new Target("rootPartUid2", "rootPartPin2", PartCfgStatus.PUBLISHED, "id2", "name2", "desp2");
+		long time1 = DateUtil.toLong(LocalDate.now().plusDays(1));
+		long time2 = DateUtil.toLong(LocalDate.now().plusDays(2));
+		target1 = new Target("rootPartUid1", "rootPartPin1", PartCfgStatus.EDITING, "id1", "name1", "desp1", time1);
+		target2 = new Target("rootPartUid2", "rootPartPin2", PartCfgStatus.PUBLISHED, "id2", "name2", "desp2", time2);
 	}
 
 	@Test
@@ -71,9 +76,11 @@ public class BizObjPartCfgTest extends AbstractEkpInitTest {
 		private String id; // biz key
 		private String name;
 		private String desp;
+		
+		private long publishTime;
 
 		private Target(String rootPartUid, String rootPartPin, PartCfgStatus status, String id, String name,
-				String desp) {
+				String desp, long publishTime) {
 			super();
 			this.rootPartUid = rootPartUid;
 			this.rootPartPin = rootPartPin;
@@ -81,6 +88,7 @@ public class BizObjPartCfgTest extends AbstractEkpInitTest {
 			this.id = id;
 			this.name = name;
 			this.desp = desp;
+			this.publishTime = publishTime;
 		}
 
 		public String getRootPartUid() {
@@ -106,6 +114,12 @@ public class BizObjPartCfgTest extends AbstractEkpInitTest {
 		public String getDesp() {
 			return desp;
 		}
+
+		public long getPublishTime() {
+			return publishTime;
+		}
+		
+		
 
 	}
 }

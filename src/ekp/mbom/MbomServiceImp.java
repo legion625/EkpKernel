@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.data.MbomDataService;
+import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.dto.ParsProcCreateObj;
@@ -90,7 +91,23 @@ public class MbomServiceImp implements MbomService {
 	public List<PartAcquisition> loadPartAcquisitionList(String _partUid) {
 		return dataService.loadPartAcquisitionList(_partUid);
 	}
-
+	@Override
+	public boolean partAcqStartEditing(String _uid) {
+		return loadPartAcquisition(_uid).startEditing();
+	}
+	@Override
+	public boolean partAcqRevertStartEditing(String _uid) {
+		return loadPartAcquisition(_uid).revertStartEditing();
+	}
+	@Override
+	public boolean partAcqPublish(String _uid, long _publishTime) {
+		return loadPartAcquisition(_uid).publish(_publishTime);
+	}
+	@Override
+	public boolean partAcqRevertPublish(String _uid) {
+		return loadPartAcquisition(_uid).revertPublish();
+	}
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	@Override
@@ -237,6 +254,11 @@ public class MbomServiceImp implements MbomService {
 	public List<PartCfg> loadPartCfgList(String _rootPartUid) {
 		return dataService.loadPartCfgList(_rootPartUid);
 	}
+	
+	@Override
+	public QueryOperation<PartCfgQueryParam, PartCfg> searchPartCfg(QueryOperation<PartCfgQueryParam, PartCfg> _param){
+		return dataService.searchPartCfg(_param);
+	}
 
 	@Override
 	public boolean partCfgStartEditing(String _uid) {
@@ -249,8 +271,8 @@ public class MbomServiceImp implements MbomService {
 	}
 
 	@Override
-	public boolean partCfgPublish(String _uid) {
-		return loadPartCfg(_uid).publish();
+	public boolean partCfgPublish(String _uid, long _publishTime) {
+		return loadPartCfg(_uid).publish(_publishTime);
 	}
 
 	@Override

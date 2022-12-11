@@ -3,6 +3,7 @@ package ekp.mbom;
 import java.util.List;
 import java.util.Map;
 
+import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.dto.ParsProcCreateObj;
@@ -45,6 +46,14 @@ public interface MbomService extends BusinessService {
 
 	public List<PartAcquisition> loadPartAcquisitionList(String _partUid);
 
+	public boolean partAcqStartEditing(String _uid);
+
+	public boolean partAcqRevertStartEditing(String _uid);
+
+	public boolean partAcqPublish(String _uid, long _publishTime);
+
+	public boolean partAcqRevertPublish(String _uid);
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	public PartAcqRoutingStep createPartAcqRoutingStep(PartAcqRoutingStepCreateObj _dto);
@@ -110,12 +119,14 @@ public interface MbomService extends BusinessService {
 	public PartCfg loadPartCfgById(String _id);
 
 	public List<PartCfg> loadPartCfgList(String _rootPartUid);
+	
+	public QueryOperation<PartCfgQueryParam, PartCfg> searchPartCfg(QueryOperation<PartCfgQueryParam, PartCfg> _param);
 
 	public boolean partCfgStartEditing(String _uid);
 
 	public boolean partCfgRevertStartEditing(String _uid);
 
-	public boolean partCfgPublish(String _uid);
+	public boolean partCfgPublish(String _uid, long _publishTime);
 
 	public boolean partCfgRevertPublish(String _uid);
 

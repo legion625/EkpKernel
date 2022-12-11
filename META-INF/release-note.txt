@@ -1,3 +1,18 @@
+Min-Hua, 2022.12.11
+[change]
+1. [MBOM] PartAcq add attribute "status".
+  - Add attribute: status, publishTime
+  - Add service: partCfgStartEditing, partAcqStartEditing 
+
+Min-Hua, 2022.12.11
+[change]
+1. [MBOM] PartCfg add attribute 'publishTime', and update the service 'partCfgPublish'.
+
+Min-Hua, 2022.12.11
+[change]
+1. [MBOM] Add services.
+  - searchPartCfg
+
 ------------------------------------------------------------------------------
 v0.1.5 released by Min-Hua, 2022.12.04
 [change]
