@@ -54,6 +54,8 @@ public interface MbomService extends BusinessService {
 
 	public boolean partAcqRevertPublish(String _uid);
 	
+	public boolean partAcqUpdateRefUnitCost(String _uid, double _refUnitCost);
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	public PartAcqRoutingStep createPartAcqRoutingStep(PartAcqRoutingStepCreateObj _dto);

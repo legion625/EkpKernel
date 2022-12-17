@@ -26,8 +26,8 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 	public void initMethod() {
 		long time1 = DateUtil.toLong(LocalDate.now().plusDays(1));
 		long time2 = DateUtil.toLong(LocalDate.now().plusDays(2));
-		target1 = new Target("partUid1", "partPin1",PartAcqStatus.EDITING, "id1", "name1", PartAcquisitionType.PURCHASING, time1);
-		target2 = new Target("partUid2", "partPin2",PartAcqStatus.PUBLISHED, "id2", "name2", PartAcquisitionType.OUTSOURCING, time2);
+		target1 = new Target("partUid1", "partPin1",PartAcqStatus.EDITING, "id1", "name1", PartAcquisitionType.PURCHASING, time1, 199.99d);
+		target2 = new Target("partUid2", "partPin2",PartAcqStatus.PUBLISHED, "id2", "name2", PartAcquisitionType.OUTSOURCING, time2,299.99d);
 	}
 
 	@Test
@@ -81,8 +81,10 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 		
 		private long publishTime;
 		
+		private double refUnitCost;
+		
 		private Target(String partUid, String partPin,PartAcqStatus status,
-				String id, String name, PartAcquisitionType type, long publishTime) {
+				String id, String name, PartAcquisitionType type, long publishTime, double refUnitCost) {
 			super();
 			this.partUid = partUid;
 			this.partPin = partPin;
@@ -91,6 +93,7 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 			this.name = name;
 			this.type = type;
 			this.publishTime = publishTime;
+			this.refUnitCost = refUnitCost;
 		}
 		public String getPartUid() {
 			return partUid;
@@ -109,14 +112,20 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 		public String getName() {
 			return name;
 		}
+
 		public PartAcquisitionType getType() {
 			return type;
 		}
-		
+
 		public long getPublishTime() {
 			return publishTime;
 		}
 
+		public double getRefUnitCost() {
+			return refUnitCost;
+		}
+		
+		
 		
 
 	}

@@ -107,6 +107,10 @@ public class MbomServiceImp implements MbomService {
 	public boolean partAcqRevertPublish(String _uid) {
 		return loadPartAcquisition(_uid).revertPublish();
 	}
+	@Override
+	public boolean partAcqUpdateRefUnitCost(String _uid, double _refUnitCost) {
+		return loadPartAcquisition(_uid).updateRefUnitCost(_refUnitCost);
+	}
 	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------

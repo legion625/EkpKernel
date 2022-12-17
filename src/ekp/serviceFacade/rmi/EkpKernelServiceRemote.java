@@ -69,6 +69,8 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public boolean partAcqRevertPublish(String _uid) throws RemoteException;
 	
+	public boolean partAcqUpdateRefUnitCost(String _uid, double _refUnitCost) throws RemoteException;
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	public PartAcqRoutingStepRemote createPartAcqRoutingStep(PartAcqRoutingStepCreateObjRemote _dto)
