@@ -182,7 +182,7 @@ ADD COLUMN `publish_time` BIGINT(20) NULL DEFAULT 0 AFTER `type_idx`;
 /* data migration */
 -- update `mbom_part_acq` set status_idx = 2;
 
--- 0.1.6 -> unstaging
+-- 0.1.6 -> 0.1.7
 ALTER TABLE `mbom_part_acq` 
 ADD COLUMN `ref_unit_cost` double DEFAULT 0 AFTER `publish_time`;
 

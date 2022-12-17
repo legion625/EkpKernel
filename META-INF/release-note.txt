@@ -1,4 +1,5 @@
-Min-Hua, 2022.12.17
+------------------------------------------------------------------------------
+v0.1.7 released by Min-Hua, 2022.12.17
 [change]
 1. [MBOM] PartAcq add attribute "refUnitCost" and the related service "partAcqUpdateRefUnitCost".
 
