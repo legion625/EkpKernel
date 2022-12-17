@@ -112,6 +112,8 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_PA_NAME = "name";
 	private final static String COL_PA_TYPE_IDX = "type_idx";
 	private final static String COL_PA_PUBLISH_TIME = "publish_time";
+	private final static String COL_PA_REF_UNIT_COST = "ref_unit_cost";
+	
 
 	boolean savePartAcquisition(PartAcquisition _pa) {
 		DbColumn<PartAcquisition>[] cols = new DbColumn[] { //
@@ -122,6 +124,8 @@ public class PartDao extends AbstractMySqlDao {
 				DbColumn.of(COL_PA_NAME, ColType.STRING, PartAcquisition::getName, 45), //
 				DbColumn.of(COL_PA_TYPE_IDX, ColType.INT, PartAcquisition::getTypeIdx), //
 				DbColumn.of(COL_PA_PUBLISH_TIME, ColType.LONG, PartAcquisition::getPublishTime), //
+				DbColumn.of(COL_PA_REF_UNIT_COST, ColType.DOUBLE, PartAcquisition::getRefUnitCost), //
+				
 		};
 		return saveObject(TB_MBOM_PART_ACQUISITION, cols, _pa);
 	}
@@ -143,6 +147,7 @@ public class PartDao extends AbstractMySqlDao {
 			pa.setName(_rs.getString(COL_PA_NAME));
 			pa.setType(PartAcquisitionType.get(_rs.getInt(COL_PA_TYPE_IDX)));
 			pa.setPublishTime(_rs.getLong(COL_PA_PUBLISH_TIME));
+			pa.setRefUnitCost(_rs.getDouble(COL_PA_REF_UNIT_COST));
 			return pa;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);

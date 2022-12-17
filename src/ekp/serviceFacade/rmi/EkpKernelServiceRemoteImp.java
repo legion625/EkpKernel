@@ -162,6 +162,10 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean partAcqRevertPublish(String _uid) throws RemoteException {
 		return mbomService.partAcqRevertPublish(_uid);
 	}
+	@Override
+	public boolean partAcqUpdateRefUnitCost(String _uid, double _refUnitCost) throws RemoteException{
+		return mbomService.partAcqUpdateRefUnitCost(_uid, _refUnitCost);
+	}
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------

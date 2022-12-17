@@ -1,3 +1,10 @@
+Min-Hua, 2022.12.17
+[change]
+1. [MBOM] PartAcq add attribute "refUnitCost" and the related service "partAcqUpdateRefUnitCost".
+
+[deployment]
+1. [MBOM] Add some attributes.
+
 ------------------------------------------------------------------------------
 v0.1.6 released by Min-Hua, 2022.12.11
 [change]
@@ -7,6 +14,9 @@ v0.1.6 released by Min-Hua, 2022.12.11
   - Add service: partAcqStartEditing, partAcqPublish 
 3. [MBOM] Add services.
   - searchPartCfg
+  
+[deployment]
+1. [MBOM] Add some attributes.
 
 ------------------------------------------------------------------------------
 v0.1.5 released by Min-Hua, 2022.12.04

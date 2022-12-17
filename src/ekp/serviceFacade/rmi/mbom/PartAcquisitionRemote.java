@@ -22,6 +22,8 @@ public class PartAcquisitionRemote extends ObjectModelRemote {
 	private PartAcquisitionType type;
 
 	private long publishTime;
+	
+	private double refUnitCost;
 
 	// -------------------------------------------------------------------------------
 	// ---------------------------------getter&setter---------------------------------
@@ -79,6 +81,14 @@ public class PartAcquisitionRemote extends ObjectModelRemote {
 
 	void setPublishTime(long publishTime) {
 		this.publishTime = publishTime;
+	}
+
+	public double getRefUnitCost() {
+		return refUnitCost;
+	}
+
+	void setRefUnitCost(double refUnitCost) {
+		this.refUnitCost = refUnitCost;
 	}
 
 }

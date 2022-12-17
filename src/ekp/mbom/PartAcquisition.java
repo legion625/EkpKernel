@@ -23,6 +23,8 @@ public class PartAcquisition extends ObjectModel {
 	private PartAcquisitionType type;
 
 	private long publishTime;
+	
+	private double refUnitCost;
 
 	// -------------------------------------------------------------------------------
 	private PartAcquisition(String partUid, String partPin) {
@@ -103,6 +105,14 @@ public class PartAcquisition extends ObjectModel {
 		this.publishTime = publishTime;
 	}
 
+	public double getRefUnitCost() {
+		return refUnitCost;
+	}
+
+	public void setRefUnitCost(double refUnitCost) {
+		this.refUnitCost = refUnitCost;
+	}
+
 	// -------------------------------------------------------------------------------
 	public int getTypeIdx() {
 		return (getType() == null ? PartAcquisitionType.UNDEFINED : getType()).getIdx();
@@ -151,6 +161,7 @@ public class PartAcquisition extends ObjectModel {
 		pa.setName(_dto.getName());
 		pa.setType(_dto.getType());
 		pa.setPublishTime(0); // not publish yet
+		pa.setRefUnitCost(0.0); // not set yet
 
 		return pa.save() ? pa : null;
 	}
@@ -178,6 +189,11 @@ public class PartAcquisition extends ObjectModel {
 		if (!backtoStatusEditing())
 			return false;
 		setPublishTime(0);
+		return save();
+	}
+	
+	boolean updateRefUnitCost(double _refUnitCost) {
+		this.refUnitCost = _refUnitCost;
 		return save();
 	}
 
