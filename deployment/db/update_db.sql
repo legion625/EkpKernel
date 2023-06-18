@@ -1,5 +1,3 @@
-
-
 -- 0.0.0 -> 0.0.1
 CREATE TABLE `sys_attr` (
   `uid` varchar(45) NOT NULL,
@@ -189,12 +187,15 @@ ADD COLUMN `ref_unit_cost` double DEFAULT 0 AFTER `publish_time`;
 -- 0.1.7 -> 0.1.8
 ALTER TABLE `mbom_part` CHANGE COLUMN `unit_idx` `unit_id` VARCHAR(10) NULL DEFAULT NULL ;
 
+/* data migration */
+/*
 update `mbom_part` set unit_id = case 
   when unit_id = 10 then 'EAC'
   when unit_id = 21 then 'GRM'
   when unit_id = 31 then 'MMT'
   else unit_id
 end;
+*/
 
 -- mh_pc
 
