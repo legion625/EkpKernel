@@ -15,6 +15,8 @@ import ekp.mbom.dto.PpartSkewer;
 import ekp.mbom.dto.ProdCreateObj;
 import ekp.mbom.dto.ProdCtlCreateObj;
 import ekp.mbom.dto.ProdModCreateObj;
+import ekp.mbom.type.PartAcquisitionType;
+import ekp.mbom.type.PartUnit;
 import ekp.serviceFacade.rmi.mbom.PartCfgConjRemote;
 import legion.BusinessService;
 import legion.util.query.QueryOperation;
@@ -34,6 +36,8 @@ public interface MbomService extends BusinessService {
 	
 	public QueryOperation<PartQueryParam, Part> searchPart(QueryOperation<PartQueryParam, Part> _param);
 
+	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit);
+	
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
 	public PartAcquisition createPartAcquisition(PartAcquisitionCreateObj _dto);
@@ -53,6 +57,8 @@ public interface MbomService extends BusinessService {
 	public boolean partAcqPublish(String _uid, long _publishTime);
 
 	public boolean partAcqRevertPublish(String _uid);
+	
+	public boolean partAcqUpdateInfo(String _uid, String _id, String _name,PartAcquisitionType _type);
 	
 	public boolean partAcqUpdateRefUnitCost(String _uid, double _refUnitCost);
 	

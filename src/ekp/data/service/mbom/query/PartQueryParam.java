@@ -6,7 +6,7 @@ public enum PartQueryParam implements QueryParam {
 	/* part */
 	PIN("pin", "Pin"), //
 	NAME("name", "Name"), // 
-	UNIT_IDX("unit_idx", "Unit"), //
+	UNIT_ID("unit_id", "Unit"), //
 	
 	;
 

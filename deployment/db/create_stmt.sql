@@ -28,7 +28,7 @@ CREATE TABLE `mbom_part` (
   `uid` varchar(45) NOT NULL,
   `pin` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
-  `unit_idx` tinyint(4) DEFAULT NULL,
+  `unit_id` varchar(10) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
