@@ -19,6 +19,8 @@ import ekp.mbom.dto.PpartSkewer;
 import ekp.mbom.dto.ProdCreateObj;
 import ekp.mbom.dto.ProdCtlCreateObj;
 import ekp.mbom.dto.ProdModCreateObj;
+import ekp.mbom.type.PartAcquisitionType;
+import ekp.mbom.type.PartUnit;
 import legion.DataServiceFactory;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
@@ -65,6 +67,11 @@ public class MbomServiceImp implements MbomService {
 		return dataService.searchPart(_param);
 	}
 	
+	@Override
+	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) {
+		return loadPart(_uid).update(_pin, _name, _unit);
+	}
+	
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
 	@Override
@@ -106,6 +113,10 @@ public class MbomServiceImp implements MbomService {
 	@Override
 	public boolean partAcqRevertPublish(String _uid) {
 		return loadPartAcquisition(_uid).revertPublish();
+	}
+	@Override
+	public boolean partAcqUpdateInfo(String _uid, String _id, String _name,PartAcquisitionType _type) {
+		return loadPartAcquisition(_uid).updateInfo(_id, _name, _type);
 	}
 	@Override
 	public boolean partAcqUpdateRefUnitCost(String _uid, double _refUnitCost) {

@@ -1,38 +1,60 @@
 package ekp.mbom.type;
 
-import legion.type.IdxEnum;
+import legion.type.IdEnum;
 
-public enum PartUnit implements IdxEnum {
-	UNDEFINED(0, "未定義"), //
-	EA(10, "EA"), //
-	GRAM(21, "Gram"), //
-	MM(31, "MM"), //
-
+/**
+ * 參考經濟部國際貿易局的計量單位列表
+ * @author Min-Hua Chao
+ *
+ */
+public enum PartUnit implements IdEnum {
+	UNDEFINED("UNDEFINED","未定義", "Undefined"), //
+	CMK("CMK","平方公分","Squre Centimeter"), //
+	EAC("EAC","每個", "Each"), //
+	GRM("GRM","公克", "Gram"), //
+	MMT("MMT","公釐", "Millimeter"), //
+	SHE("SHE","張, 片","Sheet"), //
+	SPL("SHE","捲，軸","Spool"), //
 	;
 
-	private int idx;
-	private String name;
+	private String id;
+	private String chtName;
+	private String engName;
 
-	private PartUnit(int idx, String name) {
-		this.idx = idx;
-		this.name = name;
+	private PartUnit(String id, String chtName, String engName) {
+		this.id = id;
+		this.chtName = chtName;
+		this.engName = engName;
 	}
 
-	@Override
-	public int getIdx() {
-		return idx;
+	public String getId() {
+		return id;
 	}
 
-	@Override
-	public String getName() {
-		return name;
+	public String getChtName() {
+		return chtName;
 	}
+
+	public String getEngName() {
+		return engName;
+	}
+	
 
 	// -------------------------------------------------------------------------------
-	public static PartUnit get(int _idx) {
+	@Override
+	public String getName() {
+		return getChtName();
+	}
+
+	
+	// -------------------------------------------------------------------------------
+	public static PartUnit get(String _id) {
 		for (PartUnit t : values())
-			if (t.idx == _idx)
+			if (t.id.equalsIgnoreCase(_id))
 				return t;
 		return UNDEFINED;
 	}
+
+	
+	
 }

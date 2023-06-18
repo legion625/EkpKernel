@@ -27,6 +27,8 @@ import ekp.mbom.ProdCtlPartCfgConj;
 import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
 import ekp.mbom.dto.PpartSkewer;
+import ekp.mbom.type.PartAcquisitionType;
+import ekp.mbom.type.PartUnit;
 import ekp.serviceFacade.rmi.mbom.MbomFO;
 import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
@@ -109,6 +111,11 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		_param.setTotal(param.getTotal());
 		return _param;
 	}
+	
+	@Override
+	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) throws RemoteException{
+		return mbomService.partUpdate(_uid, _pin, _name, _unit);
+	}
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
@@ -162,11 +169,17 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean partAcqRevertPublish(String _uid) throws RemoteException {
 		return mbomService.partAcqRevertPublish(_uid);
 	}
+
+	@Override
+	public boolean partAcqUpdateInfo(String _uid, String _id, String _name, PartAcquisitionType _type) {
+		return mbomService.partAcqUpdateInfo(_uid, _id, _name, _type);
+	}
+
 	@Override
 	public boolean partAcqUpdateRefUnitCost(String _uid, double _refUnitCost) throws RemoteException{
 		return mbomService.partAcqUpdateRefUnitCost(_uid, _refUnitCost);
 	}
-
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	@Override

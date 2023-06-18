@@ -20,8 +20,8 @@ public class BizObjPartTest extends AbstractEkpInitTest{
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("pin1", "name1", PartUnit.EA);
-		target2 = new Target("pin2", "name2", PartUnit.GRAM);
+		target1 = new Target("pin1", "name1", PartUnit.EAC);
+		target2 = new Target("pin2", "name2", PartUnit.GRM);
 	}
 
 	@Test

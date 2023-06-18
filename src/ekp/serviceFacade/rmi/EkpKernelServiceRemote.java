@@ -9,6 +9,8 @@ import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.dto.PpartSkewer;
+import ekp.mbom.type.PartAcquisitionType;
+import ekp.mbom.type.PartUnit;
 import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcRemote;
@@ -49,6 +51,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public QueryOperation<PartQueryParam, PartRemote> searchPart(QueryOperation<PartQueryParam, PartRemote> _param)
 			throws RemoteException;
 
+	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) throws RemoteException;
+	
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
 	public PartAcquisitionRemote createPartAcquisition(PartAcquisitionCreateObjRemote _dto) throws RemoteException;
@@ -69,8 +73,11 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public boolean partAcqRevertPublish(String _uid) throws RemoteException;
 	
+	public boolean partAcqUpdateInfo(String _uid, String _id, String _name, PartAcquisitionType _type)
+			throws RemoteException;
+
 	public boolean partAcqUpdateRefUnitCost(String _uid, double _refUnitCost) throws RemoteException;
-	
+
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
 	public PartAcqRoutingStepRemote createPartAcqRoutingStep(PartAcqRoutingStepCreateObjRemote _dto)
