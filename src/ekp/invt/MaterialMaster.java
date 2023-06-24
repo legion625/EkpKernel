@@ -17,7 +17,7 @@ public class MaterialMaster extends ObjectModel {
 
 	private PartUnit stdUnit;
 
-	// 所有ledger的庫存量和金額(這是redundant屬性，必須確保一致)
+	// 所有MaterialBinStockBatch的庫存量和金額(這是redundant屬性，必須確保一致)
 	private double sumStockQty;
 	private double sumStockValue;
 
@@ -108,7 +108,15 @@ public class MaterialMaster extends ObjectModel {
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------
 	static MaterialMaster create(MaterialMasterCreateObj _dto) {
-		// TODO not implemented yet...
-		return null;
+		MaterialMaster mm = newInstance();
+		mm.setMano(_dto.getMano());
+		mm.setName(_dto.getName());
+		mm.setSpecification(_dto.getSpecification());
+		mm.setStdUnit(_dto.getStdUnit());
+		mm.setSumStockQty(0d); // initial 0
+		mm.setSumStockValue(0d); // initial 0
+		return mm.save() ? mm : null;
 	}
+
+	// TODO method
 }

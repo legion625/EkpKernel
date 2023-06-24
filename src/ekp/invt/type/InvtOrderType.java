@@ -40,5 +40,13 @@ public enum InvtOrderType implements IdxEnum {
 	public String getDesp() {
 		return desp;
 	}
+	
+	// -------------------------------------------------------------------------------
+	public static InvtOrderType get(int _idx) {
+		for (InvtOrderType t : values())
+			if (t.idx == _idx)
+				return t;
+		return UNDEFINED;
+	}
 
 }

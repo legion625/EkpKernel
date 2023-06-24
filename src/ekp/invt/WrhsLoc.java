@@ -1,6 +1,7 @@
 package ekp.invt;
 
 import ekp.data.InvtDataService;
+import ekp.invt.dto.WrhsLocCreateObj;
 import legion.DataServiceFactory;
 import legion.ObjectModel;
 
@@ -64,15 +65,15 @@ public class WrhsLoc extends ObjectModel {
 	protected boolean delete() {
 		return DataServiceFactory.getInstance().getService(InvtDataService.class).deleteWrhsLoc(getUid());
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// ------------------------------------WrhsLoc------------------------------------
 	static WrhsLoc create(WrhsLocCreateObj _dto) {
-		// TODO not implemented yet...
-		return null;
+		WrhsLoc wl = newInstance();
+		wl.setId(_dto.getId());
+		wl.setName(_dto.getName());
+		return wl.save() ? wl : null;
 	}
-	
-	
 	
 	
 }

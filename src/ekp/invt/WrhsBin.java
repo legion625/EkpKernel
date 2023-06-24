@@ -1,6 +1,7 @@
 package ekp.invt;
 
 import ekp.data.InvtDataService;
+import ekp.invt.dto.WrhsBinCreateObj;
 import legion.DataServiceFactory;
 import legion.ObjectModel;
 
@@ -16,17 +17,18 @@ public class WrhsBin extends ObjectModel {
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
-	private WrhsBin() {
+	private WrhsBin(String wlUid) {
+		this.wlUid = wlUid;
 	}
 
-	static WrhsBin newInstance() {
-		WrhsBin wb = new WrhsBin();
+	static WrhsBin newInstance(String _wlUid) {
+		WrhsBin wb = new WrhsBin(_wlUid);
 		wb.configNewInstance();
 		return wb;
 	}
 
-	public static WrhsBin getInstance(String _uid, long _objectCreateTime, long _objectUpdateTime) {
-		WrhsBin wb = new WrhsBin();
+	public static WrhsBin getInstance(String _uid, String _wlUid, long _objectCreateTime, long _objectUpdateTime) {
+		WrhsBin wb = new WrhsBin(_wlUid);
 		wb.configGetInstance(_uid, _objectCreateTime, _objectUpdateTime);
 		return wb;
 	}
@@ -72,7 +74,9 @@ public class WrhsBin extends ObjectModel {
 	// -------------------------------------------------------------------------------
 	// ------------------------------------WrhsBin------------------------------------
 	static WrhsBin create(WrhsBinCreateObj _dto) {
-		// TODO not implemented yet...
-		return null;
+		WrhsBin wb = newInstance(_dto.getWlUid());
+		wb.setId(_dto.getId());
+		wb.setName(_dto.getName());
+		return wb.save() ? wb : null;
 	}
 }
