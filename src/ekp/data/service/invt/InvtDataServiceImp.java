@@ -1,12 +1,21 @@
 package ekp.data.service.invt;
 
+import java.util.List;
 import java.util.Map;
 
 import ekp.data.InvtDataService;
+import ekp.invt.MaterialInst;
+import ekp.invt.MaterialMaster;
+import ekp.invt.WrhsBin;
+import ekp.invt.WrhsLoc;
 
 public class InvtDataServiceImp implements InvtDataService {
 
 	private String source;
+
+	// dao
+	private WrhsDao wrhsDao;
+	private MaterialDao materialDao;
 
 	@Override
 	public void register(Map<String, String> _params) {
@@ -14,6 +23,10 @@ public class InvtDataServiceImp implements InvtDataService {
 			return;
 
 		source = _params.get("source");
+
+		// dao
+		wrhsDao = new WrhsDao(source);
+		materialDao = new MaterialDao(source);
 
 	}
 
@@ -24,5 +37,101 @@ public class InvtDataServiceImp implements InvtDataService {
 	}
 
 	// -------------------------------------------------------------------------------
+	// --------------------------------MaterialMaster---------------------------------
+	@Override
+	public boolean saveMaterialMaster(MaterialMaster _mm) {
+		return materialDao.saveMaterialMaster(_mm);
+	}
+
+	@Override
+	public boolean deleteMaterialMaster(String _uid) {
+		return materialDao.deleteMaterialMaster(_uid);
+	}
+
+	@Override
+	public MaterialMaster loadMaterialMaster(String _uid) {
+		return materialDao.loadMaterialMaster(_uid);
+	}
+
+	@Override
+	public MaterialMaster loadMaterialMasterByMano(String _mano) {
+		return materialDao.loadMaterialMasterByMano(_mano);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------WrhsLoc------------------------------------
+	@Override
+	public boolean saveWrhsLoc(WrhsLoc _wl) {
+		return wrhsDao.saveWrhsLoc(_wl);
+	}
+
+	@Override
+	public boolean deleteWrhsLoc(String _uid) {
+		return wrhsDao.deleteWrhsLoc(_uid);
+	}
+
+	@Override
+	public WrhsLoc loadWrhsLoc(String _uid) {
+		return wrhsDao.loadWrhsLoc(_uid);
+	}
+
+	@Override
+	public WrhsLoc loadWrhsLocById(String _id) {
+		return wrhsDao.loadWrhsLocById(_id);
+	}
+
+	@Override
+	public List<WrhsLoc> loadWrhsLocList() {
+		return wrhsDao.loadWrhsLocList();
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------WrhsBin------------------------------------
+	@Override
+	public boolean saveWrhsBin(WrhsBin _wb) {
+		return wrhsDao.saveWrhsBin(_wb);
+	}
+
+	@Override
+	public boolean deleteWrhsBin(String _uid) {
+		return wrhsDao.deleteWrhsBin(_uid);
+	}
+
+	@Override
+	public WrhsBin loadWrhsBin(String _uid) {
+		return wrhsDao.loadWrhsBin(_uid);
+	}
+
+	@Override
+	public List<WrhsBin> loadWrhsBinList(String _wlUid) {
+		return wrhsDao.loadWrhsBinList(_wlUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ---------------------------------MaterialInst----------------------------------
+	@Override
+	public boolean saveMaterialInst(MaterialInst _mi) {
+		return materialDao.saveMaterialInst(_mi);
+	}
+
+	@Override
+	public boolean deleteMaterialInst(String _uid) {
+		return materialDao.deleteMaterialInst(_uid);
+	}
+
+	@Override
+	public MaterialInst loadMaterialInst(String _uid) {
+		return materialDao.loadMaterialInst(_uid);
+	}
+
+	@Override
+	public MaterialInst loadMaterialInstByMisn(String _misn) {
+		return materialDao.loadMaterialInstByMisn(_misn);
+	}
+
+	@Override
+	public List<MaterialInst> loadMaterialInstList(String _mmUid) {
+		return materialDao.loadMaterialInstList(_mmUid);
+	}
 
 }

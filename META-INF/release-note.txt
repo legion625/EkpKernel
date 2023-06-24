@@ -1,9 +1,14 @@
-2023.06.22
+Min-Hua, 2023.06.24
+[deployment]
+1. Create tables. 
+  -1. invt_wrhs_loc, invt_wrhs_bin
+  -2. invt_material_master, invt_material_inst 
+
+Min-Hua, 2023.06.22
 [deployment]
 1. ServiceModule.xml
   -1. Add business service: InvtService
   -2. Add integration service: InvtDataService
- // 2. CREATE TABLE `mbom_part`.
 
 ------------------------------------------------------------------------------
 v0.1.8 released by Min-Hua, 2023.06.18

@@ -95,6 +95,11 @@ public class MaterialInst extends ObjectModel {
 	}
 
 	// -------------------------------------------------------------------------------
+	public int getMiacIdx() {
+		return (getMiac() == null ? MaterialInstAcqChannel.UNDEFINED : getMiac()).getIdx();
+	}
+
+	// -------------------------------------------------------------------------------
 	// ----------------------------------ObjectModel----------------------------------
 	@Override
 	protected boolean save() {
