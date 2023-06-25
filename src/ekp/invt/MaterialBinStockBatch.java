@@ -29,7 +29,6 @@ public class MaterialBinStockBatch extends ObjectModel {
 	/**/
 	private double stockQty; // 當前的存量餘額
 	private double stockValue; // 當前的帳值餘額
-	private long stockTime; // 存入時間（每一個batch只會有一個時間）
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
@@ -84,14 +83,6 @@ public class MaterialBinStockBatch extends ObjectModel {
 	public void setStockValue(double stockValue) {
 		this.stockValue = stockValue;
 	}
-
-	public long getStockTime() {
-		return stockTime;
-	}
-
-	public void setStockTime(long stockTime) {
-		this.stockTime = stockTime;
-	}
 	
 	// -------------------------------------------------------------------------------
 	// ----------------------------------ObjectModel----------------------------------
@@ -109,10 +100,21 @@ public class MaterialBinStockBatch extends ObjectModel {
 	// -----------------------------MaterialBinStockBatch-----------------------------
 	static MaterialBinStockBatch create(MaterialBinStockBatchCreateObj _dto) {
 		MaterialBinStockBatch mbsb = newInstance(_dto.getMbsUid(), _dto.getMiUid());
-		mbsb.setStockQty(_dto.getStockQty());
-		mbsb.setStockValue(_dto.getStockValue());
-		mbsb.setStockTime(_dto.getStockTime());
-		return mbsb.save()?mbsb:null;
+		mbsb.setStockQty(0d); // init 0
+		mbsb.setStockValue(0d); // init 0
+		return mbsb.save() ? mbsb : null;
+	}
+	
+	boolean add(double _addingQty, double _addingValue) {
+		setStockQty(getStockQty() + _addingQty);
+		setStockValue(getStockValue() + _addingValue);
+		return save();
+	}
+
+	boolean subtract(double _subtractingQty, double _subtractingValue) {
+		setStockQty(getStockQty() - _subtractingQty);
+		setStockValue(getStockValue() - _subtractingValue);
+		return save();
 	}
 	
 	// TODO method

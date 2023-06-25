@@ -1,4 +1,11 @@
 Min-Hua, 2023.06.25
+[change]
+1. [INVT] Add basic services.
+  -1. WrhsLoc, WrhsBin, InvtOrder, InvtOrderItem
+  -2. MaterialMaster, MaterialInst, MaterialBinStock, MaterialBinStockBatch, MbsbStmt
+2. [INVT] MbsbStmt supports "PostingStatus".
+  
+
 [deployment]
 1. Create tables. 
   -1. invt_wrhs_loc, invt_wrhs_bin, invt_invt_order, invt_invt_order_item

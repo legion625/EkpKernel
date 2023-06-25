@@ -117,6 +117,18 @@ public class MaterialMaster extends ObjectModel {
 		mm.setSumStockValue(0d); // initial 0
 		return mm.save() ? mm : null;
 	}
+	
+	boolean add(double _addingQty, double _addingValue) {
+		setSumStockQty(getSumStockQty() + _addingQty);
+		setSumStockValue(getSumStockValue() + _addingValue);
+		return save();
+	}
+
+	boolean subtract(double _subtractingQty, double _subtractingValue) {
+		setSumStockQty(getSumStockQty() - _subtractingQty);
+		setSumStockValue(getSumStockValue() - _subtractingValue);
+		return save();
+	}
 
 	// TODO method
 }

@@ -1,7 +1,96 @@
 package ekp.invt;
 
-import legion.BusinessService;
+import java.util.List;
 
-public interface InvtService extends BusinessService{
+import ekp.invt.dto.InvtOrderCreateObj;
+import ekp.invt.dto.InvtOrderItemCreateObj;
+import ekp.invt.dto.MaterialBinStockBatchCreateObj;
+import ekp.invt.dto.MaterialBinStockCreateObj;
+import ekp.invt.dto.MaterialInstCreateObj;
+import ekp.invt.dto.MaterialMasterCreateObj;
+import ekp.invt.dto.MbsbStmtCreateObj;
+import ekp.invt.dto.WrhsBinCreateObj;
+import ekp.invt.dto.WrhsLocCreateObj;
+import legion.BusinessService;
+import legion.util.TimeTraveler;
+
+public interface InvtService extends BusinessService {
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------WrhsLoc------------------------------------
+	public WrhsLoc createWrhsLoc(WrhsLocCreateObj _dto);
+	public boolean deleteWrhsLoc(String _uid);
+	public WrhsLoc loadWrhsLoc(String _uid);
+	public WrhsLoc loadWrhsLocById(String _id);
+	public List<WrhsLoc> loadWrhsLocList(); 
+	
+	// -------------------------------------------------------------------------------
+	// ------------------------------------WrhsBin------------------------------------
+	public WrhsBin createWrhsBin(WrhsBinCreateObj _dto);
+	public boolean deleteWrhsBin(String _uid);
+	public WrhsBin loadWrhsBin(String _uid);
+	public List<WrhsBin> loadWrhsBinList(String _wlUid); 
+	
+	// -------------------------------------------------------------------------------
+	// -----------------------------------InvtOrder-----------------------------------
+	public InvtOrder createInvtOrder(InvtOrderCreateObj _dto);
+	public boolean deleteInvtOrder(String _uid);
+	public InvtOrder loadInvtOrder(String _uid);
+	public InvtOrder loadInvtOrderByIosn(String _iosn);
+	// TODO search
+	
+	// -------------------------------------------------------------------------------
+	// ---------------------------------InvtOrderItem---------------------------------
+	public InvtOrderItem createInvtOrderItem(InvtOrderItemCreateObj _dto);
+	public boolean deleteInvtOrderItem(String _uid);
+	public InvtOrderItem loadInvtOrderItem(String _uid);
+	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid);
+	// TODO search
+	
+	// -------------------------------------------------------------------------------
+	// --------------------------------MaterialMaster---------------------------------	
+	public MaterialMaster createMaterialMaster(MaterialMasterCreateObj _dto);
+	public boolean deleteMaterialMaster(String _uid);
+	public MaterialMaster loadMaterialMaster(String _uid);
+	public MaterialMaster loadMaterialMasterByMano(String _mano);
+	
+	// -------------------------------------------------------------------------------
+	// ---------------------------------MaterialInst----------------------------------
+	public MaterialInst createMaterialInst(MaterialInstCreateObj _dto);
+	public boolean deleteMaterialInst(String _uid);
+	public MaterialInst loadMaterialInst(String _uid);
+	public MaterialInst loadMaterialInstByMisn(String _misn);
+	public List<MaterialInst> loadMaterialInstList(String _mmUid);
+	
+	// -------------------------------------------------------------------------------
+	// -------------------------------MaterialBinStock--------------------------------
+	public MaterialBinStock createMaterialBinStock(MaterialBinStockCreateObj _dto);
+	public boolean deleteMaterialBinStock(String _uid);
+	public MaterialBinStock loadMaterialBinStock(String _uid);
+	public List<MaterialBinStock> loadMaterialBinStockList(String _mmUid);
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------MaterialBinStockBatch-----------------------------
+	public MaterialBinStockBatch createMaterialBinStockBatch(MaterialBinStockBatchCreateObj _dto);
+	public boolean deleteMaterialBinStockBatch(String _uid);
+	public MaterialBinStockBatch loadMaterialBinStockBatch(String _uid);
+	public List<MaterialBinStockBatch> loadMaterialBinStockBatchList(String _mbsUid);
+	public List<MaterialBinStockBatch> loadMaterialBinStockBatchListByMi(String _miUid);
+	
+	// -------------------------------------------------------------------------------
+	// -----------------------------------MbsbStmt------------------------------------
+	public MbsbStmt createMbsbStmt(MbsbStmtCreateObj _dto);
+	public boolean deleteMbsbStmt(String _uid);
+	public MbsbStmt loadMbsbStmt(String _uid);
+	public List<MbsbStmt> loadMbsbStmtList(String _mbsbUid);
+	public List<MbsbStmt> loadMbsbStmtListByIoi(String _ioiUid);
+	
+	public boolean mbsbStmtPost(String _uid);
+	public boolean mbsbStmtRevertPost(String _uid);
+	
+	
+	
+	
+	
 
 }

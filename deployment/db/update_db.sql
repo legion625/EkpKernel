@@ -288,7 +288,6 @@ CREATE TABLE `invt_mat_bin_stock_batch` (
   `mi_uid` varchar(45) DEFAULT NULL,
   `stock_qty` double DEFAULT NULL,
   `stock_value` double DEFAULT NULL,
-  `stock_time` bigint DEFAULT NULL,
   `object_create_time` bigint DEFAULT NULL,
   `object_update_time` bigint DEFAULT NULL,
   PRIMARY KEY (`uid`)
@@ -301,6 +300,8 @@ CREATE TABLE `invt_mbsb_stmt` (
   `mbsb_flow_type_idx` tinyint DEFAULT NULL,
   `stmt_qty` double DEFAULT NULL,
   `stmt_value` double DEFAULT NULL,
+  `posting_status_idx` tinyint DEFAULT NULL,
+  `posting_time` bigint DEFAULT NULL,
   `object_create_time` bigint DEFAULT NULL,
   `object_update_time` bigint DEFAULT NULL,
   PRIMARY KEY (`uid`)

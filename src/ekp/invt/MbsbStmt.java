@@ -2,7 +2,9 @@ package ekp.invt;
 
 import ekp.data.InvtDataService;
 import ekp.invt.dto.MbsbStmtCreateObj;
+import ekp.invt.fsm.PostingFsm;
 import ekp.invt.type.MbsbFlowType;
+import ekp.invt.type.PostingStatus;
 import legion.DataServiceFactory;
 import legion.ObjectModel;
 
@@ -18,6 +20,9 @@ public class MbsbStmt extends ObjectModel {
 	private MbsbFlowType mbsbFlowType;
 	private double stmtQty; // 記錄異動的數量
 	private double stmtValue; // 記錄異動的金額
+	
+	private PostingFsm postingFsm; // 登帳狀態
+	private long postingTime; // 登帳時間
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
@@ -29,13 +34,15 @@ public class MbsbStmt extends ObjectModel {
 	static MbsbStmt newInstance(String _mbsbUid, String _ioiUid) {
 		MbsbStmt mbsbStmt = new MbsbStmt(_mbsbUid, _ioiUid);
 		mbsbStmt.configNewInstance();
+		mbsbStmt.postingFsm = new PostingFsm(mbsbStmt.getUid(), PostingStatus.INIT);
 		return mbsbStmt;
 	}
 
-	public static MbsbStmt getInstance(String _uid, String _mbsbUid, String _ioiUid, long _objectCreateTime,
-			long _objectUpdateTime) {
+	public static MbsbStmt getInstance(String _uid, String _mbsbUid, String _ioiUid, PostingStatus _postingStatus,
+			long _objectCreateTime, long _objectUpdateTime) {
 		MbsbStmt mbsbStmt = new MbsbStmt(_mbsbUid, _ioiUid);
 		mbsbStmt.configGetInstance(_uid, _objectCreateTime, _objectUpdateTime);
+		mbsbStmt.postingFsm = new PostingFsm(mbsbStmt.getUid(), _postingStatus);
 		return mbsbStmt;
 	}
 
@@ -81,9 +88,28 @@ public class MbsbStmt extends ObjectModel {
 		this.stmtValue = stmtValue;
 	}
 
+	public PostingStatus getPostingStatus() {
+		return postingFsm.getStatus();
+	}
+	public void setPostingStatus(PostingStatus postingStatus) {
+		postingFsm.setStatus(postingStatus);
+	}
+	
+	public long getPostingTime() {
+		return postingTime;
+	}
+
+	public void setPostingTime(long postingTime) {
+		this.postingTime = postingTime;
+	}
+
 	// -------------------------------------------------------------------------------
 	public int getMbsbFlowTypeIdx() {
 		return (getMbsbFlowType() == null ? MbsbFlowType.UNDEFINED : getMbsbFlowType()).getIdx();
+	}
+	
+	public int getPostingStatusIdx() {
+		return (getPostingStatus() == null ? PostingStatus.UNDEFINED : getPostingStatus()).getIdx();
 	}
 	
 	// ----------------------------------ObjectModel----------------------------------
@@ -104,7 +130,26 @@ public class MbsbStmt extends ObjectModel {
 		mbsbStmt.setMbsbFlowType(_dto.getMbsbFlowType());
 		mbsbStmt.setStmtQty(_dto.getStmtQty());
 		mbsbStmt.setStmtValue(_dto.getStmtValue());
-		return mbsbStmt.save()?mbsbStmt: null;
+		mbsbStmt.setPostingTime(0); // not posted yet...
+
+		// status: INIT -> TO_POST
+		mbsbStmt.postingFsm.gotoStatusToPost(); //
+
+		return mbsbStmt.save() ? mbsbStmt : null;
+	}
+	
+	boolean post(long _postingTime) {
+		if (!postingFsm.gotoStatusPosted())
+			return false;
+		setPostingTime(_postingTime);
+		return save();
+	}
+
+	boolean revertPost() {
+		if (!postingFsm.backtoStatusToPost())
+			return false;
+		setPostingTime(0);
+		return save();
 	}
 	
 	// TODO method

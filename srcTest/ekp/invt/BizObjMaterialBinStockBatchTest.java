@@ -27,10 +27,8 @@ public class BizObjMaterialBinStockBatchTest extends AbstractEkpInitTest {
 	@Before
 	public void initMethod() {
 		double d1 = 199.999d, d2 = 299.999d;
-		long l1 = DateUtil.toLong(LocalDateTime.now().plusDays(1)),
-				l2 = DateUtil.toLong(LocalDateTime.now().plusDays(2));
-		target1 = new Target("mbsUid1", "miUid1", d1, d1, l1);
-		target2 = new Target("mbsUid2", "miUid2", d2, d2, l2);
+		target1 = new Target("mbsUid1", "miUid1", d1, d1);
+		target2 = new Target("mbsUid2", "miUid2", d2, d2);
 	}
 
 	@Test
@@ -77,14 +75,12 @@ public class BizObjMaterialBinStockBatchTest extends AbstractEkpInitTest {
 		/**/
 		private double stockQty; // 當前的存量餘額
 		private double stockValue; // 當前的帳值餘額
-		private long stockTime; // 存入時間（每一個batch只會有一個時間）
 
-		private Target(String mbsUid, String miUid, double stockQty, double stockValue, long stockTime) {
+		private Target(String mbsUid, String miUid, double stockQty, double stockValue) {
 			this.mbsUid = mbsUid;
 			this.miUid = miUid;
 			this.stockQty = stockQty;
 			this.stockValue = stockValue;
-			this.stockTime = stockTime;
 		}
 
 		public String getMbsUid() {
@@ -103,9 +99,6 @@ public class BizObjMaterialBinStockBatchTest extends AbstractEkpInitTest {
 			return stockValue;
 		}
 
-		public long getStockTime() {
-			return stockTime;
-		}
 
 	}
 }

@@ -103,6 +103,18 @@ public class MaterialBinStock extends ObjectModel {
 		return mbs.save() ? mbs : null;
 	}
 	
+	boolean add(double _addingQty, double _addingValue) {
+		setSumStockQty(getSumStockQty() + _addingQty);
+		setSumStockValue(getSumStockValue() + _addingValue);
+		return save();
+	}
+
+	boolean subtract(double _subtractingQty, double _subtractingValue) {
+		setSumStockQty(getSumStockQty() - _subtractingQty);
+		setSumStockValue(getSumStockValue() - _subtractingValue);
+		return save();
+	}
+	
 	// TODO method
 
 }

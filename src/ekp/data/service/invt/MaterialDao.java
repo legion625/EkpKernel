@@ -2,7 +2,9 @@ package ekp.data.service.invt;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.event.Level;
 
@@ -13,6 +15,7 @@ import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.type.MaterialInstAcqChannel;
 import ekp.invt.type.MbsbFlowType;
+import ekp.invt.type.PostingStatus;
 import ekp.mbom.Part;
 import ekp.mbom.type.PartUnit;
 import legion.data.service.AbstractMySqlDao;
@@ -189,7 +192,6 @@ public class MaterialDao extends AbstractMySqlDao {
 	private final static String COL_MBSB_MI_UID = "mi_uid";
 	private final static String COL_MBSB_STOCK_QTY = "stock_qty";
 	private final static String COL_MBSB_STOCK_VALUE = "stock_value";
-	private final static String COL_MBSB_STOCK_TIME = "stock_time";
 
 	boolean saveMaterialBinStockBatch(MaterialBinStockBatch _mbsb) {
 		DbColumn<MaterialBinStockBatch>[] cols = new DbColumn[] { //
@@ -197,7 +199,6 @@ public class MaterialDao extends AbstractMySqlDao {
 				DbColumn.of(COL_MBSB_MI_UID, ColType.STRING, MaterialBinStockBatch::getMiUid, 45), //
 				DbColumn.of(COL_MBSB_STOCK_QTY, ColType.DOUBLE, MaterialBinStockBatch::getStockQty), //
 				DbColumn.of(COL_MBSB_STOCK_VALUE, ColType.DOUBLE, MaterialBinStockBatch::getStockValue), //
-				DbColumn.of(COL_MBSB_STOCK_TIME, ColType.LONG, MaterialBinStockBatch::getStockTime), //
 		};
 		return saveObject(TB_MAT_BIN_STOCK_BATCH, cols, _mbsb);
 	}
@@ -215,7 +216,6 @@ public class MaterialDao extends AbstractMySqlDao {
 			/* pack attributes */
 			mbsb.setStockQty(_rs.getDouble(COL_MBSB_STOCK_QTY));
 			mbsb.setStockValue(_rs.getDouble(COL_MBSB_STOCK_VALUE));
-			mbsb.setStockTime(_rs.getLong(COL_MBSB_STOCK_TIME));
 			return mbsb;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
@@ -225,6 +225,13 @@ public class MaterialDao extends AbstractMySqlDao {
 	
 	MaterialBinStockBatch loadMaterialBinStockBatch(String _uid) {
 		return loadObject(TB_MAT_BIN_STOCK_BATCH, _uid, this::parseMaterialBinStockBatch);
+	}
+	
+	MaterialBinStockBatch loadMaterialBinStockBatch(String _mbsUid, String _miUid) {
+		Map<String, String> colValueMap = new HashMap<>();
+		colValueMap.put(COL_MBSB_MBS_UID, _mbsUid);
+		colValueMap.put(COL_MBSB_MI_UID, _miUid);
+		return loadObject(TB_MAT_BIN_STOCK_BATCH, colValueMap, this::parseMaterialBinStockBatch);
 	}
 
 	List<MaterialBinStockBatch> loadMaterialBinStockBatchList(String _mbsUid){
@@ -243,7 +250,9 @@ public class MaterialDao extends AbstractMySqlDao {
 	private final static String COL_MBSBS_MBSB_FLOW_TYPE_IDX = "mbsb_flow_type_idx";
 	private final static String COL_MBSBS_STMT_QTY = "stmt_qty";
 	private final static String COL_MBSBS_STMT_VALUE = "stmt_value";
-
+	private final static String COL_MBSBS_POSTING_STATUS_IDX = "posting_status_idx";
+	private final static String COL_MBSBS_POSTING_TIME = "posting_time";
+	
 	boolean saveMbsbStmt(MbsbStmt _mbsbs) {
 		DbColumn<MbsbStmt>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_MBSBS_MBSB_UID, ColType.STRING, MbsbStmt::getMbsbUid, 45), //
@@ -251,6 +260,8 @@ public class MaterialDao extends AbstractMySqlDao {
 				DbColumn.of(COL_MBSBS_MBSB_FLOW_TYPE_IDX, ColType.INT, MbsbStmt::getMbsbFlowTypeIdx), //
 				DbColumn.of(COL_MBSBS_STMT_QTY, ColType.DOUBLE, MbsbStmt::getStmtQty), //
 				DbColumn.of(COL_MBSBS_STMT_VALUE, ColType.DOUBLE, MbsbStmt::getStmtValue), //
+				DbColumn.of(COL_MBSBS_POSTING_STATUS_IDX, ColType.INT, MbsbStmt::getPostingStatusIdx), //
+				DbColumn.of(COL_MBSBS_POSTING_TIME, ColType.LONG, MbsbStmt::getPostingTime), //
 		};
 		return saveObject(TB_MBSB_STMT, cols, _mbsbs);
 	}
@@ -263,11 +274,13 @@ public class MaterialDao extends AbstractMySqlDao {
 		try {
 			String mbsbUid = _rs.getString(COL_MBSBS_MBSB_UID);
 			String ioiUid = _rs.getString(COL_MBSBS_IOI_UID);
-			MbsbStmt mbsbs = MbsbStmt.getInstance(parseUid(_rs), mbsbUid, ioiUid, parseObjectCreateTime(_rs), parseObjectUpdateTime(_rs));
+			PostingStatus postingStatus = PostingStatus.get(_rs.getInt(COL_MBSBS_POSTING_STATUS_IDX));
+			MbsbStmt mbsbs = MbsbStmt.getInstance(parseUid(_rs), mbsbUid, ioiUid, postingStatus,parseObjectCreateTime(_rs), parseObjectUpdateTime(_rs));
 			/* pack attributes */
 			mbsbs.setMbsbFlowType(MbsbFlowType.get(_rs.getInt(COL_MBSBS_MBSB_FLOW_TYPE_IDX)));
 			mbsbs.setStmtQty(_rs.getDouble(COL_MBSBS_STMT_QTY));
 			mbsbs.setStmtValue(_rs.getDouble(COL_MBSBS_STMT_VALUE));
+			mbsbs.setPostingTime(_rs.getLong(COL_MBSBS_POSTING_TIME));
 			return mbsbs;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
