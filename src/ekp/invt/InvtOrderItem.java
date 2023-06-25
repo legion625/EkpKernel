@@ -80,6 +80,11 @@ public class InvtOrderItem extends ObjectModel {
 	}
 	
 	// -------------------------------------------------------------------------------
+	public int getIoTypeIdx() {
+		return (getIoType()==null?InvtOrderType.UNDEFINED:getIoType()).getIdx();
+	}
+	
+	// -------------------------------------------------------------------------------
 	// ----------------------------------ObjectModel----------------------------------
 	@Override
 	protected boolean save() {

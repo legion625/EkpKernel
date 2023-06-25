@@ -1,8 +1,8 @@
 Min-Hua, 2023.06.24
 [deployment]
 1. Create tables. 
-  -1. invt_wrhs_loc, invt_wrhs_bin
-  -2. invt_material_master, invt_material_inst 
+  -1. invt_wrhs_loc, invt_wrhs_bin, invt_invt_order, invt_invt_order_item
+  -2. invt_mat_mstr, invt_mat_inst, invt_mat_bin_stock, invt_mat_bin_stock_batch, invt_mbsb_stmt
 
 Min-Hua, 2023.06.22
 [deployment]

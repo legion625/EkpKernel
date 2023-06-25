@@ -4,8 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import ekp.data.InvtDataService;
+import ekp.invt.InvtOrder;
+import ekp.invt.InvtOrderItem;
+import ekp.invt.MaterialBinStock;
+import ekp.invt.MaterialBinStockBatch;
 import ekp.invt.MaterialInst;
 import ekp.invt.MaterialMaster;
+import ekp.invt.MbsbStmt;
 import ekp.invt.WrhsBin;
 import ekp.invt.WrhsLoc;
 
@@ -108,6 +113,50 @@ public class InvtDataServiceImp implements InvtDataService {
 	}
 
 	// -------------------------------------------------------------------------------
+	// -----------------------------------InvtOrder-----------------------------------
+	@Override
+	public boolean saveInvtOrder(InvtOrder _io) {
+		return wrhsDao.saveInvtOrder(_io);
+	}
+
+	@Override
+	public boolean deleteInvtOrder(String _uid) {
+		return wrhsDao.deleteInvtOrder(_uid);
+	}
+
+	@Override
+	public InvtOrder loadInvtOrder(String _uid) {
+		return wrhsDao.loadInvtOrder(_uid);
+	}
+
+	@Override
+	public InvtOrder loadInvtOrderByIosn(String _iosn) {
+		return wrhsDao.loadInvtOrderByIosn(_iosn);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ---------------------------------InvtOrderItem---------------------------------
+	@Override
+	public boolean saveInvtOrderItem(InvtOrderItem _ioi) {
+		return wrhsDao.saveInvtOrderItem(_ioi);
+	}
+
+	@Override
+	public boolean deleteInvtOrderItem(String _uid) {
+		return wrhsDao.deleteInvtOrderItem(_uid);
+	}
+
+	@Override
+	public InvtOrderItem loadInvtOrderItem(String _uid) {
+		return wrhsDao.loadInvtOrderItem(_uid);
+	}
+
+	@Override
+	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid) {
+		return wrhsDao.loadInvtOrderItemList(_ioUid);
+	}
+
+	// -------------------------------------------------------------------------------
 	// ---------------------------------MaterialInst----------------------------------
 	@Override
 	public boolean saveMaterialInst(MaterialInst _mi) {
@@ -132,6 +181,82 @@ public class InvtDataServiceImp implements InvtDataService {
 	@Override
 	public List<MaterialInst> loadMaterialInstList(String _mmUid) {
 		return materialDao.loadMaterialInstList(_mmUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// -------------------------------MaterialBinStock--------------------------------
+	@Override
+	public boolean saveMaterialBinStock(MaterialBinStock _mbs) {
+		return materialDao.saveMaterialBinStock(_mbs);
+	}
+
+	@Override
+	public boolean deleteMaterialBinStock(String _uid) {
+		return materialDao.deleteMaterialBinStock(_uid);
+	}
+
+	@Override
+	public MaterialBinStock loadMaterialBinStock(String _uid) {
+		return materialDao.loadMaterialBinStock(_uid);
+	}
+
+	@Override
+	public List<MaterialBinStock> loadMaterialBinStockList(String _mmUid) {
+		return materialDao.loadMaterialBinStockList(_mmUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------MaterialBinStockBatch-----------------------------
+	@Override
+	public boolean saveMaterialBinStockBatch(MaterialBinStockBatch _mbsb) {
+		return materialDao.saveMaterialBinStockBatch(_mbsb);
+	}
+
+	@Override
+	public boolean deleteMaterialBinStockBatch(String _uid) {
+		return materialDao.deleteMaterialBinStockBatch(_uid);
+	}
+
+	@Override
+	public MaterialBinStockBatch loadMaterialBinStockBatch(String _uid) {
+		return materialDao.loadMaterialBinStockBatch(_uid);
+	}
+
+	@Override
+	public List<MaterialBinStockBatch> loadMaterialBinStockBatchList(String _mbsUid) {
+		return materialDao.loadMaterialBinStockBatchList(_mbsUid);
+	}
+
+	@Override
+	public List<MaterialBinStockBatch> loadMaterialBinStockBatchListByMi(String _miUid) {
+		return materialDao.loadMaterialBinStockBatchListByMi(_miUid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------MbsbStmt------------------------------------
+	@Override
+	public boolean saveMbsbStmt(MbsbStmt _mbsbs) {
+		return materialDao.saveMbsbStmt(_mbsbs);
+	}
+
+	@Override
+	public boolean deleteMbsbStmt(String _uid) {
+		return materialDao.deleteMbsbStmt(_uid);
+	}
+
+	@Override
+	public MbsbStmt loadMbsbStmt(String _uid) {
+		return materialDao.loadMbsbStmt(_uid);
+	}
+
+	@Override
+	public List<MbsbStmt> loadMbsbStmtList(String _mbsbUid) {
+		return materialDao.loadMbsbStmtList(_mbsbUid);
+	}
+
+	@Override
+	public List<MbsbStmt> loadMbsbStmtListByIoi(String _ioiUid) {
+		return materialDao.loadMbsbStmtListByIoi(_ioiUid);
 	}
 
 }

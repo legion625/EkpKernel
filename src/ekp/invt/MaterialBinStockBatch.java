@@ -44,9 +44,9 @@ public class MaterialBinStockBatch extends ObjectModel {
 		return mbsb;
 	}
 
-	public static MaterialBinStockBatch getInstance(String _uid, String _mbsUid, String _mbsbsn, long _objectCreateTime,
+	public static MaterialBinStockBatch getInstance(String _uid, String _mbsUid, String _miUid, long _objectCreateTime,
 			long _objectUpdateTime) {
-		MaterialBinStockBatch mbsb = new MaterialBinStockBatch(_mbsUid, _mbsbsn);
+		MaterialBinStockBatch mbsb = new MaterialBinStockBatch(_mbsUid, _miUid);
 		mbsb.configGetInstance(_uid, _objectCreateTime, _objectUpdateTime);
 		return mbsb;
 	}

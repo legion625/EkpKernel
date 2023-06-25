@@ -6,9 +6,13 @@ import java.util.List;
 
 import org.slf4j.event.Level;
 
+import ekp.invt.MaterialBinStock;
+import ekp.invt.MaterialBinStockBatch;
 import ekp.invt.MaterialInst;
 import ekp.invt.MaterialMaster;
+import ekp.invt.MbsbStmt;
 import ekp.invt.type.MaterialInstAcqChannel;
+import ekp.invt.type.MbsbFlowType;
 import ekp.mbom.Part;
 import ekp.mbom.type.PartUnit;
 import legion.data.service.AbstractMySqlDao;
@@ -24,7 +28,7 @@ public class MaterialDao extends AbstractMySqlDao {
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------
-	private final static String TB_MATERIAL_MASTER = "invt_material_master";
+	private final static String TB_MATERIAL_MASTER = "invt_mat_mstr";
 	private final static String COL_MM_MANO = "mano";
 	private final static String COL_MM_NAME = "name";
 	private final static String COL_MM_SPECIFICATION = "specification";
@@ -77,7 +81,7 @@ public class MaterialDao extends AbstractMySqlDao {
 	
 	// -------------------------------------------------------------------------------
 	// ---------------------------------MaterialInst----------------------------------
-	private final static String TB_MATERIAL_INST = "invt_material_inst";
+	private final static String TB_MATERIAL_INST = "invt_mat_inst";
 	private final static String COL_MI_MM_UID = "mm_uid";
 	private final static String COL_MI_MISN = "misn";
 	private final static String COL_MI_MIAC_IDX = "miac_idx";
@@ -129,6 +133,156 @@ public class MaterialDao extends AbstractMySqlDao {
 	}
 	List<MaterialInst> loadMaterialInstList(String _mmUid){
 		return loadObjectList(TB_MATERIAL_INST, COL_MI_MM_UID, _mmUid, this::parseMaterialInst);
+	}
+	
+	// -------------------------------------------------------------------------------
+	// -------------------------------MaterialBinStock--------------------------------
+	private final static String TB_MATERIAL_BIN_STOCK = "invt_mat_bin_stock";
+	private final static String COL_MBS_MM_UID = "mm_uid";
+	private final static String COL_MBS_MANO = "mano";
+	private final static String COL_MBS_WRHS_BIN_UID = "wrhs_bin_uid";
+	private final static String COL_MBS_SUM_STOCK_QTY = "sum_stock_qty";
+	private final static String COL_MBS_SUM_STOCK_VALUE = "sum_stock_value";
+	
+	boolean saveMaterialBinStock(MaterialBinStock _mbs) {
+		DbColumn<MaterialBinStock>[] cols = new DbColumn[] { // 
+				DbColumn.of(COL_MBS_MM_UID, ColType.STRING, MaterialBinStock::getMmUid, 45), //
+				DbColumn.of(COL_MBS_MANO, ColType.STRING, MaterialBinStock::getMano, 45), //
+				DbColumn.of(COL_MBS_WRHS_BIN_UID, ColType.STRING, MaterialBinStock::getWrhsBinUid, 45), //
+				DbColumn.of(COL_MBS_SUM_STOCK_QTY, ColType.DOUBLE, MaterialBinStock::getSumStockQty), //
+				DbColumn.of(COL_MBS_SUM_STOCK_VALUE, ColType.DOUBLE, MaterialBinStock::getSumStockValue), //
+		};
+		return saveObject(TB_MATERIAL_BIN_STOCK, cols, _mbs);
+	}
+	boolean deleteMaterialBinStock(String _uid) {
+		return deleteObject(TB_MATERIAL_BIN_STOCK, _uid);
+	}
+	
+	private MaterialBinStock parseMaterialBinStock(ResultSet _rs) {
+		try {
+			String mmUid = _rs.getString(COL_MBS_MM_UID);
+			MaterialBinStock mbs = MaterialBinStock.getInstance(parseUid(_rs), mmUid, parseObjectCreateTime(_rs),
+					parseObjectUpdateTime(_rs));
+			/* pack attributes */
+			mbs.setMano(_rs.getString(COL_MBS_MANO));
+			mbs.setWrhsBinUid(_rs.getString(COL_MBS_WRHS_BIN_UID));
+			mbs.setSumStockQty(_rs.getDouble(COL_MBS_SUM_STOCK_QTY));
+			mbs.setSumStockValue(_rs.getDouble(COL_MBS_SUM_STOCK_VALUE));
+			return mbs;
+		} catch (SQLException e) {
+			LogUtil.log(log, e, Level.ERROR);
+			return null;
+		}
+	}
+	
+	MaterialBinStock loadMaterialBinStock(String _uid) {
+		return loadObject(TB_MATERIAL_BIN_STOCK, _uid, this::parseMaterialBinStock);
+	}
+	List<MaterialBinStock> loadMaterialBinStockList(String _mmUid){
+		return loadObjectList(TB_MATERIAL_BIN_STOCK,COL_MBS_MM_UID, _mmUid, this::parseMaterialBinStock);
+	}
+	
+	// -------------------------------------------------------------------------------
+	// -----------------------------MaterialBinStockBatch-----------------------------
+	private final static String TB_MAT_BIN_STOCK_BATCH = "invt_mat_bin_stock_batch";
+	private final static String COL_MBSB_MBS_UID = "mbs_uid";
+	private final static String COL_MBSB_MI_UID = "mi_uid";
+	private final static String COL_MBSB_STOCK_QTY = "stock_qty";
+	private final static String COL_MBSB_STOCK_VALUE = "stock_value";
+	private final static String COL_MBSB_STOCK_TIME = "stock_time";
+
+	boolean saveMaterialBinStockBatch(MaterialBinStockBatch _mbsb) {
+		DbColumn<MaterialBinStockBatch>[] cols = new DbColumn[] { //
+				DbColumn.of(COL_MBSB_MBS_UID, ColType.STRING, MaterialBinStockBatch::getMbsUid, 45), //
+				DbColumn.of(COL_MBSB_MI_UID, ColType.STRING, MaterialBinStockBatch::getMiUid, 45), //
+				DbColumn.of(COL_MBSB_STOCK_QTY, ColType.DOUBLE, MaterialBinStockBatch::getStockQty), //
+				DbColumn.of(COL_MBSB_STOCK_VALUE, ColType.DOUBLE, MaterialBinStockBatch::getStockValue), //
+				DbColumn.of(COL_MBSB_STOCK_TIME, ColType.LONG, MaterialBinStockBatch::getStockTime), //
+		};
+		return saveObject(TB_MAT_BIN_STOCK_BATCH, cols, _mbsb);
+	}
+
+	boolean deleteMaterialBinStockBatch(String _uid) {
+		return deleteObject(TB_MAT_BIN_STOCK_BATCH, _uid);
+	}
+
+	private MaterialBinStockBatch parseMaterialBinStockBatch(ResultSet _rs) {
+		try {
+			
+			String mbsUid = _rs.getString(COL_MBSB_MBS_UID);
+			String miUid = _rs.getString(COL_MBSB_MI_UID);
+			MaterialBinStockBatch mbsb = MaterialBinStockBatch.getInstance(parseUid(_rs), mbsUid, miUid, parseObjectCreateTime(_rs), parseObjectUpdateTime(_rs));
+			/* pack attributes */
+			mbsb.setStockQty(_rs.getDouble(COL_MBSB_STOCK_QTY));
+			mbsb.setStockValue(_rs.getDouble(COL_MBSB_STOCK_VALUE));
+			mbsb.setStockTime(_rs.getLong(COL_MBSB_STOCK_TIME));
+			return mbsb;
+		} catch (SQLException e) {
+			LogUtil.log(log, e, Level.ERROR);
+			return null;
+		}
+	}
+	
+	MaterialBinStockBatch loadMaterialBinStockBatch(String _uid) {
+		return loadObject(TB_MAT_BIN_STOCK_BATCH, _uid, this::parseMaterialBinStockBatch);
+	}
+
+	List<MaterialBinStockBatch> loadMaterialBinStockBatchList(String _mbsUid){
+		return loadObjectList(TB_MAT_BIN_STOCK_BATCH,COL_MBSB_MBS_UID,  _mbsUid, this::parseMaterialBinStockBatch);
+	}
+
+	List<MaterialBinStockBatch> loadMaterialBinStockBatchListByMi(String _miUid){
+		return loadObjectList(TB_MAT_BIN_STOCK_BATCH,COL_MBSB_MI_UID,  _miUid, this::parseMaterialBinStockBatch);
+	}
+	
+	// -------------------------------------------------------------------------------
+	// -----------------------------------MbsbStmt------------------------------------
+	private final static String TB_MBSB_STMT = "invt_mbsb_stmt";
+	private final static String COL_MBSBS_MBSB_UID = "mbsb_uid";
+	private final static String COL_MBSBS_IOI_UID = "ioi_uid";
+	private final static String COL_MBSBS_MBSB_FLOW_TYPE_IDX = "mbsb_flow_type_idx";
+	private final static String COL_MBSBS_STMT_QTY = "stmt_qty";
+	private final static String COL_MBSBS_STMT_VALUE = "stmt_value";
+
+	boolean saveMbsbStmt(MbsbStmt _mbsbs) {
+		DbColumn<MbsbStmt>[] cols = new DbColumn[] { //
+				DbColumn.of(COL_MBSBS_MBSB_UID, ColType.STRING, MbsbStmt::getMbsbUid, 45), //
+				DbColumn.of(COL_MBSBS_IOI_UID, ColType.STRING, MbsbStmt::getIoiUid, 45), //
+				DbColumn.of(COL_MBSBS_MBSB_FLOW_TYPE_IDX, ColType.STRING, MbsbStmt::getMbsbFlowTypeIdx), //
+				DbColumn.of(COL_MBSBS_STMT_QTY, ColType.DOUBLE, MbsbStmt::getStmtQty), //
+				DbColumn.of(COL_MBSBS_STMT_VALUE, ColType.DOUBLE, MbsbStmt::getStmtValue), //
+		};
+		return saveObject(TB_MBSB_STMT, cols, _mbsbs);
+	}
+
+	boolean deleteMbsbStmt(String _uid) {
+		return deleteObject(TB_MBSB_STMT, _uid);
+	}
+	
+	private MbsbStmt parseMbsbStmt(ResultSet _rs) {
+		try {
+			String mbsbUid = _rs.getString(COL_MBSBS_MBSB_UID);
+			String ioiUid = _rs.getString(COL_MBSBS_IOI_UID);
+			MbsbStmt mbsbs = MbsbStmt.getInstance(parseUid(_rs), mbsbUid, ioiUid, parseObjectCreateTime(_rs), parseObjectUpdateTime(_rs));
+			/* pack attributes */
+			mbsbs.setMbsbFlowType(MbsbFlowType.get(_rs.getInt(COL_MBSBS_MBSB_FLOW_TYPE_IDX)));
+			mbsbs.setStmtQty(_rs.getDouble(COL_MBSBS_STMT_QTY));
+			mbsbs.setStmtValue(_rs.getDouble(COL_MBSBS_STMT_VALUE));
+			return mbsbs;
+		} catch (SQLException e) {
+			LogUtil.log(log, e, Level.ERROR);
+			return null;
+		}
+	}
+	
+	MbsbStmt loadMbsbStmt(String _uid) {
+		return loadObject(TB_MBSB_STMT, _uid, this::parseMbsbStmt);
+	}
+	List<MbsbStmt> loadMbsbStmtList(String _mbsbUid){
+		return loadObjectList(TB_MBSB_STMT, COL_MBSBS_MBSB_UID, _mbsbUid, this::parseMbsbStmt);
+	}
+	List<MbsbStmt> loadMbsbStmtListByIoi(String _ioiUid){
+		return loadObjectList(TB_MBSB_STMT, COL_MBSBS_IOI_UID, _ioiUid, this::parseMbsbStmt);
 	}
 
 }

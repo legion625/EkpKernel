@@ -82,6 +82,10 @@ public class MbsbStmt extends ObjectModel {
 	}
 
 	// -------------------------------------------------------------------------------
+	public int getMbsbFlowTypeIdx() {
+		return (getMbsbFlowType() == null ? MbsbFlowType.UNDEFINED : getMbsbFlowType()).getIdx();
+	}
+	
 	// ----------------------------------ObjectModel----------------------------------
 	@Override
 	protected boolean save() {
