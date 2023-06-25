@@ -1,4 +1,4 @@
-Min-Hua, 2023.06.24
+Min-Hua, 2023.06.25
 [deployment]
 1. Create tables. 
   -1. invt_wrhs_loc, invt_wrhs_bin, invt_invt_order, invt_invt_order_item

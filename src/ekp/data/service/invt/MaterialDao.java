@@ -248,7 +248,7 @@ public class MaterialDao extends AbstractMySqlDao {
 		DbColumn<MbsbStmt>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_MBSBS_MBSB_UID, ColType.STRING, MbsbStmt::getMbsbUid, 45), //
 				DbColumn.of(COL_MBSBS_IOI_UID, ColType.STRING, MbsbStmt::getIoiUid, 45), //
-				DbColumn.of(COL_MBSBS_MBSB_FLOW_TYPE_IDX, ColType.STRING, MbsbStmt::getMbsbFlowTypeIdx), //
+				DbColumn.of(COL_MBSBS_MBSB_FLOW_TYPE_IDX, ColType.INT, MbsbStmt::getMbsbFlowTypeIdx), //
 				DbColumn.of(COL_MBSBS_STMT_QTY, ColType.DOUBLE, MbsbStmt::getStmtQty), //
 				DbColumn.of(COL_MBSBS_STMT_VALUE, ColType.DOUBLE, MbsbStmt::getStmtValue), //
 		};
