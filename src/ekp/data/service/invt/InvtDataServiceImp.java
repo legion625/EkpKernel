@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import ekp.data.InvtDataService;
+import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
 import ekp.invt.MaterialBinStock;
@@ -13,6 +14,7 @@ import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.WrhsBin;
 import ekp.invt.WrhsLoc;
+import legion.util.query.QueryOperation;
 
 public class InvtDataServiceImp implements InvtDataService {
 
@@ -154,6 +156,11 @@ public class InvtDataServiceImp implements InvtDataService {
 	@Override
 	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid) {
 		return wrhsDao.loadInvtOrderItemList(_ioUid);
+	}
+	
+	@Override
+	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param){
+		return wrhsDao.searchInvtOrderItem(_param);
 	}
 
 	// -------------------------------------------------------------------------------

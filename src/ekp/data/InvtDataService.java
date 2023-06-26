@@ -2,6 +2,7 @@ package ekp.data;
 
 import java.util.List;
 
+import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
 import ekp.invt.MaterialBinStock;
@@ -45,7 +46,7 @@ public interface InvtDataService extends IntegrationService {
 	public boolean deleteInvtOrderItem(String _uid);
 	public InvtOrderItem loadInvtOrderItem(String _uid);
 	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid);
-	// TODO search
+	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param);
 	
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------

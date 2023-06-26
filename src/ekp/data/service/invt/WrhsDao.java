@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.slf4j.event.Level;
 
+import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
 import ekp.invt.WrhsBin;
@@ -16,6 +17,7 @@ import legion.data.service.AbstractMySqlDao;
 import legion.data.service.AbstractMySqlDao.ColType;
 import legion.data.service.AbstractMySqlDao.DbColumn;
 import legion.util.LogUtil;
+import legion.util.query.QueryOperation;
 
 public class WrhsDao extends AbstractMySqlDao {
 
@@ -154,6 +156,34 @@ public class WrhsDao extends AbstractMySqlDao {
 		return loadObject(TB_INVT_ORDER, COL_IO_IOSN, _iosn, this::parseInvtOrder);
 	}
 	
+	private String packInvtOrderQueryField(InvtOrderItemQueryParam _param, String _tbIoi, String _colIoiIoUid) {
+		String targetMasterField;
+		switch (_param) {
+		/* InvtOrder:master */
+		case IOSN:
+			targetMasterField = COL_IO_IOSN;
+			break;
+		case IO_APPLIER_ID:
+			targetMasterField = COL_IO_APPLIER_ID;
+			break;
+		case IO_APPLIER_NAME:
+			targetMasterField = COL_IO_APPLIER_NAME;
+			break;
+		case IO_APV_TIME:
+			targetMasterField = COL_IO_APV_TIME;
+			break;
+		case IO_REMARK:
+			targetMasterField = COL_IO_REMARK;
+			break;
+		default:
+			log.debug("not supported. {}", _param);
+			return null;
+		}
+		return packMasterQueryField(targetMasterField, TB_INVT_ORDER, COL_UID, _tbIoi, _colIoiIoUid);
+	}
+	
+//	
+	
 	// -------------------------------------------------------------------------------
 	// ---------------------------------InvtOrderItem---------------------------------
 	private final static String TB_INVT_ORDER_ITEM = "invt_invt_order_item";
@@ -201,5 +231,38 @@ public class WrhsDao extends AbstractMySqlDao {
 	
 	List<InvtOrderItem> loadInvtOrderItemList(String _ioUid){
 		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_IO_UID, _ioUid, this::parseInvtOrderItem);
+	}
+	
+	private String parseInvtOrderItemQueryParamMapping(InvtOrderItemQueryParam _param) {
+		switch (_param) {
+		/* InvtOrderItem:this */
+		case IO_UID:
+			return COL_IOI_IO_UID;
+		case MBS_UID:
+			return COL_IOI_MBS_UID;
+		case IO_TYPE_IDX:
+			return COL_IOI_IO_TYPE_IDX;
+		/* InvtOrder:master */
+		case IOSN:
+		case IO_APPLIER_ID:
+		case IO_APPLIER_NAME:
+		case IO_APV_TIME:
+		case IO_REMARK:
+			return packInvtOrderQueryField(_param, TB_INVT_ORDER_ITEM, COL_IOI_IO_UID);
+		/* MaterialBinStock:master */
+		case MBS_MM_UID:
+		case MBS_MANO:
+		case MBS_WB_UID:
+			// -> MaterialMaster
+		case MBS_MM_NAME:
+			return MaterialDao.packMaterialBinStockQueryField(_param, TB_INVT_ORDER_ITEM,COL_IOI_MBS_UID);
+		default:
+			log.warn("_param error. {}", _param);
+			return null;
+		}
+	}
+	
+	QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param){
+		return searchObject(TB_INVT_ORDER_ITEM, _param, this::parseInvtOrderItemQueryParamMapping, this::parseInvtOrderItem);
 	}
 }

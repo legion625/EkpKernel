@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.data.InvtDataService;
+import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.invt.dto.InvtOrderCreateObj;
 import ekp.invt.dto.InvtOrderItemCreateObj;
 import ekp.invt.dto.MaterialBinStockBatchCreateObj;
@@ -19,6 +20,7 @@ import ekp.invt.dto.WrhsLocCreateObj;
 import ekp.invt.type.MbsbFlowType;
 import legion.DataServiceFactory;
 import legion.util.TimeTraveler;
+import legion.util.query.QueryOperation;
 
 public class InvtServiceImp implements InvtService {
 
@@ -129,7 +131,11 @@ public class InvtServiceImp implements InvtService {
 	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid) {
 		return dataService.loadInvtOrderItemList(_ioUid);
 	}
-	// TODO search
+	
+	@Override
+	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param){
+		return dataService.searchInvtOrderItem(_param);
+	}
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------

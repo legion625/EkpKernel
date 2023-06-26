@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.slf4j.event.Level;
 
+import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.invt.MaterialBinStock;
 import ekp.invt.MaterialBinStockBatch;
 import ekp.invt.MaterialInst;
@@ -81,7 +82,23 @@ public class MaterialDao extends AbstractMySqlDao {
 	MaterialMaster loadMaterialMasterByMano(String _mano) {
 		return loadObject(TB_MATERIAL_MASTER, COL_MM_MANO, _mano, this::parseMaterialMaster);
 	}
-	
+
+	private static String packMaterialMasterQueryField(InvtOrderItemQueryParam _param, String _tbMbs,
+			String _colMbsMmUid) {
+		String targetMasterField;
+		switch (_param) {
+		/* MaterialBinStock:master */
+		// -> MaterialMaster
+		case MBS_MM_NAME:
+			targetMasterField = COL_MM_NAME;
+			break;
+		default:
+			log.debug("not supported. {}", _param);
+			return null;
+		}
+		return packMasterQueryField(targetMasterField, TB_MATERIAL_MASTER, COL_UID, _tbMbs, _colMbsMmUid);
+	}
+
 	// -------------------------------------------------------------------------------
 	// ---------------------------------MaterialInst----------------------------------
 	private final static String TB_MATERIAL_INST = "invt_mat_inst";
@@ -183,6 +200,30 @@ public class MaterialDao extends AbstractMySqlDao {
 	}
 	List<MaterialBinStock> loadMaterialBinStockList(String _mmUid){
 		return loadObjectList(TB_MATERIAL_BIN_STOCK,COL_MBS_MM_UID, _mmUid, this::parseMaterialBinStock);
+	}
+	
+	static String packMaterialBinStockQueryField(InvtOrderItemQueryParam _param, String _tbIoi, String _colIoiMbsUid) {
+		String targetMasterField;
+		switch (_param) {
+		/* MaterialBinStock:master */
+		case MBS_MM_UID:
+			targetMasterField = COL_MBS_MM_UID;
+			break;
+		case MBS_MANO:
+			targetMasterField = COL_MBS_MANO;
+			break;
+		case MBS_WB_UID:
+			targetMasterField = COL_MBS_WRHS_BIN_UID;
+			break;
+			// -> MaterialMaster
+		case MBS_MM_NAME:
+			targetMasterField = packMaterialMasterQueryField(_param, TB_MATERIAL_BIN_STOCK, COL_MBS_MM_UID);
+			break;
+		default:
+			log.debug("not supported. {}", _param);
+			return null;
+		}
+		return packMasterQueryField(targetMasterField, TB_MATERIAL_BIN_STOCK, COL_UID, _tbIoi, _colIoiMbsUid);
 	}
 	
 	// -------------------------------------------------------------------------------
