@@ -9,6 +9,7 @@ import java.util.Map;
 import org.slf4j.event.Level;
 
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
+import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.MaterialBinStock;
 import ekp.invt.MaterialBinStockBatch;
 import ekp.invt.MaterialInst;
@@ -23,6 +24,7 @@ import legion.data.service.AbstractMySqlDao;
 import legion.data.service.AbstractMySqlDao.ColType;
 import legion.data.service.AbstractMySqlDao.DbColumn;
 import legion.util.LogUtil;
+import legion.util.query.QueryOperation.QueryValue;
 
 public class MaterialDao extends AbstractMySqlDao {
 
@@ -339,4 +341,25 @@ public class MaterialDao extends AbstractMySqlDao {
 		return loadObjectList(TB_MBSB_STMT, COL_MBSBS_IOI_UID, _ioiUid, this::parseMbsbStmt);
 	}
 
+	private static String parseMbsbStmtQueryParamMapping(MbsbStmtQueryParam _param) {
+		switch (_param) {
+		/* MbsbStmt:this */
+		case MBSB_FLOW_TYPE_IDX:
+			return COL_MBSBS_MBSB_FLOW_TYPE_IDX;
+		case POSTING_STATUS_IDX:
+			return COL_MBSBS_POSTING_STATUS_IDX;
+		case POSTING_TIME:
+			return COL_MBSBS_POSTING_TIME;
+		default:
+			log.warn("_param error. {}", _param);
+			return null;
+		}
+	}
+	
+	static String packMbsbStmtField(String _tbIoi, String _colIoiUid,
+			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap, InvtOrderItemQueryParam _param) {
+		return packExistsField(_tbIoi, _colIoiUid, TB_MBSB_STMT, COL_MBSBS_IOI_UID,
+				MaterialDao::parseMbsbStmtQueryParamMapping, _existsDetailMap, _param);
+	}
+	
 }

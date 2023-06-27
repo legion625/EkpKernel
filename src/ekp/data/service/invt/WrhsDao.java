@@ -3,10 +3,13 @@ package ekp.data.service.invt;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 import org.slf4j.event.Level;
 
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
+import ekp.data.service.invt.query.InvtOrderQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
 import ekp.invt.WrhsBin;
@@ -18,6 +21,8 @@ import legion.data.service.AbstractMySqlDao.ColType;
 import legion.data.service.AbstractMySqlDao.DbColumn;
 import legion.util.LogUtil;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryParam;
+import legion.util.query.QueryOperation.QueryValue;
 
 public class WrhsDao extends AbstractMySqlDao {
 
@@ -156,6 +161,36 @@ public class WrhsDao extends AbstractMySqlDao {
 		return loadObject(TB_INVT_ORDER, COL_IO_IOSN, _iosn, this::parseInvtOrder);
 	}
 	
+	private String parseInvtOrderQueryParamMapping(InvtOrderQueryParam _param, Map<InvtOrderQueryParam, QueryValue[]> _map) {
+		switch (_param) {
+		/* InvtOrder:this */
+		case IOSN:
+			return COL_IO_IOSN;
+		case APPLIER_ID:
+			return COL_IO_APPLIER_ID;
+		case APPLIER_NAME:
+			return COL_IO_APPLIER_NAME;
+		case APV_TIME:
+			return COL_IO_APV_TIME;
+		case REMARK:
+			return COL_IO_REMARK;
+		/* InvtOrderItem:detail */
+		case B_OF_IOI$:
+			return packInvtOrderItemField(TB_INVT_ORDER, COL_UID, _map, _param);
+
+		default:
+			log.warn("_param error. {}", _param);
+			return null;
+		}
+	}
+	
+	QueryOperation<InvtOrderQueryParam, InvtOrder> searchInvtOrder(QueryOperation<InvtOrderQueryParam, InvtOrder> _param
+			, Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap){
+		Function<InvtOrderQueryParam, String> _queryParamMappingParser = p -> parseInvtOrderQueryParamMapping(p,
+				_existsDetailMap); 
+		return searchObject(TB_INVT_ORDER, _param, _queryParamMappingParser, this::parseInvtOrder);
+	}
+	
 	private String packInvtOrderQueryField(InvtOrderItemQueryParam _param, String _tbIoi, String _colIoiIoUid) {
 		String targetMasterField;
 		switch (_param) {
@@ -233,7 +268,8 @@ public class WrhsDao extends AbstractMySqlDao {
 		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_IO_UID, _ioUid, this::parseInvtOrderItem);
 	}
 	
-	private String parseInvtOrderItemQueryParamMapping(InvtOrderItemQueryParam _param) {
+	private String parseInvtOrderItemQueryParamMapping(InvtOrderItemQueryParam _param
+			, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap) {
 		switch (_param) {
 		/* InvtOrderItem:this */
 		case IO_UID:
@@ -256,13 +292,28 @@ public class WrhsDao extends AbstractMySqlDao {
 			// -> MaterialMaster
 		case MBS_MM_NAME:
 			return MaterialDao.packMaterialBinStockQueryField(_param, TB_INVT_ORDER_ITEM,COL_IOI_MBS_UID);
+		/* MbsbStmt:Detail */
+		case B_OF_MBSBS$:
+			return MaterialDao.packMbsbStmtField(TB_INVT_ORDER_ITEM,COL_UID, _existsDetailMap, _param);
 		default:
 			log.warn("_param error. {}", _param);
 			return null;
 		}
 	}
 	
-	QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param){
-		return searchObject(TB_INVT_ORDER_ITEM, _param, this::parseInvtOrderItemQueryParamMapping, this::parseInvtOrderItem);
+	QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(
+			QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param,
+			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap) {
+		Function<InvtOrderItemQueryParam, String> queryParamMappingParser = p -> parseInvtOrderItemQueryParamMapping(p,
+				_existsDetailMap);
+		return searchObject(TB_INVT_ORDER_ITEM, _param, queryParamMappingParser, this::parseInvtOrderItem);
+	}
+
+	private String packInvtOrderItemField(String _tbIo, String _colIoUid,
+			Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap, InvtOrderQueryParam _param) {
+		Function<InvtOrderItemQueryParam, String> queryParamMappingParser = p -> parseInvtOrderItemQueryParamMapping(p,
+				null);
+		return packExistsField(_tbIo, _colIoUid, TB_INVT_ORDER_ITEM, COL_IOI_IO_UID, queryParamMappingParser,
+				_existsDetailMap, _param);
 	}
 }

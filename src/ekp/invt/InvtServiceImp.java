@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import ekp.data.InvtDataService;
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
+import ekp.data.service.invt.query.InvtOrderQueryParam;
 import ekp.invt.dto.InvtOrderCreateObj;
 import ekp.invt.dto.InvtOrderItemCreateObj;
 import ekp.invt.dto.MaterialBinStockBatchCreateObj;
@@ -21,6 +22,7 @@ import ekp.invt.type.MbsbFlowType;
 import legion.DataServiceFactory;
 import legion.util.TimeTraveler;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public class InvtServiceImp implements InvtService {
 
@@ -108,7 +110,13 @@ public class InvtServiceImp implements InvtService {
 	public InvtOrder loadInvtOrderByIosn(String _iosn) {
 		return dataService.loadInvtOrderByIosn(_iosn);
 	}
-	// TODO search
+	
+	@Override
+	public QueryOperation<InvtOrderQueryParam, InvtOrder> searchInvtOrder(
+			QueryOperation<InvtOrderQueryParam, InvtOrder> _param,
+			Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap) {
+		return dataService.searchInvtOrder(_param, _existsDetailMap);
+	}
 
 	// -------------------------------------------------------------------------------
 	// ---------------------------------InvtOrderItem---------------------------------
@@ -133,8 +141,8 @@ public class InvtServiceImp implements InvtService {
 	}
 	
 	@Override
-	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param){
-		return dataService.searchInvtOrderItem(_param);
+	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap){
+		return dataService.searchInvtOrderItem(_param,  _existsDetailMap);
 	}
 
 	// -------------------------------------------------------------------------------

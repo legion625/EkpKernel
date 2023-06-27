@@ -5,6 +5,7 @@ import java.util.Map;
 
 import ekp.data.InvtDataService;
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
+import ekp.data.service.invt.query.InvtOrderQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
 import ekp.invt.MaterialBinStock;
@@ -15,6 +16,7 @@ import ekp.invt.MbsbStmt;
 import ekp.invt.WrhsBin;
 import ekp.invt.WrhsLoc;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public class InvtDataServiceImp implements InvtDataService {
 
@@ -135,7 +137,13 @@ public class InvtDataServiceImp implements InvtDataService {
 	public InvtOrder loadInvtOrderByIosn(String _iosn) {
 		return wrhsDao.loadInvtOrderByIosn(_iosn);
 	}
-
+	
+	@Override
+	public QueryOperation<InvtOrderQueryParam, InvtOrder> searchInvtOrder(QueryOperation<InvtOrderQueryParam, InvtOrder> _param
+			,Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap){
+		return wrhsDao.searchInvtOrder(_param, _existsDetailMap);
+	}
+	
 	// -------------------------------------------------------------------------------
 	// ---------------------------------InvtOrderItem---------------------------------
 	@Override
@@ -159,8 +167,9 @@ public class InvtDataServiceImp implements InvtDataService {
 	}
 	
 	@Override
-	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param){
-		return wrhsDao.searchInvtOrderItem(_param);
+	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param
+			, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap){
+		return wrhsDao.searchInvtOrderItem(_param,  _existsDetailMap);
 	}
 
 	// -------------------------------------------------------------------------------

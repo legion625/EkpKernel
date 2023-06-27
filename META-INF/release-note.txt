@@ -1,7 +1,7 @@
-Min-Hua, 2023.06.26
+Min-Hua, 2023.06.27
 [change]
 1. [INVT] Add searching services.
-  -1. searchInvtOrderItem
+  -1. searchInvtOrder, searchInvtOrderItem 
 
 Min-Hua, 2023.06.25
 [change]

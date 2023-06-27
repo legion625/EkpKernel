@@ -1,8 +1,10 @@
 package ekp.invt;
 
 import java.util.List;
+import java.util.Map;
 
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
+import ekp.data.service.invt.query.InvtOrderQueryParam;
 import ekp.invt.dto.InvtOrderCreateObj;
 import ekp.invt.dto.InvtOrderItemCreateObj;
 import ekp.invt.dto.MaterialBinStockBatchCreateObj;
@@ -15,6 +17,7 @@ import ekp.invt.dto.WrhsLocCreateObj;
 import legion.BusinessService;
 import legion.util.TimeTraveler;
 import legion.util.query.QueryOperation;
+import legion.util.query.QueryOperation.QueryValue;
 
 public interface InvtService extends BusinessService {
 
@@ -39,8 +42,10 @@ public interface InvtService extends BusinessService {
 	public boolean deleteInvtOrder(String _uid);
 	public InvtOrder loadInvtOrder(String _uid);
 	public InvtOrder loadInvtOrderByIosn(String _iosn);
-	
-	// TODO search
+
+	public QueryOperation<InvtOrderQueryParam, InvtOrder> searchInvtOrder(
+			QueryOperation<InvtOrderQueryParam, InvtOrder> _param,
+			Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap);
 	
 	// -------------------------------------------------------------------------------
 	// ---------------------------------InvtOrderItem---------------------------------
@@ -48,7 +53,10 @@ public interface InvtService extends BusinessService {
 	public boolean deleteInvtOrderItem(String _uid);
 	public InvtOrderItem loadInvtOrderItem(String _uid);
 	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid);
-	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param);
+
+	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(
+			QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param,
+			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap);
 	
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------	
