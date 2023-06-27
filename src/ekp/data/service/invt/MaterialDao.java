@@ -25,6 +25,7 @@ import legion.data.service.AbstractMySqlDao;
 import legion.data.service.AbstractMySqlDao.ColType;
 import legion.data.service.AbstractMySqlDao.DbColumn;
 import legion.util.LogUtil;
+import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
 
 public class MaterialDao extends AbstractMySqlDao {
@@ -158,6 +159,24 @@ public class MaterialDao extends AbstractMySqlDao {
 		return loadObjectList(TB_MATERIAL_INST, COL_MI_MM_UID, _mmUid, this::parseMaterialInst);
 	}
 	
+	private static String packMaterialInstField(MbsbStmtQueryParam _param, String _tbMbsb, String _colMbsbMiUid) {
+		String targetMasterField;
+		switch (_param) {
+		/* MaterialBinStockBatch:master */
+		// -> MaterialInst
+		case MISN:
+			targetMasterField = COL_MI_MISN;
+			break;
+		case MIAC_IDX:
+			targetMasterField = COL_MI_MIAC_IDX;
+			break;
+		default:
+			log.debug("not supported. {}", _param);
+			return null;
+		}
+		return packMasterQueryField(targetMasterField, TB_MATERIAL_INST, COL_UID, _tbMbsb, _colMbsbMiUid);
+	}
+
 	// -------------------------------------------------------------------------------
 	// -------------------------------MaterialBinStock--------------------------------
 	private final static String TB_MATERIAL_BIN_STOCK = "invt_mat_bin_stock";
@@ -229,6 +248,21 @@ public class MaterialDao extends AbstractMySqlDao {
 		return packMasterQueryField(targetMasterField, TB_MATERIAL_BIN_STOCK, COL_UID, _tbIoi, _colIoiMbsUid);
 	}
 	
+	private static String packMaterialBinStockField(MbsbStmtQueryParam _param, String _tbMbsb, String _colMbsbMbsUid) {
+		String targetMasterField;
+		switch (_param) {
+		/* MaterialBinStockBatch:master */
+		// -> MaterialBinStock
+		case MBS_MANO:
+			targetMasterField = COL_MBS_MANO;
+			break;
+		default:
+			log.debug("not supported. {}", _param);
+			return null;
+		}
+		return packMasterQueryField(targetMasterField, TB_MATERIAL_BIN_STOCK, COL_UID, _tbMbsb, _colMbsbMbsUid);
+	}
+	
 	// -------------------------------------------------------------------------------
 	// -----------------------------MaterialBinStockBatch-----------------------------
 	private final static String TB_MAT_BIN_STOCK_BATCH = "invt_mat_bin_stock_batch";
@@ -284,6 +318,28 @@ public class MaterialDao extends AbstractMySqlDao {
 
 	List<MaterialBinStockBatch> loadMaterialBinStockBatchListByMi(String _miUid){
 		return loadObjectList(TB_MAT_BIN_STOCK_BATCH,COL_MBSB_MI_UID,  _miUid, this::parseMaterialBinStockBatch);
+	}
+	
+	private static String packMaterialBinStockBatchField(MbsbStmtQueryParam _param, String _tbMbsbs,
+			String _colMbsbsMbsbUid) {
+		String targetMasterField;
+		switch (_param) {
+		/* MaterialBinStockBatch:master */
+		// -> MaterialBinStock
+		case MBS_MANO:
+			targetMasterField = packMaterialBinStockField(_param, TB_MAT_BIN_STOCK_BATCH, COL_MBSB_MBS_UID);
+			break;
+		// -> MaterialInst
+		case MISN:
+		case MIAC_IDX:
+			targetMasterField = packMaterialInstField(_param, TB_MAT_BIN_STOCK_BATCH, COL_MBSB_MI_UID);
+			break;
+		default:
+			log.debug("not supported. {}", _param);
+			return null;
+		}
+
+		return packMasterQueryField(targetMasterField, TB_MAT_BIN_STOCK_BATCH, COL_UID, _tbMbsbs, _colMbsbsMbsbUid);
 	}
 	
 	// -------------------------------------------------------------------------------
@@ -351,10 +407,21 @@ public class MaterialDao extends AbstractMySqlDao {
 			return COL_MBSBS_POSTING_STATUS_IDX;
 		case POSTING_TIME:
 			return COL_MBSBS_POSTING_TIME;
+		/* MaterialBinStockBatch:master */
+		// -> MaterialBinStock
+		case MBS_MANO:
+			// -> MaterialInst
+		case MISN:
+		case MIAC_IDX:
+			return MaterialDao.packMaterialBinStockBatchField(_param, TB_MBSB_STMT, COL_MBSBS_MBSB_UID);
 		default:
 			log.warn("_param error. {}", _param);
 			return null;
 		}
+	}
+
+	QueryOperation<MbsbStmtQueryParam, MbsbStmt> searchMbsbStmt(QueryOperation<MbsbStmtQueryParam, MbsbStmt> _param) {
+		return searchObject(TB_MBSB_STMT, _param, MaterialDao::parseMbsbStmtQueryParamMapping, this::parseMbsbStmt);
 	}
 	
 	static String packMbsbStmtField(String _tbIoi, String _colIoiUid,

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import ekp.data.InvtDataService;
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.dto.InvtOrderCreateObj;
 import ekp.invt.dto.InvtOrderItemCreateObj;
 import ekp.invt.dto.MaterialBinStockBatchCreateObj;
@@ -268,6 +269,12 @@ public class InvtServiceImp implements InvtService {
 	@Override
 	public List<MbsbStmt> loadMbsbStmtListByIoi(String _ioiUid) {
 		return dataService.loadMbsbStmtListByIoi(_ioiUid);
+	}
+	
+	@Override
+	public QueryOperation<MbsbStmtQueryParam, MbsbStmt> searchMbsbStmt(
+			QueryOperation<MbsbStmtQueryParam, MbsbStmt> _param){
+		return dataService.searchMbsbStmt(_param);
 	}
 	
 	@Override

@@ -7,6 +7,15 @@ public enum MbsbStmtQueryParam implements QueryParam{
 	MBSB_FLOW_TYPE_IDX("MBSB_FLOW_TYPE_IDX","Flow Type"), //
 	POSTING_STATUS_IDX("POSTING_STATUS_IDX","Posting Status"), //
 	POSTING_TIME("POSTING_TIME","Posting Time"), //
+	
+	/* MaterialBinStockBatch:master */
+	// -> MaterialBinStock
+	MBS_MANO("MBS_MANO", "Mano"), //
+	
+	// -> MaterialInst
+	MISN("MISN","MISN"), //
+	MIAC_IDX("MIAC_IDX","Mat. Inst. Acq. Channel"), //
+	
 	;
 
 	private String id, desp;

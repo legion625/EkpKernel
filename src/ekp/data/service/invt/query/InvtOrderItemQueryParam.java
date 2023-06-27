@@ -23,7 +23,7 @@ public enum InvtOrderItemQueryParam implements QueryParam {
 	MBS_MM_NAME("MBS_MM_NAME","Material Master Name"), //
 	
 	/* MbsbStmt:Detail */
-	B_OF_MBSBS$("B_OF_MBSBS$", "B_OF_MBSBS$"), //
+	B_of_MBSBS$("B_OF_MBSBS$", "B_OF_MBSBS$"), //
 	
 	;
 

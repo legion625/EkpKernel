@@ -175,10 +175,10 @@ public class WrhsDao extends AbstractMySqlDao {
 		case REMARK:
 			return COL_IO_REMARK;
 		/* InvtOrderItem:detail */
-		case B_OF_IOI$:
+		case B_of_IOI$:
 			return packInvtOrderItemField(TB_INVT_ORDER, COL_UID, _map, _param);
 			/* InvtOrderItem->MbsbStmt:detail */
-		case B_OF_IOI_MBSBS$:
+		case B_of_IOI_of_MBSBS$:
 			return packInvtOrderItemField(TB_INVT_ORDER, COL_UID, _map, _param); // TODO
 
 		default:
@@ -296,7 +296,7 @@ public class WrhsDao extends AbstractMySqlDao {
 		case MBS_MM_NAME:
 			return MaterialDao.packMaterialBinStockQueryField(_param, TB_INVT_ORDER_ITEM,COL_IOI_MBS_UID);
 		/* MbsbStmt:Detail */
-		case B_OF_MBSBS$:
+		case B_of_MBSBS$:
 			return MaterialDao.packMbsbStmtField(TB_INVT_ORDER_ITEM,COL_UID, _existsDetailMap, _param);
 		default:
 			log.warn("_param error. {}", _param);
@@ -319,11 +319,11 @@ public class WrhsDao extends AbstractMySqlDao {
 		
 //		String targetDetailField;
 		switch (_param) {
-		case B_OF_IOI$:
+		case B_of_IOI$:
 //			targetDetailField = 
 			return packExistsField(_tbIo, _colIoUid, TB_INVT_ORDER_ITEM, COL_IOI_IO_UID, queryParamMappingParser,
 					_existsDetailMap, _param);
-		case B_OF_IOI_MBSBS$:
+		case B_of_IOI_of_MBSBS$:
 //			String existField2 = packex
 			return packExistsField(_tbIo, _colIoUid, TB_INVT_ORDER_ITEM, COL_IOI_IO_UID, MaterialDao.packMbsbStmtField(TB_INVT_ORDER_ITEM, COL_UID, _existsDetailMap, _param));
 // FIXME

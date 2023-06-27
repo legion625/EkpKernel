@@ -6,6 +6,7 @@ import java.util.Map;
 import ekp.data.InvtDataService;
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
 import ekp.invt.MaterialBinStock;
@@ -278,6 +279,12 @@ public class InvtDataServiceImp implements InvtDataService {
 	@Override
 	public List<MbsbStmt> loadMbsbStmtListByIoi(String _ioiUid) {
 		return materialDao.loadMbsbStmtListByIoi(_ioiUid);
+	}
+	
+	@Override
+	public QueryOperation<MbsbStmtQueryParam, MbsbStmt> searchMbsbStmt(
+			QueryOperation<MbsbStmtQueryParam, MbsbStmt> _param){
+		return materialDao.searchMbsbStmt(_param);
 	}
 
 }

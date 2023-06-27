@@ -10,9 +10,9 @@ public enum InvtOrderQueryParam implements QueryParam{
 	APV_TIME("APV_TIME","Approval Time"), //
 	REMARK("REMARK","Remark"), //
 	/* InvtOrderItem:detail */
-	B_OF_IOI$("B_OF_IOI$", "B_OF_IOI$"), //
+	B_of_IOI$("B_OF_IOI$", "B_OF_IOI$"), //
 	/* InvtOrderItem->MbsbStmt:detail */
-	B_OF_IOI_MBSBS$("B_OF_IOI_MBSBS$","B_OF_IOI_MBSBS$"), //
+	B_of_IOI_of_MBSBS$("B_OF_IOI_MBSBS$","B_OF_IOI_MBSBS$"), //
 	;
 
 	private String id, desp;

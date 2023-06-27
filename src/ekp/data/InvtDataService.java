@@ -5,6 +5,7 @@ import java.util.Map;
 
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
 import ekp.invt.MaterialBinStock;
@@ -91,4 +92,6 @@ public interface InvtDataService extends IntegrationService {
 	public MbsbStmt loadMbsbStmt(String _uid);
 	public List<MbsbStmt> loadMbsbStmtList(String _mbsbUid);
 	public List<MbsbStmt> loadMbsbStmtListByIoi(String _ioiUid);
+	public QueryOperation<MbsbStmtQueryParam, MbsbStmt> searchMbsbStmt(
+			QueryOperation<MbsbStmtQueryParam, MbsbStmt> _param);
 }
