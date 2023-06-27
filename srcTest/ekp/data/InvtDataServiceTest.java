@@ -45,9 +45,11 @@ public class InvtDataServiceTest extends AbstractEkpInitTest{
 		//
 		param.appendCondition(value(B_OF_IOI$, equal, true));
 		Map<InvtOrderQueryParam, QueryValue[]> existsDetailMap = new HashMap<>();
-		existsDetailMap.put(B_OF_IOI$, new QueryValue[] {
-				value(IO_TYPE_IDX, equal, InvtOrderType.I1.getIdx()),
-		});
+		existsDetailMap.put(B_OF_IOI$, new QueryValue[] { value(IO_TYPE_IDX, equal, InvtOrderType.I1.getIdx()), });
+		//
+		param.appendCondition(value(B_OF_IOI_MBSBS$, equal, true));
+		existsDetailMap.put(B_OF_IOI_MBSBS$,
+				new QueryValue[] { value(MBSB_FLOW_TYPE_IDX, equal, MbsbFlowType.IN.getIdx()), });
 		
 		param = dataService.searchInvtOrder(param, existsDetailMap);
 		log.debug("param.getTotal(): {}", param.getTotal());
@@ -59,7 +61,7 @@ public class InvtDataServiceTest extends AbstractEkpInitTest{
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void testSearchInvtOrderItem() {
 		QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> param = new QueryOperation<>();
 		//

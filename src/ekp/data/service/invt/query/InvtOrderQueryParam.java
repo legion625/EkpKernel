@@ -11,6 +11,8 @@ public enum InvtOrderQueryParam implements QueryParam{
 	REMARK("REMARK","Remark"), //
 	/* InvtOrderItem:detail */
 	B_OF_IOI$("B_OF_IOI$", "B_OF_IOI$"), //
+	/* InvtOrderItem->MbsbStmt:detail */
+	B_OF_IOI_MBSBS$("B_OF_IOI_MBSBS$","B_OF_IOI_MBSBS$"), //
 	;
 
 	private String id, desp;

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.slf4j.event.Level;
 
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
+import ekp.data.service.invt.query.InvtOrderQueryParam;
 import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.MaterialBinStock;
 import ekp.invt.MaterialBinStockBatch;
@@ -362,4 +363,7 @@ public class MaterialDao extends AbstractMySqlDao {
 				MaterialDao::parseMbsbStmtQueryParamMapping, _existsDetailMap, _param);
 	}
 	
+	static String packMbsbStmtField(String _tbIoi, String _colIoiUid,Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap,InvtOrderQueryParam _param) {
+		return packExistsField(_tbIoi, _colIoiUid, TB_MBSB_STMT, COL_MBSBS_IOI_UID,MaterialDao::parseMbsbStmtQueryParamMapping, _existsDetailMap, _param);
+	}
 }
