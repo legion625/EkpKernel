@@ -199,4 +199,116 @@ end;
 
 -- mh_pc
 
+-- 0.1.8 -> 0.2.0
+CREATE TABLE `invt_wrhs_loc` (
+  `uid` varchar(45) NOT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_wrhs_bin` (
+  `uid` varchar(45) NOT NULL,
+  `wl_uid` varchar(45) DEFAULT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_invt_order` (
+  `uid` varchar(45) NOT NULL,
+  `iosn` varchar(45) DEFAULT NULL,
+  `applier_id` varchar(45) DEFAULT NULL,
+  `applier_name` varchar(45) DEFAULT NULL,
+  `apv_time` bigint DEFAULT NULL,
+  `remark` varchar(200) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_invt_order_item` (
+  `uid` varchar(45) NOT NULL,
+  `io_uid` varchar(45) DEFAULT NULL,
+  `mbs_uid` varchar(45) DEFAULT NULL,
+  `io_type_idx` tinyint DEFAULT NULL,
+  `order_qty` double DEFAULT NULL,
+  `order_value` double DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_mat_mstr` (
+  `uid` varchar(45) NOT NULL,
+  `mano` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `specification` varchar(200) DEFAULT NULL,
+  `std_unit_id` varchar(10) DEFAULT NULL,
+  `sum_stock_qty` double DEFAULT NULL,
+  `sum_stock_value` double DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_mat_inst` (
+  `uid` varchar(45) NOT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `misn` varchar(45) DEFAULT NULL,
+  `miac_idx` tinyint DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `eff_date` bigint DEFAULT NULL,
+  `exp_date` bigint DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_mat_bin_stock` (
+  `uid` varchar(45) NOT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mano` varchar(45) DEFAULT NULL,
+  `wrhs_bin_uid` varchar(45) DEFAULT NULL,
+  `sum_stock_qty` double DEFAULT NULL,
+  `sum_stock_value` double DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_mat_bin_stock_batch` (
+  `uid` varchar(45) NOT NULL,
+  `mbs_uid` varchar(45) DEFAULT NULL,
+  `mi_uid` varchar(45) DEFAULT NULL,
+  `stock_qty` double DEFAULT NULL,
+  `stock_value` double DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_mbsb_stmt` (
+  `uid` varchar(45) NOT NULL,
+  `mbsb_uid` varchar(45) DEFAULT NULL,
+  `ioi_uid` varchar(45) DEFAULT NULL,
+  `mbsb_flow_type_idx` tinyint DEFAULT NULL,
+  `stmt_qty` double DEFAULT NULL,
+  `stmt_value` double DEFAULT NULL,
+  `posting_status_idx` tinyint DEFAULT NULL,
+  `posting_time` bigint DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+
+
+
+
 

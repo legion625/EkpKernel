@@ -3,6 +3,7 @@
 	<BusinessService>
 		<Service name="SystemService" interface="legion.system.SystemService" imp="legion.system.SystemServiceImp"></Service>
 		<!-- ekp -->
+		<Service name="InvtService" interface="ekp.invt.InvtService" imp="ekp.invt.InvtServiceImp" />
 		<Service name="MbomService" interface="ekp.mbom.MbomService" imp="ekp.mbom.MbomServiceImp" />
 	</BusinessService>
 	<!-- IntegrationService -->
@@ -15,6 +16,9 @@
 			<Parameter name="source" value="ekp_kernel" />
 		</Service>
 		<!-- ekp -->
+		<Service name="InvtDataService" interface="ekp.data.InvtDataService" imp="ekp.data.service.invt.InvtDataServiceImp">
+			<Parameter name="source" value="ekp_kernel" />
+		</Service>
 		<Service name="MbomDataService" interface="ekp.data.MbomDataService" imp="ekp.data.service.mbom.MbomDataServiceImp">
 			<Parameter name="source" value="ekp_kernel" />
 		</Service>
