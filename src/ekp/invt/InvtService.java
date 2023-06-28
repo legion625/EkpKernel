@@ -102,9 +102,4 @@ public interface InvtService extends BusinessService {
 	public boolean mbsbStmtPost(String _uid);
 	public boolean mbsbStmtRevertPost(String _uid);
 	
-	
-	
-	
-	
-
 }

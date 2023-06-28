@@ -5,12 +5,51 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
+import ekp.data.service.invt.query.InvtOrderItemQueryParam;
+import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
+import ekp.invt.InvtOrder;
+import ekp.invt.InvtOrderItem;
+import ekp.invt.MaterialBinStock;
+import ekp.invt.MaterialBinStockBatch;
+import ekp.invt.MaterialInst;
+import ekp.invt.MaterialMaster;
+import ekp.invt.MbsbStmt;
+import ekp.invt.WrhsBin;
+import ekp.invt.WrhsLoc;
+import ekp.invt.dto.InvtOrderCreateObj;
+import ekp.invt.dto.InvtOrderItemCreateObj;
+import ekp.invt.dto.MaterialBinStockBatchCreateObj;
+import ekp.invt.dto.MaterialBinStockCreateObj;
+import ekp.invt.dto.MaterialInstCreateObj;
+import ekp.invt.dto.MaterialMasterCreateObj;
+import ekp.invt.dto.MbsbStmtCreateObj;
+import ekp.invt.dto.WrhsBinCreateObj;
+import ekp.invt.dto.WrhsLocCreateObj;
 import ekp.mbom.dto.PpartSkewer;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
+import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.InvtOrderItemCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.InvtOrderItemRemote;
+import ekp.serviceFacade.rmi.invt.InvtOrderRemote;
+import ekp.serviceFacade.rmi.invt.MaterialBinStockBatchCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialBinStockBatchRemote;
+import ekp.serviceFacade.rmi.invt.MaterialBinStockCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialBinStockRemote;
+import ekp.serviceFacade.rmi.invt.MaterialInstCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialInstRemote;
+import ekp.serviceFacade.rmi.invt.MaterialMasterCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialMasterRemote;
+import ekp.serviceFacade.rmi.invt.MbsbStmtCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MbsbStmtRemote;
+import ekp.serviceFacade.rmi.invt.WrhsBinCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.WrhsBinRemote;
+import ekp.serviceFacade.rmi.invt.WrhsLocCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.WrhsLocRemote;
 import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcRemote;
@@ -38,6 +77,126 @@ import legion.util.query.QueryOperation.QueryValue;
 public interface EkpKernelServiceRemote extends Remote {
 	public boolean testCallBack() throws RemoteException;
 
+	// -------------------------------------------------------------------------------
+	// -------------------------------------INVT--------------------------------------
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------WrhsLoc------------------------------------
+	public WrhsLocRemote createWrhsLoc(WrhsLocCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteWrhsLoc(String _uid) throws RemoteException;
+
+	public WrhsLocRemote loadWrhsLoc(String _uid) throws RemoteException;
+
+	public WrhsLocRemote loadWrhsLocById(String _id) throws RemoteException;
+
+	public List<WrhsLocRemote> loadWrhsLocList() throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------WrhsBin------------------------------------
+	public WrhsBinRemote createWrhsBin(WrhsBinCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteWrhsBin(String _uid) throws RemoteException;
+
+	public WrhsBinRemote loadWrhsBin(String _uid) throws RemoteException;
+
+	public List<WrhsBinRemote> loadWrhsBinList(String _wlUid) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------InvtOrder-----------------------------------
+	public InvtOrderRemote createInvtOrder(InvtOrderCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteInvtOrder(String _uid) throws RemoteException;
+
+	public InvtOrderRemote loadInvtOrder(String _uid) throws RemoteException;
+
+	public InvtOrderRemote loadInvtOrderByIosn(String _iosn) throws RemoteException;
+
+	public QueryOperation<InvtOrderQueryParam, InvtOrderRemote> searchInvtOrder(
+			QueryOperation<InvtOrderQueryParam, InvtOrderRemote> _param,
+			Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// ---------------------------------InvtOrderItem---------------------------------
+	public InvtOrderItemRemote createInvtOrderItem(InvtOrderItemCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteInvtOrderItem(String _uid) throws RemoteException;
+
+	public InvtOrderItemRemote loadInvtOrderItem(String _uid) throws RemoteException;
+
+	public List<InvtOrderItemRemote> loadInvtOrderItemList(String _ioUid) throws RemoteException;
+
+	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> searchInvtOrderItem(
+			QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> _param,
+			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// --------------------------------MaterialMaster---------------------------------
+	public MaterialMasterRemote createMaterialMaster(MaterialMasterCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteMaterialMaster(String _uid) throws RemoteException;
+
+	public MaterialMasterRemote loadMaterialMaster(String _uid) throws RemoteException;
+
+	public MaterialMasterRemote loadMaterialMasterByMano(String _mano) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// ---------------------------------MaterialInst----------------------------------
+	public MaterialInstRemote createMaterialInst(MaterialInstCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteMaterialInst(String _uid) throws RemoteException;
+
+	public MaterialInstRemote loadMaterialInst(String _uid) throws RemoteException;
+
+	public MaterialInstRemote loadMaterialInstByMisn(String _misn) throws RemoteException;
+
+	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// -------------------------------MaterialBinStock--------------------------------
+	public MaterialBinStockRemote createMaterialBinStock(MaterialBinStockCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteMaterialBinStock(String _uid) throws RemoteException;
+
+	public MaterialBinStockRemote loadMaterialBinStock(String _uid) throws RemoteException;
+
+	public List<MaterialBinStockRemote> loadMaterialBinStockList(String _mmUid) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------MaterialBinStockBatch-----------------------------
+	public MaterialBinStockBatchRemote createMaterialBinStockBatch(MaterialBinStockBatchCreateObjRemote _dto)
+			throws RemoteException;
+
+	public boolean deleteMaterialBinStockBatch(String _uid) throws RemoteException;
+
+	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _uid) throws RemoteException;
+
+	public List<MaterialBinStockBatchRemote> loadMaterialBinStockBatchList(String _mbsUid) throws RemoteException;
+
+	public List<MaterialBinStockBatchRemote> loadMaterialBinStockBatchListByMi(String _miUid) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------MbsbStmt------------------------------------
+	public MbsbStmtRemote createMbsbStmt(MbsbStmtCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteMbsbStmt(String _uid) throws RemoteException;
+
+	public MbsbStmtRemote loadMbsbStmt(String _uid) throws RemoteException;
+
+	public List<MbsbStmtRemote> loadMbsbStmtList(String _mbsbUid) throws RemoteException;
+
+	public List<MbsbStmtRemote> loadMbsbStmtListByIoi(String _ioiUid) throws RemoteException;
+
+	public QueryOperation<MbsbStmtQueryParam, MbsbStmtRemote> searchMbsbStmt(
+			QueryOperation<MbsbStmtQueryParam, MbsbStmtRemote> _param) throws RemoteException;
+
+	public boolean mbsbStmtPost(String _uid) throws RemoteException;
+
+	public boolean mbsbStmtRevertPost(String _uid) throws RemoteException;
+	
+	// -------------------------------------------------------------------------------
+	// -------------------------------------MBOM--------------------------------------
+	
 	// -------------------------------------------------------------------------------
 	// -------------------------------------Part--------------------------------------
 	public PartRemote createPart(PartCreateObjRemote _dto) throws RemoteException;
