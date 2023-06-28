@@ -192,9 +192,19 @@ public class PartAcquisition extends ObjectModel {
 		return save();
 	}
 	
-	boolean updateRefUnitCost(double _refUnitCost) {
-		this.refUnitCost = _refUnitCost;
+	boolean updateInfo(String _id, String _name,PartAcquisitionType _type) {
+		setId(_id);
+		setName(_name);
+		setType(_type);
 		return save();
 	}
+	
+	boolean updateRefUnitCost(double _refUnitCost) {
+//		this.refUnitCost = _refUnitCost;
+		setRefUnitCost(_refUnitCost);
+		return save();
+	}
+	
+	
 
 }

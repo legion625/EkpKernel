@@ -1,4 +1,39 @@
 ------------------------------------------------------------------------------
+v0.2.0 released by Min-Hua, 2023.06.28
+[change]
+
+1. [INVT] Add basic services.
+  -1. WrhsLoc, WrhsBin, InvtOrder, InvtOrderItem
+  -2. MaterialMaster, MaterialInst, MaterialBinStock, MaterialBinStockBatch, MbsbStmt
+2. [INVT] MbsbStmt supports "PostingStatus".
+3. [INVT] Add searching services.
+  -1. searchInvtOrder, searchInvtOrderItem
+  -2. searchMbsbStmt
+
+[deployment]
+1. ServiceModule.xml
+  -1. Add business service: InvtService
+  -2. Add integration service: InvtDataService
+2. Create tables. 
+  -1. invt_wrhs_loc, invt_wrhs_bin, invt_invt_order, invt_invt_order_item
+  -2. invt_mat_mstr, invt_mat_inst, invt_mat_bin_stock, invt_mat_bin_stock_batch, invt_mbsb_stmt
+
+------------------------------------------------------------------------------
+v0.1.8 released by Min-Hua, 2023.06.18
+[change]
+1. [MBOM] Part: add services.
+  -1. partUpdate
+  -2. PartUnit改以經濟部國際貿易局的計量單位列表為基礎，改用3碼ID、中文名稱及英文名稱顯示。
+2. [MBOM] PartAcquisition: add services.
+  -1. partAcqUpdateInfo
+
+[deployment]
+1.  [MBOM] PartUnit的計量單位修改，資料表mbom_part的unit_idx改為unit_id，並進行資料轉移。
+ 
+[lib]
+1. legionmodule_0.12.3 -> 0.13.1
+
+------------------------------------------------------------------------------
 v0.1.7 released by Min-Hua, 2022.12.17
 [change]
 1. [MBOM] PartAcq add attribute "refUnitCost" and the related service "partAcqUpdateRefUnitCost".

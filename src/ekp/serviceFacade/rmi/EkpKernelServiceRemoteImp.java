@@ -9,10 +9,22 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ekp.DebugLogMark;
+import ekp.data.service.invt.query.InvtOrderItemQueryParam;
+import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
+import ekp.invt.InvtOrder;
+import ekp.invt.InvtOrderItem;
+import ekp.invt.InvtService;
+import ekp.invt.MaterialBinStock;
+import ekp.invt.MaterialBinStockBatch;
+import ekp.invt.MaterialInst;
+import ekp.invt.MaterialMaster;
+import ekp.invt.MbsbStmt;
+import ekp.invt.WrhsBin;
+import ekp.invt.WrhsLoc;
 import ekp.mbom.MbomService;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
@@ -27,6 +39,27 @@ import ekp.mbom.ProdCtlPartCfgConj;
 import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
 import ekp.mbom.dto.PpartSkewer;
+import ekp.mbom.type.PartAcquisitionType;
+import ekp.mbom.type.PartUnit;
+import ekp.serviceFacade.rmi.invt.InvtFO;
+import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.InvtOrderItemCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.InvtOrderItemRemote;
+import ekp.serviceFacade.rmi.invt.InvtOrderRemote;
+import ekp.serviceFacade.rmi.invt.MaterialBinStockBatchCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialBinStockBatchRemote;
+import ekp.serviceFacade.rmi.invt.MaterialBinStockCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialBinStockRemote;
+import ekp.serviceFacade.rmi.invt.MaterialInstCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialInstRemote;
+import ekp.serviceFacade.rmi.invt.MaterialMasterCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialMasterRemote;
+import ekp.serviceFacade.rmi.invt.MbsbStmtCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MbsbStmtRemote;
+import ekp.serviceFacade.rmi.invt.WrhsBinCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.WrhsBinRemote;
+import ekp.serviceFacade.rmi.invt.WrhsLocCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.WrhsLocRemote;
 import ekp.serviceFacade.rmi.mbom.MbomFO;
 import ekp.serviceFacade.rmi.mbom.ParsPartRemote;
 import ekp.serviceFacade.rmi.mbom.ParsProcCreateObjRemote;
@@ -58,6 +91,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	private static Logger log = LoggerFactory.getLogger(EkpKernelServiceRemoteImp.class);
 
 	// -------------------------------------------------------------------------------
+	private InvtService invtService = BusinessServiceFactory.getInstance().getService(InvtService.class);
 	private MbomService mbomService = BusinessServiceFactory.getInstance().getService(MbomService.class);
 
 	// -------------------------------------------------------------------------------
@@ -72,6 +106,308 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		return true;
 	}
 
+	// -------------------------------------------------------------------------------
+	// -------------------------------------INVT--------------------------------------
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------WrhsLoc------------------------------------
+	@Override
+	public WrhsLocRemote createWrhsLoc(WrhsLocCreateObjRemote _dto) throws RemoteException {
+		return InvtFO.parseWrhsLocRemote(invtService.createWrhsLoc(InvtFO.parseWrhsLocCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteWrhsLoc(String _uid) throws RemoteException {
+		return invtService.deleteWrhsLoc(_uid);
+	}
+
+	@Override
+	public WrhsLocRemote loadWrhsLoc(String _uid) throws RemoteException {
+		WrhsLoc obj = invtService.loadWrhsLoc(_uid);
+		return obj == null ? null : InvtFO.parseWrhsLocRemote(obj);
+	}
+
+	@Override
+	public WrhsLocRemote loadWrhsLocById(String _id) throws RemoteException {
+		WrhsLoc obj = invtService.loadWrhsLocById(_id);
+		return obj == null ? null : InvtFO.parseWrhsLocRemote(obj);
+	}
+
+	@Override
+	public List<WrhsLocRemote> loadWrhsLocList() throws RemoteException {
+		List<WrhsLoc> list = invtService.loadWrhsLocList();
+		List<WrhsLocRemote> remoteList = list.stream().map(InvtFO::parseWrhsLocRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------------WrhsBin------------------------------------
+	@Override
+	public WrhsBinRemote createWrhsBin(WrhsBinCreateObjRemote _dto) throws RemoteException {
+		return InvtFO.parseWrhsBinRemote(invtService.createWrhsBin(InvtFO.parseWrhsBinCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteWrhsBin(String _uid) throws RemoteException {
+		return invtService.deleteWrhsBin(_uid);
+	}
+
+	@Override
+	public WrhsBinRemote loadWrhsBin(String _uid) throws RemoteException {
+		WrhsBin obj = invtService.loadWrhsBin(_uid);
+		return obj == null ? null : InvtFO.parseWrhsBinRemote(obj);
+	}
+
+	@Override
+	public List<WrhsBinRemote> loadWrhsBinList(String _wlUid) throws RemoteException {
+		List<WrhsBin> list = invtService.loadWrhsBinList(_wlUid);
+		List<WrhsBinRemote> remoteList = list.stream().map(InvtFO::parseWrhsBinRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------InvtOrder-----------------------------------
+	@Override
+	public InvtOrderRemote createInvtOrder(InvtOrderCreateObjRemote _dto) throws RemoteException {
+		return InvtFO.parseInvtOrderRemote(invtService.createInvtOrder(InvtFO.parseInvtOrderCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteInvtOrder(String _uid) throws RemoteException {
+		return invtService.deleteInvtOrder(_uid);
+	}
+
+	@Override
+	public InvtOrderRemote loadInvtOrder(String _uid) throws RemoteException {
+		InvtOrder obj = invtService.loadInvtOrder(_uid);
+		return obj == null ? null : InvtFO.parseInvtOrderRemote(obj);
+	}
+
+	@Override
+	public InvtOrderRemote loadInvtOrderByIosn(String _iosn) throws RemoteException {
+		InvtOrder obj = invtService.loadInvtOrderByIosn(_iosn);
+		return obj == null ? null : InvtFO.parseInvtOrderRemote(obj);
+	}
+
+	@Override
+	public QueryOperation<InvtOrderQueryParam, InvtOrderRemote> searchInvtOrder(
+			QueryOperation<InvtOrderQueryParam, InvtOrderRemote> _param,
+			Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException {
+		QueryOperation<InvtOrderQueryParam, InvtOrder> param = (QueryOperation<InvtOrderQueryParam, InvtOrder>) _param
+				.copy();
+		param = invtService.searchInvtOrder(param, _existsDetailMap);
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(InvtFO::parseInvtOrderRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
+	}
+
+	// -------------------------------------------------------------------------------
+	// ---------------------------------InvtOrderItem---------------------------------
+	@Override
+	public InvtOrderItemRemote createInvtOrderItem(InvtOrderItemCreateObjRemote _dto) throws RemoteException{
+		return InvtFO.parseInvtOrderItemRemote(invtService.createInvtOrderItem(InvtFO.parseInvtOrderItemCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteInvtOrderItem(String _uid) throws RemoteException{
+		return invtService.deleteInvtOrderItem(_uid);
+	}
+
+	@Override
+	public InvtOrderItemRemote loadInvtOrderItem(String _uid) throws RemoteException{
+		InvtOrderItem obj = invtService.loadInvtOrderItem(_uid);
+		return obj == null ? null : InvtFO.parseInvtOrderItemRemote(obj);
+	}
+
+	@Override
+	public List<InvtOrderItemRemote> loadInvtOrderItemList(String _ioUid) throws RemoteException{
+		List<InvtOrderItem> list = invtService.loadInvtOrderItemList(_ioUid);
+		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> searchInvtOrderItem(
+			QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> _param,
+			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException{
+		QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> param = (QueryOperation<InvtOrderItemQueryParam, InvtOrderItem>) _param
+				.copy();
+		param = invtService.searchInvtOrderItem(param, _existsDetailMap);
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(InvtFO::parseInvtOrderItemRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
+	}
+
+	// -------------------------------------------------------------------------------
+	// --------------------------------MaterialMaster---------------------------------
+	@Override
+	public MaterialMasterRemote createMaterialMaster(MaterialMasterCreateObjRemote _dto) throws RemoteException{
+		return InvtFO.parseMaterialMasterRemote(invtService.createMaterialMaster(InvtFO.parseMaterialMasterCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteMaterialMaster(String _uid) throws RemoteException{
+		return invtService.deleteMaterialMaster(_uid);
+	}
+
+	@Override
+	public MaterialMasterRemote loadMaterialMaster(String _uid) throws RemoteException{
+		MaterialMaster obj = invtService.loadMaterialMaster(_uid);
+		return obj == null ? null : InvtFO.parseMaterialMasterRemote(obj);
+	}
+
+	@Override
+	public MaterialMasterRemote loadMaterialMasterByMano(String _mano) throws RemoteException{
+		MaterialMaster obj = invtService.loadMaterialMasterByMano(_mano);
+		return obj == null ? null : InvtFO.parseMaterialMasterRemote(obj);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ---------------------------------MaterialInst----------------------------------
+	@Override
+	public MaterialInstRemote createMaterialInst(MaterialInstCreateObjRemote _dto) throws RemoteException{
+		return InvtFO.parseMaterialInstRemote(invtService.createMaterialInst(InvtFO.parseMaterialInstCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteMaterialInst(String _uid) throws RemoteException{
+		return invtService.deleteMaterialInst(_uid);
+	}
+
+	@Override
+	public MaterialInstRemote loadMaterialInst(String _uid) throws RemoteException{
+		MaterialInst obj = invtService.loadMaterialInst(_uid);
+		return obj == null ? null : InvtFO.parseMaterialInstRemote(obj);
+	}
+
+	@Override
+	public MaterialInstRemote loadMaterialInstByMisn(String _misn) throws RemoteException{
+		MaterialInst obj = invtService.loadMaterialInstByMisn(_misn);
+		return obj == null ? null : InvtFO.parseMaterialInstRemote(obj);
+	}
+
+	@Override
+	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid) throws RemoteException{
+		List<MaterialInst> list = invtService.loadMaterialInstList(_mmUid);
+		List<MaterialInstRemote> remoteList = list.stream().map(InvtFO::parseMaterialInstRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	// -------------------------------------------------------------------------------
+	// -------------------------------MaterialBinStock--------------------------------
+	@Override
+	public MaterialBinStockRemote createMaterialBinStock(MaterialBinStockCreateObjRemote _dto) throws RemoteException{
+		return InvtFO.parseMaterialBinStockRemote(invtService.createMaterialBinStock(InvtFO.parseMaterialBinStockCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteMaterialBinStock(String _uid) throws RemoteException{
+		return invtService.deleteMaterialBinStock(_uid);
+	}
+
+	@Override
+	public MaterialBinStockRemote loadMaterialBinStock(String _uid) throws RemoteException{
+		MaterialBinStock obj = invtService.loadMaterialBinStock(_uid);
+		return obj == null ? null : InvtFO.parseMaterialBinStockRemote(obj);
+	}
+
+	@Override
+	public List<MaterialBinStockRemote> loadMaterialBinStockList(String _mmUid) throws RemoteException{
+		List<MaterialBinStock> list = invtService.loadMaterialBinStockList(_mmUid);
+		List<MaterialBinStockRemote> remoteList = list.stream().map(InvtFO::parseMaterialBinStockRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------MaterialBinStockBatch-----------------------------
+	@Override
+	public MaterialBinStockBatchRemote createMaterialBinStockBatch(MaterialBinStockBatchCreateObjRemote _dto)
+			throws RemoteException{
+		return InvtFO.parseMaterialBinStockBatchRemote(invtService.createMaterialBinStockBatch(InvtFO.parseMaterialBinStockBatchCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteMaterialBinStockBatch(String _uid) throws RemoteException{
+		return invtService.deleteMaterialBinStockBatch(_uid);
+	}
+
+	@Override
+	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _uid) throws RemoteException{
+		MaterialBinStockBatch obj = invtService.loadMaterialBinStockBatch(_uid);
+		return obj == null ? null : InvtFO.parseMaterialBinStockBatchRemote(obj);
+	}
+
+	@Override
+	public List<MaterialBinStockBatchRemote> loadMaterialBinStockBatchList(String _mbsUid) throws RemoteException{
+		List<MaterialBinStockBatch> list = invtService.loadMaterialBinStockBatchList(_mbsUid);
+		List<MaterialBinStockBatchRemote> remoteList = list.stream().map(InvtFO::parseMaterialBinStockBatchRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public List<MaterialBinStockBatchRemote> loadMaterialBinStockBatchListByMi(String _miUid) throws RemoteException{
+		List<MaterialBinStockBatch> list = invtService.loadMaterialBinStockBatchListByMi(_miUid);
+		List<MaterialBinStockBatchRemote> remoteList = list.stream().map(InvtFO::parseMaterialBinStockBatchRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------MbsbStmt------------------------------------
+	@Override
+	public MbsbStmtRemote createMbsbStmt(MbsbStmtCreateObjRemote _dto) throws RemoteException{
+		return InvtFO.parseMbsbStmtRemote(invtService.createMbsbStmt(InvtFO.parseMbsbStmtCreateObj(_dto)));
+	}
+
+	@Override
+	public boolean deleteMbsbStmt(String _uid) throws RemoteException{
+		return invtService.deleteMbsbStmt(_uid);
+	}
+
+	@Override
+	public MbsbStmtRemote loadMbsbStmt(String _uid) throws RemoteException{
+		MbsbStmt obj = invtService.loadMbsbStmt(_uid);
+		return obj == null ? null : InvtFO.parseMbsbStmtRemote(obj);
+	}
+
+	@Override
+	public List<MbsbStmtRemote> loadMbsbStmtList(String _mbsbUid) throws RemoteException{
+		List<MbsbStmt> list = invtService.loadMbsbStmtList(_mbsbUid);
+		List<MbsbStmtRemote> remoteList = list.stream().map(InvtFO::parseMbsbStmtRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public List<MbsbStmtRemote> loadMbsbStmtListByIoi(String _ioiUid) throws RemoteException{
+		List<MbsbStmt> list = invtService.loadMbsbStmtListByIoi(_ioiUid);
+		List<MbsbStmtRemote> remoteList = list.stream().map(InvtFO::parseMbsbStmtRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public QueryOperation<MbsbStmtQueryParam, MbsbStmtRemote> searchMbsbStmt(
+			QueryOperation<MbsbStmtQueryParam, MbsbStmtRemote> _param) throws RemoteException{
+		QueryOperation<MbsbStmtQueryParam, MbsbStmt> param = (QueryOperation<MbsbStmtQueryParam, MbsbStmt>) _param
+				.copy();
+		param = invtService.searchMbsbStmt(param);
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(InvtFO::parseMbsbStmtRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
+	}
+
+	@Override
+	public boolean mbsbStmtPost(String _uid) throws RemoteException{
+		return invtService.mbsbStmtPost(_uid);
+	}
+
+	@Override
+	public boolean mbsbStmtRevertPost(String _uid) throws RemoteException{
+		return invtService.mbsbStmtRevertPost(_uid);
+	}
+
+	// -------------------------------------MBOM--------------------------------------
 	// -------------------------------------------------------------------------------
 	// -------------------------------------Part--------------------------------------
 	@Override
@@ -95,10 +431,10 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		Part obj = mbomService.loadPartByPin(_pin);
 		return obj == null ? null : MbomFO.parsePartRemote(obj);
 	}
-	
+
 	@Override
 	public QueryOperation<PartQueryParam, PartRemote> searchPart(QueryOperation<PartQueryParam, PartRemote> _param)
-			throws RemoteException{
+			throws RemoteException {
 		QueryOperation<PartQueryParam, Part> param = (QueryOperation<PartQueryParam, Part>) _param.copy();
 		param = mbomService.searchPart(param);
 		log.debug("param.getTotal(): {}", param.getTotal());
@@ -108,6 +444,11 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 				param.getQueryResult().stream().map(MbomFO::parsePartRemote).collect(Collectors.toList()));
 		_param.setTotal(param.getTotal());
 		return _param;
+	}
+
+	@Override
+	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) throws RemoteException {
+		return mbomService.partUpdate(_uid, _pin, _name, _unit);
 	}
 
 	// -------------------------------------------------------------------------------
@@ -162,8 +503,14 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean partAcqRevertPublish(String _uid) throws RemoteException {
 		return mbomService.partAcqRevertPublish(_uid);
 	}
+
 	@Override
-	public boolean partAcqUpdateRefUnitCost(String _uid, double _refUnitCost) throws RemoteException{
+	public boolean partAcqUpdateInfo(String _uid, String _id, String _name, PartAcquisitionType _type) {
+		return mbomService.partAcqUpdateInfo(_uid, _id, _name, _type);
+	}
+
+	@Override
+	public boolean partAcqUpdateRefUnitCost(String _uid, double _refUnitCost) throws RemoteException {
 		return mbomService.partAcqUpdateRefUnitCost(_uid, _refUnitCost);
 	}
 
@@ -291,7 +638,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean parsPartRevertAssignPart(String _uid) throws RemoteException {
 		return mbomService.parsPartRevertAssignPart(_uid);
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------PpartSkewer----------------------------------
 	@Override
@@ -346,12 +693,11 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<PartCfgRemote> remoteList = list.stream().map(MbomFO::parsePartCfgRemote).collect(Collectors.toList());
 		return remoteList;
 	}
-	
+
 	@Override
 	public QueryOperation<PartCfgQueryParam, PartCfgRemote> searchPartCfg(
-			QueryOperation<PartCfgQueryParam, PartCfgRemote> _param) throws RemoteException{
-		QueryOperation<PartCfgQueryParam, PartCfg> param = (QueryOperation<PartCfgQueryParam, PartCfg>) _param
-				.copy();
+			QueryOperation<PartCfgQueryParam, PartCfgRemote> _param) throws RemoteException {
+		QueryOperation<PartCfgQueryParam, PartCfg> param = (QueryOperation<PartCfgQueryParam, PartCfg>) _param.copy();
 		param = mbomService.searchPartCfg(param);
 		_param.setQueryResult(
 				param.getQueryResult().stream().map(MbomFO::parsePartCfgRemote).collect(Collectors.toList()));
@@ -371,7 +717,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 
 	@Override
 	public boolean partCfgPublish(String _uid, long _publishTime) throws RemoteException {
-		return mbomService.partCfgPublish(_uid,  _publishTime);
+		return mbomService.partCfgPublish(_uid, _publishTime);
 	}
 
 	@Override
@@ -410,9 +756,9 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 				.collect(Collectors.toList());
 		return remoteList;
 	}
-	
+
 	@Override
-	public List<PartCfgConjRemote> loadPartCfgConjListByPartAcq(String _partAcqUid) throws RemoteException{
+	public List<PartCfgConjRemote> loadPartCfgConjListByPartAcq(String _partAcqUid) throws RemoteException {
 		List<PartCfgConj> list = mbomService.loadPartCfgConjListByPartAcq(_partAcqUid);
 		List<PartCfgConjRemote> remoteList = list.stream().map(MbomFO::parsePartCfgConjRemote)
 				.collect(Collectors.toList());

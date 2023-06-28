@@ -58,8 +58,8 @@ public class Part extends ObjectModel {
 	}
 	
 	// -------------------------------------------------------------------------------
-	public int getUnitIdx() {
-		return (getUnit() == null ? PartUnit.UNDEFINED : getUnit()).getIdx();
+	public String getUnitId() {
+		return (getUnit() == null ? PartUnit.UNDEFINED : getUnit()).getId();
 	}
 
 	// -------------------------------------------------------------------------------
@@ -83,5 +83,12 @@ public class Part extends ObjectModel {
 		p.setUnit(_dto.getUnit());
 		return p.save() ? p : null;
 	}
+	
+	boolean update(String _pin, String _name, PartUnit _unit) {
+		setPin(_pin);
+		setName(_name);
+		setUnit(_unit);
+		return save();
+	} 
 
 }
