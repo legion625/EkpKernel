@@ -1,26 +1,22 @@
-Min-Hua, 2023.06.28
+------------------------------------------------------------------------------
+v0.2.0 released by Min-Hua, 2023.06.28
 [change]
-1. [INVT] Add searching services.
-  -1. searchInvtOrder, searchInvtOrderItem
-  -2. searchMbsbStmt
 
-Min-Hua, 2023.06.25
-[change]
 1. [INVT] Add basic services.
   -1. WrhsLoc, WrhsBin, InvtOrder, InvtOrderItem
   -2. MaterialMaster, MaterialInst, MaterialBinStock, MaterialBinStockBatch, MbsbStmt
 2. [INVT] MbsbStmt supports "PostingStatus".
+3. [INVT] Add searching services.
+  -1. searchInvtOrder, searchInvtOrderItem
+  -2. searchMbsbStmt
 
-[deployment]
-1. Create tables. 
-  -1. invt_wrhs_loc, invt_wrhs_bin, invt_invt_order, invt_invt_order_item
-  -2. invt_mat_mstr, invt_mat_inst, invt_mat_bin_stock, invt_mat_bin_stock_batch, invt_mbsb_stmt
-
-Min-Hua, 2023.06.22
 [deployment]
 1. ServiceModule.xml
   -1. Add business service: InvtService
   -2. Add integration service: InvtDataService
+2. Create tables. 
+  -1. invt_wrhs_loc, invt_wrhs_bin, invt_invt_order, invt_invt_order_item
+  -2. invt_mat_mstr, invt_mat_inst, invt_mat_bin_stock, invt_mat_bin_stock_batch, invt_mbsb_stmt
 
 ------------------------------------------------------------------------------
 v0.1.8 released by Min-Hua, 2023.06.18

@@ -197,8 +197,6 @@ update `mbom_part` set unit_id = case
 end;
 */
 
--- mh_pc
-
 -- 0.1.8 -> 0.2.0
 CREATE TABLE `invt_wrhs_loc` (
   `uid` varchar(45) NOT NULL,
@@ -307,6 +305,7 @@ CREATE TABLE `invt_mbsb_stmt` (
   PRIMARY KEY (`uid`)
 ) ;
 
+-- mh_pc
 
 
 
