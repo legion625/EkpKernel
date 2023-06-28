@@ -184,7 +184,7 @@ ADD COLUMN `publish_time` BIGINT(20) NULL DEFAULT 0 AFTER `type_idx`;
 ALTER TABLE `mbom_part_acq` 
 ADD COLUMN `ref_unit_cost` double DEFAULT 0 AFTER `publish_time`;
 
--- mh_sp8
+
 
 -- 0.1.7 -> 0.1.8
 ALTER TABLE `mbom_part` CHANGE COLUMN `unit_idx` `unit_id` VARCHAR(10) NULL DEFAULT NULL ;
@@ -307,6 +307,7 @@ CREATE TABLE `invt_mbsb_stmt` (
   PRIMARY KEY (`uid`)
 ) ;
 
+-- mh_sp8
 -- mh_pc
 
 
