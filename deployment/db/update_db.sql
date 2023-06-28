@@ -102,7 +102,7 @@ CREATE TABLE `mbom_part_cfg_conj` (
   `object_update_time` bigint DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ;
--- mh_sp8
+
 
 
 CREATE TABLE `mbom_prod` (
@@ -186,4 +186,5 @@ ADD COLUMN `publish_time` BIGINT(20) NULL DEFAULT 0 AFTER `type_idx`;
 ALTER TABLE `mbom_part_acq` 
 ADD COLUMN `ref_unit_cost` double DEFAULT 0 AFTER `publish_time`;
 
+-- mh_sp8
 -- mh_pc
