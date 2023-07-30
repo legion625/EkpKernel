@@ -2,7 +2,7 @@ Min-Hua, 2023.07.30
 [change]
 1. [INVT] Add services.
   - searchMaterialMaster
-  - loadMaterialBinStockListByWrhsBin
+  - loadMaterialBinStockListByWrhsBin, loadInvtOrderItemListByMaterialBinStock
 
 [bug]
 1. [INVT] 修正PartUnit.SPL的ID錯誤。

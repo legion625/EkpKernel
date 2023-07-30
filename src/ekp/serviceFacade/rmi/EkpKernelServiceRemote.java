@@ -107,6 +107,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public InvtOrderItemRemote loadInvtOrderItem(String _uid) throws RemoteException;
 
 	public List<InvtOrderItemRemote> loadInvtOrderItemList(String _ioUid) throws RemoteException;
+	
+	public List<InvtOrderItemRemote> loadInvtOrderItemListByMaterialBinStock(String _mbsUid) throws RemoteException;
 
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> searchInvtOrderItem(
 			QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> _param,

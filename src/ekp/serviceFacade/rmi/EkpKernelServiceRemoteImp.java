@@ -227,6 +227,13 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote).collect(Collectors.toList());
 		return remoteList;
 	}
+	
+	@Override
+	public List<InvtOrderItemRemote> loadInvtOrderItemListByMaterialBinStock(String _mbsUid) throws RemoteException{
+		List<InvtOrderItem> list = invtService.loadInvtOrderItemListByMaterialBinStock(_mbsUid);
+		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote).collect(Collectors.toList());
+		return remoteList;
+	}
 
 	@Override
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> searchInvtOrderItem(
