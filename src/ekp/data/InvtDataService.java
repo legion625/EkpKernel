@@ -5,6 +5,7 @@ import java.util.Map;
 
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MaterialMasterQueryParam;
 import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
@@ -51,6 +52,7 @@ public interface InvtDataService extends IntegrationService {
 	public boolean deleteInvtOrderItem(String _uid);
 	public InvtOrderItem loadInvtOrderItem(String _uid);
 	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid);
+	public List<InvtOrderItem> loadInvtOrderItemListByMaterialBinStock(String _mbsUid);
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param
 			, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap);
 	
@@ -60,6 +62,8 @@ public interface InvtDataService extends IntegrationService {
 	public boolean deleteMaterialMaster(String _uid);
 	public MaterialMaster loadMaterialMaster(String _uid);
 	public MaterialMaster loadMaterialMasterByMano(String _mano);
+	public QueryOperation<MaterialMasterQueryParam, MaterialMaster> searchMaterialMaster(
+			QueryOperation<MaterialMasterQueryParam, MaterialMaster> _param);
 	
 	// -------------------------------------------------------------------------------
 	// ---------------------------------MaterialInst----------------------------------
@@ -75,6 +79,7 @@ public interface InvtDataService extends IntegrationService {
 	public boolean deleteMaterialBinStock(String _uid);
 	public MaterialBinStock loadMaterialBinStock(String _uid);
 	public List<MaterialBinStock> loadMaterialBinStockList(String _mmUid);
+	public List<MaterialBinStock> loadMaterialBinStockListByWrhsBin(String _wbUid);
 	
 	// -------------------------------------------------------------------------------
 	// -----------------------------MaterialBinStockBatch-----------------------------

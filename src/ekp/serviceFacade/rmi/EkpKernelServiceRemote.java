@@ -7,29 +7,11 @@ import java.util.Map;
 
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MaterialMasterQueryParam;
 import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
-import ekp.invt.InvtOrder;
-import ekp.invt.InvtOrderItem;
-import ekp.invt.MaterialBinStock;
-import ekp.invt.MaterialBinStockBatch;
-import ekp.invt.MaterialInst;
-import ekp.invt.MaterialMaster;
-import ekp.invt.MbsbStmt;
-import ekp.invt.WrhsBin;
-import ekp.invt.WrhsLoc;
-import ekp.invt.dto.InvtOrderCreateObj;
-import ekp.invt.dto.InvtOrderItemCreateObj;
-import ekp.invt.dto.MaterialBinStockBatchCreateObj;
-import ekp.invt.dto.MaterialBinStockCreateObj;
-import ekp.invt.dto.MaterialInstCreateObj;
-import ekp.invt.dto.MaterialMasterCreateObj;
-import ekp.invt.dto.MbsbStmtCreateObj;
-import ekp.invt.dto.WrhsBinCreateObj;
-import ekp.invt.dto.WrhsLocCreateObj;
-import ekp.mbom.dto.PpartSkewer;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
@@ -140,6 +122,9 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public MaterialMasterRemote loadMaterialMasterByMano(String _mano) throws RemoteException;
 
+	public QueryOperation<MaterialMasterQueryParam, MaterialMasterRemote> searchMaterialMaster(
+			QueryOperation<MaterialMasterQueryParam, MaterialMasterRemote> _param) throws RemoteException;
+
 	// -------------------------------------------------------------------------------
 	// ---------------------------------MaterialInst----------------------------------
 	public MaterialInstRemote createMaterialInst(MaterialInstCreateObjRemote _dto) throws RemoteException;
@@ -161,6 +146,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public MaterialBinStockRemote loadMaterialBinStock(String _uid) throws RemoteException;
 
 	public List<MaterialBinStockRemote> loadMaterialBinStockList(String _mmUid) throws RemoteException;
+
+	public List<MaterialBinStockRemote> loadMaterialBinStockListByWrhsBin(String _wbUid) throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// -----------------------------MaterialBinStockBatch-----------------------------
@@ -193,10 +180,10 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean mbsbStmtPost(String _uid) throws RemoteException;
 
 	public boolean mbsbStmtRevertPost(String _uid) throws RemoteException;
-	
+
 	// -------------------------------------------------------------------------------
 	// -------------------------------------MBOM--------------------------------------
-	
+
 	// -------------------------------------------------------------------------------
 	// -------------------------------------Part--------------------------------------
 	public PartRemote createPart(PartCreateObjRemote _dto) throws RemoteException;
@@ -206,12 +193,12 @@ public interface EkpKernelServiceRemote extends Remote {
 	public PartRemote loadPart(String _uid) throws RemoteException;
 
 	public PartRemote loadPartByPin(String _pin) throws RemoteException;
-	
+
 	public QueryOperation<PartQueryParam, PartRemote> searchPart(QueryOperation<PartQueryParam, PartRemote> _param)
 			throws RemoteException;
 
 	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) throws RemoteException;
-	
+
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
 	public PartAcquisitionRemote createPartAcquisition(PartAcquisitionCreateObjRemote _dto) throws RemoteException;
@@ -231,7 +218,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean partAcqPublish(String _uid, long _publishTime) throws RemoteException;
 
 	public boolean partAcqRevertPublish(String _uid) throws RemoteException;
-	
+
 	public boolean partAcqUpdateInfo(String _uid, String _id, String _name, PartAcquisitionType _type)
 			throws RemoteException;
 
@@ -284,7 +271,7 @@ public interface EkpKernelServiceRemote extends Remote {
 			throws RemoteException;
 
 	public boolean parsPartRevertAssignPart(String _uid) throws RemoteException;
-	
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------PpartSkewer----------------------------------
 	public PpartSkewerRemote loadPpartSkewer(String _uid) throws RemoteException;
@@ -304,7 +291,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public PartCfgRemote loadPartCfgById(String _id) throws RemoteException;
 
 	public List<PartCfgRemote> loadPartCfgList(String _rootPartUid) throws RemoteException;
-	
+
 	public QueryOperation<PartCfgQueryParam, PartCfgRemote> searchPartCfg(
 			QueryOperation<PartCfgQueryParam, PartCfgRemote> _param) throws RemoteException;
 
@@ -327,7 +314,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public PartCfgConjRemote loadPartCfgConj(String _partCfgUid, String _partAcqUid) throws RemoteException;
 
 	public List<PartCfgConjRemote> loadPartCfgConjList(String _partCfgUid) throws RemoteException;
-	
+
 	public List<PartCfgConjRemote> loadPartCfgConjListByPartAcq(String _partAcqUid) throws RemoteException;
 
 	// -------------------------------------------------------------------------------
@@ -387,7 +374,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteProdMod(String _uid) throws RemoteException;
 
 	public ProdModRemote loadProdMod(String _uid) throws RemoteException;
-	
+
 	public ProdModRemote loadProdModById(String _id) throws RemoteException;
 
 	public List<ProdModRemote> loadProdModList(String _prodUid) throws RemoteException;

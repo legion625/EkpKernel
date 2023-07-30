@@ -90,13 +90,13 @@ public class InvtFO {
 		return remote;
 	}
 
-	public static InvtOrderItemCreateObj parseInvtOrderItemCreateObj(InvtOrderItemCreateObjRemote _dto) {
+	public static InvtOrderItemCreateObj parseInvtOrderItemCreateObj(InvtOrderItemCreateObjRemote _remote) {
 		InvtOrderItemCreateObj dto = new InvtOrderItemCreateObj();
-		dto.setIoUid(_dto.getIoUid());
-		dto.setMbsUid(_dto.getMbsUid());
-		dto.setIoType(_dto.getIoType());
-		dto.setOrderQty(_dto.getOrderQty());
-		dto.setOrderValue(_dto.getOrderValue());
+		dto.setIoUid(_remote.getIoUid());
+		dto.setMbsUid(_remote.getMbsUid());
+		dto.setIoType(_remote.getIoType());
+		dto.setOrderQty(_remote.getOrderQty());
+		dto.setOrderValue(_remote.getOrderValue());
 		return dto;
 	}
 

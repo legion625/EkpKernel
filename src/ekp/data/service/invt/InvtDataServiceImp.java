@@ -6,6 +6,7 @@ import java.util.Map;
 import ekp.data.InvtDataService;
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MaterialMasterQueryParam;
 import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
@@ -66,6 +67,12 @@ public class InvtDataServiceImp implements InvtDataService {
 	@Override
 	public MaterialMaster loadMaterialMasterByMano(String _mano) {
 		return materialDao.loadMaterialMasterByMano(_mano);
+	}
+	
+	@Override
+	public QueryOperation<MaterialMasterQueryParam, MaterialMaster> searchMaterialMaster(
+			QueryOperation<MaterialMasterQueryParam, MaterialMaster> _param){
+		return materialDao.searchMaterialMaster(_param);
 	}
 
 	// -------------------------------------------------------------------------------
@@ -168,6 +175,11 @@ public class InvtDataServiceImp implements InvtDataService {
 	}
 	
 	@Override
+	public List<InvtOrderItem> loadInvtOrderItemListByMaterialBinStock(String _mbsUid){
+		return wrhsDao.loadInvtOrderItemListByMaterialBinStock(_mbsUid);
+	}
+	
+	@Override
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param
 			, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap){
 		return wrhsDao.searchInvtOrderItem(_param,  _existsDetailMap);
@@ -220,6 +232,11 @@ public class InvtDataServiceImp implements InvtDataService {
 	@Override
 	public List<MaterialBinStock> loadMaterialBinStockList(String _mmUid) {
 		return materialDao.loadMaterialBinStockList(_mmUid);
+	}
+	
+	@Override
+	public List<MaterialBinStock> loadMaterialBinStockListByWrhsBin(String _wbUid){
+		return materialDao.loadMaterialBinStockListByWrhsBin(_wbUid);
 	}
 
 	// -------------------------------------------------------------------------------

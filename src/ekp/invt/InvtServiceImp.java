@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import ekp.data.InvtDataService;
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MaterialMasterQueryParam;
 import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.dto.InvtOrderCreateObj;
 import ekp.invt.dto.InvtOrderItemCreateObj;
@@ -142,6 +143,11 @@ public class InvtServiceImp implements InvtService {
 	}
 	
 	@Override
+	public List<InvtOrderItem> loadInvtOrderItemListByMaterialBinStock(String _mbsUid){
+		return dataService.loadInvtOrderItemListByMaterialBinStock(_mbsUid);
+	}
+	
+	@Override
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap){
 		return dataService.searchInvtOrderItem(_param,  _existsDetailMap);
 	}
@@ -166,6 +172,11 @@ public class InvtServiceImp implements InvtService {
 	@Override
 	public MaterialMaster loadMaterialMasterByMano(String _mano) {
 		return dataService.loadMaterialMasterByMano(_mano);
+	}
+	@Override
+	public QueryOperation<MaterialMasterQueryParam, MaterialMaster> searchMaterialMaster(
+			QueryOperation<MaterialMasterQueryParam, MaterialMaster> _param){
+		return dataService.searchMaterialMaster(_param);
 	}
 
 	// -------------------------------------------------------------------------------
@@ -215,6 +226,11 @@ public class InvtServiceImp implements InvtService {
 	@Override
 	public List<MaterialBinStock> loadMaterialBinStockList(String _mmUid) {
 		return dataService.loadMaterialBinStockList(_mmUid);
+	}
+	
+	@Override
+	public List<MaterialBinStock> loadMaterialBinStockListByWrhsBin(String _wbUid){
+		return dataService.loadMaterialBinStockListByWrhsBin(_wbUid);
 	}
 
 	// -------------------------------------------------------------------------------

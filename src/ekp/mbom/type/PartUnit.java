@@ -14,7 +14,7 @@ public enum PartUnit implements IdEnum {
 	GRM("GRM","公克", "Gram"), //
 	MMT("MMT","公釐", "Millimeter"), //
 	SHE("SHE","張, 片","Sheet"), //
-	SPL("SHE","捲，軸","Spool"), //
+	SPL("SPL","捲，軸","Spool"), //
 	;
 
 	private String id;
