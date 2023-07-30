@@ -9,9 +9,11 @@ import ekp.AbstractEkpInitTest;
 import ekp.TestLogMark;
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MaterialMasterQueryParam;
 import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
+import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.type.InvtOrderType;
 import ekp.invt.type.MaterialInstAcqChannel;
@@ -103,6 +105,18 @@ public class InvtDataServiceTest extends AbstractEkpInitTest {
 
 	}
 
+	@Test
+	public void testSearchMasterialMaster() {
+		QueryOperation<MaterialMasterQueryParam, MaterialMaster> param = new QueryOperation<>();
+		param = dataService.searchMaterialMaster(param);
+		log.debug("param.getTotal(): {}", param.getTotal());
+		List<MaterialMaster> mmList = param.getQueryResult();
+		log.debug("mmList.size(): {}", mmList.size());
+		for (MaterialMaster mm : mmList) {
+			log.debug("{}\t{}\t{}\t{}\t{}", mm.getUid(), mm.getMano(), mm.getName(), mm.getSpecification(), mm.getStdUnit());
+		}
+	}
+	
 	@Test
 	@Ignore
 	public void testSearchMbsbStmt() {

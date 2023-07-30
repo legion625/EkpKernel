@@ -10,6 +10,7 @@ import org.slf4j.event.Level;
 
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MaterialMasterQueryParam;
 import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.MaterialBinStock;
 import ekp.invt.MaterialBinStockBatch;
@@ -86,7 +87,30 @@ public class MaterialDao extends AbstractMySqlDao {
 	MaterialMaster loadMaterialMasterByMano(String _mano) {
 		return loadObject(TB_MATERIAL_MASTER, COL_MM_MANO, _mano, this::parseMaterialMaster);
 	}
+	
+	private static String parseMaterialMasterQueryParamMapping(MaterialMasterQueryParam _param) {
+		switch (_param) {
+		/* MaterialMaster:this */
+		case MANO:
+			return COL_MM_MANO;
+		case NAME:
+			return COL_MM_NAME;
+		case SPECIFICATION:
+			return COL_MM_SPECIFICATION;
+		case STD_UNIT_ID:
+			return COL_MM_STD_UNIT_ID;
+		default:
+			log.warn("_param error. {}", _param);
+			return null;
+		}
+	}
 
+	QueryOperation<MaterialMasterQueryParam, MaterialMaster> searchMaterialMaster(
+			QueryOperation<MaterialMasterQueryParam, MaterialMaster> _param){
+		return searchObject(TB_MATERIAL_MASTER, _param,MaterialDao::parseMaterialMasterQueryParamMapping, this::parseMaterialMaster);
+	}
+	
+	
 	private static String packMaterialMasterQueryField(InvtOrderItemQueryParam _param, String _tbMbs,
 			String _colMbsMmUid) {
 		String targetMasterField;
@@ -222,6 +246,10 @@ public class MaterialDao extends AbstractMySqlDao {
 	}
 	List<MaterialBinStock> loadMaterialBinStockList(String _mmUid){
 		return loadObjectList(TB_MATERIAL_BIN_STOCK,COL_MBS_MM_UID, _mmUid, this::parseMaterialBinStock);
+	}
+	
+	List<MaterialBinStock> loadMaterialBinStockListByWrhsBin(String _wbUid){
+		return loadObjectList(TB_MATERIAL_BIN_STOCK,COL_MBS_WRHS_BIN_UID, _wbUid, this::parseMaterialBinStock);
 	}
 	
 	static String packMaterialBinStockQueryField(InvtOrderItemQueryParam _param, String _tbIoi, String _colIoiMbsUid) {

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
+import ekp.data.service.invt.query.MaterialMasterQueryParam;
 import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
@@ -226,6 +227,13 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote).collect(Collectors.toList());
 		return remoteList;
 	}
+	
+	@Override
+	public List<InvtOrderItemRemote> loadInvtOrderItemListByMaterialBinStock(String _mbsUid) throws RemoteException{
+		List<InvtOrderItem> list = invtService.loadInvtOrderItemListByMaterialBinStock(_mbsUid);
+		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote).collect(Collectors.toList());
+		return remoteList;
+	}
 
 	@Override
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> searchInvtOrderItem(
@@ -262,6 +270,18 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public MaterialMasterRemote loadMaterialMasterByMano(String _mano) throws RemoteException{
 		MaterialMaster obj = invtService.loadMaterialMasterByMano(_mano);
 		return obj == null ? null : InvtFO.parseMaterialMasterRemote(obj);
+	}
+	
+	@Override
+	public QueryOperation<MaterialMasterQueryParam, MaterialMasterRemote> searchMaterialMaster(
+			QueryOperation<MaterialMasterQueryParam, MaterialMasterRemote> _param) throws RemoteException {
+		QueryOperation<MaterialMasterQueryParam, MaterialMaster> param = (QueryOperation<MaterialMasterQueryParam, MaterialMaster>) _param
+				.copy();
+		param = invtService.searchMaterialMaster(param);
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(InvtFO::parseMaterialMasterRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
 	}
 
 	// -------------------------------------------------------------------------------
@@ -316,6 +336,13 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	@Override
 	public List<MaterialBinStockRemote> loadMaterialBinStockList(String _mmUid) throws RemoteException{
 		List<MaterialBinStock> list = invtService.loadMaterialBinStockList(_mmUid);
+		List<MaterialBinStockRemote> remoteList = list.stream().map(InvtFO::parseMaterialBinStockRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+	
+	@Override
+	public List<MaterialBinStockRemote> loadMaterialBinStockListByWrhsBin(String _wbUid) throws RemoteException{
+		List<MaterialBinStock> list = invtService.loadMaterialBinStockListByWrhsBin(_wbUid);
 		List<MaterialBinStockRemote> remoteList = list.stream().map(InvtFO::parseMaterialBinStockRemote).collect(Collectors.toList());
 		return remoteList;
 	}

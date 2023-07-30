@@ -271,6 +271,10 @@ public class WrhsDao extends AbstractMySqlDao {
 		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_IO_UID, _ioUid, this::parseInvtOrderItem);
 	}
 	
+	List<InvtOrderItem> loadInvtOrderItemListByMaterialBinStock(String _mbsUid){
+		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_MBS_UID, _mbsUid, this::parseInvtOrderItem);
+	}
+	
 	private String parseInvtOrderItemQueryParamMapping(InvtOrderItemQueryParam _param
 			, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap) {
 		switch (_param) {
