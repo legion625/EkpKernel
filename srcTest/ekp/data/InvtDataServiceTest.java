@@ -77,9 +77,11 @@ public class InvtDataServiceTest extends AbstractEkpInitTest {
 		param.appendCondition(value(InvtOrderItemQueryParam.IO_APPLIER_NAME, equal, "Jason"));
 		param.appendCondition(value(InvtOrderItemQueryParam.IO_REMARK, like, "%sample%"));
 		//
-		param.appendCondition(value(InvtOrderItemQueryParam.MBS_MANO, equal, "MANO1"));
+//		param.appendCondition(value(InvtOrderItemQueryParam.MBS_MANO, equal, "MANO1"));
+		param.appendCondition(value(InvtOrderItemQueryParam.MM_MANO, equal, "MANO1"));
 		//
-		param.appendCondition(value(InvtOrderItemQueryParam.MBS_MM_NAME, equal, "測試料號1"));
+//		param.appendCondition(value(InvtOrderItemQueryParam.MBS_MM_NAME, equal, "測試料號1"));
+		param.appendCondition(value(InvtOrderItemQueryParam.MM_NAME, equal, "測試料號1"));
 
 		//
 		param.appendCondition(value(InvtOrderItemQueryParam.B_of_MBSBS$, equal, true));
@@ -99,7 +101,7 @@ public class InvtDataServiceTest extends AbstractEkpInitTest {
 		List<InvtOrderItem> ioiList = param.getQueryResult();
 		log.debug("ioiList.size(): {}", ioiList.size());
 		for (InvtOrderItem ioi : ioiList) {
-			log.debug("{}\t{}\t{}\t{}\t{}\t{}", ioi.getUid(), ioi.getIoUid(), ioi.getMbsUid(), ioi.getIoType(),
+			log.debug("{}\t{}\t{}\t{}\t{}\t{}\t{}", ioi.getUid(), ioi.getIoUid(), ioi.getMmUid(), ioi.getWrhsBinUid(), ioi.getIoType(),
 					ioi.getOrderQty(), ioi.getOrderValue());
 		}
 

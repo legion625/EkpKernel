@@ -83,7 +83,9 @@ public class InvtFO {
 		InvtOrderItemRemote remote = new InvtOrderItemRemote(_obj.getUid(), _obj.getObjectCreateTime(),
 				_obj.getObjectUpdateTime());
 		remote.setIoUid(_obj.getIoUid());
-		remote.setMbsUid(_obj.getMbsUid());
+		remote.setMmUid(_obj.getMmUid());
+		remote.setMiUid(_obj.getMiUid());
+		remote.setWrhsBinUid(_obj.getWrhsBinUid());
 		remote.setIoType(_obj.getIoType());
 		remote.setOrderQty(_obj.getOrderQty());
 		remote.setOrderValue(_obj.getOrderValue());
@@ -93,7 +95,9 @@ public class InvtFO {
 	public static InvtOrderItemCreateObj parseInvtOrderItemCreateObj(InvtOrderItemCreateObjRemote _remote) {
 		InvtOrderItemCreateObj dto = new InvtOrderItemCreateObj();
 		dto.setIoUid(_remote.getIoUid());
-		dto.setMbsUid(_remote.getMbsUid());
+		dto.setMmUid(_remote.getMmUid());
+		dto.setMiUid(_remote.getMiUid());
+		dto.setWrhsBinUid(_remote.getWrhsBinUid());
 		dto.setIoType(_remote.getIoType());
 		dto.setOrderQty(_remote.getOrderQty());
 		dto.setOrderValue(_remote.getOrderValue());

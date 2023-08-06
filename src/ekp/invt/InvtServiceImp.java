@@ -141,10 +141,17 @@ public class InvtServiceImp implements InvtService {
 	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid) {
 		return dataService.loadInvtOrderItemList(_ioUid);
 	}
-	
 	@Override
-	public List<InvtOrderItem> loadInvtOrderItemListByMaterialBinStock(String _mbsUid){
-		return dataService.loadInvtOrderItemListByMaterialBinStock(_mbsUid);
+	public List<InvtOrderItem> loadInvtOrderItemListByMm(String _mmUid){
+		return dataService.loadInvtOrderItemListByMm(_mmUid);
+	}
+	@Override
+	public List<InvtOrderItem> loadInvtOrderItemListByMi(String _miUid){
+		return dataService.loadInvtOrderItemListByMi(_miUid);
+	}
+	@Override
+	public List<InvtOrderItem> loadInvtOrderItemListByWb(String _wrhsBinUid){
+		return dataService.loadInvtOrderItemListByWb(_wrhsBinUid);
 	}
 	
 	@Override

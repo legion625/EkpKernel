@@ -52,7 +52,10 @@ public interface InvtDataService extends IntegrationService {
 	public boolean deleteInvtOrderItem(String _uid);
 	public InvtOrderItem loadInvtOrderItem(String _uid);
 	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid);
-	public List<InvtOrderItem> loadInvtOrderItemListByMaterialBinStock(String _mbsUid);
+	public List<InvtOrderItem> loadInvtOrderItemListByMm(String _mmUid);
+	public List<InvtOrderItem> loadInvtOrderItemListByMi(String _miUid);
+	public List<InvtOrderItem> loadInvtOrderItemListByWb(String _wrhsBinUid);
+	
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param
 			, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap);
 	

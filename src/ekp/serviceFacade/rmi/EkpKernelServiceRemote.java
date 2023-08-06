@@ -12,6 +12,7 @@ import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
+import ekp.invt.InvtOrderItem;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
@@ -108,7 +109,9 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public List<InvtOrderItemRemote> loadInvtOrderItemList(String _ioUid) throws RemoteException;
 	
-	public List<InvtOrderItemRemote> loadInvtOrderItemListByMaterialBinStock(String _mbsUid) throws RemoteException;
+	public List<InvtOrderItemRemote> loadInvtOrderItemListByMm(String _mmUid) throws RemoteException;
+	public List<InvtOrderItemRemote> loadInvtOrderItemListByMi(String _miUid) throws RemoteException;
+	public List<InvtOrderItemRemote> loadInvtOrderItemListByWb(String _wrhsBinUid) throws RemoteException;
 
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> searchInvtOrderItem(
 			QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> _param,

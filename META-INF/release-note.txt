@@ -1,3 +1,19 @@
+[change]
+1. [INVT] InvtOrder add "Status".
+  -1. Add attributes: applyTime, status, apvTime
+  
+Min-Hua, 2023.08.06
+[change]
+1. [INVT] 調整InvtOrderItem的屬性。
+  -1. 新增mmUid, miUid (optional), wrhsBinUid
+  -2. 刪除mbsUid 
+  -3. 刪除loadInvtOrderItemListByMaterialBinStock服務，並新增loadInvtOrderItemListByMm、loadInvtOrderItemListByMi和loadInvtOrderItemListByWb等服務。
+  -4. 調整InvtOrderItemQueryParam查詢參數。
+  
+[deployment]
+1. [INVT] 調整InvtOrderItem的屬性。
+  -1. 資料表invt_invt_order_item刪除mbs_uid欄位，並新增mm_uid、mi_uid和wrhs_bin_uid欄位。
+  
 ------------------------------------------------------------------------------
 v0.2.1 released by Min-Hua, 2023.07.30
 [change]

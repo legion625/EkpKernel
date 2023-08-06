@@ -227,11 +227,28 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote).collect(Collectors.toList());
 		return remoteList;
 	}
-	
+
 	@Override
-	public List<InvtOrderItemRemote> loadInvtOrderItemListByMaterialBinStock(String _mbsUid) throws RemoteException{
-		List<InvtOrderItem> list = invtService.loadInvtOrderItemListByMaterialBinStock(_mbsUid);
-		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote).collect(Collectors.toList());
+	public List<InvtOrderItemRemote> loadInvtOrderItemListByMm(String _mmUid) throws RemoteException {
+		List<InvtOrderItem> list = invtService.loadInvtOrderItemListByMm(_mmUid);
+		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote)
+				.collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public List<InvtOrderItemRemote> loadInvtOrderItemListByMi(String _miUid) throws RemoteException {
+		List<InvtOrderItem> list = invtService.loadInvtOrderItemListByMi(_miUid);
+		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote)
+				.collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public List<InvtOrderItemRemote> loadInvtOrderItemListByWb(String _wrhsBinUid) throws RemoteException {
+		List<InvtOrderItem> list = invtService.loadInvtOrderItemListByWb(_wrhsBinUid);
+		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote)
+				.collect(Collectors.toList());
 		return remoteList;
 	}
 

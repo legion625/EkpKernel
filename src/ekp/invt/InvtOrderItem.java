@@ -12,7 +12,10 @@ public class InvtOrderItem extends ObjectModel {
 	// ----------------------------------Attributes-----------------------------------
 	/* biz key */
 	private String ioUid; // invt order uid
-	private String mbsUid; // BaterialBinStock uid (biz key) 指定「料項+儲位」
+	
+	private String mmUid;
+	private String miUid;
+	private String wrhsBinUid;
 
 	private InvtOrderType ioType;
 	private double orderQty; // 記錄異動的數量
@@ -46,13 +49,29 @@ public class InvtOrderItem extends ObjectModel {
 	public void setIoUid(String ioUid) {
 		this.ioUid = ioUid;
 	}
-
-	public String getMbsUid() {
-		return mbsUid;
+	
+	public String getMmUid() {
+		return mmUid;
 	}
 
-	public void setMbsUid(String mbsUid) {
-		this.mbsUid = mbsUid;
+	public void setMmUid(String mmUid) {
+		this.mmUid = mmUid;
+	}
+
+	public String getMiUid() {
+		return miUid;
+	}
+
+	public void setMiUid(String miUid) {
+		this.miUid = miUid;
+	}
+
+	public String getWrhsBinUid() {
+		return wrhsBinUid;
+	}
+
+	public void setWrhsBinUid(String wrhsBinUid) {
+		this.wrhsBinUid = wrhsBinUid;
 	}
 
 	public InvtOrderType getIoType() {
@@ -100,7 +119,9 @@ public class InvtOrderItem extends ObjectModel {
 	// ---------------------------------InvtOrderItem---------------------------------
 	static InvtOrderItem create(InvtOrderItemCreateObj _dto) {
 		InvtOrderItem ioi = newInstance(_dto.getIoUid());
-		ioi.setMbsUid(_dto.getMbsUid());
+		ioi.setMmUid(_dto.getMmUid());
+		ioi.setMiUid(_dto.getMiUid());
+		ioi.setWrhsBinUid(_dto.getWrhsBinUid());
 		ioi.setIoType(_dto.getIoType());
 		ioi.setOrderQty(_dto.getOrderQty());
 		ioi.setOrderValue(_dto.getOrderValue());
