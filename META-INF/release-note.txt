@@ -2,7 +2,8 @@
 1. [INVT] InvtOrder add "Status".
   -1. Add attributes: applyTime, status, apvTime
   
-Min-Hua, 2023.08.06
+------------------------------------------------------------------------------
+v0.2.2 released by Min-Hua, 2023.08.06
 [change]
 1. [INVT] 調整InvtOrderItem的屬性。
   -1. 新增mmUid, miUid (optional), wrhsBinUid
