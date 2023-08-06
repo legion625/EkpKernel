@@ -226,7 +226,10 @@ public class WrhsDao extends AbstractMySqlDao {
 	// ---------------------------------InvtOrderItem---------------------------------
 	private final static String TB_INVT_ORDER_ITEM = "invt_invt_order_item";
 	private final static String COL_IOI_IO_UID = "io_uid";
-	private final static String COL_IOI_MBS_UID = "mbs_uid";
+//	private final static String COL_IOI_MBS_UID = "mbs_uid";
+	private final static String COL_IOI_MM_UID = "mm_uid";
+	private final static String COL_IOI_MI_UID = "mi_uid";
+	private final static String COL_IOI_WRHS_BIN_UID = "wrhs_bin_uid";
 	private final static String COL_IOI_IO_TYPE_IDX = "io_type_idx";
 	private final static String COL_IOI_ORDER_QTY = "order_qty";
 	private final static String COL_IOI_ORDER_VALUE = "order_value";
@@ -235,7 +238,10 @@ public class WrhsDao extends AbstractMySqlDao {
 	boolean saveInvtOrderItem(InvtOrderItem _ioi) {
 		DbColumn<InvtOrderItem>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_IOI_IO_UID, ColType.STRING, InvtOrderItem::getIoUid, 45), //
-				DbColumn.of(COL_IOI_MBS_UID, ColType.STRING, InvtOrderItem::getMbsUid, 45), //
+//				DbColumn.of(COL_IOI_MBS_UID, ColType.STRING, InvtOrderItem::getMbsUid, 45), //
+				DbColumn.of(COL_IOI_MM_UID, ColType.STRING, InvtOrderItem::getMmUid, 45), //
+				DbColumn.of(COL_IOI_MI_UID, ColType.STRING, InvtOrderItem::getMiUid, 45), //
+				DbColumn.of(COL_IOI_WRHS_BIN_UID, ColType.STRING, InvtOrderItem::getWrhsBinUid, 45), //
 				DbColumn.of(COL_IOI_IO_TYPE_IDX, ColType.INT, InvtOrderItem::getIoTypeIdx), //
 				DbColumn.of(COL_IOI_ORDER_QTY, ColType.DOUBLE, InvtOrderItem::getOrderQty), //
 				DbColumn.of(COL_IOI_ORDER_VALUE, ColType.DOUBLE, InvtOrderItem::getOrderValue), //
@@ -252,7 +258,10 @@ public class WrhsDao extends AbstractMySqlDao {
 			InvtOrderItem ioi = InvtOrderItem.getInstance(parseUid(_rs), ioUid, parseObjectCreateTime(_rs),
 					parseObjectUpdateTime(_rs));
 			/* pack attributes */
-			ioi.setMbsUid(_rs.getString(COL_IOI_MBS_UID));
+//			ioi.setMbsUid(_rs.getString(COL_IOI_MBS_UID));
+			ioi.setMmUid(_rs.getString(COL_IOI_MM_UID));
+			ioi.setMiUid(_rs.getString(COL_IOI_MI_UID));
+			ioi.setWrhsBinUid(_rs.getString(COL_IOI_WRHS_BIN_UID));
 			ioi.setIoType(InvtOrderType.get(_rs.getInt(COL_IOI_IO_TYPE_IDX)));
 			ioi.setOrderQty(_rs.getDouble(COL_IOI_ORDER_QTY));
 			ioi.setOrderValue(_rs.getDouble(COL_IOI_ORDER_VALUE));
@@ -271,8 +280,15 @@ public class WrhsDao extends AbstractMySqlDao {
 		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_IO_UID, _ioUid, this::parseInvtOrderItem);
 	}
 	
-	List<InvtOrderItem> loadInvtOrderItemListByMaterialBinStock(String _mbsUid){
-		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_MBS_UID, _mbsUid, this::parseInvtOrderItem);
+	
+	List<InvtOrderItem> loadInvtOrderItemListByMm(String _mmUid){
+		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_MM_UID, _mmUid, this::parseInvtOrderItem);
+	}
+	List<InvtOrderItem> loadInvtOrderItemListByMi(String _miUid){
+		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_MI_UID, _miUid, this::parseInvtOrderItem);
+	}
+	List<InvtOrderItem> loadInvtOrderItemListByWb(String _wrhsBinUid){
+		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_WRHS_BIN_UID, _wrhsBinUid, this::parseInvtOrderItem);
 	}
 	
 	private String parseInvtOrderItemQueryParamMapping(InvtOrderItemQueryParam _param
@@ -281,8 +297,12 @@ public class WrhsDao extends AbstractMySqlDao {
 		/* InvtOrderItem:this */
 		case IO_UID:
 			return COL_IOI_IO_UID;
-		case MBS_UID:
-			return COL_IOI_MBS_UID;
+		case MM_UID:
+			return COL_IOI_MM_UID;
+		case MI_UID:
+			return COL_IOI_MI_UID;
+		case WRHS_BIN_UID:
+			return COL_IOI_WRHS_BIN_UID;
 		case IO_TYPE_IDX:
 			return COL_IOI_IO_TYPE_IDX;
 		/* InvtOrder:master */
@@ -292,13 +312,11 @@ public class WrhsDao extends AbstractMySqlDao {
 		case IO_APV_TIME:
 		case IO_REMARK:
 			return packInvtOrderQueryField(_param, TB_INVT_ORDER_ITEM, COL_IOI_IO_UID);
-		/* MaterialBinStock:master */
-		case MBS_MM_UID:
-		case MBS_MANO:
-		case MBS_WB_UID:
-			// -> MaterialMaster
-		case MBS_MM_NAME:
-			return MaterialDao.packMaterialBinStockQueryField(_param, TB_INVT_ORDER_ITEM,COL_IOI_MBS_UID);
+		/* MaterialMaster */
+		case MM_MANO:
+		case MM_NAME:
+			return MaterialDao.packMaterialMasterQueryField(_param, TB_INVT_ORDER_ITEM, COL_IOI_MM_UID);
+			
 		/* MbsbStmt:Detail */
 		case B_of_MBSBS$:
 			return MaterialDao.packMbsbStmtField(TB_INVT_ORDER_ITEM,COL_UID, _existsDetailMap, _param);

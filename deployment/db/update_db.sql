@@ -308,9 +308,15 @@ CREATE TABLE `invt_mbsb_stmt` (
 ) ;
 
 -- mh_sp8
+
+
+-- 0.2.1 -> unstaging
+ALTER TABLE `invt_invt_order_item` 
+DROP COLUMN `mbs_uid`,
+ADD COLUMN `mm_uid` VARCHAR(45) NULL AFTER `io_uid`,
+ADD COLUMN `mi_uid` VARCHAR(45) NULL AFTER `mm_uid`,
+ADD COLUMN `wrhs_bin_uid` VARCHAR(45) NULL AFTER `mi_uid`;
 -- mh_pc
-
-
 
 
 

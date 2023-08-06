@@ -10,7 +10,10 @@ public class InvtOrderItemRemote extends ObjectModelRemote{
 	}
 	
 	private String ioUid; // invt order uid
-	private String mbsUid; // BaterialBinStock uid (biz key) 指定「料項+儲位」
+//	private String mbsUid; // BaterialBinStock uid (biz key) 指定「料項+儲位」
+	private String mmUid;
+	private String miUid;
+	private String wrhsBinUid;
 
 	private InvtOrderType ioType;
 	private double orderQty; // 記錄異動的數量
@@ -21,15 +24,31 @@ public class InvtOrderItemRemote extends ObjectModelRemote{
 	void setIoUid(String ioUid) {
 		this.ioUid = ioUid;
 	}
-	public String getMbsUid() {
-		return mbsUid;
+	
+	public String getMmUid() {
+		return mmUid;
 	}
-	void setMbsUid(String mbsUid) {
-		this.mbsUid = mbsUid;
+	void setMmUid(String mmUid) {
+		this.mmUid = mmUid;
 	}
+	public String getMiUid() {
+		return miUid;
+	}
+	void setMiUid(String miUid) {
+		this.miUid = miUid;
+	}
+	public String getWrhsBinUid() {
+		return wrhsBinUid;
+	}
+	void setWrhsBinUid(String wrhsBinUid) {
+		this.wrhsBinUid = wrhsBinUid;
+	}
+	
+	
 	public InvtOrderType getIoType() {
 		return ioType;
 	}
+	
 	void setIoType(InvtOrderType ioType) {
 		this.ioType = ioType;
 	}

@@ -24,8 +24,9 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("ioUid1", "mbsUid1", InvtOrderType.I1, 199.999d, 199.999d);
-		target2 = new Target("ioUid2", "mbsUid2", InvtOrderType.I2, 299.999d, 299.999d);
+		target1 = new Target("ioUid1", "mmUid1", "miUid1", "wrhsBinUid1", InvtOrderType.I1, 199.999d, 199.999d);
+		target2 = new Target("ioUid2", "mmUid2", "miUid2", "wrhsBinUid2", InvtOrderType.I2, 299.999d, 299.999d);
+		
 	}
 
 	@Test
@@ -67,15 +68,20 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 
 	public class Target {
 		private String ioUid; // invt order uid
-		private String mbsUid; // BaterialBinStock uid (biz key) 指定「料項+儲位」
+//		private String mbsUid; // BaterialBinStock uid (biz key) 指定「料項+儲位」
+		private String mmUid;
+		private String miUid;
+		private String wrhsBinUid;
 
 		private InvtOrderType ioType;
 		private double orderQty; // 記錄異動的數量
 		private double orderValue; // 記錄異動的金額
 
-		private Target(String ioUid, String mbsUid, InvtOrderType ioType, double orderQty, double orderValue) {
+		private Target(String ioUid, String mmUid,String miUid, String wrhsBinUid, InvtOrderType ioType, double orderQty, double orderValue) {
 			this.ioUid = ioUid;
-			this.mbsUid = mbsUid;
+			this.mmUid = mmUid;
+			this.miUid = miUid;
+			this.wrhsBinUid = wrhsBinUid;
 			this.ioType = ioType;
 			this.orderQty = orderQty;
 			this.orderValue = orderValue;
@@ -85,8 +91,16 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 			return ioUid;
 		}
 
-		public String getMbsUid() {
-			return mbsUid;
+		public String getMmUid() {
+			return mmUid;
+		}
+
+		public String getMiUid() {
+			return miUid;
+		}
+
+		public String getWrhsBinUid() {
+			return wrhsBinUid;
 		}
 
 		public InvtOrderType getIoType() {

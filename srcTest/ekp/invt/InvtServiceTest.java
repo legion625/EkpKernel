@@ -96,7 +96,10 @@ public class InvtServiceTest extends AbstractEkpInitTest {
 		/* InvtOrderItem */
 		InvtOrderItemCreateObj ioiCreateObj = new InvtOrderItemCreateObj();
 		ioiCreateObj.setIoUid(io.getUid());
-		ioiCreateObj.setMbsUid(mbs.getUid());
+//		ioiCreateObj.setMbsUid(mbs.getUid());
+		ioiCreateObj.setMmUid(mm.getUid());
+		ioiCreateObj.setMiUid(mi.getUid());
+		ioiCreateObj.setWrhsBinUid(wb.getUid());
 		ioiCreateObj.setIoType(InvtOrderType.I1);
 		ioiCreateObj.setOrderQty(mi.getQty());
 		ioiCreateObj.setOrderValue(mi.getValue());

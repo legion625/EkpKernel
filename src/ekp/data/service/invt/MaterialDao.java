@@ -111,22 +111,23 @@ public class MaterialDao extends AbstractMySqlDao {
 	}
 	
 	
-	private static String packMaterialMasterQueryField(InvtOrderItemQueryParam _param, String _tbMbs,
-			String _colMbsMmUid) {
+	static String packMaterialMasterQueryField(InvtOrderItemQueryParam _param, String _tbIoi,
+			String _colIoiMmUid) {
 		String targetMasterField;
 		switch (_param) {
-		/* MaterialBinStock:master */
-		// -> MaterialMaster
-		case MBS_MM_NAME:
+		case MM_MANO:
+			targetMasterField = COL_MM_MANO;
+			break;
+		case MM_NAME:
 			targetMasterField = COL_MM_NAME;
 			break;
 		default:
-			log.debug("not supported. {}", _param);
+			log.warn("not supported. {}", _param);
 			return null;
 		}
-		return packMasterQueryField(targetMasterField, TB_MATERIAL_MASTER, COL_UID, _tbMbs, _colMbsMmUid);
+		return packMasterQueryField(targetMasterField, TB_MATERIAL_MASTER, COL_UID, _tbIoi, _colIoiMmUid);
 	}
-
+	
 	// -------------------------------------------------------------------------------
 	// ---------------------------------MaterialInst----------------------------------
 	private final static String TB_MATERIAL_INST = "invt_mat_inst";
@@ -252,29 +253,29 @@ public class MaterialDao extends AbstractMySqlDao {
 		return loadObjectList(TB_MATERIAL_BIN_STOCK,COL_MBS_WRHS_BIN_UID, _wbUid, this::parseMaterialBinStock);
 	}
 	
-	static String packMaterialBinStockQueryField(InvtOrderItemQueryParam _param, String _tbIoi, String _colIoiMbsUid) {
-		String targetMasterField;
-		switch (_param) {
-		/* MaterialBinStock:master */
-		case MBS_MM_UID:
-			targetMasterField = COL_MBS_MM_UID;
-			break;
-		case MBS_MANO:
-			targetMasterField = COL_MBS_MANO;
-			break;
-		case MBS_WB_UID:
-			targetMasterField = COL_MBS_WRHS_BIN_UID;
-			break;
-			// -> MaterialMaster
-		case MBS_MM_NAME:
-			targetMasterField = packMaterialMasterQueryField(_param, TB_MATERIAL_BIN_STOCK, COL_MBS_MM_UID);
-			break;
-		default:
-			log.debug("not supported. {}", _param);
-			return null;
-		}
-		return packMasterQueryField(targetMasterField, TB_MATERIAL_BIN_STOCK, COL_UID, _tbIoi, _colIoiMbsUid);
-	}
+//	static String packMaterialBinStockQueryField(InvtOrderItemQueryParam _param, String _tbIoi, String _colIoiMbsUid) {
+//		String targetMasterField;
+//		switch (_param) {
+//		/* MaterialBinStock:master */
+//		case MBS_MM_UID:
+//			targetMasterField = COL_MBS_MM_UID;
+//			break;
+//		case MBS_MANO:
+//			targetMasterField = COL_MBS_MANO;
+//			break;
+//		case MBS_WB_UID:
+//			targetMasterField = COL_MBS_WRHS_BIN_UID;
+//			break;
+//			// -> MaterialMaster
+//		case MBS_MM_NAME:
+//			targetMasterField = packMaterialMasterQueryField(_param, TB_MATERIAL_BIN_STOCK, COL_MBS_MM_UID);
+//			break;
+//		default:
+//			log.debug("not supported. {}", _param);
+//			return null;
+//		}
+//		return packMasterQueryField(targetMasterField, TB_MATERIAL_BIN_STOCK, COL_UID, _tbIoi, _colIoiMbsUid);
+//	}
 	
 	private static String packMaterialBinStockField(MbsbStmtQueryParam _param, String _tbMbsb, String _colMbsbMbsUid) {
 		String targetMasterField;
