@@ -16,6 +16,7 @@ import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
+import ekp.data.service.pu.query.PurchQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
 import ekp.invt.InvtService;
@@ -42,6 +43,9 @@ import ekp.mbom.ProdModItem;
 import ekp.mbom.dto.PpartSkewer;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
+import ekp.pu.PuService;
+import ekp.pu.Purch;
+import ekp.pu.PurchItem;
 import ekp.serviceFacade.rmi.invt.InvtFO;
 import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.InvtOrderItemCreateObjRemote;
@@ -83,6 +87,11 @@ import ekp.serviceFacade.rmi.mbom.ProdModCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModItemRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
+import ekp.serviceFacade.rmi.pu.PuFO;
+import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
+import ekp.serviceFacade.rmi.pu.PurchItemCreateObjRemote;
+import ekp.serviceFacade.rmi.pu.PurchItemRemote;
+import ekp.serviceFacade.rmi.pu.PurchRemote;
 import legion.BusinessServiceFactory;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
@@ -94,6 +103,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	// -------------------------------------------------------------------------------
 	private InvtService invtService = BusinessServiceFactory.getInstance().getService(InvtService.class);
 	private MbomService mbomService = BusinessServiceFactory.getInstance().getService(MbomService.class);
+	private PuService puService =  BusinessServiceFactory.getInstance().getService(PuService.class);
 
 	// -------------------------------------------------------------------------------
 	public EkpKernelServiceRemoteImp(int port) throws Exception {
@@ -288,7 +298,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		MaterialMaster obj = invtService.loadMaterialMasterByMano(_mano);
 		return obj == null ? null : InvtFO.parseMaterialMasterRemote(obj);
 	}
-	
+
 	@Override
 	public QueryOperation<MaterialMasterQueryParam, MaterialMasterRemote> searchMaterialMaster(
 			QueryOperation<MaterialMasterQueryParam, MaterialMasterRemote> _param) throws RemoteException {
@@ -356,7 +366,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<MaterialBinStockRemote> remoteList = list.stream().map(InvtFO::parseMaterialBinStockRemote).collect(Collectors.toList());
 		return remoteList;
 	}
-	
+
 	@Override
 	public List<MaterialBinStockRemote> loadMaterialBinStockListByWrhsBin(String _wbUid) throws RemoteException{
 		List<MaterialBinStock> list = invtService.loadMaterialBinStockListByWrhsBin(_wbUid);
@@ -1018,5 +1028,89 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	@Override
 	public boolean prodModItemUnassignPartCfg(String _uid) throws RemoteException {
 		return mbomService.prodModItemUnassignPartCfg(_uid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// --------------------------------------PU---------------------------------------
+	// -------------------------------------------------------------------------------
+	// -------------------------------------Purch-------------------------------------
+	@Override
+	public PurchRemote createPurch(PurchCreateObjRemote _dto) throws RemoteException {
+		if (_dto == null)
+			return null;
+		Purch obj = puService.createPurch(PuFO.parsePurchCreateObj(_dto));
+		return obj == null ? null : PuFO.parsePurchRemote(obj);
+	}
+
+	@Override
+	public boolean deletePurch(String _uid) throws RemoteException {
+		return puService.deletePurch(_uid);
+	}
+
+	@Override
+	public PurchRemote loadPurch(String _uid) throws RemoteException {
+		Purch obj = puService.loadPurch(_uid);
+		return obj == null ? null : PuFO.parsePurchRemote(obj);
+	}
+
+	@Override
+	public PurchRemote loadPurchByPuNo(String _puNo) throws RemoteException {
+		Purch obj = puService.loadPurchByPuNo(_puNo);
+		return obj == null ? null : PuFO.parsePurchRemote(obj);
+	}
+
+	@Override
+	public QueryOperation<PurchQueryParam, PurchRemote> searchPurch(QueryOperation<PurchQueryParam, PurchRemote> _param,
+			Map<PurchQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException {
+		QueryOperation<PurchQueryParam, Purch> param = (QueryOperation<PurchQueryParam, Purch>) _param.copy();
+		param = puService.searchPurch(param, _existsDetailMap);
+		_param.setQueryResult(param.getQueryResult().stream().map(PuFO::parsePurchRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
+	}
+
+	@Override
+	public boolean purchPerf(String _uid, long _perfTime) throws RemoteException {
+		return puService.purchPerf(_uid, _perfTime);
+	}
+
+	@Override
+	public boolean purchRevertPerf(String _uid) throws RemoteException {
+		return puService.purchRevertPerf(_uid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------PurchItem-----------------------------------
+	@Override
+	public PurchItemRemote createPurchItem(PurchItemCreateObjRemote _dto) throws RemoteException {
+		if (_dto == null)
+			return null;
+		PurchItem obj = puService.createPurchItem(PuFO.parsePurchItemCreateObj(_dto));
+		return obj == null ? null : PuFO.parsePurchItemRemote(obj);
+	}
+
+	@Override
+	public boolean deletePurchItem(String _uid) throws RemoteException {
+		return puService.deletePurchItem(_uid);
+	}
+
+	@Override
+	public PurchItemRemote loadPurchItem(String _uid) throws RemoteException {
+		PurchItem obj = puService.loadPurchItem(_uid);
+		return obj == null ? null : PuFO.parsePurchItemRemote(obj);
+	}
+
+	@Override
+	public List<PurchItemRemote> loadPurchItemList(String _purchUid) throws RemoteException {
+		List<PurchItem> list = puService.loadPurchItemList(_purchUid);
+		List<PurchItemRemote> remoteList = list.stream().map(PuFO::parsePurchItemRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public List<PurchItemRemote> loadPurchItemListByMm(String _mmUid) throws RemoteException {
+		List<PurchItem> list = puService.loadPurchItemListByMm(_mmUid);
+		List<PurchItemRemote> remoteList = list.stream().map(PuFO::parsePurchItemRemote).collect(Collectors.toList());
+		return remoteList;
 	}
 }

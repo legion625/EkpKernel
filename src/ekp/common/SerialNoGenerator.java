@@ -24,4 +24,14 @@ public class SerialNoGenerator {
 		String misn = "MI"+DataFO.fillString(yearStr+"", 2, '0')+DataFO.fillString(numStr+"", 6, '0');
 		return misn;
 	}
+
+	public static String generatePuNo() {
+		ObjectSeqDataService objSeqDataService = DataServiceFactory.getInstance()
+				.getService(ObjectSeqDataService.class);
+		String yearStr = String.valueOf(EkpKernelDateUtil.getCurrentYear()).substring(2);
+		String idenfigyStr = "PuNo" + yearStr;
+		String numStr = objSeqDataService.getSimpleSeq(idenfigyStr);
+		String puNo = "PU" + DataFO.fillString(yearStr + "", 2, '0') + DataFO.fillString(numStr + "", 6, '0');
+		return puNo;
+	}
 }
