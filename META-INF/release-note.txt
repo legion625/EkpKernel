@@ -3,7 +3,8 @@ TODO
 1. [INVT] InvtOrder add "Status".
   -1. Add attributes: applyTime, status, apvTime
   
-Min-Hua, 2023.08.15
+------------------------------------------------------------------------------
+v0.3.0 released by Min-Hua, 2023.08.15
 [change]
 1. [PU] 新增「採購」模組。
 

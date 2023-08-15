@@ -316,9 +316,8 @@ DROP COLUMN `mbs_uid`,
 ADD COLUMN `mm_uid` VARCHAR(45) NULL AFTER `io_uid`,
 ADD COLUMN `mi_uid` VARCHAR(45) NULL AFTER `mm_uid`,
 ADD COLUMN `wrhs_bin_uid` VARCHAR(45) NULL AFTER `mi_uid`;
--- mh_pc
 
--- 0.2.2 -> unstaging
+-- 0.2.2 -> 0.3.0
 CREATE TABLE `pu_purch` (
   `uid` varchar(45) NOT NULL,
   `pu_no` varchar(45) DEFAULT NULL,
@@ -347,4 +346,6 @@ CREATE TABLE `pu_purch_item` (
   `object_update_time` bigint DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ;
+
+-- mh_pc
 
