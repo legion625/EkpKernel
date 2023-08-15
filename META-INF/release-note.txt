@@ -1,8 +1,14 @@
 TODO
-[change]
-1. [INVT] InvtOrder add "Status".
+2. [INVT] InvtOrder add "Status".
   -1. Add attributes: applyTime, status, apvTime
-  
+
+Min-Hua, 2023.08.15
+[change]
+1. [INVT] MaterialInst add "miacSrcNo" attribute.
+
+[deployment]
+1. 資料表invt_mat_inst新增miac_src_no欄位。
+
 ------------------------------------------------------------------------------
 v0.3.0 released by Min-Hua, 2023.08.15
 [change]

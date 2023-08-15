@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 import ekp.invt.type.MaterialInstAcqChannel;
 
-public class MaterialInstCreateObjRemote implements Serializable{
+public class MaterialInstCreateObjRemote implements Serializable {
 	private String mmUid;
 
 	private MaterialInstAcqChannel miac;
+	private String miacSrcNo;
 	private double qty; // 數量
 	private double value; // 帳值
 	private long effDate; // 生效日期
@@ -27,6 +28,14 @@ public class MaterialInstCreateObjRemote implements Serializable{
 
 	public void setMiac(MaterialInstAcqChannel miac) {
 		this.miac = miac;
+	}
+
+	public String getMiacSrcNo() {
+		return miacSrcNo;
+	}
+
+	public void setMiacSrcNo(String miacSrcNo) {
+		this.miacSrcNo = miacSrcNo;
 	}
 
 	public double getQty() {

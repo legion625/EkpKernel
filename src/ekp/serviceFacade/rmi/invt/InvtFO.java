@@ -135,6 +135,7 @@ public class InvtFO {
 		remote.setMmUid(_obj.getMmUid());
 		remote.setMisn(_obj.getMisn());
 		remote.setMiac(_obj.getMiac());
+		remote.setMiacSrcNo(_obj.getMiacSrcNo());
 		remote.setQty(_obj.getQty());
 		remote.setValue(_obj.getValue());
 		remote.setEffDate(_obj.getEffDate());
@@ -146,6 +147,7 @@ public class InvtFO {
 		MaterialInstCreateObj dto = new MaterialInstCreateObj();
 		dto.setMmUid(_remote.getMmUid());
 		dto.setMiac(_remote.getMiac());
+		dto.setMiacSrcNo(_remote.getMiacSrcNo());
 		dto.setQty(_remote.getQty());
 		dto.setValue(_remote.getValue());
 		dto.setEffDate(_remote.getEffDate());
