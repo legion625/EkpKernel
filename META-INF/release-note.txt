@@ -1,6 +1,17 @@
+TODO
 [change]
 1. [INVT] InvtOrder add "Status".
   -1. Add attributes: applyTime, status, apvTime
+  
+Min-Hua, 2023.08.15
+[change]
+1. [PU] 新增「採購」模組。
+
+[deployment]
+1. ServiceModule.xml
+  -1. Add business service: PuService
+  -2. Add integration service: PuDataService
+2. 新增資料表pu_purch和pu_purch_item。
   
 ------------------------------------------------------------------------------
 v0.2.2 released by Min-Hua, 2023.08.06
