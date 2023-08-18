@@ -89,7 +89,7 @@ public class InvtServiceTest extends AbstractEkpInitTest {
 		InvtOrderCreateObj ioCreateObj = new InvtOrderCreateObj();
 		ioCreateObj.setApplierId("USER1");
 		ioCreateObj.setApplierName("Jason");
-		ioCreateObj.setApvTime(System.currentTimeMillis());
+		ioCreateObj.setApplyTime(System.currentTimeMillis());
 		ioCreateObj.setRemark("This is a sample inventory order.");
 		InvtOrder io = service.createInvtOrder(ioCreateObj);
 		

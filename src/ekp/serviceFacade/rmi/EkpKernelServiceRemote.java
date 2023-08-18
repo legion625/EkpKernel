@@ -86,6 +86,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteWrhsBin(String _uid) throws RemoteException;
 
 	public WrhsBinRemote loadWrhsBin(String _uid) throws RemoteException;
+	
+	public WrhsBinRemote loadWrhsBin(String _wlUid, String _id) throws RemoteException;
 
 	public List<WrhsBinRemote> loadWrhsBinList(String _wlUid) throws RemoteException;
 
@@ -417,6 +419,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public QueryOperation<PurchQueryParam, PurchRemote> searchPurch(QueryOperation<PurchQueryParam, PurchRemote> _param,
 			Map<PurchQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
 
+	public boolean purchToPerf(String _uid) throws RemoteException;
+	public boolean purchRevertToPerf(String _uid) throws RemoteException;
 	public boolean purchPerf(String _uid, long _perfTime) throws RemoteException;
 	public boolean purchRevertPerf(String _uid) throws RemoteException;
 

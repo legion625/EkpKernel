@@ -85,7 +85,12 @@ public class InvtServiceImp implements InvtService {
 	public WrhsBin loadWrhsBin(String _uid) {
 		return dataService.loadWrhsBin(_uid);
 	}
-
+	
+	@Override
+	public WrhsBin loadWrhsBin(String _wlUid, String _id) {
+		return dataService.loadWrhsBin(_wlUid, _id);
+	}
+	
 	@Override
 	public List<WrhsBin> loadWrhsBinList(String _wlUid) {
 		return dataService.loadWrhsBinList(_wlUid);

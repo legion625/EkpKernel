@@ -2,6 +2,7 @@ package ekp.data.service.invt;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -14,6 +15,7 @@ import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
 import ekp.invt.WrhsBin;
 import ekp.invt.WrhsLoc;
+import ekp.invt.type.InvtOrderStatus;
 import ekp.invt.type.InvtOrderType;
 import ekp.mbom.Part;
 import legion.data.service.AbstractMySqlDao;
@@ -111,6 +113,13 @@ public class WrhsDao extends AbstractMySqlDao {
 		return loadObject(TB_WRHS_BIN, _uid, this::parseWrhsBin);
 	}
 
+	WrhsBin loadWrhsBin(String _wlUid, String _id) {
+		Map<String, String> colValueMap = new HashMap<>();
+		colValueMap.put(COL_WB_WL_UID, _wlUid);
+		colValueMap.put(COL_WB_ID, _id);
+		return loadObject(TB_WRHS_BIN, colValueMap, this::parseWrhsBin);
+	}
+	
 	List<WrhsBin> loadWrhsBinList(String _wlUid){
 		return loadObjectList(TB_WRHS_BIN,COL_WB_WL_UID, _wlUid, this::parseWrhsBin);
 	}
@@ -119,18 +128,22 @@ public class WrhsDao extends AbstractMySqlDao {
 	// -----------------------------------InvtOrder-----------------------------------
 	private final static String TB_INVT_ORDER = "invt_invt_order";
 	private final static String COL_IO_IOSN = "iosn";
+	private final static String COL_IO_STATUS_IDX = "status_idx";
 	private final static String COL_IO_APPLIER_ID = "applier_id";
 	private final static String COL_IO_APPLIER_NAME = "applier_name";
-	private final static String COL_IO_APV_TIME = "apv_time";
+	private final static String COL_IO_APPLY_TIME = "apply_time";
 	private final static String COL_IO_REMARK = "remark";
+	private final static String COL_IO_APV_TIME = "apv_time";
 	
 	boolean saveInvtOrder(InvtOrder _io) {
 		DbColumn<InvtOrder>[] cols = new DbColumn[] { // 
 				DbColumn.of(COL_IO_IOSN, ColType.STRING, InvtOrder::getIosn , 45), //
+				DbColumn.of(COL_IO_STATUS_IDX, ColType.INT, InvtOrder::getStatusIdx), //
 				DbColumn.of(COL_IO_APPLIER_ID, ColType.STRING, InvtOrder::getApplierId , 45), //
 				DbColumn.of(COL_IO_APPLIER_NAME, ColType.STRING, InvtOrder::getApplierName , 45), //
-				DbColumn.of(COL_IO_APV_TIME, ColType.LONG, InvtOrder::getApvTime), //
+				DbColumn.of(COL_IO_APPLY_TIME, ColType.LONG, InvtOrder::getApplyTime), //
 				DbColumn.of(COL_IO_REMARK, ColType.STRING, InvtOrder::getRemark , 200), //
+				DbColumn.of(COL_IO_APV_TIME, ColType.LONG, InvtOrder::getApvTime), //
 		};
 		return saveObject(TB_INVT_ORDER, cols, _io);
 	}
@@ -140,13 +153,15 @@ public class WrhsDao extends AbstractMySqlDao {
 
 	private InvtOrder parseInvtOrder(ResultSet _rs) {
 		try {
-			InvtOrder io = InvtOrder.getInstance(parseUid(_rs), parseObjectCreateTime(_rs), parseObjectUpdateTime(_rs));
+			InvtOrderStatus status = InvtOrderStatus.get(_rs.getInt(COL_IO_STATUS_IDX));
+			InvtOrder io = InvtOrder.getInstance(parseUid(_rs),status, parseObjectCreateTime(_rs), parseObjectUpdateTime(_rs));
 			/* pack attributes */
 			io.setIosn(_rs.getString(COL_IO_IOSN));
 			io.setApplierId(_rs.getString(COL_IO_APPLIER_ID));
 			io.setApplierName(_rs.getString(COL_IO_APPLIER_NAME));
-			io.setApvTime(_rs.getLong(COL_IO_APV_TIME));
+			io.setApplyTime(_rs.getLong(COL_IO_APPLY_TIME));
 			io.setRemark(_rs.getString(COL_IO_REMARK));
+			io.setApvTime(_rs.getLong(COL_IO_APV_TIME));
 			return io;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
@@ -166,14 +181,18 @@ public class WrhsDao extends AbstractMySqlDao {
 		/* InvtOrder:this */
 		case IOSN:
 			return COL_IO_IOSN;
+		case STATUS_IDX:
+			return COL_IO_STATUS_IDX;
 		case APPLIER_ID:
 			return COL_IO_APPLIER_ID;
 		case APPLIER_NAME:
 			return COL_IO_APPLIER_NAME;
-		case APV_TIME:
-			return COL_IO_APV_TIME;
+		case APPLY_TIME:
+			return COL_IO_APPLY_TIME;
 		case REMARK:
 			return COL_IO_REMARK;
+		case APV_TIME:
+			return COL_IO_APV_TIME;
 		/* InvtOrderItem:detail */
 		case B_of_IOI$:
 			return packInvtOrderItemField(TB_INVT_ORDER, COL_UID, _map, _param);
@@ -201,17 +220,23 @@ public class WrhsDao extends AbstractMySqlDao {
 		case IOSN:
 			targetMasterField = COL_IO_IOSN;
 			break;
+		case IO_STATUS_IDX:
+			targetMasterField = COL_IO_STATUS_IDX;
+			break;
 		case IO_APPLIER_ID:
 			targetMasterField = COL_IO_APPLIER_ID;
 			break;
 		case IO_APPLIER_NAME:
 			targetMasterField = COL_IO_APPLIER_NAME;
 			break;
-		case IO_APV_TIME:
-			targetMasterField = COL_IO_APV_TIME;
+		case IO_APPLY_TIME:
+			targetMasterField = COL_IO_APPLY_TIME;
 			break;
 		case IO_REMARK:
 			targetMasterField = COL_IO_REMARK;
+			break;
+		case IO_APV_TIME:
+			targetMasterField = COL_IO_APV_TIME;
 			break;
 		default:
 			log.debug("not supported. {}", _param);
@@ -226,7 +251,6 @@ public class WrhsDao extends AbstractMySqlDao {
 	// ---------------------------------InvtOrderItem---------------------------------
 	private final static String TB_INVT_ORDER_ITEM = "invt_invt_order_item";
 	private final static String COL_IOI_IO_UID = "io_uid";
-//	private final static String COL_IOI_MBS_UID = "mbs_uid";
 	private final static String COL_IOI_MM_UID = "mm_uid";
 	private final static String COL_IOI_MI_UID = "mi_uid";
 	private final static String COL_IOI_WRHS_BIN_UID = "wrhs_bin_uid";
@@ -258,7 +282,6 @@ public class WrhsDao extends AbstractMySqlDao {
 			InvtOrderItem ioi = InvtOrderItem.getInstance(parseUid(_rs), ioUid, parseObjectCreateTime(_rs),
 					parseObjectUpdateTime(_rs));
 			/* pack attributes */
-//			ioi.setMbsUid(_rs.getString(COL_IOI_MBS_UID));
 			ioi.setMmUid(_rs.getString(COL_IOI_MM_UID));
 			ioi.setMiUid(_rs.getString(COL_IOI_MI_UID));
 			ioi.setWrhsBinUid(_rs.getString(COL_IOI_WRHS_BIN_UID));
@@ -307,10 +330,12 @@ public class WrhsDao extends AbstractMySqlDao {
 			return COL_IOI_IO_TYPE_IDX;
 		/* InvtOrder:master */
 		case IOSN:
+		case IO_STATUS_IDX:
 		case IO_APPLIER_ID:
 		case IO_APPLIER_NAME:
-		case IO_APV_TIME:
+		case IO_APPLY_TIME:
 		case IO_REMARK:
+		case IO_APV_TIME:
 			return packInvtOrderQueryField(_param, TB_INVT_ORDER_ITEM, COL_IOI_IO_UID);
 		/* MaterialMaster */
 		case MM_MANO:

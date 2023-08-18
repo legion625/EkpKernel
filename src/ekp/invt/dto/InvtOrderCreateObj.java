@@ -3,7 +3,7 @@ package ekp.invt.dto;
 public class InvtOrderCreateObj {
 	private String applierId;
 	private String applierName;
-	private long apvTime; // approval time
+	private long applyTime; // apply time;
 	private String remark; //
 
 	public String getApplierId() {
@@ -22,12 +22,12 @@ public class InvtOrderCreateObj {
 		this.applierName = applierName;
 	}
 
-	public long getApvTime() {
-		return apvTime;
+	public long getApplyTime() {
+		return applyTime;
 	}
 
-	public void setApvTime(long apvTime) {
-		this.apvTime = apvTime;
+	public void setApplyTime(long applyTime) {
+		this.applyTime = applyTime;
 	}
 
 	public String getRemark() {

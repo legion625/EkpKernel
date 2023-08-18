@@ -21,6 +21,9 @@ public interface PuService extends BusinessService{
 	public QueryOperation<PurchQueryParam, Purch> searchPurch(QueryOperation<PurchQueryParam, Purch> _param,
 			Map<PurchQueryParam, QueryValue[]> _existsDetailMap);
 	
+	public boolean purchToPerf(String _uid);
+	public boolean purchRevertToPerf(String _uid);
+	
 	public boolean purchPerf(String _uid, long _perfTime);
 	public boolean purchRevertPerf(String _uid);
 	

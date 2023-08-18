@@ -13,6 +13,7 @@ public class MaterialInstRemote extends ObjectModelRemote{
 
 	private String misn; // material instance serial number
 	private MaterialInstAcqChannel miac;
+	private String miacSrcNo;
 	private double qty; // 數量
 	private double value; // 帳值
 	private long effDate; // 生效日期
@@ -34,6 +35,13 @@ public class MaterialInstRemote extends ObjectModelRemote{
 	}
 	void setMiac(MaterialInstAcqChannel miac) {
 		this.miac = miac;
+	}
+	
+	public String getMiacSrcNo() {
+		return miacSrcNo;
+	}
+	void setMiacSrcNo(String miacSrcNo) {
+		this.miacSrcNo = miacSrcNo;
 	}
 	public double getQty() {
 		return qty;

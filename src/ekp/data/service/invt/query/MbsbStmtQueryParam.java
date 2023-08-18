@@ -15,6 +15,7 @@ public enum MbsbStmtQueryParam implements QueryParam{
 	// -> MaterialInst
 	MISN("MISN","MISN"), //
 	MIAC_IDX("MIAC_IDX","Mat. Inst. Acq. Channel"), //
+	MIAC_SRC_NO("MIAC_SRC_NO","來源單號"), //
 	
 	;
 

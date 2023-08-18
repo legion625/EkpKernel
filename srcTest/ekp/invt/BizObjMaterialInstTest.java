@@ -32,8 +32,8 @@ public class BizObjMaterialInstTest extends AbstractEkpInitTest {
 		long l1 = DateUtil.toLong(LocalDateTime.now().plusDays(1));
 		long l2 = DateUtil.toLong(LocalDateTime.now().plusDays(2));
 		
-		target1 = new Target("mmUid1", "misn1", MaterialInstAcqChannel.PURCHASING, d1, d1, l1, l1);
-		target2 = new Target("mmUid2", "misn2", MaterialInstAcqChannel.OUTSOURCING, d2, d2, l2, l2);
+		target1 = new Target("mmUid1", "misn1", MaterialInstAcqChannel.PURCHASING,"miacSrcNo1", d1, d1, l1, l1);
+		target2 = new Target("mmUid2", "misn2", MaterialInstAcqChannel.OUTSOURCING,"miacSrcNo2", d2, d2, l2, l2);
 	}
 
 	@Test
@@ -78,16 +78,18 @@ public class BizObjMaterialInstTest extends AbstractEkpInitTest {
 
 		private String misn; // material instance serial number
 		private MaterialInstAcqChannel miac;
+		private String miacSrcNo;
 		private double qty; // 數量
 		private double value; // 帳值
 		private long effDate; // 生效日期
 		private long expDate; // 失效日期
 
-		private Target(String mmUid, String misn, MaterialInstAcqChannel miac, double qty, double value, long effDate,
+		private Target(String mmUid, String misn, MaterialInstAcqChannel miac,String miacSrcNo, double qty, double value, long effDate,
 				long expDate) {
 			this.mmUid = mmUid;
 			this.misn = misn;
 			this.miac = miac;
+			this.miacSrcNo = miacSrcNo;
 			this.qty = qty;
 			this.value = value;
 			this.effDate = effDate;
@@ -104,6 +106,10 @@ public class BizObjMaterialInstTest extends AbstractEkpInitTest {
 
 		public MaterialInstAcqChannel getMiac() {
 			return miac;
+		}
+
+		public String getMiacSrcNo() {
+			return miacSrcNo;
 		}
 
 		public double getQty() {
