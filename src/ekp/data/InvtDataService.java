@@ -35,6 +35,7 @@ public interface InvtDataService extends IntegrationService {
 	public boolean saveWrhsBin(WrhsBin _wb);
 	public boolean deleteWrhsBin(String _uid);
 	public WrhsBin loadWrhsBin(String _uid);
+	public WrhsBin loadWrhsBin(String _wlUid, String _id);
 	public List<WrhsBin> loadWrhsBinList(String _wlUid);
 	
 	// -------------------------------------------------------------------------------

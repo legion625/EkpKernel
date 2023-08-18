@@ -13,10 +13,12 @@ public enum InvtOrderItemQueryParam implements QueryParam {
 	
 	/* InvtOrder:master */
 	IOSN("IOSN", "IOSN"), //
+	IO_STATUS_IDX("IO_STATUS_IDX", "狀態"), //
 	IO_APPLIER_ID("IO_APPLIER_ID", "Applier ID"), //
 	IO_APPLIER_NAME("IO_APPLIER_NAME", "Applier Name"), //
-	IO_APV_TIME("IO_APV_TIME","Approval Time"), //
+	IO_APPLY_TIME("IO_APPLY_TIME","Apply Time"), //
 	IO_REMARK("IO_REMARK","Remark"), //
+	IO_APV_TIME("IO_APV_TIME","Approval Time"), //
 	
 //	/* MaterialBinStock:master */
 //	MBS_MM_UID("MBS_MM_UID","Material Master"), //

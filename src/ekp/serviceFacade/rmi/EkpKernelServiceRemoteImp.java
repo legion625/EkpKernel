@@ -168,6 +168,12 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		WrhsBin obj = invtService.loadWrhsBin(_uid);
 		return obj == null ? null : InvtFO.parseWrhsBinRemote(obj);
 	}
+	
+	@Override
+	public WrhsBinRemote loadWrhsBin(String _wlUid, String _id) throws RemoteException{
+		WrhsBin obj = invtService.loadWrhsBin(_wlUid,_id );
+		return obj == null ? null : InvtFO.parseWrhsBinRemote(obj);
+	}
 
 	@Override
 	public List<WrhsBinRemote> loadWrhsBinList(String _wlUid) throws RemoteException {
@@ -1068,7 +1074,15 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		_param.setTotal(param.getTotal());
 		return _param;
 	}
-
+	@Override
+	public boolean purchToPerf(String _uid) throws RemoteException{
+		return puService.purchToPerf(_uid);
+	}
+	@Override
+	public boolean purchRevertToPerf(String _uid) throws RemoteException{
+		return puService.purchRevertToPerf(_uid);
+	}
+	
 	@Override
 	public boolean purchPerf(String _uid, long _perfTime) throws RemoteException {
 		return puService.purchPerf(_uid, _perfTime);

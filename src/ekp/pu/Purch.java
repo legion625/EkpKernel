@@ -122,6 +122,18 @@ public class Purch extends ObjectModel {
 		return p.save() ? p : null;
 	}
 
+	boolean toPerf() {
+		if (!perfFsm.gotoStatusToPerf())
+			return false;
+		return save();
+	}
+
+	boolean revertToPerf() {
+		if (!perfFsm.backtoStatusInit())
+			return false;
+		return save();
+	}
+	
 	boolean perf(long _perfTime) {
 		if (!perfFsm.gotoStatusPerfed())
 			return false;

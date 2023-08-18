@@ -1,6 +1,10 @@
-TODO
-2. [INVT] InvtOrder add "Status".
-  -1. Add attributes: applyTime, status, apvTime
+Min-Hua, 2023.08.18
+[change]
+1. [INVT] InvtOrder add "Status".
+  -1. Add attributes: status, applyTime
+  
+[deployment]
+1. 資料表 invt_invt_order新增status_idx和apply_time欄位並調整remark欄位位置。
 
 Min-Hua, 2023.08.15
 [change]

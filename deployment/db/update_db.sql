@@ -347,10 +347,16 @@ CREATE TABLE `pu_purch_item` (
   PRIMARY KEY (`uid`)
 ) ;
 
--- mh_pc
-
 -- 0.3.0 -> unstaging
 ALTER TABLE `invt_mat_inst` 
 ADD COLUMN `miac_src_no` VARCHAR(45) NULL AFTER `miac_idx`;
+
+ALTER TABLE `invt_invt_order` 
+ADD COLUMN `status_idx` TINYINT NULL AFTER `iosn`,
+ADD COLUMN `apply_time` BIGINT NULL AFTER `applier_name`,
+CHANGE COLUMN `remark` `remark` VARCHAR(200) NULL DEFAULT NULL AFTER `apply_time`;
+
+-- mh_pc
+
 
 

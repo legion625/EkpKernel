@@ -1,10 +1,12 @@
 CREATE TABLE `invt_invt_order` (
   `uid` varchar(45) NOT NULL,
   `iosn` varchar(45) DEFAULT NULL,
+  `status_idx` tinyint(4) DEFAULT NULL,
   `applier_id` varchar(45) DEFAULT NULL,
   `applier_name` varchar(45) DEFAULT NULL,
-  `apv_time` bigint(20) DEFAULT NULL,
+  `apply_time` bigint(20) DEFAULT NULL,
   `remark` varchar(200) DEFAULT NULL,
+  `apv_time` bigint(20) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
@@ -52,6 +54,7 @@ CREATE TABLE `invt_mat_inst` (
   `mm_uid` varchar(45) DEFAULT NULL,
   `misn` varchar(45) DEFAULT NULL,
   `miac_idx` tinyint(4) DEFAULT NULL,
+  `miac_src_no` varchar(45) DEFAULT NULL,
   `qty` double DEFAULT NULL,
   `value` double DEFAULT NULL,
   `eff_date` bigint(20) DEFAULT NULL,
@@ -246,6 +249,19 @@ CREATE TABLE `mbom_prod_mod_item` (
   PRIMARY KEY (`uid`)
 ) ;
 
+CREATE TABLE `pu_purch` (
+  `uid` varchar(45) NOT NULL,
+  `pu_no` varchar(45) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `supplier_name` varchar(45) DEFAULT NULL,
+  `supplier_ban` varchar(45) DEFAULT NULL,
+  `perf_status_idx` tinyint(4) DEFAULT NULL,
+  `perf_time` bigint(20) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
 CREATE TABLE `pu_purch_item` (
   `uid` varchar(45) NOT NULL,
   `purch_uid` varchar(45) DEFAULT NULL,
@@ -257,19 +273,6 @@ CREATE TABLE `pu_purch_item` (
   `qty` double DEFAULT NULL,
   `value` double DEFAULT NULL,
   `remark` varchar(200) DEFAULT NULL,
-  `object_create_time` bigint(20) DEFAULT NULL,
-  `object_update_time` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`uid`)
-) ;
-
-CREATE TABLE `pu_purch` (
-  `uid` varchar(45) NOT NULL,
-  `pu_no` varchar(45) DEFAULT NULL,
-  `title` varchar(45) DEFAULT NULL,
-  `supplier_name` varchar(45) DEFAULT NULL,
-  `supplier_ban` varchar(45) DEFAULT NULL,
-  `perf_status_idx` tinyint(4) DEFAULT NULL,
-  `perf_time` bigint(20) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)

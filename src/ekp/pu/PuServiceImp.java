@@ -55,6 +55,16 @@ public class PuServiceImp implements PuService{
 	}
 
 	@Override
+	public boolean purchToPerf(String _uid) {
+		return loadPurch(_uid).toPerf();
+	}
+
+	@Override
+	public boolean purchRevertToPerf(String _uid) {
+		return loadPurch(_uid).revertToPerf();
+	}
+
+	@Override
 	public boolean purchPerf(String _uid, long _perfTime) {
 		return loadPurch(_uid).perf(_perfTime);
 
