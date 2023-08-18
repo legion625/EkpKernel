@@ -347,7 +347,7 @@ CREATE TABLE `pu_purch_item` (
   PRIMARY KEY (`uid`)
 ) ;
 
--- 0.3.0 -> unstaging
+-- 0.3.0 -> 0.3.1
 ALTER TABLE `invt_mat_inst` 
 ADD COLUMN `miac_src_no` VARCHAR(45) NULL AFTER `miac_idx`;
 
