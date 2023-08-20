@@ -36,6 +36,7 @@ public interface InvtService extends BusinessService {
 	public WrhsBin createWrhsBin(WrhsBinCreateObj _dto);
 	public boolean deleteWrhsBin(String _uid);
 	public WrhsBin loadWrhsBin(String _uid);
+	public WrhsBin loadWrhsBin(String _wlUid, String _id); 
 	public List<WrhsBin> loadWrhsBinList(String _wlUid); 
 	
 	// -------------------------------------------------------------------------------

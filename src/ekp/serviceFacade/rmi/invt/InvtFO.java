@@ -61,10 +61,12 @@ public class InvtFO {
 		InvtOrderRemote remote = new InvtOrderRemote(_obj.getUid(), _obj.getObjectCreateTime(),
 				_obj.getObjectUpdateTime());
 		remote.setIosn(_obj.getIosn());
+		remote.setStatus(_obj.getStatus());
 		remote.setApplierId(_obj.getApplierId());
 		remote.setApplierName(_obj.getApplierName());
-		remote.setApvTime(_obj.getApvTime());
+		remote.setApplyTime(_obj.getApplyTime());
 		remote.setRemark(_obj.getRemark());
+		remote.setApvTime(_obj.getApvTime());
 		return remote;
 	}
 
@@ -72,8 +74,8 @@ public class InvtFO {
 		InvtOrderCreateObj dto = new InvtOrderCreateObj();
 		dto.setApplierId(_remote.getApplierId());
 		dto.setApplierName(_remote.getApplierName());
-		dto.setApvTime(_remote.getApvTime());
 		dto.setRemark(_remote.getRemark());
+		dto.setApplyTime(_remote.getApplyTime());
 		return dto;
 	}
 
@@ -135,6 +137,7 @@ public class InvtFO {
 		remote.setMmUid(_obj.getMmUid());
 		remote.setMisn(_obj.getMisn());
 		remote.setMiac(_obj.getMiac());
+		remote.setMiacSrcNo(_obj.getMiacSrcNo());
 		remote.setQty(_obj.getQty());
 		remote.setValue(_obj.getValue());
 		remote.setEffDate(_obj.getEffDate());
@@ -146,6 +149,7 @@ public class InvtFO {
 		MaterialInstCreateObj dto = new MaterialInstCreateObj();
 		dto.setMmUid(_remote.getMmUid());
 		dto.setMiac(_remote.getMiac());
+		dto.setMiacSrcNo(_remote.getMiacSrcNo());
 		dto.setQty(_remote.getQty());
 		dto.setValue(_remote.getValue());
 		dto.setEffDate(_remote.getEffDate());

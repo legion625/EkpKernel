@@ -1,3 +1,43 @@
+CREATE TABLE `invt_invt_order` (
+  `uid` varchar(45) NOT NULL,
+  `iosn` varchar(45) DEFAULT NULL,
+  `status_idx` tinyint(4) DEFAULT NULL,
+  `applier_id` varchar(45) DEFAULT NULL,
+  `applier_name` varchar(45) DEFAULT NULL,
+  `apply_time` bigint(20) DEFAULT NULL,
+  `remark` varchar(200) DEFAULT NULL,
+  `apv_time` bigint(20) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_invt_order_item` (
+  `uid` varchar(45) NOT NULL,
+  `io_uid` varchar(45) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mi_uid` varchar(45) DEFAULT NULL,
+  `wrhs_bin_uid` varchar(45) DEFAULT NULL,
+  `io_type_idx` tinyint(4) DEFAULT NULL,
+  `order_qty` double DEFAULT NULL,
+  `order_value` double DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_mat_bin_stock` (
+  `uid` varchar(45) NOT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mano` varchar(45) DEFAULT NULL,
+  `wrhs_bin_uid` varchar(45) DEFAULT NULL,
+  `sum_stock_qty` double DEFAULT NULL,
+  `sum_stock_value` double DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
 CREATE TABLE `invt_mat_bin_stock_batch` (
   `uid` varchar(45) NOT NULL,
   `mbs_uid` varchar(45) DEFAULT NULL,
@@ -9,20 +49,29 @@ CREATE TABLE `invt_mat_bin_stock_batch` (
   PRIMARY KEY (`uid`)
 ) ;
 
-CREATE TABLE `invt_wrhs_loc` (
+CREATE TABLE `invt_mat_inst` (
   `uid` varchar(45) NOT NULL,
-  `id` varchar(45) DEFAULT NULL,
-  `name` varchar(45) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `misn` varchar(45) DEFAULT NULL,
+  `miac_idx` tinyint(4) DEFAULT NULL,
+  `miac_src_no` varchar(45) DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `eff_date` bigint(20) DEFAULT NULL,
+  `exp_date` bigint(20) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ;
 
-CREATE TABLE `invt_wrhs_bin` (
+CREATE TABLE `invt_mat_mstr` (
   `uid` varchar(45) NOT NULL,
-  `wl_uid` varchar(45) DEFAULT NULL,
-  `id` varchar(45) DEFAULT NULL,
+  `mano` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
+  `specification` varchar(200) DEFAULT NULL,
+  `std_unit_id` varchar(10) DEFAULT NULL,
+  `sum_stock_qty` double DEFAULT NULL,
+  `sum_stock_value` double DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
@@ -42,64 +91,20 @@ CREATE TABLE `invt_mbsb_stmt` (
   PRIMARY KEY (`uid`)
 ) ;
 
-CREATE TABLE `invt_mat_mstr` (
+CREATE TABLE `invt_wrhs_bin` (
   `uid` varchar(45) NOT NULL,
-  `mano` varchar(45) DEFAULT NULL,
+  `wl_uid` varchar(45) DEFAULT NULL,
+  `id` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
-  `specification` varchar(200) DEFAULT NULL,
-  `std_unit_id` varchar(10) DEFAULT NULL,
-  `sum_stock_qty` double DEFAULT NULL,
-  `sum_stock_value` double DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ;
 
-CREATE TABLE `invt_mat_inst` (
+CREATE TABLE `invt_wrhs_loc` (
   `uid` varchar(45) NOT NULL,
-  `mm_uid` varchar(45) DEFAULT NULL,
-  `misn` varchar(45) DEFAULT NULL,
-  `miac_idx` tinyint(4) DEFAULT NULL,
-  `qty` double DEFAULT NULL,
-  `value` double DEFAULT NULL,
-  `eff_date` bigint(20) DEFAULT NULL,
-  `exp_date` bigint(20) DEFAULT NULL,
-  `object_create_time` bigint(20) DEFAULT NULL,
-  `object_update_time` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`uid`)
-) ;
-
-CREATE TABLE `invt_mat_bin_stock` (
-  `uid` varchar(45) NOT NULL,
-  `mm_uid` varchar(45) DEFAULT NULL,
-  `mano` varchar(45) DEFAULT NULL,
-  `wrhs_bin_uid` varchar(45) DEFAULT NULL,
-  `sum_stock_qty` double DEFAULT NULL,
-  `sum_stock_value` double DEFAULT NULL,
-  `object_create_time` bigint(20) DEFAULT NULL,
-  `object_update_time` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`uid`)
-) ;
-
-CREATE TABLE `invt_invt_order_item` (
-  `uid` varchar(45) NOT NULL,
-  `io_uid` varchar(45) DEFAULT NULL,
-  `mbs_uid` varchar(45) DEFAULT NULL,
-  `io_type_idx` tinyint(4) DEFAULT NULL,
-  `order_qty` double DEFAULT NULL,
-  `order_value` double DEFAULT NULL,
-  `object_create_time` bigint(20) DEFAULT NULL,
-  `object_update_time` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`uid`)
-) ;
-
-CREATE TABLE `invt_invt_order` (
-  `uid` varchar(45) NOT NULL,
-  `iosn` varchar(45) DEFAULT NULL,
-  `applier_id` varchar(45) DEFAULT NULL,
-  `applier_name` varchar(45) DEFAULT NULL,
-  `apv_time` bigint(20) DEFAULT NULL,
-  `remark` varchar(200) DEFAULT NULL,
+  `id` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
@@ -239,6 +244,35 @@ CREATE TABLE `mbom_prod_mod_item` (
   `prod_ctl_uid` varchar(45) DEFAULT NULL,
   `part_cfg_assigned` tinyint(4) DEFAULT NULL,
   `part_cfg_uid` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `pu_purch` (
+  `uid` varchar(45) NOT NULL,
+  `pu_no` varchar(45) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `supplier_name` varchar(45) DEFAULT NULL,
+  `supplier_ban` varchar(45) DEFAULT NULL,
+  `perf_status_idx` tinyint(4) DEFAULT NULL,
+  `perf_time` bigint(20) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `pu_purch_item` (
+  `uid` varchar(45) NOT NULL,
+  `purch_uid` varchar(45) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mm_mano` varchar(45) DEFAULT NULL,
+  `mm_name` varchar(45) DEFAULT NULL,
+  `mm_specification` varchar(45) DEFAULT NULL,
+  `mm_std_unit_id` varchar(10) DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `remark` varchar(200) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)

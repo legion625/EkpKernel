@@ -310,12 +310,52 @@ CREATE TABLE `invt_mbsb_stmt` (
 -- mh_sp8
 
 
--- 0.2.1 -> unstaging
+-- 0.2.1 -> 0.2.2
 ALTER TABLE `invt_invt_order_item` 
 DROP COLUMN `mbs_uid`,
 ADD COLUMN `mm_uid` VARCHAR(45) NULL AFTER `io_uid`,
 ADD COLUMN `mi_uid` VARCHAR(45) NULL AFTER `mm_uid`,
 ADD COLUMN `wrhs_bin_uid` VARCHAR(45) NULL AFTER `mi_uid`;
+
+-- 0.2.2 -> 0.3.0
+CREATE TABLE `pu_purch` (
+  `uid` varchar(45) NOT NULL,
+  `pu_no` varchar(45) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `supplier_name` varchar(45) DEFAULT NULL,
+  `supplier_ban` varchar(45) DEFAULT NULL,
+  `perf_status_idx` tinyint DEFAULT NULL,
+  `perf_time` bigint DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `pu_purch_item` (
+  `uid` varchar(45) NOT NULL,
+  `purch_uid` varchar(45) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mm_mano` varchar(45) DEFAULT NULL,
+  `mm_name` varchar(45) DEFAULT NULL,
+  `mm_specification` varchar(45) DEFAULT NULL,
+  `mm_std_unit_id` varchar(10) DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `remark` varchar(200) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+-- 0.3.0 -> 0.3.1
+ALTER TABLE `invt_mat_inst` 
+ADD COLUMN `miac_src_no` VARCHAR(45) NULL AFTER `miac_idx`;
+
+ALTER TABLE `invt_invt_order` 
+ADD COLUMN `status_idx` TINYINT NULL AFTER `iosn`,
+ADD COLUMN `apply_time` BIGINT NULL AFTER `applier_name`,
+CHANGE COLUMN `remark` `remark` VARCHAR(200) NULL DEFAULT NULL AFTER `apply_time`;
+
 -- mh_pc
 
 

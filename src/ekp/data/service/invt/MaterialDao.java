@@ -134,6 +134,7 @@ public class MaterialDao extends AbstractMySqlDao {
 	private final static String COL_MI_MM_UID = "mm_uid";
 	private final static String COL_MI_MISN = "misn";
 	private final static String COL_MI_MIAC_IDX = "miac_idx";
+	private final static String COL_MI_MIAC_SRC_NO = "miac_src_no";
 	private final static String COL_MI_QTY = "qty";
 	private final static String COL_MI_VALUE = "value";
 	private final static String COL_MI_EFF_DATE = "eff_date";
@@ -144,6 +145,7 @@ public class MaterialDao extends AbstractMySqlDao {
 				DbColumn.of(COL_MI_MM_UID, ColType.STRING, MaterialInst::getMmUid, 45), //
 				DbColumn.of(COL_MI_MISN, ColType.STRING, MaterialInst::getMisn, 45), //
 				DbColumn.of(COL_MI_MIAC_IDX, ColType.INT, MaterialInst::getMiacIdx), //
+				DbColumn.of(COL_MI_MIAC_SRC_NO, ColType.STRING, MaterialInst::getMiacSrcNo, 45), //
 				DbColumn.of(COL_MI_QTY, ColType.DOUBLE, MaterialInst::getQty), //
 				DbColumn.of(COL_MI_VALUE, ColType.DOUBLE, MaterialInst::getValue), //
 				DbColumn.of(COL_MI_EFF_DATE, ColType.LONG, MaterialInst::getEffDate), //
@@ -163,6 +165,7 @@ public class MaterialDao extends AbstractMySqlDao {
 			/* pack attributes */
 			mi.setMisn(_rs.getString(COL_MI_MISN));
 			mi.setMiac(MaterialInstAcqChannel.get(_rs.getInt(COL_MI_MIAC_IDX)));
+			mi.setMiacSrcNo(_rs.getString(COL_MI_MIAC_SRC_NO));
 			mi.setQty(_rs.getDouble(COL_MI_QTY));
 			mi.setValue(_rs.getDouble(COL_MI_VALUE));
 			mi.setEffDate(_rs.getLong(COL_MI_EFF_DATE));
@@ -194,6 +197,9 @@ public class MaterialDao extends AbstractMySqlDao {
 			break;
 		case MIAC_IDX:
 			targetMasterField = COL_MI_MIAC_IDX;
+			break;
+		case MIAC_SRC_NO:
+			targetMasterField = COL_MI_MIAC_SRC_NO;
 			break;
 		default:
 			log.debug("not supported. {}", _param);
@@ -361,6 +367,7 @@ public class MaterialDao extends AbstractMySqlDao {
 		// -> MaterialInst
 		case MISN:
 		case MIAC_IDX:
+		case MIAC_SRC_NO:
 			targetMasterField = packMaterialInstField(_param, TB_MAT_BIN_STOCK_BATCH, COL_MBSB_MI_UID);
 			break;
 		default:
@@ -442,6 +449,7 @@ public class MaterialDao extends AbstractMySqlDao {
 			// -> MaterialInst
 		case MISN:
 		case MIAC_IDX:
+		case MIAC_SRC_NO:
 			return MaterialDao.packMaterialBinStockBatchField(_param, TB_MBSB_STMT, COL_MBSBS_MBSB_UID);
 		default:
 			log.warn("_param error. {}", _param);

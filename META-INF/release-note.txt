@@ -1,8 +1,27 @@
+------------------------------------------------------------------------------
+v0.3.1 released by Min-Hua, 2023.08.18
 [change]
-1. [INVT] InvtOrder add "Status".
-  -1. Add attributes: applyTime, status, apvTime
+1. [INVT] MaterialInst add "miacSrcNo" attribute.
+2. [INVT] InvtOrder add "Status".
+  -1. Add attributes: status, applyTime
   
-Min-Hua, 2023.08.06
+[deployment]
+1. 資料表invt_mat_inst新增miac_src_no欄位。
+2. 資料表 invt_invt_order新增status_idx和apply_time欄位並調整remark欄位位置。
+
+------------------------------------------------------------------------------
+v0.3.0 released by Min-Hua, 2023.08.15
+[change]
+1. [PU] 新增「採購」模組。
+
+[deployment]
+1. ServiceModule.xml
+  -1. Add business service: PuService
+  -2. Add integration service: PuDataService
+2. 新增資料表pu_purch和pu_purch_item。
+  
+------------------------------------------------------------------------------
+v0.2.2 released by Min-Hua, 2023.08.06
 [change]
 1. [INVT] 調整InvtOrderItem的屬性。
   -1. 新增mmUid, miUid (optional), wrhsBinUid

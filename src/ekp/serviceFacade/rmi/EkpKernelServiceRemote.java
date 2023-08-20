@@ -12,7 +12,7 @@ import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
-import ekp.invt.InvtOrderItem;
+import ekp.data.service.pu.query.PurchQueryParam;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
@@ -54,6 +54,10 @@ import ekp.serviceFacade.rmi.mbom.ProdModCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModItemRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
+import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
+import ekp.serviceFacade.rmi.pu.PurchItemCreateObjRemote;
+import ekp.serviceFacade.rmi.pu.PurchItemRemote;
+import ekp.serviceFacade.rmi.pu.PurchRemote;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
 
@@ -62,7 +66,7 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	// -------------------------------------------------------------------------------
 	// -------------------------------------INVT--------------------------------------
-
+	// XXX
 	// -------------------------------------------------------------------------------
 	// ------------------------------------WrhsLoc------------------------------------
 	public WrhsLocRemote createWrhsLoc(WrhsLocCreateObjRemote _dto) throws RemoteException;
@@ -82,6 +86,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteWrhsBin(String _uid) throws RemoteException;
 
 	public WrhsBinRemote loadWrhsBin(String _uid) throws RemoteException;
+	
+	public WrhsBinRemote loadWrhsBin(String _wlUid, String _id) throws RemoteException;
 
 	public List<WrhsBinRemote> loadWrhsBinList(String _wlUid) throws RemoteException;
 
@@ -108,7 +114,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public InvtOrderItemRemote loadInvtOrderItem(String _uid) throws RemoteException;
 
 	public List<InvtOrderItemRemote> loadInvtOrderItemList(String _ioUid) throws RemoteException;
-	
+
 	public List<InvtOrderItemRemote> loadInvtOrderItemListByMm(String _mmUid) throws RemoteException;
 	public List<InvtOrderItemRemote> loadInvtOrderItemListByMi(String _miUid) throws RemoteException;
 	public List<InvtOrderItemRemote> loadInvtOrderItemListByWb(String _wrhsBinUid) throws RemoteException;
@@ -188,6 +194,7 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	// -------------------------------------------------------------------------------
 	// -------------------------------------MBOM--------------------------------------
+	// XXX
 
 	// -------------------------------------------------------------------------------
 	// -------------------------------------Part--------------------------------------
@@ -399,5 +406,30 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean prodModItemAssignPartCfg(String _uid, String _partCfgUid) throws RemoteException;
 
 	public boolean prodModItemUnassignPartCfg(String _uid) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// --------------------------------------PU---------------------------------------
+	// XXX
+	// -------------------------------------------------------------------------------
+	// -------------------------------------Purch-------------------------------------
+	public PurchRemote createPurch(PurchCreateObjRemote _dto) throws RemoteException;
+	public boolean deletePurch(String _uid) throws RemoteException;
+	public PurchRemote loadPurch(String _uid) throws RemoteException;
+	public PurchRemote loadPurchByPuNo(String _puNo) throws RemoteException;
+	public QueryOperation<PurchQueryParam, PurchRemote> searchPurch(QueryOperation<PurchQueryParam, PurchRemote> _param,
+			Map<PurchQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
+
+	public boolean purchToPerf(String _uid) throws RemoteException;
+	public boolean purchRevertToPerf(String _uid) throws RemoteException;
+	public boolean purchPerf(String _uid, long _perfTime) throws RemoteException;
+	public boolean purchRevertPerf(String _uid) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------PurchItem-----------------------------------
+	public PurchItemRemote createPurchItem(PurchItemCreateObjRemote _dto)throws RemoteException;
+	public boolean deletePurchItem(String _uid)throws RemoteException;
+	public PurchItemRemote loadPurchItem(String _uid)throws RemoteException;
+	public List<PurchItemRemote> loadPurchItemList(String _purchUid)throws RemoteException;
+	public List<PurchItemRemote> loadPurchItemListByMm(String _mmUid)throws RemoteException;
 
 }

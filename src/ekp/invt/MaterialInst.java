@@ -13,6 +13,8 @@ public class MaterialInst extends ObjectModel {
 
 	private String misn; // material instance serial number
 	private MaterialInstAcqChannel miac;
+	private String miacSrcNo; // 來源單號:PURCHASING->puNo
+	
 	private double qty; // 數量
 	private double value; // 帳值
 	private long effDate; // 生效日期
@@ -60,6 +62,14 @@ public class MaterialInst extends ObjectModel {
 
 	public void setMiac(MaterialInstAcqChannel miac) {
 		this.miac = miac;
+	}
+
+	public String getMiacSrcNo() {
+		return miacSrcNo;
+	}
+
+	public void setMiacSrcNo(String miacSrcNo) {
+		this.miacSrcNo = miacSrcNo;
 	}
 
 	public double getQty() {
@@ -119,6 +129,7 @@ public class MaterialInst extends ObjectModel {
 		MaterialInst mi = newInstance(_dto.getMmUid());
 		mi.setMisn(""); // not generated yet
 		mi.setMiac(_dto.getMiac());
+		mi.setMiacSrcNo(_dto.getMiacSrcNo());
 		mi.setQty(_dto.getQty());
 		mi.setValue(_dto.getValue());
 		mi.setEffDate(_dto.getEffDate());
