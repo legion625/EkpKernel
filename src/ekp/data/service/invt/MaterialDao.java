@@ -251,6 +251,15 @@ public class MaterialDao extends AbstractMySqlDao {
 	MaterialBinStock loadMaterialBinStock(String _uid) {
 		return loadObject(TB_MATERIAL_BIN_STOCK, _uid, this::parseMaterialBinStock);
 	}
+	
+	MaterialBinStock loadMaterialBinStock(String _mmUid, String _wrhsBinUid) {
+		Map<String, String> colValueMap = new HashMap<>();
+		colValueMap.put(COL_MBS_MM_UID, _mmUid);
+		colValueMap.put(COL_MBS_WRHS_BIN_UID, _wrhsBinUid);
+		return loadObject(TB_MATERIAL_BIN_STOCK, colValueMap, this::parseMaterialBinStock);
+	}
+	
+	
 	List<MaterialBinStock> loadMaterialBinStockList(String _mmUid){
 		return loadObjectList(TB_MATERIAL_BIN_STOCK,COL_MBS_MM_UID, _mmUid, this::parseMaterialBinStock);
 	}

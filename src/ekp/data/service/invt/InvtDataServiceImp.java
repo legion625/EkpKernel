@@ -245,6 +245,11 @@ public class InvtDataServiceImp implements InvtDataService {
 	public MaterialBinStock loadMaterialBinStock(String _uid) {
 		return materialDao.loadMaterialBinStock(_uid);
 	}
+	
+	@Override
+	public MaterialBinStock loadMaterialBinStock(String _mmUid, String _wrhsBinUid) {
+		return materialDao.loadMaterialBinStock(_mmUid, _wrhsBinUid);
+	}
 
 	@Override
 	public List<MaterialBinStock> loadMaterialBinStockList(String _mmUid) {

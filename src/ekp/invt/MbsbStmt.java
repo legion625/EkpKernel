@@ -151,6 +151,4 @@ public class MbsbStmt extends ObjectModel {
 		setPostingTime(0);
 		return save();
 	}
-	
-	// TODO method
 }
