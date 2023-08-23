@@ -50,6 +50,11 @@ public interface InvtService extends BusinessService {
 			QueryOperation<InvtOrderQueryParam, InvtOrder> _param,
 			Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap);
 	
+	public boolean invtOrderToApv(String _uid);
+	public boolean invtOrderRevertToApv(String _uid);
+	public boolean invtOrderApprove(String _uid, long _apvTime);
+	public boolean invtOrderRevertApprove(String _uid);
+	
 	// -------------------------------------------------------------------------------
 	// ---------------------------------InvtOrderItem---------------------------------
 	public InvtOrderItem createInvtOrderItem(InvtOrderItemCreateObj _dto);
@@ -86,6 +91,7 @@ public interface InvtService extends BusinessService {
 	public MaterialBinStock createMaterialBinStock(MaterialBinStockCreateObj _dto);
 	public boolean deleteMaterialBinStock(String _uid);
 	public MaterialBinStock loadMaterialBinStock(String _uid);
+	public MaterialBinStock loadMaterialBinStock(String _mmUid, String _wrhsBinUid);
 	public List<MaterialBinStock> loadMaterialBinStockList(String _mmUid);
 	public List<MaterialBinStock> loadMaterialBinStockListByWrhsBin(String _wbUid);
 
@@ -94,6 +100,7 @@ public interface InvtService extends BusinessService {
 	public MaterialBinStockBatch createMaterialBinStockBatch(MaterialBinStockBatchCreateObj _dto);
 	public boolean deleteMaterialBinStockBatch(String _uid);
 	public MaterialBinStockBatch loadMaterialBinStockBatch(String _uid);
+	public MaterialBinStockBatch loadMaterialBinStockBatch(String _mbsUid, String _miUid);
 	public List<MaterialBinStockBatch> loadMaterialBinStockBatchList(String _mbsUid);
 	public List<MaterialBinStockBatch> loadMaterialBinStockBatchListByMi(String _miUid);
 	

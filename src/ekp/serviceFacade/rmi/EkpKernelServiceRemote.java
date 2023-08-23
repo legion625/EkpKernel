@@ -104,6 +104,11 @@ public interface EkpKernelServiceRemote extends Remote {
 	public QueryOperation<InvtOrderQueryParam, InvtOrderRemote> searchInvtOrder(
 			QueryOperation<InvtOrderQueryParam, InvtOrderRemote> _param,
 			Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
+	
+	public boolean invtOrderToApv(String _uid) throws RemoteException;
+	public boolean invtOrderRevertToApv(String _uid) throws RemoteException;
+	public boolean invtOrderApprove(String _uid, long _apvTime) throws RemoteException;
+	public boolean invtOrderRevertApprove(String _uid) throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// ---------------------------------InvtOrderItem---------------------------------
@@ -155,6 +160,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteMaterialBinStock(String _uid) throws RemoteException;
 
 	public MaterialBinStockRemote loadMaterialBinStock(String _uid) throws RemoteException;
+	
+	public MaterialBinStockRemote loadMaterialBinStock(String _mmUid, String _wrhsBinUid) throws RemoteException;
 
 	public List<MaterialBinStockRemote> loadMaterialBinStockList(String _mmUid) throws RemoteException;
 
@@ -168,6 +175,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteMaterialBinStockBatch(String _uid) throws RemoteException;
 
 	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _uid) throws RemoteException;
+	
+	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _mbsUid, String _miUid) throws RemoteException;
 
 	public List<MaterialBinStockBatchRemote> loadMaterialBinStockBatchList(String _mbsUid) throws RemoteException;
 

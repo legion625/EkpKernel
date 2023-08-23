@@ -82,6 +82,7 @@ public interface InvtDataService extends IntegrationService {
 	public boolean saveMaterialBinStock(MaterialBinStock _mbs);
 	public boolean deleteMaterialBinStock(String _uid);
 	public MaterialBinStock loadMaterialBinStock(String _uid);
+	public MaterialBinStock loadMaterialBinStock(String _mmUid, String _wrhsBinUid);
 	public List<MaterialBinStock> loadMaterialBinStockList(String _mmUid);
 	public List<MaterialBinStock> loadMaterialBinStockListByWrhsBin(String _wbUid);
 	

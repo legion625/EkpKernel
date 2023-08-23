@@ -124,6 +124,25 @@ public class InvtServiceImp implements InvtService {
 			Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap) {
 		return dataService.searchInvtOrder(_param, _existsDetailMap);
 	}
+	@Override
+	public boolean invtOrderToApv(String _uid) {
+		return loadInvtOrder(_uid).toApv();
+	}
+
+	@Override
+	public boolean invtOrderRevertToApv(String _uid) {
+		return loadInvtOrder(_uid).revertToApv();
+	}
+
+	@Override
+	public boolean invtOrderApprove(String _uid, long _apvTime) {
+		return loadInvtOrder(_uid).approve(_apvTime);
+	}
+
+	@Override
+	public boolean invtOrderRevertApprove(String _uid) {
+		return loadInvtOrder(_uid).revertApprove();
+	}
 
 	// -------------------------------------------------------------------------------
 	// ---------------------------------InvtOrderItem---------------------------------
@@ -234,6 +253,11 @@ public class InvtServiceImp implements InvtService {
 	public MaterialBinStock loadMaterialBinStock(String _uid) {
 		return dataService.loadMaterialBinStock(_uid);
 	}
+	
+	@Override
+	public MaterialBinStock loadMaterialBinStock(String _mmUid, String _wrhsBinUid) {
+		return dataService.loadMaterialBinStock(_mmUid, _wrhsBinUid);
+	}
 
 	@Override
 	public List<MaterialBinStock> loadMaterialBinStockList(String _mmUid) {
@@ -260,6 +284,11 @@ public class InvtServiceImp implements InvtService {
 	@Override
 	public MaterialBinStockBatch loadMaterialBinStockBatch(String _uid) {
 		return dataService.loadMaterialBinStockBatch(_uid);
+	}
+	
+	@Override
+	public MaterialBinStockBatch loadMaterialBinStockBatch(String _mbsUid, String _miUid) {
+		return dataService.loadMaterialBinStockBatch(_mbsUid, _miUid);
 	}
 
 	@Override

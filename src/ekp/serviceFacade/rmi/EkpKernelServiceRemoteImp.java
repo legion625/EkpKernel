@@ -218,6 +218,22 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		_param.setTotal(param.getTotal());
 		return _param;
 	}
+	@Override
+	public boolean invtOrderToApv(String _uid) throws RemoteException{
+		return invtService.invtOrderToApv(_uid);
+	}
+	@Override
+	public boolean invtOrderRevertToApv(String _uid) throws RemoteException{
+		return invtService.invtOrderRevertToApv(_uid);
+	}
+	@Override
+	public boolean invtOrderApprove(String _uid, long _apvTime) throws RemoteException{
+		return invtService.invtOrderApprove(_uid, _apvTime);
+	}
+	@Override
+	public boolean invtOrderRevertApprove(String _uid) throws RemoteException{
+		return invtService.invtOrderRevertApprove(_uid);
+	}
 
 	// -------------------------------------------------------------------------------
 	// ---------------------------------InvtOrderItem---------------------------------
@@ -365,6 +381,12 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		MaterialBinStock obj = invtService.loadMaterialBinStock(_uid);
 		return obj == null ? null : InvtFO.parseMaterialBinStockRemote(obj);
 	}
+	
+	@Override
+	public MaterialBinStockRemote loadMaterialBinStock(String _mmUid, String _wrhsBinUid) throws RemoteException{
+		MaterialBinStock obj = invtService.loadMaterialBinStock(_mmUid, _wrhsBinUid);
+		return obj == null ? null : InvtFO.parseMaterialBinStockRemote(obj);
+	}
 
 	@Override
 	public List<MaterialBinStockRemote> loadMaterialBinStockList(String _mmUid) throws RemoteException{
@@ -396,6 +418,12 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	@Override
 	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _uid) throws RemoteException{
 		MaterialBinStockBatch obj = invtService.loadMaterialBinStockBatch(_uid);
+		return obj == null ? null : InvtFO.parseMaterialBinStockBatchRemote(obj);
+	}
+	
+	@Override
+	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _mbsUid, String _miUid) throws RemoteException{
+		MaterialBinStockBatch obj = invtService.loadMaterialBinStockBatch(_mbsUid, _miUid);
 		return obj == null ? null : InvtFO.parseMaterialBinStockBatchRemote(obj);
 	}
 
