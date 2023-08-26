@@ -219,6 +219,10 @@ public interface EkpKernelServiceRemote extends Remote {
 			throws RemoteException;
 
 	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) throws RemoteException;
+	
+	public boolean partAssignMm(String _uid, String _mmUid, String _mmMano) throws RemoteException;
+	
+	public boolean partRevertAssignMm(String _uid) throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------

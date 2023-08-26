@@ -538,6 +538,14 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) throws RemoteException {
 		return mbomService.partUpdate(_uid, _pin, _name, _unit);
 	}
+	@Override
+	public boolean partAssignMm(String _uid, String _mmUid, String _mmMano) throws RemoteException{
+		return mbomService.partAssignMm(_uid, _mmUid, _mmMano);
+	}
+	@Override
+	public boolean partRevertAssignMm(String _uid) throws RemoteException{
+		return mbomService.partRevertAssignMm(_uid);
+	}
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------

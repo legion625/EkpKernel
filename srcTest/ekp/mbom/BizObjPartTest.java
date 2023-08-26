@@ -20,8 +20,8 @@ public class BizObjPartTest extends AbstractEkpInitTest{
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("pin1", "name1", PartUnit.EAC);
-		target2 = new Target("pin2", "name2", PartUnit.GRM);
+		target1 = new Target("pin1", "name1", PartUnit.EAC, false, "mmUid1", "mmMano1");
+		target2 = new Target("pin2", "name2", PartUnit.GRM, true, "mmUid2", "mmMano2");
 	}
 
 	@Test
@@ -67,11 +67,18 @@ public class BizObjPartTest extends AbstractEkpInitTest{
 		private String pin;
 		private String name;
 		private PartUnit unit;
+		// mm
+		private boolean mmAssigned;
+		private String mmUid;
+		private String mmMano;
 
-		private Target(String pin, String name, PartUnit unit) {
+		private Target(String pin, String name, PartUnit unit, boolean mmAssigned, String mmUid, String mmMano) {
 			this.pin = pin;
 			this.name = name;
 			this.unit = unit;
+			this.mmAssigned = mmAssigned;
+			this.mmUid = mmUid;
+			this.mmMano = mmMano;
 		}
 
 		public String getPin() {
@@ -84,6 +91,18 @@ public class BizObjPartTest extends AbstractEkpInitTest{
 
 		public PartUnit getUnit() {
 			return unit;
+		}
+
+		public boolean isMmAssigned() {
+			return mmAssigned;
+		}
+
+		public String getMmUid() {
+			return mmUid;
+		}
+
+		public String getMmMano() {
+			return mmMano;
 		}
 
 	}

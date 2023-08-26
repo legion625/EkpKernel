@@ -358,5 +358,12 @@ CHANGE COLUMN `remark` `remark` VARCHAR(200) NULL DEFAULT NULL AFTER `apply_time
 
 -- mh_pc
 
+-- 0.3.2 -> 0.4.0
+ALTER TABLE `mbom_part` 
+ADD COLUMN `mm_assigned` TINYINT NULL AFTER `unit_id`,
+ADD COLUMN `mm_uid` VARCHAR(45) NULL AFTER `mm_assigned`,
+ADD COLUMN `mm_mano` VARCHAR(45) NULL AFTER `mm_uid`;
+
+
 
 

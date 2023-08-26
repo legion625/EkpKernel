@@ -141,6 +141,9 @@ CREATE TABLE `mbom_part` (
   `pin` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `unit_id` varchar(10) DEFAULT NULL,
+  `mm_assigned` tinyint(4) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mm_mano` varchar(45) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
