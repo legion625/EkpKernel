@@ -25,6 +25,8 @@ import ekp.serviceFacade.rmi.invt.MaterialBinStockCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialBinStockRemote;
 import ekp.serviceFacade.rmi.invt.MaterialInstCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialInstRemote;
+import ekp.serviceFacade.rmi.invt.MaterialInstSrcConjCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialInstSrcConjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialMasterCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialMasterRemote;
 import ekp.serviceFacade.rmi.invt.MbsbStmtCreateObjRemote;
@@ -86,7 +88,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteWrhsBin(String _uid) throws RemoteException;
 
 	public WrhsBinRemote loadWrhsBin(String _uid) throws RemoteException;
-	
+
 	public WrhsBinRemote loadWrhsBin(String _wlUid, String _id) throws RemoteException;
 
 	public List<WrhsBinRemote> loadWrhsBinList(String _wlUid) throws RemoteException;
@@ -104,7 +106,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public QueryOperation<InvtOrderQueryParam, InvtOrderRemote> searchInvtOrder(
 			QueryOperation<InvtOrderQueryParam, InvtOrderRemote> _param,
 			Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
-	
+
 	public boolean invtOrderToApv(String _uid) throws RemoteException;
 	public boolean invtOrderRevertToApv(String _uid) throws RemoteException;
 	public boolean invtOrderApprove(String _uid, long _apvTime) throws RemoteException;
@@ -127,7 +129,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> searchInvtOrderItem(
 			QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> _param,
 			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
-	
+
 	public boolean invtOrderItemAssignMi(String _uid, String _miUid)throws RemoteException;
 	public boolean invtOrderItemRevertAssignMi(String _uid)throws RemoteException;
 	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid)throws RemoteException;
@@ -158,6 +160,21 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid) throws RemoteException;
 
+	public boolean materialInstToAssignSrcMi(String _uid)throws RemoteException;
+	public boolean materialInstRevertToAssignSrcMi(String _uid)throws RemoteException;
+	public boolean materialInstFinishAssignedSrcMi(String _uid)throws RemoteException;
+	public boolean materialInstRevertFinishAssignedSrcMi(String _uid)throws RemoteException;
+	public boolean materialInstNotAssignSrcMi(String _uid)throws RemoteException;
+	public boolean materialInstRevertNotAssignSrcMi(String _uid)throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------MaterialInstSrcConj------------------------------
+	public MaterialInstSrcConjRemote createMaterialInstSrcConj(MaterialInstSrcConjCreateObjRemote _dto)throws RemoteException;
+	public boolean deleteMaterialInstSrcConj(String _uid)throws RemoteException;
+	public MaterialInstSrcConjRemote loadMaterialInstSrcConj(String _uid)throws RemoteException;
+	public List<MaterialInstSrcConjRemote> loadMaterialInstSrcConjList(String _miUid)throws RemoteException;
+	public List<MaterialInstSrcConjRemote> loadMaterialInstSrcConjListBySrcMi(String _srcMiUid)throws RemoteException;
+
 	// -------------------------------------------------------------------------------
 	// -------------------------------MaterialBinStock--------------------------------
 	public MaterialBinStockRemote createMaterialBinStock(MaterialBinStockCreateObjRemote _dto) throws RemoteException;
@@ -165,7 +182,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteMaterialBinStock(String _uid) throws RemoteException;
 
 	public MaterialBinStockRemote loadMaterialBinStock(String _uid) throws RemoteException;
-	
+
 	public MaterialBinStockRemote loadMaterialBinStock(String _mmUid, String _wrhsBinUid) throws RemoteException;
 
 	public List<MaterialBinStockRemote> loadMaterialBinStockList(String _mmUid) throws RemoteException;
@@ -180,7 +197,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteMaterialBinStockBatch(String _uid) throws RemoteException;
 
 	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _uid) throws RemoteException;
-	
+
 	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _mbsUid, String _miUid) throws RemoteException;
 
 	public List<MaterialBinStockBatchRemote> loadMaterialBinStockBatchList(String _mbsUid) throws RemoteException;
@@ -224,9 +241,9 @@ public interface EkpKernelServiceRemote extends Remote {
 			throws RemoteException;
 
 	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) throws RemoteException;
-	
+
 	public boolean partAssignMm(String _uid, String _mmUid, String _mmMano) throws RemoteException;
-	
+
 	public boolean partRevertAssignMm(String _uid) throws RemoteException;
 
 	// -------------------------------------------------------------------------------

@@ -61,6 +61,18 @@ CREATE TABLE `invt_mat_inst` (
   `value` double DEFAULT NULL,
   `eff_date` bigint(20) DEFAULT NULL,
   `exp_date` bigint(20) DEFAULT NULL,
+  `src_status_idx` tinyint(4) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_mat_inst_src_conj` (
+  `uid` varchar(45) NOT NULL,
+  `mi_uid` varchar(45) DEFAULT NULL,
+  `src_mi_uid` varchar(45) DEFAULT NULL,
+  `src_mi_qty` double DEFAULT NULL,
+  `src_mi_value` double DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)

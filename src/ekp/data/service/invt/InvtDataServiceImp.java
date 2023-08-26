@@ -13,6 +13,7 @@ import ekp.invt.InvtOrderItem;
 import ekp.invt.MaterialBinStock;
 import ekp.invt.MaterialBinStockBatch;
 import ekp.invt.MaterialInst;
+import ekp.invt.MaterialInstSrcConj;
 import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.WrhsBin;
@@ -227,6 +228,29 @@ public class InvtDataServiceImp implements InvtDataService {
 	@Override
 	public List<MaterialInst> loadMaterialInstList(String _mmUid) {
 		return materialDao.loadMaterialInstList(_mmUid);
+	}
+	
+	// -------------------------------------------------------------------------------
+	// ------------------------------MaterialInstSrcConj------------------------------
+	@Override
+	public boolean saveMaterialInstSrcConj(MaterialInstSrcConj _c) {
+		return materialDao.saveMaterialInstSrcConj(_c);
+	}
+	@Override
+	public boolean deleteMaterialInstSrcConj(String _uid) {
+		return materialDao.deleteMaterialInstSrcConj(_uid);
+	}
+	@Override
+	public MaterialInstSrcConj loadMaterialInstSrcConj(String _uid) {
+		return materialDao.loadMaterialInstSrcConj(_uid);
+	}
+	@Override
+	public List<MaterialInstSrcConj> loadMaterialInstSrcConjList(String _miUid){
+		return materialDao.loadMaterialInstSrcConjList(_miUid);
+	}
+	@Override
+	public List<MaterialInstSrcConj> loadMaterialInstSrcConjListBySrcMi(String _srcMiUid){
+		return materialDao.loadMaterialInstSrcConjListBySrcMi(_srcMiUid);
 	}
 
 	// -------------------------------------------------------------------------------

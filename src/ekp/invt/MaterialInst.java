@@ -3,7 +3,9 @@ package ekp.invt;
 import ekp.common.SerialNoGenerator;
 import ekp.data.InvtDataService;
 import ekp.invt.dto.MaterialInstCreateObj;
+import ekp.invt.fsm.MaterialInstSrcFsm;
 import ekp.invt.type.MaterialInstAcqChannel;
+import ekp.invt.type.MaterialInstSrcStatus;
 import legion.DataServiceFactory;
 import legion.ObjectModel;
 import legion.util.DataFO;
@@ -19,7 +21,9 @@ public class MaterialInst extends ObjectModel {
 	private double value; // 帳值
 	private long effDate; // 生效日期
 	private long expDate; // 失效日期
-
+	
+	private MaterialInstSrcFsm srcFsm;
+	
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
 	private MaterialInst(String mmUid) {
@@ -29,12 +33,16 @@ public class MaterialInst extends ObjectModel {
 	static MaterialInst newInstance(String _mmUid) {
 		MaterialInst mi = new MaterialInst(_mmUid);
 		mi.configNewInstance();
+		mi.srcFsm = new MaterialInstSrcFsm(mi.getUid(), MaterialInstSrcStatus.INIT);
 		return mi;
 	}
 
-	public static MaterialInst getInstance(String _uid, String _mmUid, long _objectCreateTime, long _objectUpdateTime) {
+	public static MaterialInst getInstance(String _uid, String _mmUid,
+			MaterialInstSrcStatus _srcStatus,
+			long _objectCreateTime, long _objectUpdateTime) {
 		MaterialInst mi = new MaterialInst(_mmUid);
 		mi.configGetInstance(_uid, _objectCreateTime, _objectUpdateTime);
+		mi.srcFsm= new MaterialInstSrcFsm(mi.getUid(), _srcStatus);
 		return mi;
 	}
 
@@ -104,9 +112,21 @@ public class MaterialInst extends ObjectModel {
 		this.expDate = expDate;
 	}
 
+	public MaterialInstSrcStatus getSrcStatus() {
+		return srcFsm.getStatus();
+	}
+	
+	public void setSrcStatus(MaterialInstSrcStatus srcStatus) {
+		srcFsm.setStatus(srcStatus);
+	}
+	
 	// -------------------------------------------------------------------------------
 	public int getMiacIdx() {
 		return (getMiac() == null ? MaterialInstAcqChannel.UNDEFINED : getMiac()).getIdx();
+	}
+	
+	public int getSrcStatusIdx() {
+		return (getSrcStatus() == null ? MaterialInstSrcStatus.UNDEFINED : getSrcStatus()).getIdx();
 	}
 
 	// -------------------------------------------------------------------------------
@@ -134,8 +154,36 @@ public class MaterialInst extends ObjectModel {
 		mi.setValue(_dto.getValue());
 		mi.setEffDate(_dto.getEffDate());
 		mi.setExpDate(_dto.getExpDate());
+		
+		// srcStatus not assigned
+		
 		return mi.save() ? mi : null;
 	}
+
+	boolean toAssignSrcMi() {
+		srcFsm.gotoStatusAssigning();
+		return save();
+	}
+	boolean revertToAssignSrcMi() {
+		srcFsm.backtoStatusInit();
+		return save();
+	}
+	boolean finishAssignedSrcMi() {
+		srcFsm.gotoStatusAssigned();
+		return save();
+	}
+	boolean revertFinishAssingedSrcMi() {
+		srcFsm.backtoStatusAssigning();
+		return save();
+	}
 	
-	// TODO method
+	boolean notAssignSrcMi() {
+		srcFsm.gotoStatusNone();
+		return save();
+	}
+
+	boolean revertNotAssignSrcSMi() {
+		srcFsm.backtoStatusInit();
+		return save();
+	}
 }

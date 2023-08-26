@@ -23,6 +23,7 @@ import ekp.invt.InvtService;
 import ekp.invt.MaterialBinStock;
 import ekp.invt.MaterialBinStockBatch;
 import ekp.invt.MaterialInst;
+import ekp.invt.MaterialInstSrcConj;
 import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.WrhsBin;
@@ -57,6 +58,8 @@ import ekp.serviceFacade.rmi.invt.MaterialBinStockCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialBinStockRemote;
 import ekp.serviceFacade.rmi.invt.MaterialInstCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialInstRemote;
+import ekp.serviceFacade.rmi.invt.MaterialInstSrcConjCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialInstSrcConjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialMasterCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialMasterRemote;
 import ekp.serviceFacade.rmi.invt.MbsbStmtCreateObjRemote;
@@ -168,7 +171,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		WrhsBin obj = invtService.loadWrhsBin(_uid);
 		return obj == null ? null : InvtFO.parseWrhsBinRemote(obj);
 	}
-	
+
 	@Override
 	public WrhsBinRemote loadWrhsBin(String _wlUid, String _id) throws RemoteException{
 		WrhsBin obj = invtService.loadWrhsBin(_wlUid,_id );
@@ -379,6 +382,66 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<MaterialInstRemote> remoteList = list.stream().map(InvtFO::parseMaterialInstRemote).collect(Collectors.toList());
 		return remoteList;
 	}
+	@Override
+	public boolean materialInstToAssignSrcMi(String _uid)throws RemoteException{
+		return invtService.materialInstToAssignSrcMi(_uid);
+	}
+
+	@Override
+	public boolean materialInstRevertToAssignSrcMi(String _uid) throws RemoteException {
+		return invtService.materialInstRevertToAssignSrcMi(_uid);
+	}
+
+	@Override
+	public boolean materialInstFinishAssignedSrcMi(String _uid) throws RemoteException {
+		return invtService.materialInstFinishAssignedSrcMi(_uid);
+	}
+
+	@Override
+	public boolean materialInstRevertFinishAssignedSrcMi(String _uid) throws RemoteException {
+		return invtService.materialInstRevertFinishAssignedSrcMi(_uid);
+	}
+
+	@Override
+	public boolean materialInstNotAssignSrcMi(String _uid) throws RemoteException {
+		return invtService.materialInstNotAssignSrcMi(_uid);
+	}
+
+	@Override
+	public boolean materialInstRevertNotAssignSrcMi(String _uid) throws RemoteException {
+		return invtService.materialInstRevertNotAssignSrcMi(_uid);
+	}
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------MaterialInstSrcConj------------------------------
+	@Override
+	public MaterialInstSrcConjRemote createMaterialInstSrcConj(MaterialInstSrcConjCreateObjRemote _dto)throws RemoteException{
+		if (_dto == null)
+			return null;
+		MaterialInstSrcConj obj = invtService.createMaterialInstSrcConj(InvtFO.parseMaterialInstSrcConjCreateObj(_dto));
+		return obj == null ? null : InvtFO.parseMaterialInstSrcConjRemote(obj);
+	}
+	@Override
+	public boolean deleteMaterialInstSrcConj(String _uid)throws RemoteException{
+		return invtService.deleteMaterialInstSrcConj(_uid);
+	}
+	@Override
+	public MaterialInstSrcConjRemote loadMaterialInstSrcConj(String _uid)throws RemoteException{
+		MaterialInstSrcConj obj = invtService.loadMaterialInstSrcConj(_uid);
+		return obj == null ? null : InvtFO.parseMaterialInstSrcConjRemote(obj);
+	}
+	@Override
+	public List<MaterialInstSrcConjRemote> loadMaterialInstSrcConjList(String _miUid)throws RemoteException{
+		List<MaterialInstSrcConj> list = invtService.loadMaterialInstSrcConjList(_miUid);
+		List<MaterialInstSrcConjRemote> remoteList = list.stream().map(InvtFO::parseMaterialInstSrcConjRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+	@Override
+	public List<MaterialInstSrcConjRemote> loadMaterialInstSrcConjListBySrcMi(String _srcMiUid)throws RemoteException{
+		List<MaterialInstSrcConj> list = invtService.loadMaterialInstSrcConjListBySrcMi(_srcMiUid);
+		List<MaterialInstSrcConjRemote> remoteList = list.stream().map(InvtFO::parseMaterialInstSrcConjRemote).collect(Collectors.toList());
+		return remoteList;
+	}
 
 	// -------------------------------------------------------------------------------
 	// -------------------------------MaterialBinStock--------------------------------
@@ -397,7 +460,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		MaterialBinStock obj = invtService.loadMaterialBinStock(_uid);
 		return obj == null ? null : InvtFO.parseMaterialBinStockRemote(obj);
 	}
-	
+
 	@Override
 	public MaterialBinStockRemote loadMaterialBinStock(String _mmUid, String _wrhsBinUid) throws RemoteException{
 		MaterialBinStock obj = invtService.loadMaterialBinStock(_mmUid, _wrhsBinUid);
@@ -436,7 +499,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		MaterialBinStockBatch obj = invtService.loadMaterialBinStockBatch(_uid);
 		return obj == null ? null : InvtFO.parseMaterialBinStockBatchRemote(obj);
 	}
-	
+
 	@Override
 	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _mbsUid, String _miUid) throws RemoteException{
 		MaterialBinStockBatch obj = invtService.loadMaterialBinStockBatch(_mbsUid, _miUid);
@@ -1134,7 +1197,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean purchRevertToPerf(String _uid) throws RemoteException{
 		return puService.purchRevertToPerf(_uid);
 	}
-	
+
 	@Override
 	public boolean purchPerf(String _uid, long _perfTime) throws RemoteException {
 		return puService.purchPerf(_uid, _perfTime);

@@ -362,14 +362,27 @@ ADD COLUMN `mm_assigned` TINYINT NULL AFTER `unit_id`,
 ADD COLUMN `mm_uid` VARCHAR(45) NULL AFTER `mm_assigned`,
 ADD COLUMN `mm_mano` VARCHAR(45) NULL AFTER `mm_uid`;
 
--- mh_pc
-
 ALTER TABLE `invt_invt_order_item` 
 ADD COLUMN `mi_assigned` TINYINT NULL AFTER `order_value`,
 ADD COLUMN `wrhs_bin_assigned` TINYINT NULL AFTER `mi_uid`,
 CHANGE COLUMN `mi_uid` `mi_uid` VARCHAR(45) NULL DEFAULT NULL AFTER `mi_assigned`,
 CHANGE COLUMN `wrhs_bin_uid` `wrhs_bin_uid` VARCHAR(45) NULL DEFAULT NULL AFTER `wrhs_bin_assigned`;
 
+ALTER TABLE `invt_mat_inst` 
+ADD COLUMN `src_status_idx` TINYINT NULL AFTER `exp_date`;
+
+-- mh_pc
+
+CREATE TABLE `invt_mat_inst_src_conj` (
+  `uid` varchar(45) NOT NULL,
+  `mi_uid` varchar(45) DEFAULT NULL,
+  `src_mi_uid` varchar(45) DEFAULT NULL,
+  `src_mi_qty` double DEFAULT NULL,
+  `src_mi_value` double DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
 
 
 
