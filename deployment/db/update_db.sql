@@ -356,13 +356,20 @@ ADD COLUMN `status_idx` TINYINT NULL AFTER `iosn`,
 ADD COLUMN `apply_time` BIGINT NULL AFTER `applier_name`,
 CHANGE COLUMN `remark` `remark` VARCHAR(200) NULL DEFAULT NULL AFTER `apply_time`;
 
--- mh_pc
-
 -- 0.3.2 -> 0.4.0
 ALTER TABLE `mbom_part` 
 ADD COLUMN `mm_assigned` TINYINT NULL AFTER `unit_id`,
 ADD COLUMN `mm_uid` VARCHAR(45) NULL AFTER `mm_assigned`,
 ADD COLUMN `mm_mano` VARCHAR(45) NULL AFTER `mm_uid`;
+
+-- mh_pc
+
+ALTER TABLE `invt_invt_order_item` 
+ADD COLUMN `mi_assigned` TINYINT NULL AFTER `order_value`,
+ADD COLUMN `wrhs_bin_assigned` TINYINT NULL AFTER `mi_uid`,
+CHANGE COLUMN `mi_uid` `mi_uid` VARCHAR(45) NULL DEFAULT NULL AFTER `mi_assigned`,
+CHANGE COLUMN `wrhs_bin_uid` `wrhs_bin_uid` VARCHAR(45) NULL DEFAULT NULL AFTER `wrhs_bin_assigned`;
+
 
 
 

@@ -127,6 +127,11 @@ public interface EkpKernelServiceRemote extends Remote {
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> searchInvtOrderItem(
 			QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> _param,
 			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
+	
+	public boolean invtOrderItemAssignMi(String _uid, String _miUid)throws RemoteException;
+	public boolean invtOrderItemRevertAssignMi(String _uid)throws RemoteException;
+	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid)throws RemoteException;
+	public boolean invtOrderItemRevertAssignWrhsBin(String _uid)throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------

@@ -182,6 +182,22 @@ public class InvtServiceImp implements InvtService {
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap){
 		return dataService.searchInvtOrderItem(_param,  _existsDetailMap);
 	}
+	@Override
+	public boolean invtOrderItemAssignMi(String _uid, String _miUid) {
+		return loadInvtOrderItem(_uid).assignMi(_miUid);
+	}
+	@Override
+	public boolean invtOrderItemRevertAssignMi(String _uid) {
+		return loadInvtOrderItem(_uid).revertAssignMi();
+	}
+	@Override
+	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid) {
+		return loadInvtOrderItem(_uid).assignWrhsBin(_wrhsBinUid);
+	}
+	@Override
+	public boolean invtOrderItemRevertAssignWrhsBin(String _uid) {
+		return loadInvtOrderItem(_uid).revertAssignWrhsBin();
+	}
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------

@@ -69,6 +69,11 @@ public interface InvtService extends BusinessService {
 			QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param,
 			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap);
 	
+	public boolean invtOrderItemAssignMi(String _uid, String _miUid);
+	public boolean invtOrderItemRevertAssignMi(String _uid);
+	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid);
+	public boolean invtOrderItemRevertAssignWrhsBin(String _uid);
+	
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------	
 	public MaterialMaster createMaterialMaster(MaterialMasterCreateObj _dto);

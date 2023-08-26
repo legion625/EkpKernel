@@ -4,8 +4,20 @@
 
 Min-Hua, 2023.08.26
 [change]
+1. [IV] InvtOrderItem的miUid和wrhsBinUid改用指定的，不在create時給予。
+  -1. InvtOrderItem新增miAssigned和wrhsBinAssigned屬性。
+  -2. 新增invtOrderItemAssignMi和invtOrderItemAssignWrhsBin服務。
+
+[deployment]
+1. 資料表invt_invt_order_item新增mi_assigned和wrhs_bin_assigned欄位，並調整mi_uid和wrhs_bin_uid的欄位順序。
+
+Min-Hua, 2023.08.26
+[change]
 1. [MBOM] Part新增指定料件基本檔功能。
   -1. 新增mmAssigned、mmUid、mmMano等屬性。
+  
+[deployment]
+1. 資料表mbom_part新增mm_assigned、mm_uid和mm_name欄位。
 
 ------------------------------------------------------------------------------
 v0.3.2 released by Min-Hua, 2023.08.23

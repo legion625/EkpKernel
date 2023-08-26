@@ -296,6 +296,22 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		_param.setTotal(param.getTotal());
 		return _param;
 	}
+	@Override
+	public boolean invtOrderItemAssignMi(String _uid, String _miUid)throws RemoteException{
+		return invtService.invtOrderItemAssignMi(_uid, _miUid);
+	}
+	@Override
+	public boolean invtOrderItemRevertAssignMi(String _uid)throws RemoteException{
+		return invtService.invtOrderItemRevertAssignMi(_uid);
+	}
+	@Override
+	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid)throws RemoteException{
+		return invtService.invtOrderItemAssignWrhsBin(_uid, _wrhsBinUid);
+	}
+	@Override
+	public boolean invtOrderItemRevertAssignWrhsBin(String _uid)throws RemoteException{
+		return invtService.invtOrderItemRevertAssignWrhsBin(_uid);
+	}
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------

@@ -14,12 +14,17 @@ public class InvtOrderItem extends ObjectModel {
 	private String ioUid; // invt order uid
 	
 	private String mmUid;
-	private String miUid;
-	private String wrhsBinUid;
-
 	private InvtOrderType ioType;
 	private double orderQty; // 記錄異動的數量
 	private double orderValue; // 記錄異動的金額
+	
+	//
+	private boolean miAssigned;
+	private String miUid;
+	//
+	private boolean wrhsBinAssigned;
+	private String wrhsBinUid;
+	
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
@@ -58,22 +63,6 @@ public class InvtOrderItem extends ObjectModel {
 		this.mmUid = mmUid;
 	}
 
-	public String getMiUid() {
-		return miUid;
-	}
-
-	public void setMiUid(String miUid) {
-		this.miUid = miUid;
-	}
-
-	public String getWrhsBinUid() {
-		return wrhsBinUid;
-	}
-
-	public void setWrhsBinUid(String wrhsBinUid) {
-		this.wrhsBinUid = wrhsBinUid;
-	}
-
 	public InvtOrderType getIoType() {
 		return ioType;
 	}
@@ -98,6 +87,38 @@ public class InvtOrderItem extends ObjectModel {
 		this.orderValue = orderValue;
 	}
 	
+	public boolean isMiAssigned() {
+		return miAssigned;
+	}
+
+	public void setMiAssigned(boolean miAssigned) {
+		this.miAssigned = miAssigned;
+	}
+	
+	public String getMiUid() {
+		return miUid;
+	}
+
+	public void setMiUid(String miUid) {
+		this.miUid = miUid;
+	}
+
+	public boolean isWrhsBinAssigned() {
+		return wrhsBinAssigned;
+	}
+
+	public void setWrhsBinAssigned(boolean wrhsBinAssigned) {
+		this.wrhsBinAssigned = wrhsBinAssigned;
+	}
+
+	public String getWrhsBinUid() {
+		return wrhsBinUid;
+	}
+
+	public void setWrhsBinUid(String wrhsBinUid) {
+		this.wrhsBinUid = wrhsBinUid;
+	}
+	
 	// -------------------------------------------------------------------------------
 	public int getIoTypeIdx() {
 		return (getIoType()==null?InvtOrderType.UNDEFINED:getIoType()).getIdx();
@@ -120,12 +141,37 @@ public class InvtOrderItem extends ObjectModel {
 	static InvtOrderItem create(InvtOrderItemCreateObj _dto) {
 		InvtOrderItem ioi = newInstance(_dto.getIoUid());
 		ioi.setMmUid(_dto.getMmUid());
-		ioi.setMiUid(_dto.getMiUid());
-		ioi.setWrhsBinUid(_dto.getWrhsBinUid());
 		ioi.setIoType(_dto.getIoType());
 		ioi.setOrderQty(_dto.getOrderQty());
 		ioi.setOrderValue(_dto.getOrderValue());
+		//
+		ioi.setMiAssigned(false);
+		ioi.setMiUid(""); // 未指定
+		//
+		ioi.setWrhsBinAssigned(false);
+		ioi.setWrhsBinUid(""); // 未指定
 		return ioi.save()?ioi: null;
+	}
+	
+	boolean assignMi(String _miUid) {
+		setMiAssigned(true);
+		setMiUid(_miUid);
+		return save();
+	}
+	boolean revertAssignMi() {
+		setMiAssigned(false);
+		setMiUid("");
+		return save();
+	}
+	boolean assignWrhsBin(String _wrhsBinUid) {
+		setWrhsBinAssigned(true);
+		setWrhsBinUid(_wrhsBinUid);
+		return save();
+	}
+	boolean revertAssignWrhsBin() {
+		setWrhsBinAssigned(false);
+		setWrhsBinUid("");
+		return save();
 	}
 	
 	// TODO method
