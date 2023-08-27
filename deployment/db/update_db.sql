@@ -382,7 +382,7 @@ CREATE TABLE `invt_mat_inst_src_conj` (
   PRIMARY KEY (`uid`)
 ) ;
 
--- mh_pc
+
 CREATE TABLE `mf_wo` (
   `uid` varchar(45) NOT NULL,
   `wo_no` varchar(45) DEFAULT NULL,
@@ -397,6 +397,22 @@ CREATE TABLE `mf_wo` (
   `object_update_time` bigint DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ;
+
+CREATE TABLE `mf_wom` (
+  `uid` varchar(45) NOT NULL,
+  `wo_uid` varchar(45) DEFAULT NULL,
+  `wo_no` varchar(45) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mm_mano` varchar(45) DEFAULT NULL,
+  `mm_name` varchar(45) DEFAULT NULL,
+  `qty0` double DEFAULT NULL,
+  `qty1` double DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+-- mh_pc
 
 
 

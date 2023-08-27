@@ -16,8 +16,6 @@ import ekp.data.service.mf.query.WorkorderQueryParam;
 import ekp.data.service.pu.query.PurchQueryParam;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
-import ekp.mf.Workorder;
-import ekp.mf.dto.WorkorderCreateObj;
 import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.InvtOrderItemCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.InvtOrderItemRemote;
@@ -60,6 +58,8 @@ import ekp.serviceFacade.rmi.mbom.ProdModItemRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
 import ekp.serviceFacade.rmi.mf.WorkorderCreateObjRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderMaterialCreateObjRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderMaterialRemote;
 import ekp.serviceFacade.rmi.mf.WorkorderRemote;
 import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemCreateObjRemote;
@@ -447,11 +447,11 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public boolean prodModItemUnassignPartCfg(String _uid) throws RemoteException;
 
-	
+
 	// -------------------------------------------------------------------------------
 	// --------------------------------------MF---------------------------------------
 	// XXX
-	
+
 	// -------------------------------------------------------------------------------
 	// -----------------------------------Workorder-----------------------------------
 	public WorkorderRemote createWorkorder(WorkorderCreateObjRemote _dto) throws RemoteException;
@@ -479,7 +479,16 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean woOver(String _uid, long _overTime) throws RemoteException;
 
 	public boolean woRevertOver(String _uid) throws RemoteException;
-	
+
+	// -------------------------------------------------------------------------------
+	// -------------------------------WorkorderMaterial-------------------------------
+	public WorkorderMaterialRemote createWorkorderMaterial(WorkorderMaterialCreateObjRemote _dto)throws RemoteException;
+	public boolean deleteWorkorderMaterial(String _uid)throws RemoteException;
+	public WorkorderMaterialRemote loadWorkorderMaterial(String _uid)throws RemoteException;
+	public List<WorkorderMaterialRemote> loadWorkorderMaterialList(String _woUid)throws RemoteException;
+	public boolean womAddQty0(String _uid, double _addQty)throws RemoteException;
+	public boolean womQty0to1(String _uid, double _qty)throws RemoteException;
+
 	// -------------------------------------------------------------------------------
 	// --------------------------------------PU---------------------------------------
 	// XXX

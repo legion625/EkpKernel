@@ -1,10 +1,12 @@
 package ekp.mf;
 
+import java.util.List;
 import java.util.Map;
 
 import ekp.data.MfDataService;
 import ekp.data.service.mf.query.WorkorderQueryParam;
 import ekp.mf.dto.WorkorderCreateObj;
+import ekp.mf.dto.WorkorderMaterialCreateObj;
 import legion.DataServiceFactory;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
@@ -73,6 +75,27 @@ public class MfServiceImp implements MfService {
 	@Override
 	public boolean woRevertOver(String _uid) {
 		return loadWorkorder(_uid).revertOver();
+	}
+	
+	// -------------------------------------------------------------------------------
+	// -------------------------------WorkorderMaterial-------------------------------
+	public WorkorderMaterial createWorkorderMaterial(WorkorderMaterialCreateObj _dto) {
+		return WorkorderMaterial.createWorkorderMaterial(_dto);
+	}
+	public boolean deleteWorkorderMaterial(String _uid) {
+		return loadWorkorderMaterial(_uid).delete();
+	}
+	public WorkorderMaterial loadWorkorderMaterial(String _uid) {
+		return dataService.loadWorkorderMaterial(_uid);
+	}
+	public List<WorkorderMaterial> loadWorkorderMaterialList(String _woUid){
+		return dataService.loadWorkorderMaterialList(_woUid);
+	}
+	public boolean womAddQty0(String _uid, double _addQty) {
+		return loadWorkorderMaterial(_uid).addQty0(_addQty);
+	}
+	public boolean womQty0to1(String _uid, double _qty) {
+		return loadWorkorderMaterial(_uid).qty0to1(_qty);
 	}
 
 }

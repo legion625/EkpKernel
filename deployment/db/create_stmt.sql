@@ -266,6 +266,35 @@ CREATE TABLE `mbom_prod_mod_item` (
   PRIMARY KEY (`uid`)
 ) ;
 
+CREATE TABLE `mf_wo` (
+  `uid` varchar(45) NOT NULL,
+  `wo_no` varchar(45) DEFAULT NULL,
+  `status_idx` tinyint(4) DEFAULT NULL,
+  `part_uid` varchar(45) DEFAULT NULL,
+  `part_pin` varchar(45) DEFAULT NULL,
+  `part_mm_mano` varchar(45) DEFAULT NULL,
+  `start_work_time` bigint(20) DEFAULT NULL,
+  `finish_work_time` bigint(20) DEFAULT NULL,
+  `over_time` bigint(20) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `mf_wom` (
+  `uid` varchar(45) NOT NULL,
+  `wo_uid` varchar(45) DEFAULT NULL,
+  `wo_no` varchar(45) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mm_mano` varchar(45) DEFAULT NULL,
+  `mm_name` varchar(45) DEFAULT NULL,
+  `qty0` double DEFAULT NULL,
+  `qty1` double DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
 CREATE TABLE `pu_purch` (
   `uid` varchar(45) NOT NULL,
   `pu_no` varchar(45) DEFAULT NULL,

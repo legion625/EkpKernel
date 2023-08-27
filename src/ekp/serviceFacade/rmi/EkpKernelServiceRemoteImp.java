@@ -47,6 +47,7 @@ import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import ekp.mf.MfService;
 import ekp.mf.Workorder;
+import ekp.mf.WorkorderMaterial;
 import ekp.pu.PuService;
 import ekp.pu.Purch;
 import ekp.pu.PurchItem;
@@ -95,6 +96,8 @@ import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
 import ekp.serviceFacade.rmi.mf.MfFO;
 import ekp.serviceFacade.rmi.mf.WorkorderCreateObjRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderMaterialCreateObjRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderMaterialRemote;
 import ekp.serviceFacade.rmi.mf.WorkorderRemote;
 import ekp.serviceFacade.rmi.pu.PuFO;
 import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
@@ -1232,7 +1235,38 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		return mfService.woRevertOver(_uid);
 	}
 
-
+	// -------------------------------------------------------------------------------
+	// -------------------------------WorkorderMaterial-------------------------------
+	@Override
+	public WorkorderMaterialRemote createWorkorderMaterial(WorkorderMaterialCreateObjRemote _dto)throws RemoteException{
+		if (_dto == null)
+			return null;
+		WorkorderMaterial obj = mfService.createWorkorderMaterial(MfFO.parseWorkorderMaterialCreateObj(_dto));
+		return obj == null ? null : MfFO.parseWorkorderMaterialRemote(obj);
+	}
+	@Override
+	public boolean deleteWorkorderMaterial(String _uid)throws RemoteException{
+		return mfService.deleteWorkorderMaterial(_uid);
+	}
+	@Override
+	public WorkorderMaterialRemote loadWorkorderMaterial(String _uid)throws RemoteException{
+		WorkorderMaterial obj = mfService.loadWorkorderMaterial(_uid);
+		return obj == null ? null : MfFO.parseWorkorderMaterialRemote(obj);
+	}
+	@Override
+	public List<WorkorderMaterialRemote> loadWorkorderMaterialList(String _woUid)throws RemoteException{
+		List<WorkorderMaterial> list = mfService.loadWorkorderMaterialList(_woUid);
+		List<WorkorderMaterialRemote> remoteList = list.stream().map(MfFO::parseWorkorderMaterialRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+	@Override
+	public boolean womAddQty0(String _uid, double _addQty)throws RemoteException{
+		return mfService.womAddQty0(_uid, _addQty);
+	}
+	@Override
+	public boolean womQty0to1(String _uid, double _qty)throws RemoteException{
+		return mfService.womQty0to1(_uid, _qty);
+	}
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------------PU---------------------------------------
