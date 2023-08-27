@@ -7,6 +7,7 @@
     <selectedElements exportClassFiles="false" exportJavaFiles="true" exportOutputFolder="false">
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{MaterialBinStockBatchRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartAcqRoutingStepCreateObjRemote.java"/>
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.mf.type"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{WrhsBinCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{MaterialBinStockCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.pu{PurchCreateObjRemote.java"/>
@@ -22,8 +23,10 @@
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ParsPartRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PpartSkewerRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.data.service.pu.query"/>
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.data.service.mf.query"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{InvtOrderItemCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.mbom.type"/>
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mf{WorkorderMaterialRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdModCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdCtlPartCfgConjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.pu.type"/>
@@ -31,6 +34,7 @@
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{MaterialBinStockRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{MbsbStmtRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdModRemote.java"/>
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mf{WorkorderRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{InvtOrderItemRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{MbsbStmtCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{MaterialBinStockBatchCreateObjRemote.java"/>
@@ -41,10 +45,12 @@
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdCtlRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi{EkpKernelServiceRemote.java"/>
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mf{WorkorderMaterialCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ParsProcRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartCfgConjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartAcquisitionCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdCreateObjRemote.java"/>
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mf{WorkorderCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdModItemRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{InvtOrderRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.invt.type"/>
