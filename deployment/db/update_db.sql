@@ -371,8 +371,6 @@ CHANGE COLUMN `wrhs_bin_uid` `wrhs_bin_uid` VARCHAR(45) NULL DEFAULT NULL AFTER 
 ALTER TABLE `invt_mat_inst` 
 ADD COLUMN `src_status_idx` TINYINT NULL AFTER `exp_date`;
 
--- mh_pc
-
 CREATE TABLE `invt_mat_inst_src_conj` (
   `uid` varchar(45) NOT NULL,
   `mi_uid` varchar(45) DEFAULT NULL,
@@ -384,6 +382,21 @@ CREATE TABLE `invt_mat_inst_src_conj` (
   PRIMARY KEY (`uid`)
 ) ;
 
+-- mh_pc
+CREATE TABLE `mf_wo` (
+  `uid` varchar(45) NOT NULL,
+  `wo_no` varchar(45) DEFAULT NULL,
+  `status_idx` tinyint DEFAULT NULL,
+  `part_uid` varchar(45) DEFAULT NULL,
+  `part_pin` varchar(45) DEFAULT NULL,
+  `part_mm_mano` varchar(45) DEFAULT NULL,
+  `start_work_time` bigint DEFAULT NULL,
+  `finish_work_time` bigint DEFAULT NULL,
+  `over_time` bigint DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
 
 
 

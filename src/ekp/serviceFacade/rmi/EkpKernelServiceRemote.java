@@ -12,9 +12,12 @@ import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
+import ekp.data.service.mf.query.WorkorderQueryParam;
 import ekp.data.service.pu.query.PurchQueryParam;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
+import ekp.mf.Workorder;
+import ekp.mf.dto.WorkorderCreateObj;
 import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.InvtOrderItemCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.InvtOrderItemRemote;
@@ -56,6 +59,8 @@ import ekp.serviceFacade.rmi.mbom.ProdModCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModItemRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderCreateObjRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderRemote;
 import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemRemote;
@@ -442,6 +447,39 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public boolean prodModItemUnassignPartCfg(String _uid) throws RemoteException;
 
+	
+	// -------------------------------------------------------------------------------
+	// --------------------------------------MF---------------------------------------
+	// XXX
+	
+	// -------------------------------------------------------------------------------
+	// -----------------------------------Workorder-----------------------------------
+	public WorkorderRemote createWorkorder(WorkorderCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteWorkorder(String _uid) throws RemoteException;
+
+	public WorkorderRemote loadWorkorder(String _uid) throws RemoteException;
+
+	public QueryOperation<WorkorderQueryParam, WorkorderRemote> searchWorkorder(
+			QueryOperation<WorkorderQueryParam, WorkorderRemote> _param,
+			Map<WorkorderQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
+
+	public boolean woToStart(String _uid) throws RemoteException;
+
+	public boolean woRevertToStart(String _uid) throws RemoteException;
+
+	public boolean woStartWork(String _uid, long _startWorkTime) throws RemoteException;
+
+	public boolean woRevertStartWork(String _uid) throws RemoteException;
+
+	public boolean woFinishWork(String _uid, long _finishWorkTime) throws RemoteException;
+
+	public boolean woRevertFinishWork(String _uid) throws RemoteException;
+
+	public boolean woOver(String _uid, long _overTime) throws RemoteException;
+
+	public boolean woRevertOver(String _uid) throws RemoteException;
+	
 	// -------------------------------------------------------------------------------
 	// --------------------------------------PU---------------------------------------
 	// XXX

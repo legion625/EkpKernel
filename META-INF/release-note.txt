@@ -1,5 +1,11 @@
 [change]
 1. [MF] 新增「製造」模組。
+  -1. 新增Workorder和WorkorderMaterial類別。
+
+[deployment]
+1. ServiceModule.xml新增MfService和MfDataService宣告。
+2. 新增mf_wo和○○○資料表。
+  
 
 Min-Hua, 2023.08.26
 [change]

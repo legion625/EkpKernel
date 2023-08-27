@@ -5,9 +5,9 @@ import legion.DataServiceFactory;
 import legion.data.ObjectSeqDataService;
 import legion.util.DataFO;
 
-public class SerialNoGenerator {
+public  class SerialNoGenerator {
 
-	public static String generateIOSN() {
+	public synchronized static String generateIOSN() {
 		ObjectSeqDataService objSeqDataService = DataServiceFactory.getInstance().getService(ObjectSeqDataService.class);
 		String yearStr =String.valueOf(EkpKernelDateUtil.getCurrentYear()).substring(2);  
 		String idenfigyStr = "IOSN" + yearStr;
@@ -16,7 +16,7 @@ public class SerialNoGenerator {
 		return iosn;
 	}
 	
-	public static String generateMISN() {
+	public synchronized static String generateMISN() {
 		ObjectSeqDataService objSeqDataService = DataServiceFactory.getInstance().getService(ObjectSeqDataService.class);
 		String yearStr =String.valueOf(EkpKernelDateUtil.getCurrentYear()).substring(2);
 		String idenfigyStr = "MISN" + yearStr;
@@ -25,7 +25,7 @@ public class SerialNoGenerator {
 		return misn;
 	}
 
-	public static String generatePuNo() {
+	public synchronized static String generatePuNo() {
 		ObjectSeqDataService objSeqDataService = DataServiceFactory.getInstance()
 				.getService(ObjectSeqDataService.class);
 		String yearStr = String.valueOf(EkpKernelDateUtil.getCurrentYear()).substring(2);
@@ -33,5 +33,14 @@ public class SerialNoGenerator {
 		String numStr = objSeqDataService.getSimpleSeq(idenfigyStr);
 		String puNo = "PU" + DataFO.fillString(yearStr + "", 2, '0') + DataFO.fillString(numStr + "", 6, '0');
 		return puNo;
+	}
+	public synchronized static String generateWoNo() {
+		ObjectSeqDataService objSeqDataService = DataServiceFactory.getInstance()
+				.getService(ObjectSeqDataService.class);
+		String yearStr = String.valueOf(EkpKernelDateUtil.getCurrentYear()).substring(2);
+		String idenfigyStr = "WoNo" + yearStr;
+		String numStr = objSeqDataService.getSimpleSeq(idenfigyStr);
+		String woNo = "WO" + DataFO.fillString(yearStr + "", 2, '0') + DataFO.fillString(numStr + "", 6, '0');
+		return woNo;
 	}
 }

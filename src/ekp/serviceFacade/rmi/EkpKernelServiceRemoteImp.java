@@ -16,6 +16,7 @@ import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
+import ekp.data.service.mf.query.WorkorderQueryParam;
 import ekp.data.service.pu.query.PurchQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
@@ -44,6 +45,8 @@ import ekp.mbom.ProdModItem;
 import ekp.mbom.dto.PpartSkewer;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
+import ekp.mf.MfService;
+import ekp.mf.Workorder;
 import ekp.pu.PuService;
 import ekp.pu.Purch;
 import ekp.pu.PurchItem;
@@ -90,6 +93,9 @@ import ekp.serviceFacade.rmi.mbom.ProdModCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModItemRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
+import ekp.serviceFacade.rmi.mf.MfFO;
+import ekp.serviceFacade.rmi.mf.WorkorderCreateObjRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderRemote;
 import ekp.serviceFacade.rmi.pu.PuFO;
 import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemCreateObjRemote;
@@ -106,6 +112,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	// -------------------------------------------------------------------------------
 	private InvtService invtService = BusinessServiceFactory.getInstance().getService(InvtService.class);
 	private MbomService mbomService = BusinessServiceFactory.getInstance().getService(MbomService.class);
+	private MfService mfService = BusinessServiceFactory.getInstance().getService(MfService.class);
 	private PuService puService =  BusinessServiceFactory.getInstance().getService(PuService.class);
 
 	// -------------------------------------------------------------------------------
@@ -1150,6 +1157,82 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean prodModItemUnassignPartCfg(String _uid) throws RemoteException {
 		return mbomService.prodModItemUnassignPartCfg(_uid);
 	}
+
+	// -------------------------------------------------------------------------------
+	// --------------------------------------MF---------------------------------------
+	// -------------------------------------------------------------------------------
+	// -----------------------------------Workorder-----------------------------------
+	@Override
+	public WorkorderRemote createWorkorder(WorkorderCreateObjRemote _dto) throws RemoteException {
+		if (_dto == null)
+			return null;
+		Workorder obj = mfService.createWorkorder(MfFO.parseWorkorderCreateObj(_dto));
+		return obj == null ? null : MfFO.parseWorkorderRemote(obj);
+	}
+
+	@Override
+	public boolean deleteWorkorder(String _uid) throws RemoteException{
+		return mfService.deleteWorkorder(_uid);
+	}
+
+	@Override
+	public WorkorderRemote loadWorkorder(String _uid) throws RemoteException{
+		Workorder obj = mfService.loadWorkorder(_uid);
+		return obj == null ? null : MfFO.parseWorkorderRemote(obj);
+	}
+
+	@Override
+	public QueryOperation<WorkorderQueryParam, WorkorderRemote> searchWorkorder(
+			QueryOperation<WorkorderQueryParam, WorkorderRemote> _param,
+			Map<WorkorderQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException{
+		QueryOperation<WorkorderQueryParam, Workorder> param =(QueryOperation<WorkorderQueryParam, Workorder>) _param.copy();
+		param = mfService.searchWorkorder(param, _existsDetailMap);
+		_param.setQueryResult(param.getQueryResult().stream().map(MfFO::parseWorkorderRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
+	}
+
+	@Override
+	public boolean woToStart(String _uid) throws RemoteException{
+		return mfService.woToStart(_uid);
+	}
+
+	@Override
+	public boolean woRevertToStart(String _uid) throws RemoteException{
+		return mfService.woRevertToStart(_uid);
+	}
+
+	@Override
+	public boolean woStartWork(String _uid, long _startWorkTime) throws RemoteException{
+		return mfService.woStartWork(_uid, _startWorkTime);
+	}
+
+	@Override
+	public boolean woRevertStartWork(String _uid) throws RemoteException{
+		return mfService.woRevertStartWork(_uid);
+	}
+
+	@Override
+	public boolean woFinishWork(String _uid, long _finishWorkTime) throws RemoteException{
+		return mfService.woFinishWork(_uid, _finishWorkTime);
+	}
+
+	@Override
+	public boolean woRevertFinishWork(String _uid) throws RemoteException{
+		return mfService.woRevertFinishWork(_uid);
+	}
+
+	@Override
+	public boolean woOver(String _uid, long _overTime) throws RemoteException{
+		return mfService.woOver(_uid, _overTime);
+	}
+
+	@Override
+	public boolean woRevertOver(String _uid) throws RemoteException{
+		return mfService.woRevertOver(_uid);
+	}
+
+
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------------PU---------------------------------------
