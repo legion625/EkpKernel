@@ -12,6 +12,7 @@ import ekp.invt.dto.InvtOrderItemCreateObj;
 import ekp.invt.dto.MaterialBinStockBatchCreateObj;
 import ekp.invt.dto.MaterialBinStockCreateObj;
 import ekp.invt.dto.MaterialInstCreateObj;
+import ekp.invt.dto.MaterialInstSrcConjCreateObj;
 import ekp.invt.dto.MaterialMasterCreateObj;
 import ekp.invt.dto.MbsbStmtCreateObj;
 import ekp.invt.dto.WrhsBinCreateObj;
@@ -69,6 +70,11 @@ public interface InvtService extends BusinessService {
 			QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param,
 			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap);
 	
+	public boolean invtOrderItemAssignMi(String _uid, String _miUid);
+	public boolean invtOrderItemRevertAssignMi(String _uid);
+	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid);
+	public boolean invtOrderItemRevertAssignWrhsBin(String _uid);
+	
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------	
 	public MaterialMaster createMaterialMaster(MaterialMasterCreateObj _dto);
@@ -85,6 +91,20 @@ public interface InvtService extends BusinessService {
 	public MaterialInst loadMaterialInst(String _uid);
 	public MaterialInst loadMaterialInstByMisn(String _misn);
 	public List<MaterialInst> loadMaterialInstList(String _mmUid);
+	public boolean materialInstToAssignSrcMi(String _uid);
+	public boolean materialInstRevertToAssignSrcMi(String _uid);
+	public boolean materialInstFinishAssignedSrcMi(String _uid);
+	public boolean materialInstRevertFinishAssignedSrcMi(String _uid);
+	public boolean materialInstNotAssignSrcMi(String _uid);
+	public boolean materialInstRevertNotAssignSrcMi(String _uid);
+	
+	// -------------------------------------------------------------------------------
+	// ------------------------------MaterialInstSrcConj------------------------------
+	public MaterialInstSrcConj createMaterialInstSrcConj(MaterialInstSrcConjCreateObj _dto);
+	public boolean deleteMaterialInstSrcConj(String _uid);
+	public MaterialInstSrcConj loadMaterialInstSrcConj(String _uid);
+	public List<MaterialInstSrcConj> loadMaterialInstSrcConjList(String _miUid);
+	public List<MaterialInstSrcConj> loadMaterialInstSrcConjListBySrcMi(String _srcMiUid);
 	
 	// -------------------------------------------------------------------------------
 	// -------------------------------MaterialBinStock--------------------------------

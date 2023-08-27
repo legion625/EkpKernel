@@ -7,9 +7,11 @@ public enum InvtOrderItemQueryParam implements QueryParam {
 	IO_UID("IO_UID", "Invt Order"), //
 //	MBS_UID("MBS_UID", "Material Bin Stock"), //
 	MM_UID("MM_UID", "Material Master"), //
-	MI_UID("MI_UID", "Material Instance"), //
-	WRHS_BIN_UID("WRHS_BINUID", "Warehouse Bin"), //
 	IO_TYPE_IDX("IO_TYPE_IDX", "Invt Order Type"), //
+	MI_ASSIGNED("MI_ASSIGNED","已指定Material Instance"), //
+	MI_UID("MI_UID", "Material Instance"), //
+	WRHS_BIN_ASSIGNED("WRHS_BIN_ASSIGNED","已指定Warehouse Bin"), //
+	WRHS_BIN_UID("WRHS_BINUID", "Warehouse Bin"), //
 	
 	/* InvtOrder:master */
 	IOSN("IOSN", "IOSN"), //

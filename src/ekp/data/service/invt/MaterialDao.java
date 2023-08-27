@@ -15,9 +15,11 @@ import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.invt.MaterialBinStock;
 import ekp.invt.MaterialBinStockBatch;
 import ekp.invt.MaterialInst;
+import ekp.invt.MaterialInstSrcConj;
 import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.type.MaterialInstAcqChannel;
+import ekp.invt.type.MaterialInstSrcStatus;
 import ekp.invt.type.MbsbFlowType;
 import ekp.invt.type.PostingStatus;
 import ekp.mbom.Part;
@@ -139,6 +141,8 @@ public class MaterialDao extends AbstractMySqlDao {
 	private final static String COL_MI_VALUE = "value";
 	private final static String COL_MI_EFF_DATE = "eff_date";
 	private final static String COL_MI_EXP_DATE = "exp_date";
+	private final static String COL_MI_SRC_STATUS_IDX = "src_status_idx";
+	
 	
 	boolean saveMaterialInst(MaterialInst _mi) {
 		DbColumn<MaterialInst>[] cols = new DbColumn[] { //
@@ -150,6 +154,7 @@ public class MaterialDao extends AbstractMySqlDao {
 				DbColumn.of(COL_MI_VALUE, ColType.DOUBLE, MaterialInst::getValue), //
 				DbColumn.of(COL_MI_EFF_DATE, ColType.LONG, MaterialInst::getEffDate), //
 				DbColumn.of(COL_MI_EXP_DATE, ColType.LONG, MaterialInst::getExpDate), //
+				DbColumn.of(COL_MI_SRC_STATUS_IDX, ColType.INT, MaterialInst::getSrcStatusIdx), //
 		};
 		return saveObject(TB_MATERIAL_INST, cols, _mi);
 	}
@@ -160,7 +165,8 @@ public class MaterialDao extends AbstractMySqlDao {
 	private MaterialInst parseMaterialInst(ResultSet _rs) {
 		try {
 			String mmUid = _rs.getString(COL_MI_MM_UID);
-			MaterialInst mi = MaterialInst.getInstance(parseUid(_rs), mmUid, parseObjectCreateTime(_rs),
+			MaterialInstSrcStatus srcStatus =MaterialInstSrcStatus.get(_rs.getInt(COL_MI_SRC_STATUS_IDX));
+			MaterialInst mi = MaterialInst.getInstance(parseUid(_rs), mmUid,srcStatus, parseObjectCreateTime(_rs),
 					parseObjectUpdateTime(_rs));
 			/* pack attributes */
 			mi.setMisn(_rs.getString(COL_MI_MISN));
@@ -201,6 +207,9 @@ public class MaterialDao extends AbstractMySqlDao {
 		case MIAC_SRC_NO:
 			targetMasterField = COL_MI_MIAC_SRC_NO;
 			break;
+		case MI_SRC_STATUS_IDX:
+			targetMasterField = COL_MI_SRC_STATUS_IDX;
+			break;
 		default:
 			log.debug("not supported. {}", _param);
 			return null;
@@ -208,6 +217,55 @@ public class MaterialDao extends AbstractMySqlDao {
 		return packMasterQueryField(targetMasterField, TB_MATERIAL_INST, COL_UID, _tbMbsb, _colMbsbMiUid);
 	}
 
+	// -------------------------------------------------------------------------------
+	// ------------------------------MaterialInstSrcConj------------------------------
+	private final static String TB_MATERIAL_INST_SRC_CONJ = "invt_mat_inst_src_conj";
+	private final static String COL_MISC_MI_UID = "mi_uid";
+	private final static String COL_MISC_SRC_MI_UID = "src_mi_uid";
+	private final static String COL_MISC_SRC_MI_QTY = "src_mi_qty";
+	private final static String COL_MISC_SRC_MI_VALUE = "src_mi_value";
+	
+	boolean saveMaterialInstSrcConj(MaterialInstSrcConj _c) {
+		DbColumn<MaterialInstSrcConj>[] cols = new DbColumn[] {
+				DbColumn.of(COL_MISC_MI_UID, ColType.STRING, MaterialInstSrcConj::getMiUid, 45), //
+				DbColumn.of(COL_MISC_SRC_MI_UID, ColType.STRING, MaterialInstSrcConj::getSrcMiUid, 45), //
+				DbColumn.of(COL_MISC_SRC_MI_QTY, ColType.DOUBLE, MaterialInstSrcConj::getSrcMiQty), //
+				DbColumn.of(COL_MISC_SRC_MI_VALUE, ColType.DOUBLE, MaterialInstSrcConj::getSrcMiValue), //
+		};
+		return saveObject(TB_MATERIAL_INST_SRC_CONJ, cols, _c);
+		
+	}
+	boolean deleteMaterialInstSrcConj(String _uid) {
+		return deleteObject(TB_MATERIAL_INST_SRC_CONJ, _uid);
+	}
+	
+	private MaterialInstSrcConj parseMaterialInstSrcConj(ResultSet _rs) {
+		try {
+			MaterialInstSrcConj c = MaterialInstSrcConj.getInstance(parseUid(_rs), parseObjectCreateTime(_rs),
+					parseObjectUpdateTime(_rs));
+			/* pack attributes */
+			c.setMiUid(_rs.getString(COL_MISC_MI_UID));
+			c.setSrcMiUid(_rs.getString(COL_MISC_SRC_MI_UID));
+			c.setSrcMiQty(_rs.getDouble(COL_MISC_SRC_MI_QTY));
+			c.setSrcMiValue(_rs.getDouble(COL_MISC_SRC_MI_VALUE));
+			return c;
+		} catch (SQLException e) {
+			LogUtil.log(log, e, Level.ERROR);
+			return null;
+		}
+	}
+	
+	MaterialInstSrcConj loadMaterialInstSrcConj(String _uid) {
+		return loadObject(TB_MATERIAL_INST_SRC_CONJ, _uid, this::parseMaterialInstSrcConj);
+	}
+	List<MaterialInstSrcConj> loadMaterialInstSrcConjList(String _miUid){
+		return loadObjectList(TB_MATERIAL_INST_SRC_CONJ, COL_MISC_MI_UID, _miUid, this::parseMaterialInstSrcConj);
+	}
+	List<MaterialInstSrcConj> loadMaterialInstSrcConjListBySrcMi(String _srcMiUid){
+		return loadObjectList(TB_MATERIAL_INST_SRC_CONJ, COL_MISC_SRC_MI_UID, _srcMiUid, this::parseMaterialInstSrcConj);
+	}
+	
+	
 	// -------------------------------------------------------------------------------
 	// -------------------------------MaterialBinStock--------------------------------
 	private final static String TB_MATERIAL_BIN_STOCK = "invt_mat_bin_stock";
@@ -377,6 +435,7 @@ public class MaterialDao extends AbstractMySqlDao {
 		case MISN:
 		case MIAC_IDX:
 		case MIAC_SRC_NO:
+		case MI_SRC_STATUS_IDX:
 			targetMasterField = packMaterialInstField(_param, TB_MAT_BIN_STOCK_BATCH, COL_MBSB_MI_UID);
 			break;
 		default:
@@ -459,6 +518,7 @@ public class MaterialDao extends AbstractMySqlDao {
 		case MISN:
 		case MIAC_IDX:
 		case MIAC_SRC_NO:
+		case MI_SRC_STATUS_IDX:
 			return MaterialDao.packMaterialBinStockBatchField(_param, TB_MBSB_STMT, COL_MBSBS_MBSB_UID);
 		default:
 			log.warn("_param error. {}", _param);

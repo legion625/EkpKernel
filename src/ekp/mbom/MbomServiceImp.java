@@ -71,6 +71,14 @@ public class MbomServiceImp implements MbomService {
 	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) {
 		return loadPart(_uid).update(_pin, _name, _unit);
 	}
+	@Override
+	public boolean partAssignMm(String _uid, String _mmUid, String _mmMano) {
+		return loadPart(_uid).assignMm(_mmUid, _mmMano);	
+	}
+	@Override
+	public boolean partRevertAssignMm(String _uid) {
+		return loadPart(_uid).revertAssignMm();
+	}
 	
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------

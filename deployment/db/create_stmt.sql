@@ -16,11 +16,13 @@ CREATE TABLE `invt_invt_order_item` (
   `uid` varchar(45) NOT NULL,
   `io_uid` varchar(45) DEFAULT NULL,
   `mm_uid` varchar(45) DEFAULT NULL,
-  `mi_uid` varchar(45) DEFAULT NULL,
+  `wrhs_bin_assigned` tinyint(4) DEFAULT NULL,
   `wrhs_bin_uid` varchar(45) DEFAULT NULL,
   `io_type_idx` tinyint(4) DEFAULT NULL,
   `order_qty` double DEFAULT NULL,
   `order_value` double DEFAULT NULL,
+  `mi_assigned` tinyint(4) DEFAULT NULL,
+  `mi_uid` varchar(45) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
@@ -59,6 +61,18 @@ CREATE TABLE `invt_mat_inst` (
   `value` double DEFAULT NULL,
   `eff_date` bigint(20) DEFAULT NULL,
   `exp_date` bigint(20) DEFAULT NULL,
+  `src_status_idx` tinyint(4) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `invt_mat_inst_src_conj` (
+  `uid` varchar(45) NOT NULL,
+  `mi_uid` varchar(45) DEFAULT NULL,
+  `src_mi_uid` varchar(45) DEFAULT NULL,
+  `src_mi_qty` double DEFAULT NULL,
+  `src_mi_value` double DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
@@ -141,6 +155,9 @@ CREATE TABLE `mbom_part` (
   `pin` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `unit_id` varchar(10) DEFAULT NULL,
+  `mm_assigned` tinyint(4) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mm_mano` varchar(45) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
@@ -244,6 +261,35 @@ CREATE TABLE `mbom_prod_mod_item` (
   `prod_ctl_uid` varchar(45) DEFAULT NULL,
   `part_cfg_assigned` tinyint(4) DEFAULT NULL,
   `part_cfg_uid` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `mf_wo` (
+  `uid` varchar(45) NOT NULL,
+  `wo_no` varchar(45) DEFAULT NULL,
+  `status_idx` tinyint(4) DEFAULT NULL,
+  `part_uid` varchar(45) DEFAULT NULL,
+  `part_pin` varchar(45) DEFAULT NULL,
+  `part_mm_mano` varchar(45) DEFAULT NULL,
+  `start_work_time` bigint(20) DEFAULT NULL,
+  `finish_work_time` bigint(20) DEFAULT NULL,
+  `over_time` bigint(20) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `mf_wom` (
+  `uid` varchar(45) NOT NULL,
+  `wo_uid` varchar(45) DEFAULT NULL,
+  `wo_no` varchar(45) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mm_mano` varchar(45) DEFAULT NULL,
+  `mm_name` varchar(45) DEFAULT NULL,
+  `qty0` double DEFAULT NULL,
+  `qty1` double DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)

@@ -252,23 +252,26 @@ public class WrhsDao extends AbstractMySqlDao {
 	private final static String TB_INVT_ORDER_ITEM = "invt_invt_order_item";
 	private final static String COL_IOI_IO_UID = "io_uid";
 	private final static String COL_IOI_MM_UID = "mm_uid";
-	private final static String COL_IOI_MI_UID = "mi_uid";
-	private final static String COL_IOI_WRHS_BIN_UID = "wrhs_bin_uid";
 	private final static String COL_IOI_IO_TYPE_IDX = "io_type_idx";
 	private final static String COL_IOI_ORDER_QTY = "order_qty";
 	private final static String COL_IOI_ORDER_VALUE = "order_value";
+	private final static String COL_IOI_MI_ASSIGNED = "mi_assigned";
+	private final static String COL_IOI_MI_UID = "mi_uid";
+	private final static String COL_IOI_WRHS_BIN_ASSIGNED = "wrhs_bin_assigned";
+	private final static String COL_IOI_WRHS_BIN_UID = "wrhs_bin_uid";
 	
 	
 	boolean saveInvtOrderItem(InvtOrderItem _ioi) {
 		DbColumn<InvtOrderItem>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_IOI_IO_UID, ColType.STRING, InvtOrderItem::getIoUid, 45), //
-//				DbColumn.of(COL_IOI_MBS_UID, ColType.STRING, InvtOrderItem::getMbsUid, 45), //
 				DbColumn.of(COL_IOI_MM_UID, ColType.STRING, InvtOrderItem::getMmUid, 45), //
-				DbColumn.of(COL_IOI_MI_UID, ColType.STRING, InvtOrderItem::getMiUid, 45), //
-				DbColumn.of(COL_IOI_WRHS_BIN_UID, ColType.STRING, InvtOrderItem::getWrhsBinUid, 45), //
 				DbColumn.of(COL_IOI_IO_TYPE_IDX, ColType.INT, InvtOrderItem::getIoTypeIdx), //
 				DbColumn.of(COL_IOI_ORDER_QTY, ColType.DOUBLE, InvtOrderItem::getOrderQty), //
 				DbColumn.of(COL_IOI_ORDER_VALUE, ColType.DOUBLE, InvtOrderItem::getOrderValue), //
+				DbColumn.of(COL_IOI_MI_ASSIGNED, ColType.BOOLEAN, InvtOrderItem::isMiAssigned), //
+				DbColumn.of(COL_IOI_MI_UID, ColType.STRING, InvtOrderItem::getMiUid, 45), //
+				DbColumn.of(COL_IOI_WRHS_BIN_ASSIGNED, ColType.BOOLEAN, InvtOrderItem::isWrhsBinAssigned), //
+				DbColumn.of(COL_IOI_WRHS_BIN_UID, ColType.STRING, InvtOrderItem::getWrhsBinUid, 45), //
 		};
 		return saveObject(TB_INVT_ORDER_ITEM, cols, _ioi);
 	}
@@ -283,11 +286,13 @@ public class WrhsDao extends AbstractMySqlDao {
 					parseObjectUpdateTime(_rs));
 			/* pack attributes */
 			ioi.setMmUid(_rs.getString(COL_IOI_MM_UID));
-			ioi.setMiUid(_rs.getString(COL_IOI_MI_UID));
-			ioi.setWrhsBinUid(_rs.getString(COL_IOI_WRHS_BIN_UID));
 			ioi.setIoType(InvtOrderType.get(_rs.getInt(COL_IOI_IO_TYPE_IDX)));
 			ioi.setOrderQty(_rs.getDouble(COL_IOI_ORDER_QTY));
 			ioi.setOrderValue(_rs.getDouble(COL_IOI_ORDER_VALUE));
+			ioi.setMiAssigned(_rs.getBoolean(COL_IOI_MI_ASSIGNED));
+			ioi.setMiUid(_rs.getString(COL_IOI_MI_UID));
+			ioi.setWrhsBinAssigned(_rs.getBoolean(COL_IOI_WRHS_BIN_ASSIGNED));
+			ioi.setWrhsBinUid(_rs.getString(COL_IOI_WRHS_BIN_UID));
 			return ioi;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
@@ -302,7 +307,6 @@ public class WrhsDao extends AbstractMySqlDao {
 	List<InvtOrderItem> loadInvtOrderItemList(String _ioUid){
 		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_IO_UID, _ioUid, this::parseInvtOrderItem);
 	}
-	
 	
 	List<InvtOrderItem> loadInvtOrderItemListByMm(String _mmUid){
 		return loadObjectList(TB_INVT_ORDER_ITEM,COL_IOI_MM_UID, _mmUid, this::parseInvtOrderItem);
@@ -322,12 +326,12 @@ public class WrhsDao extends AbstractMySqlDao {
 			return COL_IOI_IO_UID;
 		case MM_UID:
 			return COL_IOI_MM_UID;
+		case IO_TYPE_IDX:
+			return COL_IOI_IO_TYPE_IDX;
 		case MI_UID:
 			return COL_IOI_MI_UID;
 		case WRHS_BIN_UID:
 			return COL_IOI_WRHS_BIN_UID;
-		case IO_TYPE_IDX:
-			return COL_IOI_IO_TYPE_IDX;
 		/* InvtOrder:master */
 		case IOSN:
 		case IO_STATUS_IDX:
@@ -367,11 +371,9 @@ public class WrhsDao extends AbstractMySqlDao {
 //		String targetDetailField;
 		switch (_param) {
 		case B_of_IOI$:
-//			targetDetailField = 
 			return packExistsField(_tbIo, _colIoUid, TB_INVT_ORDER_ITEM, COL_IOI_IO_UID, queryParamMappingParser,
 					_existsDetailMap, _param);
 		case B_of_IOI_of_MBSBS$:
-//			String existField2 = packex
 			return packExistsField(_tbIo, _colIoUid, TB_INVT_ORDER_ITEM, COL_IOI_IO_UID, MaterialDao.packMbsbStmtField(TB_INVT_ORDER_ITEM, COL_UID, _existsDetailMap, _param));
 // FIXME
 //			XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

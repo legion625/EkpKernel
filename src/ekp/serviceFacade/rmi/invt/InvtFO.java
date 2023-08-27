@@ -5,6 +5,7 @@ import ekp.invt.InvtOrderItem;
 import ekp.invt.MaterialBinStock;
 import ekp.invt.MaterialBinStockBatch;
 import ekp.invt.MaterialInst;
+import ekp.invt.MaterialInstSrcConj;
 import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.WrhsBin;
@@ -14,6 +15,7 @@ import ekp.invt.dto.InvtOrderItemCreateObj;
 import ekp.invt.dto.MaterialBinStockBatchCreateObj;
 import ekp.invt.dto.MaterialBinStockCreateObj;
 import ekp.invt.dto.MaterialInstCreateObj;
+import ekp.invt.dto.MaterialInstSrcConjCreateObj;
 import ekp.invt.dto.MaterialMasterCreateObj;
 import ekp.invt.dto.MbsbStmtCreateObj;
 import ekp.invt.dto.WrhsBinCreateObj;
@@ -86,11 +88,14 @@ public class InvtFO {
 				_obj.getObjectUpdateTime());
 		remote.setIoUid(_obj.getIoUid());
 		remote.setMmUid(_obj.getMmUid());
-		remote.setMiUid(_obj.getMiUid());
-		remote.setWrhsBinUid(_obj.getWrhsBinUid());
+
 		remote.setIoType(_obj.getIoType());
 		remote.setOrderQty(_obj.getOrderQty());
 		remote.setOrderValue(_obj.getOrderValue());
+		remote.setMiAssigned(_obj.isMiAssigned());
+		remote.setMiUid(_obj.getMiUid());
+		remote.setWrhsBinAssigned(_obj.isWrhsBinAssigned());
+		remote.setWrhsBinUid(_obj.getWrhsBinUid());
 		return remote;
 	}
 
@@ -98,8 +103,6 @@ public class InvtFO {
 		InvtOrderItemCreateObj dto = new InvtOrderItemCreateObj();
 		dto.setIoUid(_remote.getIoUid());
 		dto.setMmUid(_remote.getMmUid());
-		dto.setMiUid(_remote.getMiUid());
-		dto.setWrhsBinUid(_remote.getWrhsBinUid());
 		dto.setIoType(_remote.getIoType());
 		dto.setOrderQty(_remote.getOrderQty());
 		dto.setOrderValue(_remote.getOrderValue());
@@ -156,6 +159,28 @@ public class InvtFO {
 		dto.setExpDate(_remote.getExpDate());
 		return dto;
 	}
+	
+	// -------------------------------------------------------------------------------
+	// ------------------------------MaterialInstSrcConj------------------------------
+	public static MaterialInstSrcConjRemote parseMaterialInstSrcConjRemote(MaterialInstSrcConj _obj) {
+		MaterialInstSrcConjRemote remote = new MaterialInstSrcConjRemote(_obj.getUid(), _obj.getObjectCreateTime(),
+				_obj.getObjectUpdateTime());
+		remote.setMiUid(_obj.getMiUid());
+		remote.setSrcMiUid(_obj.getSrcMiUid());
+		remote.setSrcMiQty(_obj.getSrcMiQty());
+		remote.setSrcMiValue(_obj.getSrcMiValue());
+		return remote;
+	}
+	public static MaterialInstSrcConjCreateObj parseMaterialInstSrcConjCreateObj(MaterialInstSrcConjCreateObjRemote _remote) {
+		MaterialInstSrcConjCreateObj dto = new MaterialInstSrcConjCreateObj();
+		dto.setMiUid(_remote.getMiUid());
+		dto.setSrcMiUid(_remote.getSrcMiUid());
+		dto.setSrcMiQty(_remote.getSrcMiQty());
+		dto.setSrcMiValue(_remote.getSrcMiValue());
+		return dto;
+		
+	}
+	
 
 	// -------------------------------------------------------------------------------
 	// -------------------------------MaterialBinStock--------------------------------

@@ -13,6 +13,7 @@ import ekp.data.InvtDataService;
 import ekp.data.MbomDataService;
 import ekp.invt.BizObjWrhsLocTest.Target;
 import ekp.invt.type.MaterialInstAcqChannel;
+import ekp.invt.type.MaterialInstSrcStatus;
 import ekp.mbom.Part;
 import ekp.mbom.type.PartUnit;
 import legion.DataServiceFactory;
@@ -32,8 +33,10 @@ public class BizObjMaterialInstTest extends AbstractEkpInitTest {
 		long l1 = DateUtil.toLong(LocalDateTime.now().plusDays(1));
 		long l2 = DateUtil.toLong(LocalDateTime.now().plusDays(2));
 		
-		target1 = new Target("mmUid1", "misn1", MaterialInstAcqChannel.PURCHASING,"miacSrcNo1", d1, d1, l1, l1);
-		target2 = new Target("mmUid2", "misn2", MaterialInstAcqChannel.OUTSOURCING,"miacSrcNo2", d2, d2, l2, l2);
+		target1 = new Target("mmUid1", "misn1", MaterialInstAcqChannel.PURCHASING,"miacSrcNo1", d1, d1, l1, l1
+				, MaterialInstSrcStatus.ASSIGNING);
+		target2 = new Target("mmUid2", "misn2", MaterialInstAcqChannel.OUTSOURCING,"miacSrcNo2", d2, d2, l2, l2
+				, MaterialInstSrcStatus.FINISH_ASSIGNED);
 	}
 
 	@Test
@@ -83,9 +86,10 @@ public class BizObjMaterialInstTest extends AbstractEkpInitTest {
 		private double value; // 帳值
 		private long effDate; // 生效日期
 		private long expDate; // 失效日期
+		private MaterialInstSrcStatus srcStatus;
 
 		private Target(String mmUid, String misn, MaterialInstAcqChannel miac,String miacSrcNo, double qty, double value, long effDate,
-				long expDate) {
+				long expDate, MaterialInstSrcStatus srcStatus) {
 			this.mmUid = mmUid;
 			this.misn = misn;
 			this.miac = miac;
@@ -94,6 +98,7 @@ public class BizObjMaterialInstTest extends AbstractEkpInitTest {
 			this.value = value;
 			this.effDate = effDate;
 			this.expDate = expDate;
+			this.srcStatus = srcStatus;
 		}
 
 		public String getMmUid() {
@@ -126,6 +131,10 @@ public class BizObjMaterialInstTest extends AbstractEkpInitTest {
 
 		public long getExpDate() {
 			return expDate;
+		}
+
+		public MaterialInstSrcStatus getSrcStatus() {
+			return srcStatus;
 		}
 
 	}

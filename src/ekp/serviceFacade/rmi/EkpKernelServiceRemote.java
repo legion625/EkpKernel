@@ -12,6 +12,7 @@ import ekp.data.service.invt.query.MbsbStmtQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
+import ekp.data.service.mf.query.WorkorderQueryParam;
 import ekp.data.service.pu.query.PurchQueryParam;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
@@ -25,6 +26,8 @@ import ekp.serviceFacade.rmi.invt.MaterialBinStockCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialBinStockRemote;
 import ekp.serviceFacade.rmi.invt.MaterialInstCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialInstRemote;
+import ekp.serviceFacade.rmi.invt.MaterialInstSrcConjCreateObjRemote;
+import ekp.serviceFacade.rmi.invt.MaterialInstSrcConjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialMasterCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.MaterialMasterRemote;
 import ekp.serviceFacade.rmi.invt.MbsbStmtCreateObjRemote;
@@ -54,6 +57,10 @@ import ekp.serviceFacade.rmi.mbom.ProdModCreateObjRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModItemRemote;
 import ekp.serviceFacade.rmi.mbom.ProdModRemote;
 import ekp.serviceFacade.rmi.mbom.ProdRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderCreateObjRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderMaterialCreateObjRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderMaterialRemote;
+import ekp.serviceFacade.rmi.mf.WorkorderRemote;
 import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemRemote;
@@ -86,7 +93,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteWrhsBin(String _uid) throws RemoteException;
 
 	public WrhsBinRemote loadWrhsBin(String _uid) throws RemoteException;
-	
+
 	public WrhsBinRemote loadWrhsBin(String _wlUid, String _id) throws RemoteException;
 
 	public List<WrhsBinRemote> loadWrhsBinList(String _wlUid) throws RemoteException;
@@ -104,7 +111,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public QueryOperation<InvtOrderQueryParam, InvtOrderRemote> searchInvtOrder(
 			QueryOperation<InvtOrderQueryParam, InvtOrderRemote> _param,
 			Map<InvtOrderQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
-	
+
 	public boolean invtOrderToApv(String _uid) throws RemoteException;
 	public boolean invtOrderRevertToApv(String _uid) throws RemoteException;
 	public boolean invtOrderApprove(String _uid, long _apvTime) throws RemoteException;
@@ -127,6 +134,11 @@ public interface EkpKernelServiceRemote extends Remote {
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> searchInvtOrderItem(
 			QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> _param,
 			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
+
+	public boolean invtOrderItemAssignMi(String _uid, String _miUid)throws RemoteException;
+	public boolean invtOrderItemRevertAssignMi(String _uid)throws RemoteException;
+	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid)throws RemoteException;
+	public boolean invtOrderItemRevertAssignWrhsBin(String _uid)throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------
@@ -153,6 +165,21 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid) throws RemoteException;
 
+	public boolean materialInstToAssignSrcMi(String _uid)throws RemoteException;
+	public boolean materialInstRevertToAssignSrcMi(String _uid)throws RemoteException;
+	public boolean materialInstFinishAssignedSrcMi(String _uid)throws RemoteException;
+	public boolean materialInstRevertFinishAssignedSrcMi(String _uid)throws RemoteException;
+	public boolean materialInstNotAssignSrcMi(String _uid)throws RemoteException;
+	public boolean materialInstRevertNotAssignSrcMi(String _uid)throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// ------------------------------MaterialInstSrcConj------------------------------
+	public MaterialInstSrcConjRemote createMaterialInstSrcConj(MaterialInstSrcConjCreateObjRemote _dto)throws RemoteException;
+	public boolean deleteMaterialInstSrcConj(String _uid)throws RemoteException;
+	public MaterialInstSrcConjRemote loadMaterialInstSrcConj(String _uid)throws RemoteException;
+	public List<MaterialInstSrcConjRemote> loadMaterialInstSrcConjList(String _miUid)throws RemoteException;
+	public List<MaterialInstSrcConjRemote> loadMaterialInstSrcConjListBySrcMi(String _srcMiUid)throws RemoteException;
+
 	// -------------------------------------------------------------------------------
 	// -------------------------------MaterialBinStock--------------------------------
 	public MaterialBinStockRemote createMaterialBinStock(MaterialBinStockCreateObjRemote _dto) throws RemoteException;
@@ -160,7 +187,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteMaterialBinStock(String _uid) throws RemoteException;
 
 	public MaterialBinStockRemote loadMaterialBinStock(String _uid) throws RemoteException;
-	
+
 	public MaterialBinStockRemote loadMaterialBinStock(String _mmUid, String _wrhsBinUid) throws RemoteException;
 
 	public List<MaterialBinStockRemote> loadMaterialBinStockList(String _mmUid) throws RemoteException;
@@ -175,7 +202,7 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteMaterialBinStockBatch(String _uid) throws RemoteException;
 
 	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _uid) throws RemoteException;
-	
+
 	public MaterialBinStockBatchRemote loadMaterialBinStockBatch(String _mbsUid, String _miUid) throws RemoteException;
 
 	public List<MaterialBinStockBatchRemote> loadMaterialBinStockBatchList(String _mbsUid) throws RemoteException;
@@ -219,6 +246,10 @@ public interface EkpKernelServiceRemote extends Remote {
 			throws RemoteException;
 
 	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) throws RemoteException;
+
+	public boolean partAssignMm(String _uid, String _mmUid, String _mmMano) throws RemoteException;
+
+	public boolean partRevertAssignMm(String _uid) throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
@@ -415,6 +446,48 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean prodModItemAssignPartCfg(String _uid, String _partCfgUid) throws RemoteException;
 
 	public boolean prodModItemUnassignPartCfg(String _uid) throws RemoteException;
+
+
+	// -------------------------------------------------------------------------------
+	// --------------------------------------MF---------------------------------------
+	// XXX
+
+	// -------------------------------------------------------------------------------
+	// -----------------------------------Workorder-----------------------------------
+	public WorkorderRemote createWorkorder(WorkorderCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteWorkorder(String _uid) throws RemoteException;
+
+	public WorkorderRemote loadWorkorder(String _uid) throws RemoteException;
+
+	public QueryOperation<WorkorderQueryParam, WorkorderRemote> searchWorkorder(
+			QueryOperation<WorkorderQueryParam, WorkorderRemote> _param,
+			Map<WorkorderQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
+
+	public boolean woToStart(String _uid) throws RemoteException;
+
+	public boolean woRevertToStart(String _uid) throws RemoteException;
+
+	public boolean woStartWork(String _uid, long _startWorkTime) throws RemoteException;
+
+	public boolean woRevertStartWork(String _uid) throws RemoteException;
+
+	public boolean woFinishWork(String _uid, long _finishWorkTime) throws RemoteException;
+
+	public boolean woRevertFinishWork(String _uid) throws RemoteException;
+
+	public boolean woOver(String _uid, long _overTime) throws RemoteException;
+
+	public boolean woRevertOver(String _uid) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// -------------------------------WorkorderMaterial-------------------------------
+	public WorkorderMaterialRemote createWorkorderMaterial(WorkorderMaterialCreateObjRemote _dto)throws RemoteException;
+	public boolean deleteWorkorderMaterial(String _uid)throws RemoteException;
+	public WorkorderMaterialRemote loadWorkorderMaterial(String _uid)throws RemoteException;
+	public List<WorkorderMaterialRemote> loadWorkorderMaterialList(String _woUid)throws RemoteException;
+	public boolean womAddQty0(String _uid, double _addQty)throws RemoteException;
+	public boolean womQty0to1(String _uid, double _qty)throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------------PU---------------------------------------

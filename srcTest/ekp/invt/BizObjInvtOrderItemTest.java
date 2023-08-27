@@ -24,9 +24,8 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("ioUid1", "mmUid1", "miUid1", "wrhsBinUid1", InvtOrderType.I1, 199.999d, 199.999d);
-		target2 = new Target("ioUid2", "mmUid2", "miUid2", "wrhsBinUid2", InvtOrderType.I2, 299.999d, 299.999d);
-		
+		target1 = new Target("ioUid1", "mmUid1", InvtOrderType.I1, 199.999d, 199.999d,false, "miUid1",false, "wrhsBinUid1");
+		target2 = new Target("ioUid2", "mmUid2" , InvtOrderType.I2, 299.999d, 299.999d, true, "miUid2", true, "wrhsBinUid2");
 	}
 
 	@Test
@@ -68,23 +67,27 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 
 	public class Target {
 		private String ioUid; // invt order uid
-//		private String mbsUid; // BaterialBinStock uid (biz key) 指定「料項+儲位」
 		private String mmUid;
-		private String miUid;
-		private String wrhsBinUid;
 
 		private InvtOrderType ioType;
 		private double orderQty; // 記錄異動的數量
 		private double orderValue; // 記錄異動的金額
+		private boolean miAssigned;
+		private String miUid;
+		private boolean wrhsBinAssigned;
+		private String wrhsBinUid;
 
-		private Target(String ioUid, String mmUid,String miUid, String wrhsBinUid, InvtOrderType ioType, double orderQty, double orderValue) {
+		private Target(String ioUid, String mmUid, InvtOrderType ioType, double orderQty, double orderValue,
+				boolean miAssigned, String miUid, boolean wrhsBinAssigned, String wrhsBinUid) {
 			this.ioUid = ioUid;
 			this.mmUid = mmUid;
-			this.miUid = miUid;
-			this.wrhsBinUid = wrhsBinUid;
 			this.ioType = ioType;
 			this.orderQty = orderQty;
 			this.orderValue = orderValue;
+			this.miAssigned = miAssigned;
+			this.miUid = miUid;
+			this.wrhsBinAssigned = wrhsBinAssigned;
+			this.wrhsBinUid = wrhsBinUid;
 		}
 
 		public String getIoUid() {
@@ -93,14 +96,6 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 
 		public String getMmUid() {
 			return mmUid;
-		}
-
-		public String getMiUid() {
-			return miUid;
-		}
-
-		public String getWrhsBinUid() {
-			return wrhsBinUid;
 		}
 
 		public InvtOrderType getIoType() {
@@ -113,6 +108,22 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 
 		public double getOrderValue() {
 			return orderValue;
+		}
+
+		public boolean isMiAssigned() {
+			return miAssigned;
+		}
+
+		public String getMiUid() {
+			return miUid;
+		}
+
+		public boolean isWrhsBinAssigned() {
+			return wrhsBinAssigned;
+		}
+
+		public String getWrhsBinUid() {
+			return wrhsBinUid;
 		}
 
 	}

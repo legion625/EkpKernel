@@ -12,6 +12,7 @@ import ekp.invt.InvtOrderItem;
 import ekp.invt.MaterialBinStock;
 import ekp.invt.MaterialBinStockBatch;
 import ekp.invt.MaterialInst;
+import ekp.invt.MaterialInstSrcConj;
 import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.WrhsBin;
@@ -76,6 +77,14 @@ public interface InvtDataService extends IntegrationService {
 	public MaterialInst loadMaterialInst(String _uid);
 	public MaterialInst loadMaterialInstByMisn(String _misn);
 	public List<MaterialInst> loadMaterialInstList(String _mmUid);
+	
+	// -------------------------------------------------------------------------------
+	// ------------------------------MaterialInstSrcConj------------------------------
+	public boolean saveMaterialInstSrcConj(MaterialInstSrcConj _c);
+	public boolean deleteMaterialInstSrcConj(String _uid);
+	public MaterialInstSrcConj loadMaterialInstSrcConj(String _uid);
+	public List<MaterialInstSrcConj> loadMaterialInstSrcConjList(String _miUid);
+	public List<MaterialInstSrcConj> loadMaterialInstSrcConjListBySrcMi(String _srcMiUid);
 	
 	// -------------------------------------------------------------------------------
 	// -------------------------------MaterialBinStock--------------------------------

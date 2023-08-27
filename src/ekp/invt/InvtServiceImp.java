@@ -16,6 +16,7 @@ import ekp.invt.dto.InvtOrderItemCreateObj;
 import ekp.invt.dto.MaterialBinStockBatchCreateObj;
 import ekp.invt.dto.MaterialBinStockCreateObj;
 import ekp.invt.dto.MaterialInstCreateObj;
+import ekp.invt.dto.MaterialInstSrcConjCreateObj;
 import ekp.invt.dto.MaterialMasterCreateObj;
 import ekp.invt.dto.MbsbStmtCreateObj;
 import ekp.invt.dto.WrhsBinCreateObj;
@@ -182,6 +183,22 @@ public class InvtServiceImp implements InvtService {
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap){
 		return dataService.searchInvtOrderItem(_param,  _existsDetailMap);
 	}
+	@Override
+	public boolean invtOrderItemAssignMi(String _uid, String _miUid) {
+		return loadInvtOrderItem(_uid).assignMi(_miUid);
+	}
+	@Override
+	public boolean invtOrderItemRevertAssignMi(String _uid) {
+		return loadInvtOrderItem(_uid).revertAssignMi();
+	}
+	@Override
+	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid) {
+		return loadInvtOrderItem(_uid).assignWrhsBin(_wrhsBinUid);
+	}
+	@Override
+	public boolean invtOrderItemRevertAssignWrhsBin(String _uid) {
+		return loadInvtOrderItem(_uid).revertAssignWrhsBin();
+	}
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------
@@ -235,6 +252,43 @@ public class InvtServiceImp implements InvtService {
 	@Override
 	public List<MaterialInst> loadMaterialInstList(String _mmUid) {
 		return dataService.loadMaterialInstList(_mmUid);
+	}
+	@Override
+	public boolean materialInstToAssignSrcMi(String _uid) {
+		return loadMaterialInst(_uid).toAssignSrcMi();
+	}
+	public boolean materialInstRevertToAssignSrcMi(String _uid){
+		return loadMaterialInst(_uid).revertToAssignSrcMi();
+	}
+	public boolean materialInstFinishAssignedSrcMi(String _uid){
+		return loadMaterialInst(_uid).finishAssignedSrcMi();
+	}
+	public boolean materialInstRevertFinishAssignedSrcMi(String _uid){
+		return loadMaterialInst(_uid).revertFinishAssingedSrcMi();
+	}
+	public boolean materialInstNotAssignSrcMi(String _uid){
+		return loadMaterialInst(_uid).notAssignSrcMi();
+	}
+	public boolean materialInstRevertNotAssignSrcMi(String _uid){
+		return loadMaterialInst(_uid).revertNotAssignSrcSMi();
+	}
+	
+	// -------------------------------------------------------------------------------
+	// ------------------------------MaterialInstSrcConj------------------------------
+	public MaterialInstSrcConj createMaterialInstSrcConj(MaterialInstSrcConjCreateObj _dto) {
+		return MaterialInstSrcConj.create(_dto);
+	}
+	public boolean deleteMaterialInstSrcConj(String _uid) {
+		return loadMaterialInstSrcConj(_uid).delete();
+	}
+	public MaterialInstSrcConj loadMaterialInstSrcConj(String _uid) {
+		return dataService.loadMaterialInstSrcConj(_uid);
+	}
+	public List<MaterialInstSrcConj> loadMaterialInstSrcConjList(String _miUid){
+		return dataService.loadMaterialInstSrcConjList(_miUid);
+	}
+	public List<MaterialInstSrcConj> loadMaterialInstSrcConjListBySrcMi(String _srcMiUid){
+		return dataService.loadMaterialInstSrcConjListBySrcMi(_srcMiUid);
 	}
 
 	// -------------------------------------------------------------------------------

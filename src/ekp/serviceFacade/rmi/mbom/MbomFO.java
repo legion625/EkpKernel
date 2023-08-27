@@ -31,6 +31,9 @@ public class MbomFO {
 		remote.setPin(_obj.getPin());
 		remote.setName(_obj.getName());
 		remote.setUnit(_obj.getUnit());
+		remote.setMmAssigned(_obj.isMmAssigned());
+		remote.setMmUid(_obj.getMmUid());
+		remote.setMmMano(_obj.getMmMano());
 		return remote;
 	}
 
