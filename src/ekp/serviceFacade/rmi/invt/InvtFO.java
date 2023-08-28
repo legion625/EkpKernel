@@ -145,6 +145,7 @@ public class InvtFO {
 		remote.setValue(_obj.getValue());
 		remote.setEffDate(_obj.getEffDate());
 		remote.setExpDate(_obj.getExpDate());
+		remote.setSrcStatus(_obj.getSrcStatus());
 		return remote;
 	}
 

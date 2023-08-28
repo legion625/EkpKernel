@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Application name="EkpKernelRmiTest" version="0.4.0">
+<Application name="EkpKernelRmiTest" version="0.4.1">
 	
 	
 	<context-param>
