@@ -15,6 +15,10 @@ public class WorkorderRemote extends ObjectModelRemote {
 	private String partPin;
 	private String partMmMano;
 
+	private String partAcqUid;
+	private String partAcqId;
+	private double rqQty; // 需求數量
+
 	private long startWorkTime;
 	private long finishWorkTime;
 	private long overTime;
@@ -57,6 +61,30 @@ public class WorkorderRemote extends ObjectModelRemote {
 
 	void setPartMmMano(String partMmMano) {
 		this.partMmMano = partMmMano;
+	}
+
+	public String getPartAcqUid() {
+		return partAcqUid;
+	}
+
+	void setPartAcqUid(String partAcqUid) {
+		this.partAcqUid = partAcqUid;
+	}
+
+	public String getPartAcqId() {
+		return partAcqId;
+	}
+
+	void setPartAcqId(String partAcqId) {
+		this.partAcqId = partAcqId;
+	}
+
+	public double getRqQty() {
+		return rqQty;
+	}
+
+	void setRqQty(double rqQty) {
+		this.rqQty = rqQty;
 	}
 
 	public long getStartWorkTime() {

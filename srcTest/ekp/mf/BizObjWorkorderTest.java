@@ -23,12 +23,16 @@ public class BizObjWorkorderTest extends AbstractEkpInitTest {
 
 	@Before
 	public void initMethod() {
+		double d1 = 199.999d;
+		double d2 = 299.999d;
 
 		long l1 = DateUtil.toLong(LocalDateTime.now().plusDays(1));
 		long l2 = DateUtil.toLong(LocalDateTime.now().plusDays(2));
-		
-		target1 = new Target("woNo1", WorkorderStatus.TO_START, "partUid1", "partPin1", "partMmMano1", l1, l1, l1);
-		target2 = new Target("woNo2", WorkorderStatus.FINISH_WORK, "partUid2", "partPin2", "partMmMano2", l2, l2, l2);
+
+		target1 = new Target("woNo1", WorkorderStatus.TO_START, "partUid1", "partPin1", "partMmMano1", "partAcqUid1",
+				"partAcqId1", d1, l1, l1, l1);
+		target2 = new Target("woNo2", WorkorderStatus.FINISH_WORK, "partUid2", "partPin2", "partMmMano2", "partAcqUid2",
+				"partAcqId2", d2, l2, l2, l2);
 	}
 
 	@Test
@@ -76,18 +80,25 @@ public class BizObjWorkorderTest extends AbstractEkpInitTest {
 		private String partUid;
 		private String partPin;
 		private String partMmMano;
+		private String partAcqUid;
+		private String partAcqId;
+		private double rqQty; // 需求數量
 
 		private long startWorkTime;
 		private long finishWorkTime;
 		private long overTime;
 
 		private Target(String woNo, WorkorderStatus status, String partUid, String partPin, String partMmMano,
-				long startWorkTime, long finishWorkTime, long overTime) {
+				String partAcqUid, String partAcqId, double rqQty, long startWorkTime, long finishWorkTime,
+				long overTime) {
 			this.woNo = woNo;
 			this.status = status;
 			this.partUid = partUid;
 			this.partPin = partPin;
 			this.partMmMano = partMmMano;
+			this.partAcqUid = partAcqUid;
+			this.partAcqId = partAcqId;
+			this.rqQty = rqQty;
 			this.startWorkTime = startWorkTime;
 			this.finishWorkTime = finishWorkTime;
 			this.overTime = overTime;
@@ -111,6 +122,18 @@ public class BizObjWorkorderTest extends AbstractEkpInitTest {
 
 		public String getPartMmMano() {
 			return partMmMano;
+		}
+
+		public String getPartAcqUid() {
+			return partAcqUid;
+		}
+
+		public String getPartAcqId() {
+			return partAcqId;
+		}
+
+		public double getRqQty() {
+			return rqQty;
 		}
 
 		public long getStartWorkTime() {

@@ -9,6 +9,9 @@ public enum WorkorderQueryParam implements QueryParam{
 	PART_UID("PART_UID","零件"), //
 	PART_PIN("PART_PIN","零件編號"), //
 	PART_MM_MANO("PART_MM_MANO","料號"), //
+	PART_ACQ_UID("PART_ACQ_UID","構型"), //
+	PART_ACQ_ID("PART_ACQ_ID","構型ID"), //
+	RQ_QTY("RQ_QTY","需求量"), //
 	START_WORK_TIME("START_WORK_TIME","開工時間"), //
 	FINISH_WORK_TIME("FINISH_WORK_TIME","完工時間"), //
 	OVER_TIME("OVER_TIME","銷令時間"), //

@@ -419,7 +419,14 @@ DROP COLUMN `mi_assigned`,
 DROP COLUMN `wrhs_bin_uid`,
 DROP COLUMN `wrhs_bin_assigned`,
 ADD COLUMN `mbsb_stmt_created` TINYINT NULL AFTER `order_value`;
+
+ALTER TABLE `mf_wo` 
+ADD COLUMN `part_acq_uid` VARCHAR(45) NULL AFTER `part_mm_mano`,
+ADD COLUMN `part_acq_id` VARCHAR(45) NULL AFTER `part_acq_uid`,
+ADD COLUMN `rq_qty` DOUBLE NULL AFTER `part_acq_id`;
+
 -- mh_pc
+
 
 
 

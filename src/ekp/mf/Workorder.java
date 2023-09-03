@@ -19,7 +19,11 @@ public class Workorder extends ObjectModel{
 	private String partUid;
 	private String partPin;
 	private String partMmMano;
-
+	
+	private String partAcqUid;
+	private String partAcqId;
+	private double rqQty; // 需求數量
+	
 	private long startWorkTime;
 	private long finishWorkTime;
 	private long overTime;
@@ -72,6 +76,25 @@ public class Workorder extends ObjectModel{
 	public void setPartMmMano(String partMmMano) {
 		this.partMmMano = partMmMano;
 	}
+	
+	public String getPartAcqUid() {
+		return partAcqUid;
+	}
+	public void setPartAcqUid(String partAcqUid) {
+		this.partAcqUid = partAcqUid;
+	}
+	public String getPartAcqId() {
+		return partAcqId;
+	}
+	public void setPartAcqId(String partAcqId) {
+		this.partAcqId = partAcqId;
+	}
+	public double getRqQty() {
+		return rqQty;
+	}
+	public void setRqQty(double rqQty) {
+		this.rqQty = rqQty;
+	}
 	public long getStartWorkTime() {
 		return startWorkTime;
 	}
@@ -117,6 +140,9 @@ public class Workorder extends ObjectModel{
 		wo.setPartUid(_dto.getPartUid());
 		wo.setPartPin(_dto.getPartPin());
 		wo.setPartMmMano(_dto.getPartMmMano());
+		wo.setPartAcqUid(_dto.getPartAcqUid());
+		wo.setPartAcqId(_dto.getPartAcqId());
+		wo.setRqQty(_dto.getRqQty());
 		wo.setStartWorkTime(0); // not yet...
 		wo.setFinishWorkTime(0); // not yet...
 		wo.setOverTime(0); // not yet
