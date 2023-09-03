@@ -159,6 +159,6 @@ public class WoDao extends AbstractMySqlDao{
 		return loadObject(TB_WOM, _uid, this::parseWorkorderMaterial);
 	}
 	List<WorkorderMaterial> loadWorkorderMaterialList(String _woUid){
-		return loadObjectList(TB_WO, COL_WOM_WO_UID, _woUid, this::parseWorkorderMaterial);
+		return loadObjectList(TB_WOM, COL_WOM_WO_UID, _woUid, this::parseWorkorderMaterial);
 	}
 }
