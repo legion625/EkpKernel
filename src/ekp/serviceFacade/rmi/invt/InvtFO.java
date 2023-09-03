@@ -92,10 +92,7 @@ public class InvtFO {
 		remote.setIoType(_obj.getIoType());
 		remote.setOrderQty(_obj.getOrderQty());
 		remote.setOrderValue(_obj.getOrderValue());
-		remote.setMiAssigned(_obj.isMiAssigned());
-		remote.setMiUid(_obj.getMiUid());
-		remote.setWrhsBinAssigned(_obj.isWrhsBinAssigned());
-		remote.setWrhsBinUid(_obj.getWrhsBinUid());
+		remote.setMbsbStmtCreated(_obj.isMbsbStmtCreated());
 		return remote;
 	}
 

@@ -15,10 +15,7 @@ public class InvtOrderItemRemote extends ObjectModelRemote {
 	private InvtOrderType ioType;
 	private double orderQty; // 記錄異動的數量
 	private double orderValue; // 記錄異動的金額
-	private boolean miAssigned;
-	private String miUid;
-	private boolean wrhsBinAssigned;
-	private String wrhsBinUid;
+	private boolean mbsbStmtCreated;
 
 	public String getIoUid() {
 		return ioUid;
@@ -60,36 +57,12 @@ public class InvtOrderItemRemote extends ObjectModelRemote {
 		this.orderValue = orderValue;
 	}
 
-	public boolean isMiAssigned() {
-		return miAssigned;
+	public boolean isMbsbStmtCreated() {
+		return mbsbStmtCreated;
 	}
 
-	public void setMiAssigned(boolean miAssigned) {
-		this.miAssigned = miAssigned;
-	}
-
-	public String getMiUid() {
-		return miUid;
-	}
-
-	void setMiUid(String miUid) {
-		this.miUid = miUid;
-	}
-
-	public boolean isWrhsBinAssigned() {
-		return wrhsBinAssigned;
-	}
-
-	public void setWrhsBinAssigned(boolean wrhsBinAssigned) {
-		this.wrhsBinAssigned = wrhsBinAssigned;
-	}
-
-	public String getWrhsBinUid() {
-		return wrhsBinUid;
-	}
-
-	void setWrhsBinUid(String wrhsBinUid) {
-		this.wrhsBinUid = wrhsBinUid;
+	void setMbsbStmtCreated(boolean mbsbStmtCreated) {
+		this.mbsbStmtCreated = mbsbStmtCreated;
 	}
 
 }

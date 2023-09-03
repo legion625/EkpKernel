@@ -1,4 +1,21 @@
 Min-Hua, 2023.09.03
+[change]
+1. [MF]Workoder新增partAcqUid和partAcqId屬性，且新增需求數量。
+
+[deployemnt]
+1. 資料表mf_wo新增part_acq_uid、part_acq_id、rq_qty。
+
+Min-Hua, 2023.09.03
+[change]
+1. [IV]InvtOrderItem不指向miUid和wrhsBin，直接用MbsbStmt就能包含。
+  -1. 刪除wrhsBinAssigned和miAssigned，改為MbsbStmtCreated。
+  -2. 刪除invtOrderItemAssignMi和invtOrderItemAssignWrhsBin服務，改提供invtOrderItemMbsbStmtCreated。
+  -3. 刪除loadInvtOrderItemListByMi和loadInvtOrderItemListByWb服務。
+  
+[deployment]
+1. 資料表invt_invt_order_item刪除mi_uid、mi_assigned、wrhs_bin_uid和wrhs_bin_assigned等欄位，並新增mbsb_stmt_created欄位。
+
+Min-Hua, 2023.09.03
 [bug]
 1. [MF]修正loadWorkorderMaterialList沒有正確運作的錯誤。
 

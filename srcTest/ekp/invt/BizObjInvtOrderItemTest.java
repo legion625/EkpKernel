@@ -24,8 +24,8 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("ioUid1", "mmUid1", InvtOrderType.I1, 199.999d, 199.999d,false, "miUid1",false, "wrhsBinUid1");
-		target2 = new Target("ioUid2", "mmUid2" , InvtOrderType.I2, 299.999d, 299.999d, true, "miUid2", true, "wrhsBinUid2");
+		target1 = new Target("ioUid1", "mmUid1", InvtOrderType.I1, 199.999d, 199.999d, false);
+		target2 = new Target("ioUid2", "mmUid2", InvtOrderType.I2, 299.999d, 299.999d, true);
 	}
 
 	@Test
@@ -72,22 +72,20 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 		private InvtOrderType ioType;
 		private double orderQty; // 記錄異動的數量
 		private double orderValue; // 記錄異動的金額
-		private boolean miAssigned;
-		private String miUid;
-		private boolean wrhsBinAssigned;
-		private String wrhsBinUid;
+		private boolean mbsbStmtCreated;
+//		private boolean miAssigned;
+//		private String miUid;
+//		private boolean wrhsBinAssigned;
+//		private String wrhsBinUid;
 
 		private Target(String ioUid, String mmUid, InvtOrderType ioType, double orderQty, double orderValue,
-				boolean miAssigned, String miUid, boolean wrhsBinAssigned, String wrhsBinUid) {
+				boolean mbsbStmtCreated) {
 			this.ioUid = ioUid;
 			this.mmUid = mmUid;
 			this.ioType = ioType;
 			this.orderQty = orderQty;
 			this.orderValue = orderValue;
-			this.miAssigned = miAssigned;
-			this.miUid = miUid;
-			this.wrhsBinAssigned = wrhsBinAssigned;
-			this.wrhsBinUid = wrhsBinUid;
+			this.mbsbStmtCreated = mbsbStmtCreated;
 		}
 
 		public String getIoUid() {
@@ -110,20 +108,8 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 			return orderValue;
 		}
 
-		public boolean isMiAssigned() {
-			return miAssigned;
-		}
-
-		public String getMiUid() {
-			return miUid;
-		}
-
-		public boolean isWrhsBinAssigned() {
-			return wrhsBinAssigned;
-		}
-
-		public String getWrhsBinUid() {
-			return wrhsBinUid;
+		public boolean isMbsbStmtCreated() {
+			return mbsbStmtCreated;
 		}
 
 	}

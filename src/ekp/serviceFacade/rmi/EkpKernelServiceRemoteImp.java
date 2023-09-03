@@ -282,22 +282,6 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	}
 
 	@Override
-	public List<InvtOrderItemRemote> loadInvtOrderItemListByMi(String _miUid) throws RemoteException {
-		List<InvtOrderItem> list = invtService.loadInvtOrderItemListByMi(_miUid);
-		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote)
-				.collect(Collectors.toList());
-		return remoteList;
-	}
-
-	@Override
-	public List<InvtOrderItemRemote> loadInvtOrderItemListByWb(String _wrhsBinUid) throws RemoteException {
-		List<InvtOrderItem> list = invtService.loadInvtOrderItemListByWb(_wrhsBinUid);
-		List<InvtOrderItemRemote> remoteList = list.stream().map(InvtFO::parseInvtOrderItemRemote)
-				.collect(Collectors.toList());
-		return remoteList;
-	}
-
-	@Override
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> searchInvtOrderItem(
 			QueryOperation<InvtOrderItemQueryParam, InvtOrderItemRemote> _param,
 			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException{
@@ -310,21 +294,14 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		return _param;
 	}
 	@Override
-	public boolean invtOrderItemAssignMi(String _uid, String _miUid)throws RemoteException{
-		return invtService.invtOrderItemAssignMi(_uid, _miUid);
+	public boolean invtOrderItemMbsbStmtCreated(String _uid)throws RemoteException{
+		return invtService.invtOrderItemMbsbStmtCreated(_uid);
 	}
 	@Override
-	public boolean invtOrderItemRevertAssignMi(String _uid)throws RemoteException{
-		return invtService.invtOrderItemRevertAssignMi(_uid);
+	public boolean invtOrderItemRevertMbsbStmtCreated(String _uid)throws RemoteException{
+		return invtService.invtOrderItemRevertMbsbStmtCreated(_uid);
 	}
-	@Override
-	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid)throws RemoteException{
-		return invtService.invtOrderItemAssignWrhsBin(_uid, _wrhsBinUid);
-	}
-	@Override
-	public boolean invtOrderItemRevertAssignWrhsBin(String _uid)throws RemoteException{
-		return invtService.invtOrderItemRevertAssignWrhsBin(_uid);
-	}
+	
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------

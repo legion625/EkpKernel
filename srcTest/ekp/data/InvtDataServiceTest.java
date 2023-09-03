@@ -101,8 +101,8 @@ public class InvtDataServiceTest extends AbstractEkpInitTest {
 		List<InvtOrderItem> ioiList = param.getQueryResult();
 		log.debug("ioiList.size(): {}", ioiList.size());
 		for (InvtOrderItem ioi : ioiList) {
-			log.debug("{}\t{}\t{}\t{}\t{}\t{}\t{}", ioi.getUid(), ioi.getIoUid(), ioi.getMmUid(), ioi.getWrhsBinUid(), ioi.getIoType(),
-					ioi.getOrderQty(), ioi.getOrderValue());
+			log.debug("{}\t{}\t{}\t{}\t{}\t{}\t{}", ioi.getUid(), ioi.getIoUid(), ioi.getMmUid(),  ioi.getIoType(),
+					ioi.getOrderQty(), ioi.getOrderValue(), ioi.isMbsbStmtCreated());
 		}
 
 	}
