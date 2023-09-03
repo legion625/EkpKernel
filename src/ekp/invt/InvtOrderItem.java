@@ -19,11 +19,7 @@ public class InvtOrderItem extends ObjectModel {
 	private double orderValue; // 記錄異動的金額
 	
 	//
-	private boolean miAssigned;
-	private String miUid;
-	//
-	private boolean wrhsBinAssigned;
-	private String wrhsBinUid;
+	private boolean mbsbStmtCreated;
 	
 
 	// -------------------------------------------------------------------------------
@@ -87,38 +83,14 @@ public class InvtOrderItem extends ObjectModel {
 		this.orderValue = orderValue;
 	}
 	
-	public boolean isMiAssigned() {
-		return miAssigned;
+	public boolean isMbsbStmtCreated() {
+		return mbsbStmtCreated;
 	}
 
-	public void setMiAssigned(boolean miAssigned) {
-		this.miAssigned = miAssigned;
-	}
-	
-	public String getMiUid() {
-		return miUid;
+	public void setMbsbStmtCreated(boolean mbsbStmtCreated) {
+		this.mbsbStmtCreated = mbsbStmtCreated;
 	}
 
-	public void setMiUid(String miUid) {
-		this.miUid = miUid;
-	}
-
-	public boolean isWrhsBinAssigned() {
-		return wrhsBinAssigned;
-	}
-
-	public void setWrhsBinAssigned(boolean wrhsBinAssigned) {
-		this.wrhsBinAssigned = wrhsBinAssigned;
-	}
-
-	public String getWrhsBinUid() {
-		return wrhsBinUid;
-	}
-
-	public void setWrhsBinUid(String wrhsBinUid) {
-		this.wrhsBinUid = wrhsBinUid;
-	}
-	
 	// -------------------------------------------------------------------------------
 	public int getIoTypeIdx() {
 		return (getIoType()==null?InvtOrderType.UNDEFINED:getIoType()).getIdx();
@@ -144,35 +116,18 @@ public class InvtOrderItem extends ObjectModel {
 		ioi.setIoType(_dto.getIoType());
 		ioi.setOrderQty(_dto.getOrderQty());
 		ioi.setOrderValue(_dto.getOrderValue());
-		//
-		ioi.setMiAssigned(false);
-		ioi.setMiUid(""); // 未指定
-		//
-		ioi.setWrhsBinAssigned(false);
-		ioi.setWrhsBinUid(""); // 未指定
+		// 
+		ioi.setMbsbStmtCreated(false); // 未指定
 		return ioi.save()?ioi: null;
 	}
 	
-	boolean assignMi(String _miUid) {
-		setMiAssigned(true);
-		setMiUid(_miUid);
+	boolean mbsbStmtCreated() {
+		setMbsbStmtCreated(true);
 		return save();
 	}
-	boolean revertAssignMi() {
-		setMiAssigned(false);
-		setMiUid("");
+
+	boolean revertMbsbStmtCreated() {
+		setMbsbStmtCreated(false);
 		return save();
 	}
-	boolean assignWrhsBin(String _wrhsBinUid) {
-		setWrhsBinAssigned(true);
-		setWrhsBinUid(_wrhsBinUid);
-		return save();
-	}
-	boolean revertAssignWrhsBin() {
-		setWrhsBinAssigned(false);
-		setWrhsBinUid("");
-		return save();
-	}
-	
-	// TODO method
 }

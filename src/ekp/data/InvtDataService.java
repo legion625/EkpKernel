@@ -55,9 +55,6 @@ public interface InvtDataService extends IntegrationService {
 	public InvtOrderItem loadInvtOrderItem(String _uid);
 	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid);
 	public List<InvtOrderItem> loadInvtOrderItemListByMm(String _mmUid);
-	public List<InvtOrderItem> loadInvtOrderItemListByMi(String _miUid);
-	public List<InvtOrderItem> loadInvtOrderItemListByWb(String _wrhsBinUid);
-	
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param
 			, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap);
 	

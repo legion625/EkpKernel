@@ -183,19 +183,6 @@ public class InvtDataServiceImp implements InvtDataService {
 	public List<InvtOrderItem> loadInvtOrderItemListByMm(String _mmUid){
 		return wrhsDao.loadInvtOrderItemListByMm(_mmUid);
 	}
-	@Override
-	public List<InvtOrderItem> loadInvtOrderItemListByMi(String _miUid){
-		return wrhsDao.loadInvtOrderItemListByMi(_miUid);
-	}
-	@Override
-	public List<InvtOrderItem> loadInvtOrderItemListByWb(String _wrhsBinUid){
-		return wrhsDao.loadInvtOrderItemListByWb(_wrhsBinUid);
-	}
-	
-//	@Override
-//	public List<InvtOrderItem> loadInvtOrderItemListByMaterialBinStock(String _mbsUid){
-//		return wrhsDao.loadInvtOrderItemListByMaterialBinStock(_mbsUid);
-//	}
 	
 	@Override
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param

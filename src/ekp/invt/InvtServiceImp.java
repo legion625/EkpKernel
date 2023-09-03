@@ -170,34 +170,18 @@ public class InvtServiceImp implements InvtService {
 	public List<InvtOrderItem> loadInvtOrderItemListByMm(String _mmUid){
 		return dataService.loadInvtOrderItemListByMm(_mmUid);
 	}
-	@Override
-	public List<InvtOrderItem> loadInvtOrderItemListByMi(String _miUid){
-		return dataService.loadInvtOrderItemListByMi(_miUid);
-	}
-	@Override
-	public List<InvtOrderItem> loadInvtOrderItemListByWb(String _wrhsBinUid){
-		return dataService.loadInvtOrderItemListByWb(_wrhsBinUid);
-	}
 	
 	@Override
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param, Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap){
 		return dataService.searchInvtOrderItem(_param,  _existsDetailMap);
 	}
 	@Override
-	public boolean invtOrderItemAssignMi(String _uid, String _miUid) {
-		return loadInvtOrderItem(_uid).assignMi(_miUid);
+	public boolean invtOrderItemMbsbStmtCreated(String _uid) {
+		return loadInvtOrderItem(_uid).mbsbStmtCreated();
 	}
 	@Override
-	public boolean invtOrderItemRevertAssignMi(String _uid) {
-		return loadInvtOrderItem(_uid).revertAssignMi();
-	}
-	@Override
-	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid) {
-		return loadInvtOrderItem(_uid).assignWrhsBin(_wrhsBinUid);
-	}
-	@Override
-	public boolean invtOrderItemRevertAssignWrhsBin(String _uid) {
-		return loadInvtOrderItem(_uid).revertAssignWrhsBin();
+	public boolean invtOrderItemRevertMbsbStmtCreated(String _uid) {
+		return loadInvtOrderItem(_uid).revertMbsbStmtCreated();
 	}
 
 	// -------------------------------------------------------------------------------

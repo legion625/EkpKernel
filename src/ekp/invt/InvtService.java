@@ -63,17 +63,11 @@ public interface InvtService extends BusinessService {
 	public InvtOrderItem loadInvtOrderItem(String _uid);
 	public List<InvtOrderItem> loadInvtOrderItemList(String _ioUid);
 	public List<InvtOrderItem> loadInvtOrderItemListByMm(String _mmUid);
-	public List<InvtOrderItem> loadInvtOrderItemListByMi(String _miUid);
-	public List<InvtOrderItem> loadInvtOrderItemListByWb(String _wrhsBinUid);
-
 	public QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> searchInvtOrderItem(
 			QueryOperation<InvtOrderItemQueryParam, InvtOrderItem> _param,
 			Map<InvtOrderItemQueryParam, QueryValue[]> _existsDetailMap);
-	
-	public boolean invtOrderItemAssignMi(String _uid, String _miUid);
-	public boolean invtOrderItemRevertAssignMi(String _uid);
-	public boolean invtOrderItemAssignWrhsBin(String _uid, String _wrhsBinUid);
-	public boolean invtOrderItemRevertAssignWrhsBin(String _uid);
+	public boolean invtOrderItemMbsbStmtCreated(String _uid);
+	public boolean invtOrderItemRevertMbsbStmtCreated(String _uid);
 	
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------	

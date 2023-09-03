@@ -1,3 +1,9 @@
+Min-Hua, 2023.09.03
+[change]
+1. [IV]InvtOrderItem不指向miUid和wrhsBin，直接用MbsbStmt就能包含。
+  -1. 刪除wrhsBinAssigned和miAssigned，改為MbsbStmtCreated。
+  -2. 刪除invtOrderItemAssignMi和invtOrderItemAssignWrhsBin服務，改提供invtOrderItemMbsbStmtCreated。
+  -3. 刪除loadInvtOrderItemListByMi和loadInvtOrderItemListByWb服務。
 
 Min-Hua, 2023.09.03
 [bug]
