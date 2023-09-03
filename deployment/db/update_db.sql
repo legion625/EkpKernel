@@ -412,7 +412,7 @@ CREATE TABLE `mf_wom` (
   PRIMARY KEY (`uid`)
 ) ;
 
--- 0.4.1 -> unstaging
+-- 0.4.1 -> 0.4.2
 ALTER TABLE `invt_invt_order_item` 
 DROP COLUMN `mi_uid`,
 DROP COLUMN `mi_assigned`,
