@@ -88,8 +88,10 @@ public class InvtFO {
 				_obj.getObjectUpdateTime());
 		remote.setIoUid(_obj.getIoUid());
 		remote.setMmUid(_obj.getMmUid());
-
 		remote.setIoType(_obj.getIoType());
+		remote.setTargetType(_obj.getTargetType());
+		remote.setTargetUid(_obj.getTargetUid());
+		remote.setTargetBizKey(_obj.getTargetBizKey());
 		remote.setOrderQty(_obj.getOrderQty());
 		remote.setOrderValue(_obj.getOrderValue());
 		remote.setMbsbStmtCreated(_obj.isMbsbStmtCreated());
@@ -101,6 +103,9 @@ public class InvtFO {
 		dto.setIoUid(_remote.getIoUid());
 		dto.setMmUid(_remote.getMmUid());
 		dto.setIoType(_remote.getIoType());
+		dto.setTargetType(_remote.getTargetType());
+		dto.setTargetUid(_remote.getTargetUid());
+		dto.setTargetBizKey(_remote.getTargetBizKey());
 		dto.setOrderQty(_remote.getOrderQty());
 		dto.setOrderValue(_remote.getOrderValue());
 		return dto;

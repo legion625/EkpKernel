@@ -425,8 +425,12 @@ ADD COLUMN `part_acq_uid` VARCHAR(45) NULL AFTER `part_mm_mano`,
 ADD COLUMN `part_acq_id` VARCHAR(45) NULL AFTER `part_acq_uid`,
 ADD COLUMN `rq_qty` DOUBLE NULL AFTER `part_acq_id`;
 
+-- 0.4.2 -> unstaging
+ALTER TABLE `ekp_kernel_mh_pc`.`invt_invt_order_item` 
+ADD COLUMN `target_type_idx` TINYINT NULL AFTER `io_type_idx`,
+ADD COLUMN `target_uid` VARCHAR(45) NULL AFTER `target_type_idx`,
+ADD COLUMN `target_biz_key` VARCHAR(45) NULL AFTER `target_uid`;
+
 -- mh_pc
-
-
 
 
