@@ -211,6 +211,11 @@ public class InvtDataServiceImp implements InvtDataService {
 	public MaterialInst loadMaterialInstByMisn(String _misn) {
 		return materialDao.loadMaterialInstByMisn(_misn);
 	}
+	
+	@Override
+	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo) {
+		return materialDao.loadMaterialInstByMiacSrcNo(_miacSrcNo);
+	}
 
 	@Override
 	public List<MaterialInst> loadMaterialInstList(String _mmUid) {

@@ -156,8 +156,10 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteMaterialInst(String _uid) throws RemoteException;
 
 	public MaterialInstRemote loadMaterialInst(String _uid) throws RemoteException;
-
+	
 	public MaterialInstRemote loadMaterialInstByMisn(String _misn) throws RemoteException;
+	
+	public MaterialInstRemote loadMaterialInstByMiacSrcNo(String _miacSrcNo) throws RemoteException;
 
 	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid) throws RemoteException;
 

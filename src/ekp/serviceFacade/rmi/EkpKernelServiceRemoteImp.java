@@ -362,6 +362,12 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		MaterialInst obj = invtService.loadMaterialInstByMisn(_misn);
 		return obj == null ? null : InvtFO.parseMaterialInstRemote(obj);
 	}
+	
+	@Override
+	public MaterialInstRemote loadMaterialInstByMiacSrcNo(String _miacSrcNo) throws RemoteException{
+		MaterialInst obj = invtService.loadMaterialInstByMiacSrcNo(_miacSrcNo);
+		return obj == null ? null : InvtFO.parseMaterialInstRemote(obj);
+	}
 
 	@Override
 	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid) throws RemoteException{
