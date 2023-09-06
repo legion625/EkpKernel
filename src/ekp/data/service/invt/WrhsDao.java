@@ -17,6 +17,7 @@ import ekp.invt.WrhsBin;
 import ekp.invt.WrhsLoc;
 import ekp.invt.type.InvtOrderStatus;
 import ekp.invt.type.InvtOrderType;
+import ekp.invt.type.IoiTargetType;
 import ekp.mbom.Part;
 import legion.data.service.AbstractMySqlDao;
 import legion.data.service.AbstractMySqlDao.ColType;
@@ -253,14 +254,13 @@ public class WrhsDao extends AbstractMySqlDao {
 	private final static String COL_IOI_IO_UID = "io_uid";
 	private final static String COL_IOI_MM_UID = "mm_uid";
 	private final static String COL_IOI_IO_TYPE_IDX = "io_type_idx";
+	private final static String COL_IOI_TARGET_TYPE_IDX = "target_type_idx";
+	private final static String COL_IOI_TARGET_UID = "target_uid";
+	private final static String COL_IOI_TARGET_BIZ_KEY = "target_biz_key";
+	
 	private final static String COL_IOI_ORDER_QTY = "order_qty";
 	private final static String COL_IOI_ORDER_VALUE = "order_value";
 	private final static String COL_IOI_MBSB_STMT_CREATED = "mbsb_stmt_created";
-	
-//	private final static String COL_IOI_MI_ASSIGNED = "mi_assigned";
-//	private final static String COL_IOI_MI_UID = "mi_uid";
-//	private final static String COL_IOI_WRHS_BIN_ASSIGNED = "wrhs_bin_assigned";
-//	private final static String COL_IOI_WRHS_BIN_UID = "wrhs_bin_uid";
 	
 	
 	boolean saveInvtOrderItem(InvtOrderItem _ioi) {
@@ -268,6 +268,9 @@ public class WrhsDao extends AbstractMySqlDao {
 				DbColumn.of(COL_IOI_IO_UID, ColType.STRING, InvtOrderItem::getIoUid, 45), //
 				DbColumn.of(COL_IOI_MM_UID, ColType.STRING, InvtOrderItem::getMmUid, 45), //
 				DbColumn.of(COL_IOI_IO_TYPE_IDX, ColType.INT, InvtOrderItem::getIoTypeIdx), //
+				DbColumn.of(COL_IOI_TARGET_TYPE_IDX, ColType.INT, InvtOrderItem::getTargetTypeIdx), //
+				DbColumn.of(COL_IOI_TARGET_UID, ColType.STRING, InvtOrderItem::getTargetUid, 45), //
+				DbColumn.of(COL_IOI_TARGET_BIZ_KEY, ColType.STRING, InvtOrderItem::getTargetBizKey, 45), //
 				DbColumn.of(COL_IOI_ORDER_QTY, ColType.DOUBLE, InvtOrderItem::getOrderQty), //
 				DbColumn.of(COL_IOI_ORDER_VALUE, ColType.DOUBLE, InvtOrderItem::getOrderValue), //
 				DbColumn.of(COL_IOI_MBSB_STMT_CREATED, ColType.BOOLEAN, InvtOrderItem::isMbsbStmtCreated), //
@@ -286,6 +289,9 @@ public class WrhsDao extends AbstractMySqlDao {
 			/* pack attributes */
 			ioi.setMmUid(_rs.getString(COL_IOI_MM_UID));
 			ioi.setIoType(InvtOrderType.get(_rs.getInt(COL_IOI_IO_TYPE_IDX)));
+			ioi.setTargetType(IoiTargetType.get(_rs.getInt(COL_IOI_TARGET_TYPE_IDX)));
+			ioi.setTargetUid(_rs.getString(COL_IOI_TARGET_UID));
+			ioi.setTargetBizKey(_rs.getString(COL_IOI_TARGET_BIZ_KEY));
 			ioi.setOrderQty(_rs.getDouble(COL_IOI_ORDER_QTY));
 			ioi.setOrderValue(_rs.getDouble(COL_IOI_ORDER_VALUE));
 			ioi.setMbsbStmtCreated(_rs.getBoolean(COL_IOI_MBSB_STMT_CREATED));
@@ -318,6 +324,12 @@ public class WrhsDao extends AbstractMySqlDao {
 			return COL_IOI_MM_UID;
 		case IO_TYPE_IDX:
 			return COL_IOI_IO_TYPE_IDX;
+		case TARGET_TYPE_IDX:
+			return COL_IOI_TARGET_TYPE_IDX;
+		case TARGET_UID:
+			return COL_IOI_TARGET_UID;
+		case TARGET_BIZ_KEY:
+			return COL_IOI_TARGET_BIZ_KEY;
 		case MBSB_STMT_CREATED:
 			return COL_IOI_MBSB_STMT_CREATED;
 		/* InvtOrder:master */

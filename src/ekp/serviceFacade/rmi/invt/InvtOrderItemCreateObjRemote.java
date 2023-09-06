@@ -3,13 +3,18 @@ package ekp.serviceFacade.rmi.invt;
 import java.io.Serializable;
 
 import ekp.invt.type.InvtOrderType;
+import ekp.invt.type.IoiTargetType;
 
-public class InvtOrderItemCreateObjRemote implements Serializable{
+public class InvtOrderItemCreateObjRemote implements Serializable {
 	/* biz key */
 	private String ioUid; // invt order uid
 	private String mmUid;
 
 	private InvtOrderType ioType;
+	private IoiTargetType targetType;
+	private String targetUid;
+	private String targetBizKey;
+
 	private double orderQty; // 記錄異動的數量
 	private double orderValue; // 記錄異動的金額
 
@@ -35,6 +40,30 @@ public class InvtOrderItemCreateObjRemote implements Serializable{
 
 	public void setIoType(InvtOrderType ioType) {
 		this.ioType = ioType;
+	}
+
+	public IoiTargetType getTargetType() {
+		return targetType;
+	}
+
+	public void setTargetType(IoiTargetType targetType) {
+		this.targetType = targetType;
+	}
+
+	public String getTargetUid() {
+		return targetUid;
+	}
+
+	public void setTargetUid(String targetUid) {
+		this.targetUid = targetUid;
+	}
+
+	public String getTargetBizKey() {
+		return targetBizKey;
+	}
+
+	public void setTargetBizKey(String targetBizKey) {
+		this.targetBizKey = targetBizKey;
 	}
 
 	public double getOrderQty() {

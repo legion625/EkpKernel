@@ -189,6 +189,9 @@ public class MaterialDao extends AbstractMySqlDao {
 	MaterialInst loadMaterialInstByMisn(String _misn) {
 		return loadObject(TB_MATERIAL_INST, COL_MI_MISN, _misn, this::parseMaterialInst);
 	}
+	MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo) {
+		return loadObject(TB_MATERIAL_INST, COL_MI_MIAC_SRC_NO, _miacSrcNo, this::parseMaterialInst);
+	}
 	List<MaterialInst> loadMaterialInstList(String _mmUid){
 		return loadObjectList(TB_MATERIAL_INST, COL_MI_MM_UID, _mmUid, this::parseMaterialInst);
 	}

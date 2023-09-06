@@ -11,6 +11,7 @@ import ekp.data.InvtDataService;
 import ekp.data.MbomDataService;
 import ekp.invt.BizObjWrhsLocTest.Target;
 import ekp.invt.type.InvtOrderType;
+import ekp.invt.type.IoiTargetType;
 import ekp.mbom.Part;
 import ekp.mbom.type.PartUnit;
 import legion.DataServiceFactory;
@@ -24,8 +25,10 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("ioUid1", "mmUid1", InvtOrderType.I1, 199.999d, 199.999d, false);
-		target2 = new Target("ioUid2", "mmUid2", InvtOrderType.I2, 299.999d, 299.999d, true);
+		target1 = new Target("ioUid1", "mmUid1", InvtOrderType.I1, IoiTargetType.PURCH_ITEM, "targetUid1",
+				"targetBizKey1", 199.999d, 199.999d, false);
+		target2 = new Target("ioUid2", "mmUid2", InvtOrderType.I2, IoiTargetType.WOM, "targetUid2", "targetBizKey2",
+				299.999d, 299.999d, true);
 	}
 
 	@Test
@@ -70,19 +73,23 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 		private String mmUid;
 
 		private InvtOrderType ioType;
+		private IoiTargetType targetType;
+		private String targetUid;
+		private String targetBizKey;
 		private double orderQty; // 記錄異動的數量
 		private double orderValue; // 記錄異動的金額
 		private boolean mbsbStmtCreated;
-//		private boolean miAssigned;
-//		private String miUid;
-//		private boolean wrhsBinAssigned;
-//		private String wrhsBinUid;
 
-		private Target(String ioUid, String mmUid, InvtOrderType ioType, double orderQty, double orderValue,
-				boolean mbsbStmtCreated) {
+		private Target(String ioUid, String mmUid, InvtOrderType ioType, IoiTargetType targetType, String targetUid,
+				String targetBizKey,
+
+				double orderQty, double orderValue, boolean mbsbStmtCreated) {
 			this.ioUid = ioUid;
 			this.mmUid = mmUid;
 			this.ioType = ioType;
+			this.targetType = targetType;
+			this.targetUid = targetUid;
+			this.targetBizKey = targetBizKey;
 			this.orderQty = orderQty;
 			this.orderValue = orderValue;
 			this.mbsbStmtCreated = mbsbStmtCreated;
@@ -98,6 +105,18 @@ public class BizObjInvtOrderItemTest extends AbstractEkpInitTest {
 
 		public InvtOrderType getIoType() {
 			return ioType;
+		}
+
+		public IoiTargetType getTargetType() {
+			return targetType;
+		}
+
+		public String getTargetUid() {
+			return targetUid;
+		}
+
+		public String getTargetBizKey() {
+			return targetBizKey;
 		}
 
 		public double getOrderQty() {

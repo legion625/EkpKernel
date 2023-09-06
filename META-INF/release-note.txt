@@ -1,3 +1,14 @@
+Min-Hua, 2023.09.06
+[change]
+1. [IV]新增loadMaterialInstByMiacSrcNo服務。
+
+Min-Hua, 2023.09.06
+[change]
+1. [IV]InvtOrderItem新增指向pi/wom的屬性，包含targetType、targetUid、targetBizKey。
+
+[deployment]
+1. 資料表invt_invt_order_item新增target_type_idx、target_uid和target_biz_key欄位。
+
 ------------------------------------------------------------------------------
 v0.4.2 released by Min-Hua, 2023.09.03
 [change]

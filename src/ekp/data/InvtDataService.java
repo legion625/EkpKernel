@@ -73,6 +73,7 @@ public interface InvtDataService extends IntegrationService {
 	public boolean deleteMaterialInst(String _uid);
 	public MaterialInst loadMaterialInst(String _uid);
 	public MaterialInst loadMaterialInstByMisn(String _misn);
+	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo);
 	public List<MaterialInst> loadMaterialInstList(String _mmUid);
 	
 	// -------------------------------------------------------------------------------

@@ -84,6 +84,7 @@ public interface InvtService extends BusinessService {
 	public boolean deleteMaterialInst(String _uid);
 	public MaterialInst loadMaterialInst(String _uid);
 	public MaterialInst loadMaterialInstByMisn(String _misn);
+	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo);
 	public List<MaterialInst> loadMaterialInstList(String _mmUid);
 	public boolean materialInstToAssignSrcMi(String _uid);
 	public boolean materialInstRevertToAssignSrcMi(String _uid);
