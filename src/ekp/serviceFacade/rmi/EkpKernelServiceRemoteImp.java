@@ -18,6 +18,8 @@ import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.data.service.mf.query.WorkorderQueryParam;
 import ekp.data.service.pu.query.PurchQueryParam;
+import ekp.data.service.sd.query.SalesOrderItemQueryParam;
+import ekp.data.service.sd.query.SalesOrderQueryParam;
 import ekp.invt.InvtOrder;
 import ekp.invt.InvtOrderItem;
 import ekp.invt.InvtService;
@@ -51,6 +53,9 @@ import ekp.mf.WorkorderMaterial;
 import ekp.pu.PuService;
 import ekp.pu.Purch;
 import ekp.pu.PurchItem;
+import ekp.sd.SalesOrder;
+import ekp.sd.SalesOrderItem;
+import ekp.sd.SdService;
 import ekp.serviceFacade.rmi.invt.InvtFO;
 import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.InvtOrderItemCreateObjRemote;
@@ -104,6 +109,11 @@ import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemRemote;
 import ekp.serviceFacade.rmi.pu.PurchRemote;
+import ekp.serviceFacade.rmi.sd.SalesOrderCreateObjRemote;
+import ekp.serviceFacade.rmi.sd.SalesOrderItemCreateObjRemote;
+import ekp.serviceFacade.rmi.sd.SalesOrderItemRemote;
+import ekp.serviceFacade.rmi.sd.SalesOrderRemote;
+import ekp.serviceFacade.rmi.sd.SdFO;
 import legion.BusinessServiceFactory;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
@@ -117,6 +127,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	private MbomService mbomService = BusinessServiceFactory.getInstance().getService(MbomService.class);
 	private MfService mfService = BusinessServiceFactory.getInstance().getService(MfService.class);
 	private PuService puService =  BusinessServiceFactory.getInstance().getService(PuService.class);
+	private SdService sdService =  BusinessServiceFactory.getInstance().getService(SdService.class);
 
 	// -------------------------------------------------------------------------------
 	public EkpKernelServiceRemoteImp(int port) throws Exception {
@@ -301,7 +312,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean invtOrderItemRevertMbsbStmtCreated(String _uid)throws RemoteException{
 		return invtService.invtOrderItemRevertMbsbStmtCreated(_uid);
 	}
-	
+
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------MaterialMaster---------------------------------
@@ -362,7 +373,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		MaterialInst obj = invtService.loadMaterialInstByMisn(_misn);
 		return obj == null ? null : InvtFO.parseMaterialInstRemote(obj);
 	}
-	
+
 	@Override
 	public MaterialInstRemote loadMaterialInstByMiacSrcNo(String _miacSrcNo) throws RemoteException{
 		MaterialInst obj = invtService.loadMaterialInstByMiacSrcNo(_miacSrcNo);
@@ -1342,4 +1353,105 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<PurchItemRemote> remoteList = list.stream().map(PuFO::parsePurchItemRemote).collect(Collectors.toList());
 		return remoteList;
 	}
+
+	// -------------------------------------------------------------------------------
+	// --------------------------------------SD---------------------------------------
+	// XXX
+	// -------------------------------------------------------------------------------
+	// ----------------------------------SalesOrder-----------------------------------
+	@Override
+	public SalesOrderRemote createSalesOrder(SalesOrderCreateObjRemote _dto) throws RemoteException {
+		if (_dto == null)
+			return null;
+		SalesOrder obj = sdService.createSalesOrder(SdFO.parseSalesOrderCreateObj(_dto));
+		return obj == null ? null : SdFO.parseSalesOrderRemote(obj);
+	}
+	@Override
+	public boolean deleteSalesOrder(String _uid) throws RemoteException{
+		return sdService.deleteSalesOrder(_uid);
+	}
+
+	@Override
+	public SalesOrderRemote loadSalesOrder(String _uid) throws RemoteException{
+		SalesOrder obj = sdService.loadSalesOrder(_uid);
+		return obj == null ? null : SdFO.parseSalesOrderRemote(obj);
+	}
+
+	@Override
+	public SalesOrderRemote loadSalesOrderBySosn(String _sosn) throws RemoteException{
+		SalesOrder obj = sdService.loadSalesOrderBySosn(_sosn);
+		return obj == null ? null : SdFO.parseSalesOrderRemote(obj);
+	}
+
+	@Override
+	public QueryOperation<SalesOrderQueryParam, SalesOrderRemote> searchSalesOrder(
+			QueryOperation<SalesOrderQueryParam, SalesOrderRemote> _param,
+			Map<SalesOrderQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException {
+		QueryOperation<SalesOrderQueryParam, SalesOrder> param = (QueryOperation<SalesOrderQueryParam, SalesOrder>) _param
+				.copy();
+		param = sdService.searchSalesOrder(param, _existsDetailMap);
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(SdFO::parseSalesOrderRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
+	}
+
+	// -------------------------------------------------------------------------------
+	// --------------------------------SalesOrderItem---------------------------------
+	@Override
+	public SalesOrderItemRemote createSalesOrderItem(String _soUid, SalesOrderItemCreateObjRemote _dto)
+			throws RemoteException {
+		if (_dto == null)
+			return null;
+		SalesOrderItem obj = sdService.createSalesOrderItem(_soUid, SdFO.parseSalesOrderItemCreateObj(_dto));
+		return obj == null ? null : SdFO.parseSalesOrderItemRemote(obj);
+	}
+
+	@Override
+	public boolean deleteSalesOrderItem(String _uid) throws RemoteException{
+		return sdService.deleteSalesOrderItem(_uid);
+	}
+
+	@Override
+	public SalesOrderItemRemote loadSalesOrderItem(String _uid) throws RemoteException{
+		SalesOrderItem obj = sdService.loadSalesOrderItem(_uid);
+		return obj == null ? null : SdFO.parseSalesOrderItemRemote(obj);
+	}
+
+	@Override
+	public List<SalesOrderItemRemote> loadSalesOrderItemList(String _soUid) throws RemoteException{
+		List<SalesOrderItem> list = sdService.loadSalesOrderItemList(_soUid);
+		List<SalesOrderItemRemote> remoteList = list.stream().map(SdFO::parseSalesOrderItemRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public List<SalesOrderItemRemote> loadSalesOrderItemListMyMm(String _mmUid) throws RemoteException{
+		List<SalesOrderItem> list = sdService.loadSalesOrderItemListMyMm(_mmUid);
+		List<SalesOrderItemRemote> remoteList = list.stream().map(SdFO::parseSalesOrderItemRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
+	@Override
+	public QueryOperation<SalesOrderItemQueryParam, SalesOrderItemRemote> searchSalesOrderItem(
+			QueryOperation<SalesOrderItemQueryParam, SalesOrderItemRemote> _param) throws RemoteException{
+		QueryOperation<SalesOrderItemQueryParam, SalesOrderItem> param = (QueryOperation<SalesOrderItemQueryParam, SalesOrderItem>) _param
+				.copy();
+		param = sdService.searchSalesOrderItem(param);
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(SdFO::parseSalesOrderItemRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
+	}
+
+	@Override
+	public boolean soiFinishDeliver(String _uid, long _finishDeliveredDate) throws RemoteException{
+		return sdService.soiFinishDeliver(_uid, _finishDeliveredDate);
+	}
+
+	@Override
+	public boolean soiRevertFinishDeliver(String _uid) throws RemoteException{
+		return sdService.soiRevertFinishDeliver(_uid);
+	}
+	
 }

@@ -1,3 +1,12 @@
+Min-Hua, 2023.09.10
+[change]
+1. [SD]新增配銷(Sales & Distribution)模組。
+  -1. 新增SalesOrder架構。
+
+[deployment]
+1. ServiceModule.xml新增SdService和SdDataService宣告。
+2. 新增資料表sd_sales_order和sd_sales_order_item。
+
 ------------------------------------------------------------------------------
 v0.4.3 released by Min-Hua, 2023.09.06
 [change]

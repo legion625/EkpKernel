@@ -4,10 +4,10 @@ import legion.type.IdxEnum;
 
 public enum IoiTargetType implements IdxEnum {
 	UNDEFINED(0, "未定義"), //
-	PURCH_ITEM(11, "採購項目"), //
-	WO(12, "工令"), //
+	PURCH_ITEM(11, "採購項目"), // bizKey為PuNo
+	WO(12, "工令"), // bizKey為WoNo
 
-	WOM(22, "工令料項"), //
+	WOM(22, "工令料項"), // bizKey為WoNo
 	;
 
 	private int idx;
