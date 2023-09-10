@@ -431,7 +431,7 @@ ADD COLUMN `target_type_idx` TINYINT NULL AFTER `io_type_idx`,
 ADD COLUMN `target_uid` VARCHAR(45) NULL AFTER `target_type_idx`,
 ADD COLUMN `target_biz_key` VARCHAR(45) NULL AFTER `target_uid`;
 
--- 0.4.3 -> unstaging
+-- 0.4.3 -> 0.5.0
 CREATE TABLE `sd_sales_order` (
   `uid` varchar(45) NOT NULL,
   `sosn` varchar(45) DEFAULT NULL,
