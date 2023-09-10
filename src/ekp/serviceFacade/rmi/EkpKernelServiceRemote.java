@@ -14,6 +14,8 @@ import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.data.service.mf.query.WorkorderQueryParam;
 import ekp.data.service.pu.query.PurchQueryParam;
+import ekp.data.service.sd.query.SalesOrderItemQueryParam;
+import ekp.data.service.sd.query.SalesOrderQueryParam;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
@@ -65,6 +67,10 @@ import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemRemote;
 import ekp.serviceFacade.rmi.pu.PurchRemote;
+import ekp.serviceFacade.rmi.sd.SalesOrderCreateObjRemote;
+import ekp.serviceFacade.rmi.sd.SalesOrderItemCreateObjRemote;
+import ekp.serviceFacade.rmi.sd.SalesOrderItemRemote;
+import ekp.serviceFacade.rmi.sd.SalesOrderRemote;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
 
@@ -156,9 +162,9 @@ public interface EkpKernelServiceRemote extends Remote {
 	public boolean deleteMaterialInst(String _uid) throws RemoteException;
 
 	public MaterialInstRemote loadMaterialInst(String _uid) throws RemoteException;
-	
+
 	public MaterialInstRemote loadMaterialInstByMisn(String _misn) throws RemoteException;
-	
+
 	public MaterialInstRemote loadMaterialInstByMiacSrcNo(String _miacSrcNo) throws RemoteException;
 
 	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid) throws RemoteException;
@@ -512,4 +518,41 @@ public interface EkpKernelServiceRemote extends Remote {
 	public List<PurchItemRemote> loadPurchItemList(String _purchUid)throws RemoteException;
 	public List<PurchItemRemote> loadPurchItemListByMm(String _mmUid)throws RemoteException;
 
+
+	// -------------------------------------------------------------------------------
+	// --------------------------------------SD---------------------------------------
+	// XXX
+	// -------------------------------------------------------------------------------
+	// ----------------------------------SalesOrder-----------------------------------
+	public SalesOrderRemote createSalesOrder(SalesOrderCreateObjRemote _dto) throws RemoteException;
+
+	public boolean deleteSalesOrder(String _uid) throws RemoteException;
+
+	public SalesOrderRemote loadSalesOrder(String _uid) throws RemoteException;
+
+	public SalesOrderRemote loadSalesOrderBySosn(String _sosn) throws RemoteException;
+
+	public QueryOperation<SalesOrderQueryParam, SalesOrderRemote> searchSalesOrder(
+			QueryOperation<SalesOrderQueryParam, SalesOrderRemote> _param,
+			Map<SalesOrderQueryParam, QueryValue[]> _existsDetailMap) throws RemoteException;
+
+	// -------------------------------------------------------------------------------
+	// --------------------------------SalesOrderItem---------------------------------
+	public SalesOrderItemRemote createSalesOrderItem(String _soUid, SalesOrderItemCreateObjRemote _dto)
+			throws RemoteException;
+
+	public boolean deleteSalesOrderItem(String _uid) throws RemoteException;
+
+	public SalesOrderItemRemote loadSalesOrderItem(String _uid) throws RemoteException;
+
+	public List<SalesOrderItemRemote> loadSalesOrderItemList(String _soUid) throws RemoteException;
+
+	public List<SalesOrderItemRemote> loadSalesOrderItemListMyMm(String _mmUid) throws RemoteException;
+
+	public QueryOperation<SalesOrderItemQueryParam, SalesOrderItemRemote> searchSalesOrderItem(
+			QueryOperation<SalesOrderItemQueryParam, SalesOrderItemRemote> _param) throws RemoteException;
+
+	boolean soiFinishDeliver(String _uid, long _finishDeliveredDate) throws RemoteException;
+
+	boolean soiRevertFinishDeliver(String _uid) throws RemoteException;
 }

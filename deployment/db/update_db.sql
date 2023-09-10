@@ -431,6 +431,40 @@ ADD COLUMN `target_type_idx` TINYINT NULL AFTER `io_type_idx`,
 ADD COLUMN `target_uid` VARCHAR(45) NULL AFTER `target_type_idx`,
 ADD COLUMN `target_biz_key` VARCHAR(45) NULL AFTER `target_uid`;
 
+-- 0.4.3 -> unstaging
+CREATE TABLE `sd_sales_order` (
+  `uid` varchar(45) NOT NULL,
+  `sosn` varchar(45) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `customer_name` varchar(45) DEFAULT NULL,
+  `customer_ban` varchar(45) DEFAULT NULL,
+  `saler_id` varchar(45) DEFAULT NULL,
+  `saler_name` varchar(45) DEFAULT NULL,
+  `sale_date` bigint DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `sd_sales_order_item` (
+  `uid` varchar(45) NOT NULL,
+  `so_uid` varchar(45) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mm_mano` varchar(45) DEFAULT NULL,
+  `mm_name` varchar(45) DEFAULT NULL,
+  `mm_spec` varchar(200) DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `all_delivered` tinyint DEFAULT NULL,
+  `finish_delivered_date` bigint DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
 -- mh_pc
+
+
+
 
 

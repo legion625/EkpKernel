@@ -327,6 +327,36 @@ CREATE TABLE `pu_purch_item` (
   PRIMARY KEY (`uid`)
 ) ;
 
+CREATE TABLE `sd_sales_order_item` (
+  `uid` varchar(45) NOT NULL,
+  `so_uid` varchar(45) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mm_mano` varchar(45) DEFAULT NULL,
+  `mm_name` varchar(45) DEFAULT NULL,
+  `mm_spec` varchar(200) DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `all_delivered` tinyint(4) DEFAULT NULL,
+  `finish_delivered_date` bigint(20) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+CREATE TABLE `sd_sales_order` (
+  `uid` varchar(45) NOT NULL,
+  `sosn` varchar(45) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `customer_name` varchar(45) DEFAULT NULL,
+  `customer_ban` varchar(45) DEFAULT NULL,
+  `saler_id` varchar(45) DEFAULT NULL,
+  `saler_name` varchar(45) DEFAULT NULL,
+  `sale_date` bigint(20) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
 CREATE TABLE `sys_attr` (
   `uid` varchar(45) NOT NULL,
   `type_idx` tinyint(4) DEFAULT NULL,

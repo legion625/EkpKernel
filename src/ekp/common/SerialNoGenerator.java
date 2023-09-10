@@ -34,6 +34,7 @@ public  class SerialNoGenerator {
 		String puNo = "PU" + DataFO.fillString(yearStr + "", 2, '0') + DataFO.fillString(numStr + "", 6, '0');
 		return puNo;
 	}
+
 	public synchronized static String generateWoNo() {
 		ObjectSeqDataService objSeqDataService = DataServiceFactory.getInstance()
 				.getService(ObjectSeqDataService.class);
@@ -42,5 +43,15 @@ public  class SerialNoGenerator {
 		String numStr = objSeqDataService.getSimpleSeq(idenfigyStr);
 		String woNo = "WO" + DataFO.fillString(yearStr + "", 2, '0') + DataFO.fillString(numStr + "", 6, '0');
 		return woNo;
+	}
+
+	public synchronized static String generateSOSN() {
+		ObjectSeqDataService objSeqDataService = DataServiceFactory.getInstance()
+				.getService(ObjectSeqDataService.class);
+		String yearStr = String.valueOf(EkpKernelDateUtil.getCurrentYear()).substring(2);
+		String idenfigyStr = "SOSN" + yearStr;
+		String numStr = objSeqDataService.getSimpleSeq(idenfigyStr);
+		String sosn = "SO" + DataFO.fillString(yearStr + "", 2, '0') + DataFO.fillString(numStr + "", 6, '0');
+		return sosn;
 	}
 }
