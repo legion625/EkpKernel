@@ -1,5 +1,9 @@
 Min-Hua, 2023.09.10
 [change]
+1. [IV]IoiTargetType新增SOI(29,"銷售訂單")。
+
+Min-Hua, 2023.09.10
+[change]
 1. [SD]新增配銷(Sales & Distribution)模組。
   -1. 新增SalesOrder架構。
 
