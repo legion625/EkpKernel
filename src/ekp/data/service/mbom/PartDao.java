@@ -14,6 +14,7 @@ import org.slf4j.event.Level;
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
 import ekp.TestLogMark;
+import ekp.data.service.mbom.query.PartAcquisitionQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.ParsPart;
@@ -46,18 +47,13 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_P_PIN = "pin";
 	private final static String COL_P_NAME = "name";
 	private final static String COL_P_UNIT_ID = "unit_id";
-	private final static String COL_P_MM_ASSIGNED = "mm_assigned";
-	private final static String COL_P_MM_UID = "mm_uid";
-	private final static String COL_P_MM_MANO = "mm_mano";
+
 	
 	boolean savePart(Part _p) {
 		DbColumn<Part>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_P_PIN, ColType.STRING, Part::getPin, 45), //
 				DbColumn.of(COL_P_NAME, ColType.STRING, Part::getName, 45), //
 				DbColumn.of(COL_P_UNIT_ID, ColType.STRING, Part::getUnitId, 10), //
-				DbColumn.of(COL_P_MM_ASSIGNED, ColType.BOOLEAN, Part::isMmAssigned), //
-				DbColumn.of(COL_P_MM_UID, ColType.STRING, Part::getMmUid, 45), //
-				DbColumn.of(COL_P_MM_MANO, ColType.STRING, Part::getMmMano, 45), //
 		};
 		return saveObject(TB_MBOM_PART, cols, _p);
 	}
@@ -74,9 +70,7 @@ public class PartDao extends AbstractMySqlDao {
 			p.setPin(_rs.getString(COL_P_PIN));
 			p.setName(_rs.getString(COL_P_NAME));
 			p.setUnit(PartUnit.get(_rs.getString(COL_P_UNIT_ID)));
-			p.setMmAssigned(_rs.getBoolean(COL_P_MM_ASSIGNED));
-			p.setMmUid(_rs.getString(COL_P_MM_UID));
-			p.setMmMano(_rs.getString(COL_P_MM_MANO));
+			
 			return p;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
@@ -101,12 +95,6 @@ public class PartDao extends AbstractMySqlDao {
 			return COL_P_NAME;
 		case UNIT_ID:
 			return COL_P_UNIT_ID;
-		case MM_ASSIGNED:
-			return COL_P_MM_ASSIGNED;
-		case MM_UID:
-			return COL_P_MM_UID;
-		case MM_MANO:
-			return COL_P_MM_MANO;
 		default:
 			log.error("PartQueryParam error.");
 			return null;
@@ -126,6 +114,9 @@ public class PartDao extends AbstractMySqlDao {
 	private final static String COL_PA_ID = "id";
 	private final static String COL_PA_NAME = "name";
 	private final static String COL_PA_TYPE_IDX = "type_idx";
+	private final static String COL_PA_MM_ASSIGNED = "mm_assigned";
+	private final static String COL_PA_MM_UID = "mm_uid";
+	private final static String COL_PA_MM_MANO = "mm_mano";
 	private final static String COL_PA_PUBLISH_TIME = "publish_time";
 	private final static String COL_PA_REF_UNIT_COST = "ref_unit_cost";
 	
@@ -138,6 +129,9 @@ public class PartDao extends AbstractMySqlDao {
 				DbColumn.of(COL_PA_ID, ColType.STRING, PartAcquisition::getId, 45), //
 				DbColumn.of(COL_PA_NAME, ColType.STRING, PartAcquisition::getName, 45), //
 				DbColumn.of(COL_PA_TYPE_IDX, ColType.INT, PartAcquisition::getTypeIdx), //
+				DbColumn.of(COL_PA_MM_ASSIGNED, ColType.BOOLEAN, PartAcquisition::isMmAssigned), //
+				DbColumn.of(COL_PA_MM_UID, ColType.STRING, PartAcquisition::getMmUid, 45), //
+				DbColumn.of(COL_PA_MM_MANO, ColType.STRING, PartAcquisition::getMmMano, 45), //
 				DbColumn.of(COL_PA_PUBLISH_TIME, ColType.LONG, PartAcquisition::getPublishTime), //
 				DbColumn.of(COL_PA_REF_UNIT_COST, ColType.DOUBLE, PartAcquisition::getRefUnitCost), //
 				
@@ -161,6 +155,9 @@ public class PartDao extends AbstractMySqlDao {
 			pa.setId(_rs.getString(COL_PA_ID));
 			pa.setName(_rs.getString(COL_PA_NAME));
 			pa.setType(PartAcquisitionType.get(_rs.getInt(COL_PA_TYPE_IDX)));
+			pa.setMmAssigned(_rs.getBoolean(COL_PA_MM_ASSIGNED));
+			pa.setMmUid(_rs.getString(COL_PA_MM_UID));
+			pa.setMmMano(_rs.getString(COL_PA_MM_MANO));
 			pa.setPublishTime(_rs.getLong(COL_PA_PUBLISH_TIME));
 			pa.setRefUnitCost(_rs.getDouble(COL_PA_REF_UNIT_COST));
 			return pa;
@@ -184,6 +181,30 @@ public class PartDao extends AbstractMySqlDao {
 	List<PartAcquisition> loadPartAcquisitionList(String _partUid) {
 		return loadObjectList(TB_MBOM_PART_ACQUISITION, COL_PA_PART_UID, _partUid, this::parsePartAcquisition);
 	}
+	
+	private String parsePartAcqQueryParamMapping(PartAcquisitionQueryParam _p) {
+		switch (_p) {
+		/* PartAcq */
+		case MM_ASSIGNED:
+			return COL_PA_MM_ASSIGNED;
+		case MM_UID:
+			return COL_PA_MM_UID;
+		case MM_MANO:
+			return COL_PA_MM_MANO;
+		default:
+			log.error("PartAcqQueryParam error.");
+			return null;
+		}
+	}
+
+	QueryOperation<PartAcquisitionQueryParam, PartAcquisition> searchPartAcquisition(
+			QueryOperation<PartAcquisitionQueryParam, PartAcquisition> _param) {
+		return searchObject(TB_MBOM_PART_ACQUISITION, _param, this::parsePartAcqQueryParamMapping,
+				this::parsePartAcquisition);
+	}
+	
+	
+	
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------

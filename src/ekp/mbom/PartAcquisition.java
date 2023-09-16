@@ -22,6 +22,12 @@ public class PartAcquisition extends ObjectModel {
 	private String name;
 	private PartAcquisitionType type;
 
+	// mm
+	private boolean mmAssigned;
+	private String mmUid;
+	private String mmMano;
+	
+	//
 	private long publishTime;
 	
 	private double refUnitCost;
@@ -97,6 +103,31 @@ public class PartAcquisition extends ObjectModel {
 		this.type = type;
 	}
 
+	public boolean isMmAssigned() {
+		return mmAssigned;
+	}
+
+	public void setMmAssigned(boolean mmAssigned) {
+		this.mmAssigned = mmAssigned;
+	}
+
+	public String getMmUid() {
+		return mmUid;
+	}
+
+	public void setMmUid(String mmUid) {
+		this.mmUid = mmUid;
+	}
+
+	public String getMmMano() {
+		return mmMano;
+	}
+
+	public void setMmMano(String mmMano) {
+		this.mmMano = mmMano;
+	}
+
+	
 	public long getPublishTime() {
 		return publishTime;
 	}
@@ -178,6 +209,20 @@ public class PartAcquisition extends ObjectModel {
 		return save();
 	}
 
+	boolean assignMm(String _mmUid, String _mmMano) {
+		setMmAssigned(true);
+		setMmUid(_mmUid);
+		setMmMano(_mmMano);
+		return save();
+	}
+
+	boolean revertAssignMm() {
+		setMmAssigned(false);
+		setMmUid("");
+		setMmMano("");
+		return save();
+	}
+	
 	boolean publish(long _publishTime) {
 		if (!gotoStatusPublished())
 			return false;

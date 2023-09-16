@@ -13,10 +13,14 @@ public class WorkorderRemote extends ObjectModelRemote {
 	// 欲製造的part
 	private String partUid;
 	private String partPin;
-	private String partMmMano;
 
 	private String partAcqUid;
 	private String partAcqId;
+	private String partAcqMmMano;
+
+	private String partCfgUid;
+	private String partCfgId;
+
 	private double rqQty; // 需求數量
 
 	private long startWorkTime;
@@ -55,14 +59,6 @@ public class WorkorderRemote extends ObjectModelRemote {
 		this.partPin = partPin;
 	}
 
-	public String getPartMmMano() {
-		return partMmMano;
-	}
-
-	void setPartMmMano(String partMmMano) {
-		this.partMmMano = partMmMano;
-	}
-
 	public String getPartAcqUid() {
 		return partAcqUid;
 	}
@@ -77,6 +73,30 @@ public class WorkorderRemote extends ObjectModelRemote {
 
 	void setPartAcqId(String partAcqId) {
 		this.partAcqId = partAcqId;
+	}
+
+	public String getPartAcqMmMano() {
+		return partAcqMmMano;
+	}
+
+	void setPartAcqMmMano(String partAcqMmMano) {
+		this.partAcqMmMano = partAcqMmMano;
+	}
+
+	public String getPartCfgUid() {
+		return partCfgUid;
+	}
+
+	void setPartCfgUid(String partCfgUid) {
+		this.partCfgUid = partCfgUid;
+	}
+
+	public String getPartCfgId() {
+		return partCfgId;
+	}
+
+	void setPartCfgId(String partCfgId) {
+		this.partCfgId = partCfgId;
 	}
 
 	public double getRqQty() {

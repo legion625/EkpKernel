@@ -9,6 +9,7 @@ import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
 import ekp.data.service.invt.query.MaterialMasterQueryParam;
 import ekp.data.service.invt.query.MbsbStmtQueryParam;
+import ekp.data.service.mbom.query.PartAcquisitionQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
@@ -16,6 +17,7 @@ import ekp.data.service.mf.query.WorkorderQueryParam;
 import ekp.data.service.pu.query.PurchQueryParam;
 import ekp.data.service.sd.query.SalesOrderItemQueryParam;
 import ekp.data.service.sd.query.SalesOrderQueryParam;
+import ekp.mbom.PartAcquisition;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
@@ -251,10 +253,6 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) throws RemoteException;
 
-	public boolean partAssignMm(String _uid, String _mmUid, String _mmMano) throws RemoteException;
-
-	public boolean partRevertAssignMm(String _uid) throws RemoteException;
-
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
 	public PartAcquisitionRemote createPartAcquisition(PartAcquisitionCreateObjRemote _dto) throws RemoteException;
@@ -267,9 +265,16 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public List<PartAcquisitionRemote> loadPartAcquisitionList(String _partUid) throws RemoteException;
 
+	public QueryOperation<PartAcquisitionQueryParam, PartAcquisitionRemote> searchPartAcquisition(
+			QueryOperation<PartAcquisitionQueryParam, PartAcquisitionRemote> _param) throws RemoteException;
+	
 	public boolean partAcqStartEditing(String _uid) throws RemoteException;
 
 	public boolean partAcqRevertStartEditing(String _uid) throws RemoteException;
+	
+	public boolean partAcqAssignMm(String _uid, String _mmUid, String _mmMano) throws RemoteException;
+	
+	public boolean partAcqRevertAssignMm(String _uid) throws RemoteException;
 
 	public boolean partAcqPublish(String _uid, long _publishTime) throws RemoteException;
 

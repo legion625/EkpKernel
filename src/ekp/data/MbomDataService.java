@@ -6,6 +6,7 @@ import java.util.Map;
 
 import ekp.mbom.Part;
 import ekp.mbom.PartAcqRoutingStep;
+import ekp.data.service.mbom.query.PartAcquisitionQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
@@ -50,6 +51,9 @@ public interface MbomDataService extends IntegrationService {
 	public PartAcquisition loadPartAcquisition(String _partPin, String _id);
 
 	public List<PartAcquisition> loadPartAcquisitionList(String _partUid);
+	
+	public QueryOperation<PartAcquisitionQueryParam, PartAcquisition> searchPartAcquisition(
+			QueryOperation<PartAcquisitionQueryParam, PartAcquisition> _param);
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------PartAcqRoutingStep-------------------------------
