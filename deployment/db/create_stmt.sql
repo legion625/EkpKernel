@@ -155,9 +155,6 @@ CREATE TABLE `mbom_part` (
   `pin` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `unit_id` varchar(10) DEFAULT NULL,
-  `mm_assigned` tinyint(4) DEFAULT NULL,
-  `mm_uid` varchar(45) DEFAULT NULL,
-  `mm_mano` varchar(45) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)
@@ -171,6 +168,9 @@ CREATE TABLE `mbom_part_acq` (
   `id` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `type_idx` tinyint(4) DEFAULT NULL,
+  `mm_assigned` tinyint(4) DEFAULT NULL,
+  `mm_uid` varchar(45) DEFAULT NULL,
+  `mm_mano` varchar(45) DEFAULT NULL,
   `publish_time` bigint(20) DEFAULT '0',
   `ref_unit_cost` double DEFAULT '0',
   `object_create_time` bigint(20) DEFAULT NULL,
@@ -272,9 +272,11 @@ CREATE TABLE `mf_wo` (
   `status_idx` tinyint(4) DEFAULT NULL,
   `part_uid` varchar(45) DEFAULT NULL,
   `part_pin` varchar(45) DEFAULT NULL,
-  `part_mm_mano` varchar(45) DEFAULT NULL,
+  `part_cfg_uid` varchar(45) DEFAULT NULL,
+  `part_cfg_id` varchar(45) DEFAULT NULL,
   `part_acq_uid` varchar(45) DEFAULT NULL,
   `part_acq_id` varchar(45) DEFAULT NULL,
+  `part_acq_mm_mano` varchar(45) DEFAULT NULL,
   `rq_qty` double DEFAULT NULL,
   `start_work_time` bigint(20) DEFAULT NULL,
   `finish_work_time` bigint(20) DEFAULT NULL,
@@ -327,6 +329,20 @@ CREATE TABLE `pu_purch_item` (
   PRIMARY KEY (`uid`)
 ) ;
 
+CREATE TABLE `sd_sales_order` (
+  `uid` varchar(45) NOT NULL,
+  `sosn` varchar(45) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `customer_name` varchar(45) DEFAULT NULL,
+  `customer_ban` varchar(45) DEFAULT NULL,
+  `saler_id` varchar(45) DEFAULT NULL,
+  `saler_name` varchar(45) DEFAULT NULL,
+  `sale_date` bigint(20) DEFAULT NULL,
+  `object_create_time` bigint(20) DEFAULT NULL,
+  `object_update_time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
 CREATE TABLE `sd_sales_order_item` (
   `uid` varchar(45) NOT NULL,
   `so_uid` varchar(45) DEFAULT NULL,
@@ -338,20 +354,6 @@ CREATE TABLE `sd_sales_order_item` (
   `value` double DEFAULT NULL,
   `all_delivered` tinyint(4) DEFAULT NULL,
   `finish_delivered_date` bigint(20) DEFAULT NULL,
-  `object_create_time` bigint(20) DEFAULT NULL,
-  `object_update_time` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`uid`)
-) ;
-
-CREATE TABLE `sd_sales_order` (
-  `uid` varchar(45) NOT NULL,
-  `sosn` varchar(45) DEFAULT NULL,
-  `title` varchar(45) DEFAULT NULL,
-  `customer_name` varchar(45) DEFAULT NULL,
-  `customer_ban` varchar(45) DEFAULT NULL,
-  `saler_id` varchar(45) DEFAULT NULL,
-  `saler_name` varchar(45) DEFAULT NULL,
-  `sale_date` bigint(20) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)

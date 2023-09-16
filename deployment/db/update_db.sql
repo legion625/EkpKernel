@@ -462,7 +462,7 @@ CREATE TABLE `sd_sales_order_item` (
   PRIMARY KEY (`uid`)
 ) ;
 
--- 0.5.0 -> unstaging
+-- 0.5.0 -> 0.5.1
 ALTER TABLE `mbom_part` 
 DROP COLUMN `mm_mano`,
 DROP COLUMN `mm_uid`,
