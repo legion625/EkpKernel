@@ -19,6 +19,7 @@ import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
 import ekp.mbom.Part;
 import ekp.mbom.PartCfg;
+import ekp.mbom.ProdCtl;
 import ekp.mbom.dto.PpartSkewer;
 import ekp.mbom.type.PartCfgStatus;
 import legion.DataServiceFactory;
@@ -104,6 +105,18 @@ public class MbomDataServiceTest extends AbstractEkpInitTest {
 		List<PartCfg> list = param.getQueryResult();
 		log.debug("list.size(): {}", list.size());
 		for(PartCfg pc:  list) {
+			log.debug("PropertyUtils.describe(s): {}", PropertyUtils.describe(pc));
+		}
+	}
+	
+	// -------------------------------------------------------------------------------
+		// ------------------------------------ProdCtl------------------------------------
+	@Test
+	public void testLoadProdCtlListLv1() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		String prodUid = "xxx";
+		List<ProdCtl> prodCtlList =  dataService.loadProdCtlListLv1(prodUid);
+		log.debug("prodCtlList.size(): {}", prodCtlList.size());
+		for(ProdCtl pc:  prodCtlList) {
 			log.debug("PropertyUtils.describe(s): {}", PropertyUtils.describe(pc));
 		}
 	}

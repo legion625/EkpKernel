@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Application name="Ekp Kernel" version="0.5.1">
+<Application name="Ekp Kernel" version="0.5.1.1">
 	<context-param>
 		<description>Logback Config File</description>
 		<param-name>logback-init-file</param-name>

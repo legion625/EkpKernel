@@ -131,8 +131,10 @@ public class ProdDao extends AbstractMySqlDao {
 	}
 
 	List<ProdCtl> loadProdCtlListLv1(String _prodUid) {
-		// TODO not implemented yet...
-		return null;
+		Map<String, String> colValueMap = new HashMap<>();
+		colValueMap.put(COL_PC_PROD_UID, _prodUid);
+		colValueMap.put(COL_PC_LV, "1");
+		return loadObjectList(TB_MBOM_PROD_CTL, colValueMap, this::parseProdCtl);
 	}
 
 	// -------------------------------------------------------------------------------
