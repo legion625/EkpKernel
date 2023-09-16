@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.data.MbomDataService;
+import ekp.data.service.mbom.query.PartAcquisitionQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
@@ -71,14 +72,6 @@ public class MbomServiceImp implements MbomService {
 	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) {
 		return loadPart(_uid).update(_pin, _name, _unit);
 	}
-	@Override
-	public boolean partAssignMm(String _uid, String _mmUid, String _mmMano) {
-		return loadPart(_uid).assignMm(_mmUid, _mmMano);	
-	}
-	@Override
-	public boolean partRevertAssignMm(String _uid) {
-		return loadPart(_uid).revertAssignMm();
-	}
 	
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
@@ -107,6 +100,11 @@ public class MbomServiceImp implements MbomService {
 		return dataService.loadPartAcquisitionList(_partUid);
 	}
 	@Override
+	public QueryOperation<PartAcquisitionQueryParam, PartAcquisition> searchPartAcquisition(
+			QueryOperation<PartAcquisitionQueryParam, PartAcquisition> _param){
+		return dataService.searchPartAcquisition(_param);
+	}
+	@Override
 	public boolean partAcqStartEditing(String _uid) {
 		return loadPartAcquisition(_uid).startEditing();
 	}
@@ -114,6 +112,15 @@ public class MbomServiceImp implements MbomService {
 	public boolean partAcqRevertStartEditing(String _uid) {
 		return loadPartAcquisition(_uid).revertStartEditing();
 	}
+	@Override
+	public boolean partAcqAssignMm(String _uid, String _mmUid, String _mmMano) {
+		return loadPartAcquisition(_uid).assignMm(_mmUid, _mmMano);
+	}
+	
+	public boolean partAcqRevertAssignMm(String _uid) {
+		return loadPartAcquisition(_uid).revertAssignMm();
+	}
+	
 	@Override
 	public boolean partAcqPublish(String _uid, long _publishTime) {
 		return loadPartAcquisition(_uid).publish(_publishTime);

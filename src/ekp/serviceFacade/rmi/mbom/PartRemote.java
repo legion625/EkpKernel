@@ -14,10 +14,6 @@ public class PartRemote extends ObjectModelRemote {
 	private String pin;
 	private String name;
 	private PartUnit unit;
-	// mm
-	private boolean mmAssigned;
-	private String mmUid;
-	private String mmMano;
 
 	// -------------------------------------------------------------------------------
 	// ---------------------------------getter&setter---------------------------------
@@ -45,28 +41,5 @@ public class PartRemote extends ObjectModelRemote {
 		this.unit = unit;
 	}
 
-	public boolean isMmAssigned() {
-		return mmAssigned;
-	}
-
-	void setMmAssigned(boolean mmAssigned) {
-		this.mmAssigned = mmAssigned;
-	}
-
-	public String getMmUid() {
-		return mmUid;
-	}
-
-	void setMmUid(String mmUid) {
-		this.mmUid = mmUid;
-	}
-
-	public String getMmMano() {
-		return mmMano;
-	}
-
-	void setMmMano(String mmMano) {
-		this.mmMano = mmMano;
-	}
 
 }

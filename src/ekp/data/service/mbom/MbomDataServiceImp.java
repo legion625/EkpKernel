@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ekp.data.MbomDataService;
+import ekp.data.service.mbom.query.PartAcquisitionQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
@@ -106,6 +107,12 @@ public class MbomDataServiceImp implements MbomDataService {
 	@Override
 	public List<PartAcquisition> loadPartAcquisitionList(String _partUid) {
 		return partDao.loadPartAcquisitionList(_partUid);
+	}
+	
+	@Override
+	public QueryOperation<PartAcquisitionQueryParam, PartAcquisition> searchPartAcquisition(
+			QueryOperation<PartAcquisitionQueryParam, PartAcquisition> _param){
+		return partDao.searchPartAcquisition(_param);
 	}
 
 	// -------------------------------------------------------------------------------

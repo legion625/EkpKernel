@@ -462,6 +462,22 @@ CREATE TABLE `sd_sales_order_item` (
   PRIMARY KEY (`uid`)
 ) ;
 
+-- 0.5.0 -> unstaging
+ALTER TABLE `mbom_part` 
+DROP COLUMN `mm_mano`,
+DROP COLUMN `mm_uid`,
+DROP COLUMN `mm_assigned`;
+
+ALTER TABLE `mbom_part_acq` 
+ADD COLUMN `mm_assigned` TINYINT NULL AFTER `type_idx`,
+ADD COLUMN `mm_uid` VARCHAR(45) NULL AFTER `mm_assigned`,
+ADD COLUMN `mm_mano` VARCHAR(45) NULL AFTER `mm_uid`;
+
+ALTER TABLE `mf_wo` 
+ADD COLUMN `part_cfg_uid` VARCHAR(45) NULL AFTER `part_acq_mm_mano`,
+ADD COLUMN `part_cfg_id` VARCHAR(45) NULL AFTER `part_cfg_uid`,
+CHANGE COLUMN `part_mm_mano` `part_acq_mm_mano` VARCHAR(45) NULL DEFAULT NULL AFTER `part_acq_id`;
+
 -- mh_pc
 
 

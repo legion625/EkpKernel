@@ -1,3 +1,16 @@
+Min-Hua, 2023.09.16
+[change]
+1. [MBOM]把assign mm從Part移到PartAcq。
+  -1. 新增searchPartAcquisition服務。
+2. [MF]因應調整工令屬性。
+  -1. partMmMano改為partAcqMmMano。
+  -2. 新增指定構型，包含partCfgUid和partCfgId屬性。
+  
+[deployment]
+1. 資料表mbom_part刪除mm_assigned、mm_uid和mm_mano欄位。
+2. 資料表mbom_part_acq新增mm_assigned、mm_uid和mm_mano欄位。
+3. 資料表mf_wo的part_mm_mano改名為part_acq_mm_mano，並新增part_cfg_uid和part_cfg_id欄位。
+
 ------------------------------------------------------------------------------
 v0.5.0 released by Min-Hua, 2023.09.10
 [change]

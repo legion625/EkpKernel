@@ -3,6 +3,7 @@ package ekp.mbom;
 import java.util.List;
 import java.util.Map;
 
+import ekp.data.service.mbom.query.PartAcquisitionQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
@@ -38,10 +39,6 @@ public interface MbomService extends BusinessService {
 
 	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit);
 	
-	public boolean partAssignMm(String _uid, String _mmUid, String _mmMano);
-	
-	public boolean partRevertAssignMm(String _uid);
-	
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
 	public PartAcquisition createPartAcquisition(PartAcquisitionCreateObj _dto);
@@ -53,11 +50,18 @@ public interface MbomService extends BusinessService {
 	public PartAcquisition loadPartAcquisition(String _partPin, String _id);
 
 	public List<PartAcquisition> loadPartAcquisitionList(String _partUid);
+	
+	public QueryOperation<PartAcquisitionQueryParam, PartAcquisition> searchPartAcquisition(
+			QueryOperation<PartAcquisitionQueryParam, PartAcquisition> _param);
 
 	public boolean partAcqStartEditing(String _uid);
 
 	public boolean partAcqRevertStartEditing(String _uid);
 
+	public boolean partAcqAssignMm(String _uid, String _mmUid, String _mmMano);
+	
+	public boolean partAcqRevertAssignMm(String _uid);
+	
 	public boolean partAcqPublish(String _uid, long _publishTime);
 
 	public boolean partAcqRevertPublish(String _uid);

@@ -21,8 +21,13 @@ public class PartAcquisitionRemote extends ObjectModelRemote {
 	private String name;
 	private PartAcquisitionType type;
 
+	// mm
+	private boolean mmAssigned;
+	private String mmUid;
+	private String mmMano;
+
 	private long publishTime;
-	
+
 	private double refUnitCost;
 
 	// -------------------------------------------------------------------------------
@@ -73,6 +78,30 @@ public class PartAcquisitionRemote extends ObjectModelRemote {
 
 	void setType(PartAcquisitionType type) {
 		this.type = type;
+	}
+
+	public boolean isMmAssigned() {
+		return mmAssigned;
+	}
+
+	void setMmAssigned(boolean mmAssigned) {
+		this.mmAssigned = mmAssigned;
+	}
+
+	public String getMmUid() {
+		return mmUid;
+	}
+
+	void setMmUid(String mmUid) {
+		this.mmUid = mmUid;
+	}
+
+	public String getMmMano() {
+		return mmMano;
+	}
+
+	void setMmMano(String mmMano) {
+		this.mmMano = mmMano;
 	}
 
 	public long getPublishTime() {

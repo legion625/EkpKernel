@@ -29,10 +29,10 @@ public class BizObjWorkorderTest extends AbstractEkpInitTest {
 		long l1 = DateUtil.toLong(LocalDateTime.now().plusDays(1));
 		long l2 = DateUtil.toLong(LocalDateTime.now().plusDays(2));
 
-		target1 = new Target("woNo1", WorkorderStatus.TO_START, "partUid1", "partPin1", "partMmMano1", "partAcqUid1",
-				"partAcqId1", d1, l1, l1, l1);
-		target2 = new Target("woNo2", WorkorderStatus.FINISH_WORK, "partUid2", "partPin2", "partMmMano2", "partAcqUid2",
-				"partAcqId2", d2, l2, l2, l2);
+		target1 = new Target("woNo1", WorkorderStatus.TO_START, "partUid1", "partPin1",  "partAcqUid1",
+				"partAcqId1","partAcqMmMano1","partCfgUid1","partCfgId1", d1, l1, l1, l1);
+		target2 = new Target("woNo2", WorkorderStatus.FINISH_WORK, "partUid2", "partPin2", "partAcqUid2",
+				"partAcqId2", "partAcqMmMano2","partCfgUid2","partCfgId2", d2, l2, l2, l2);
 	}
 
 	@Test
@@ -79,25 +79,33 @@ public class BizObjWorkorderTest extends AbstractEkpInitTest {
 		// 欲製造的part
 		private String partUid;
 		private String partPin;
-		private String partMmMano;
 		private String partAcqUid;
 		private String partAcqId;
+		private String partAcqMmMano;
+		
+		private String partCfgUid;
+		private String partCfgId;
+		
 		private double rqQty; // 需求數量
 
 		private long startWorkTime;
 		private long finishWorkTime;
 		private long overTime;
 
-		private Target(String woNo, WorkorderStatus status, String partUid, String partPin, String partMmMano,
-				String partAcqUid, String partAcqId, double rqQty, long startWorkTime, long finishWorkTime,
+		private Target(String woNo, WorkorderStatus status, String partUid, String partPin, 
+				String partAcqUid, String partAcqId,String partAcqMmMano, 
+				String partCfgUid, String partCfgId,
+				double rqQty, long startWorkTime, long finishWorkTime,
 				long overTime) {
 			this.woNo = woNo;
 			this.status = status;
 			this.partUid = partUid;
 			this.partPin = partPin;
-			this.partMmMano = partMmMano;
 			this.partAcqUid = partAcqUid;
 			this.partAcqId = partAcqId;
+			this.partAcqMmMano = partAcqMmMano;
+			this.partCfgUid = partCfgUid;
+			this.partCfgId = partCfgId;
 			this.rqQty = rqQty;
 			this.startWorkTime = startWorkTime;
 			this.finishWorkTime = finishWorkTime;
@@ -120,16 +128,24 @@ public class BizObjWorkorderTest extends AbstractEkpInitTest {
 			return partPin;
 		}
 
-		public String getPartMmMano() {
-			return partMmMano;
-		}
-
 		public String getPartAcqUid() {
 			return partAcqUid;
 		}
 
 		public String getPartAcqId() {
 			return partAcqId;
+		}
+		
+		public String getPartAcqMmMano() {
+			return partAcqMmMano;
+		}
+		
+		public String getPartCfgUid() {
+			return partCfgUid;
+		}
+
+		public String getPartCfgId() {
+			return partCfgId;
 		}
 
 		public double getRqQty() {

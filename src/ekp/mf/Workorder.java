@@ -18,10 +18,13 @@ public class Workorder extends ObjectModel{
 	// 欲製造的part
 	private String partUid;
 	private String partPin;
-	private String partMmMano;
-	
 	private String partAcqUid;
 	private String partAcqId;
+	private String partAcqMmMano;
+	
+	private String partCfgUid;
+	private String partCfgId;
+	
 	private double rqQty; // 需求數量
 	
 	private long startWorkTime;
@@ -70,12 +73,6 @@ public class Workorder extends ObjectModel{
 	public void setPartPin(String partPin) {
 		this.partPin = partPin;
 	}
-	public String getPartMmMano() {
-		return partMmMano;
-	}
-	public void setPartMmMano(String partMmMano) {
-		this.partMmMano = partMmMano;
-	}
 	
 	public String getPartAcqUid() {
 		return partAcqUid;
@@ -88,6 +85,26 @@ public class Workorder extends ObjectModel{
 	}
 	public void setPartAcqId(String partAcqId) {
 		this.partAcqId = partAcqId;
+	}
+	
+	public String getPartAcqMmMano() {
+		return partAcqMmMano;
+	}
+	public void setPartAcqMmMano(String partAcqMmMano) {
+		this.partAcqMmMano = partAcqMmMano;
+	}
+	
+	public String getPartCfgUid() {
+		return partCfgUid;
+	}
+	public void setPartCfgUid(String partCfgUid) {
+		this.partCfgUid = partCfgUid;
+	}
+	public String getPartCfgId() {
+		return partCfgId;
+	}
+	public void setPartCfgId(String partCfgId) {
+		this.partCfgId = partCfgId;
 	}
 	public double getRqQty() {
 		return rqQty;
@@ -138,10 +155,11 @@ public class Workorder extends ObjectModel{
 		wo.setWoNo(""); // not generated yet...
 		// status-> to be controlled in app...
 		wo.setPartUid(_dto.getPartUid());
-		wo.setPartPin(_dto.getPartPin());
-		wo.setPartMmMano(_dto.getPartMmMano());
 		wo.setPartAcqUid(_dto.getPartAcqUid());
 		wo.setPartAcqId(_dto.getPartAcqId());
+		wo.setPartAcqMmMano(_dto.getPartAcqMmMano());
+		wo.setPartCfgUid(_dto.getPartCfgUid());
+		wo.setPartCfgId(_dto.getPartCfgId());
 		wo.setRqQty(_dto.getRqQty());
 		wo.setStartWorkTime(0); // not yet...
 		wo.setFinishWorkTime(0); // not yet...

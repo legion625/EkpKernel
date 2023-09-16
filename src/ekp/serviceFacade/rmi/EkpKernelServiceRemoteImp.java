@@ -13,6 +13,7 @@ import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
 import ekp.data.service.invt.query.MaterialMasterQueryParam;
 import ekp.data.service.invt.query.MbsbStmtQueryParam;
+import ekp.data.service.mbom.query.PartAcquisitionQueryParam;
 import ekp.data.service.mbom.query.PartCfgQueryParam;
 import ekp.data.service.mbom.query.PartQueryParam;
 import ekp.data.service.mbom.query.PpartSkewerQueryParam;
@@ -621,14 +622,6 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean partUpdate(String _uid, String _pin, String _name, PartUnit _unit) throws RemoteException {
 		return mbomService.partUpdate(_uid, _pin, _name, _unit);
 	}
-	@Override
-	public boolean partAssignMm(String _uid, String _mmUid, String _mmMano) throws RemoteException{
-		return mbomService.partAssignMm(_uid, _mmUid, _mmMano);
-	}
-	@Override
-	public boolean partRevertAssignMm(String _uid) throws RemoteException{
-		return mbomService.partRevertAssignMm(_uid);
-	}
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------PartAcquisition--------------------------------
@@ -662,6 +655,17 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 				.collect(Collectors.toList());
 		return remoteList;
 	}
+	
+	@Override
+	public QueryOperation<PartAcquisitionQueryParam, PartAcquisitionRemote> searchPartAcquisition(
+			QueryOperation<PartAcquisitionQueryParam, PartAcquisitionRemote> _param) throws RemoteException{
+		QueryOperation<PartAcquisitionQueryParam, PartAcquisition> param = (QueryOperation<PartAcquisitionQueryParam, PartAcquisition>) _param.copy();
+		param = mbomService.searchPartAcquisition(param);
+		_param.setQueryResult(
+				param.getQueryResult().stream().map(MbomFO::parsePartAcquisitionRemote).collect(Collectors.toList()));
+		_param.setTotal(param.getTotal());
+		return _param;
+	}
 
 	@Override
 	public boolean partAcqStartEditing(String _uid) throws RemoteException {
@@ -672,7 +676,16 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean partAcqRevertStartEditing(String _uid) throws RemoteException {
 		return mbomService.partAcqRevertStartEditing(_uid);
 	}
-
+	
+	@Override
+	public boolean partAcqAssignMm(String _uid, String _mmUid, String _mmMano) throws RemoteException{
+		return mbomService.partAcqAssignMm(_uid, _mmUid, _mmMano);
+	}
+	@Override
+	public boolean partAcqRevertAssignMm(String _uid) throws RemoteException{
+		return mbomService.partAcqRevertAssignMm(_uid);
+	}
+	
 	@Override
 	public boolean partAcqPublish(String _uid, long _publishTime) throws RemoteException {
 		return mbomService.partAcqPublish(_uid, _publishTime);

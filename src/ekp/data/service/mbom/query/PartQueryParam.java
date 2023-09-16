@@ -7,10 +7,6 @@ public enum PartQueryParam implements QueryParam {
 	PIN("pin", "Pin"), //
 	NAME("name", "Name"), // 
 	UNIT_ID("unit_id", "Unit"), //
-	MM_ASSIGNED("mm_assigned", "已指定料件基本檔"), //
-	MM_UID("mm_uid", "料件基本檔"), //
-	MM_MANO("mm_mano", "料號"), //
-	
 	;
 
 	private String id, desp;

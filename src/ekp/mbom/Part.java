@@ -13,12 +13,6 @@ public class Part extends ObjectModel {
 	private String pin; // biz key
 	private String name;
 	private PartUnit unit;
-	
-	// mm
-	private boolean mmAssigned;
-	private String mmUid;
-	private String mmMano;
-	
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
@@ -63,30 +57,7 @@ public class Part extends ObjectModel {
 		this.unit = unit;
 	}
 	
-	public boolean isMmAssigned() {
-		return mmAssigned;
-	}
-
-	public void setMmAssigned(boolean mmAssigned) {
-		this.mmAssigned = mmAssigned;
-	}
-
-	public String getMmUid() {
-		return mmUid;
-	}
-
-	public void setMmUid(String mmUid) {
-		this.mmUid = mmUid;
-	}
-
-	public String getMmMano() {
-		return mmMano;
-	}
-
-	public void setMmMano(String mmMano) {
-		this.mmMano = mmMano;
-	}
-
+	
 	// -------------------------------------------------------------------------------
 	public String getUnitId() {
 		return (getUnit() == null ? PartUnit.UNDEFINED : getUnit()).getId();
@@ -121,18 +92,6 @@ public class Part extends ObjectModel {
 		return save();
 	} 
 
-	boolean assignMm(String _mmUid, String _mmMano) {
-		setMmAssigned(true);
-		setMmUid(_mmUid);
-		setMmMano(_mmMano);
-		return save();
-	}
-
-	boolean revertAssignMm() {
-		setMmAssigned(false);
-		setMmUid("");
-		setMmMano("");
-		return save();
-	}
+	
 
 }

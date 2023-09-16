@@ -26,8 +26,8 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 	public void initMethod() {
 		long time1 = DateUtil.toLong(LocalDate.now().plusDays(1));
 		long time2 = DateUtil.toLong(LocalDate.now().plusDays(2));
-		target1 = new Target("partUid1", "partPin1",PartAcqStatus.EDITING, "id1", "name1", PartAcquisitionType.PURCHASING, time1, 199.99d);
-		target2 = new Target("partUid2", "partPin2",PartAcqStatus.PUBLISHED, "id2", "name2", PartAcquisitionType.OUTSOURCING, time2,299.99d);
+		target1 = new Target("partUid1", "partPin1",PartAcqStatus.EDITING, "id1", "name1", PartAcquisitionType.PURCHASING,  false, "mmUid1", "mmMano1", time1, 199.99d);
+		target2 = new Target("partUid2", "partPin2",PartAcqStatus.PUBLISHED, "id2", "name2", PartAcquisitionType.OUTSOURCING, true, "mmUid2", "mmMano2", time2,299.99d);
 	}
 
 	@Test
@@ -79,19 +79,26 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 		private String name;
 		private PartAcquisitionType type;
 		
+		// mm
+		private boolean mmAssigned;
+		private String mmUid;
+		private String mmMano;
+		
 		private long publishTime;
 		
 		private double refUnitCost;
 		
 		private Target(String partUid, String partPin,PartAcqStatus status,
-				String id, String name, PartAcquisitionType type, long publishTime, double refUnitCost) {
-			super();
+				String id, String name, PartAcquisitionType type,boolean mmAssigned, String mmUid, String mmMano, long publishTime, double refUnitCost) {
 			this.partUid = partUid;
 			this.partPin = partPin;
 			this.status = status;
 			this.id = id;
 			this.name = name;
 			this.type = type;
+			this.mmAssigned = mmAssigned;
+			this.mmUid = mmUid;
+			this.mmMano = mmMano;
 			this.publishTime = publishTime;
 			this.refUnitCost = refUnitCost;
 		}
@@ -117,6 +124,18 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 			return type;
 		}
 
+		public boolean isMmAssigned() {
+			return mmAssigned;
+		}
+
+		public String getMmUid() {
+			return mmUid;
+		}
+
+		public String getMmMano() {
+			return mmMano;
+		}
+		
 		public long getPublishTime() {
 			return publishTime;
 		}

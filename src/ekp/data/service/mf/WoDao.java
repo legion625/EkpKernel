@@ -33,9 +33,14 @@ public class WoDao extends AbstractMySqlDao{
 	private final static String COL_WO_STATUS_IDX = "status_idx";
 	private final static String COL_WO_PART_UID = "part_uid";
 	private final static String COL_WO_PART_PIN = "part_pin";
-	private final static String COL_WO_PART_MM_MANO = "part_mm_mano";
+	
 	private final static String COL_WO_PART_ACQ_UID = "part_acq_uid";
 	private final static String COL_WO_PART_ACQ_ID= "part_acq_id";
+	private final static String COL_WO_PART_ACQ_MM_MANO = "part_acq_mm_mano";
+	
+	private final static String COL_WO_PART_CFG_UID = "part_cfg_uid";
+	private final static String COL_WO_PART_CFG_ID = "part_cfg_id";
+	
 	private final static String COL_WO_RQ_QTY = "rq_qty";
 	private final static String COL_WO_START_WORK_TIME = "start_work_time";
 	private final static String COL_WO_FINISH_WORK_TIME = "finish_work_time";
@@ -47,9 +52,13 @@ public class WoDao extends AbstractMySqlDao{
 				DbColumn.of(COL_WO_STATUS_IDX, ColType.INT, Workorder::getStatusIdx), //
 				DbColumn.of(COL_WO_PART_UID, ColType.STRING, Workorder::getPartUid, 45), //
 				DbColumn.of(COL_WO_PART_PIN, ColType.STRING, Workorder::getPartPin, 45), //
-				DbColumn.of(COL_WO_PART_MM_MANO, ColType.STRING, Workorder::getPartMmMano, 45), //
+				
 				DbColumn.of(COL_WO_PART_ACQ_UID, ColType.STRING, Workorder::getPartAcqUid, 45), //
 				DbColumn.of(COL_WO_PART_ACQ_ID, ColType.STRING, Workorder::getPartAcqId, 45), //
+				DbColumn.of(COL_WO_PART_ACQ_MM_MANO, ColType.STRING, Workorder::getPartAcqMmMano, 45), //
+				DbColumn.of(COL_WO_PART_CFG_UID, ColType.STRING, Workorder::getPartCfgUid, 45), //
+				DbColumn.of(COL_WO_PART_CFG_ID, ColType.STRING, Workorder::getPartCfgId, 45), //
+				
 				DbColumn.of(COL_WO_RQ_QTY, ColType.DOUBLE, Workorder::getRqQty), //
 				DbColumn.of(COL_WO_START_WORK_TIME, ColType.LONG, Workorder::getStartWorkTime), //
 				DbColumn.of(COL_WO_FINISH_WORK_TIME, ColType.LONG, Workorder::getFinishWorkTime), //
@@ -70,9 +79,11 @@ public class WoDao extends AbstractMySqlDao{
 			wo.setWoNo(_rs.getString(COL_WO_WO_NO));
 			wo.setPartUid(_rs.getString(COL_WO_PART_UID));
 			wo.setPartPin(_rs.getString(COL_WO_PART_PIN));
-			wo.setPartMmMano(_rs.getString(COL_WO_PART_MM_MANO));
 			wo.setPartAcqUid(_rs.getString(COL_WO_PART_ACQ_UID));
 			wo.setPartAcqId(_rs.getString(COL_WO_PART_ACQ_ID));
+			wo.setPartAcqMmMano(_rs.getString(COL_WO_PART_ACQ_MM_MANO));
+			wo.setPartCfgUid(_rs.getString(COL_WO_PART_CFG_UID));
+			wo.setPartCfgId(_rs.getString(COL_WO_PART_CFG_ID));
 			wo.setRqQty(_rs.getDouble(COL_WO_RQ_QTY));
 			wo.setStartWorkTime(_rs.getLong(COL_WO_START_WORK_TIME));
 			wo.setFinishWorkTime(_rs.getLong(COL_WO_FINISH_WORK_TIME));
@@ -98,12 +109,16 @@ public class WoDao extends AbstractMySqlDao{
 			return COL_WO_PART_UID;
 		case PART_PIN:
 			return COL_WO_PART_PIN;
-		case PART_MM_MANO:
-			return COL_WO_PART_MM_MANO;
 		case PART_ACQ_UID:
 			return COL_WO_PART_ACQ_UID;
 		case PART_ACQ_ID:
 			return COL_WO_PART_ACQ_ID;
+		case PART_ACQ_MM_MANO:
+			return COL_WO_PART_ACQ_MM_MANO;
+		case PART_CFG_UID:
+			return COL_WO_PART_CFG_UID;
+		case PART_CFG_ID:
+			return COL_WO_PART_CFG_ID;
 		case RQ_QTY:
 			return COL_WO_RQ_QTY;
 		case START_WORK_TIME:
