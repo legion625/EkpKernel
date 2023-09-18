@@ -19,8 +19,11 @@ public class BizObjProdCtlTest extends AbstractEkpInitTest {
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("id1", 1, "name1", false, "parentUid1", "parentId1", "prodUid1");
-		target2 = new Target("id2", 2, "name2", true, "parentUid2", "parentId2", "prodUid2");
+//		target1 = new Target("id1", 1, "name1", false, "parentUid1", "parentId1", "prodUid1");
+//		target2 = new Target("id2", 2, "name2", true, "parentUid2", "parentId2", "prodUid2");
+		
+		target1 = new Target( 1, "partUid1","partPin1","partName1", false, "parentUid1", "parentId1", "prodUid1");
+		target2 = new Target( 2, "partUid2","partPin2","partName2", true, "parentUid2", "parentId2", "prodUid2");
 	}
 
 	@Test
@@ -62,9 +65,12 @@ public class BizObjProdCtlTest extends AbstractEkpInitTest {
 
 	// -------------------------------------------------------------------------------
 	public class Target {
-		private String id; // 型號 biz key
+//		private String id; // 型號 biz key
 		private int lv; // 1:系統;2:次系統;3:模組 預設先展到第3階
-		private String name; // 名稱
+//		private String name; // 名稱
+		private String partUid;
+		private String partPin;
+		private String partName;
 		private boolean req; // 是否為必要的
 
 		private String parentUid;
@@ -73,32 +79,51 @@ public class BizObjProdCtlTest extends AbstractEkpInitTest {
 		//
 		private String prodUid;
 
-		private Target(String id, int lv, String name, boolean req, String parentUid, String parentId, String prodUid) {
-			this.id = id;
+
+		private Target(int lv, String partUid, String partPin, String partName, boolean req, String parentUid,
+				String parentId, String prodUid) {
 			this.lv = lv;
-			this.name = name;
+			this.partUid = partUid;
+			this.partPin = partPin;
+			this.partName = partName;
 			this.req = req;
 			this.parentUid = parentUid;
 			this.parentId = parentId;
 			this.prodUid = prodUid;
 		}
 
-		public String getId() {
-			return id;
-		}
+//		public String getId() {
+//			return id;
+//		}
 
 		public int getLv() {
 			return lv;
 		}
 
-		public String getName() {
-			return name;
+//		public String getName() {
+//			return name;
+//		}
+		
+		
+
+		
+
+		public String getPartUid() {
+			return partUid;
+		}
+
+		public String getPartPin() {
+			return partPin;
+		}
+
+		public String getPartName() {
+			return partName;
 		}
 
 		public boolean isReq() {
 			return req;
 		}
-
+		
 		public String getParentUid() {
 			return parentUid;
 		}

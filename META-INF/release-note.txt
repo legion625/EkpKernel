@@ -1,3 +1,9 @@
+Min-Hua, 2023.09.18
+[change]
+1. [MBOM]ProdCtl新增指定partUid屬性。
+  -1. 刪除id和name屬性，新增partUid、partPin和partName等屬性。
+  -2. 刪除loadProdCtlById服務。
+
 ------------------------------------------------------------------------------
 v0.5.1.1 released by Min-Hua, 2023.09.16 
 [bug]

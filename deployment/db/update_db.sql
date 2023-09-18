@@ -480,7 +480,24 @@ CHANGE COLUMN `part_mm_mano` `part_acq_mm_mano` VARCHAR(45) NULL DEFAULT NULL AF
 
 -- mh_pc
 
+-- 0.5.1.1 -> 0.5.2
 
+ALTER TABLE `mbom_prod_ctl` 
+ADD COLUMN `part_uid` VARCHAR(45) NULL AFTER `name`,
+ADD COLUMN `part_pin` VARCHAR(45) NULL AFTER `part_uid`,
+ADD COLUMN `part_name` VARCHAR(45) NULL AFTER `part_pin`;
+
+/* delay */
+/* 
+ALTER TABLE `mbom_prod_ctl` 
+DROP COLUMN `id`,
+DROP COLUMN `name`;
+*/
+
+
+
+
+-- delayed
 
 
 

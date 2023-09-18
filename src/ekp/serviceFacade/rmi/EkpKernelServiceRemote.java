@@ -398,8 +398,6 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public ProdCtlRemote loadProdCtl(String _uid) throws RemoteException;
 
-	public ProdCtlRemote loadProdCtlById(String _id) throws RemoteException;
-
 	public List<ProdCtlRemote> loadProdCtlList(String _parentUid) throws RemoteException;
 
 	public List<ProdCtlRemote> loadProdCtlListLv1(String _prodUid) throws RemoteException;

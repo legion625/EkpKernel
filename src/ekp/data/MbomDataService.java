@@ -143,7 +143,6 @@ public interface MbomDataService extends IntegrationService {
 	public boolean saveProdCtl(ProdCtl _pc);
 	public boolean deleteProdCtl(String _uid);
 	public ProdCtl loadProdCtl(String _uid);
-	public ProdCtl loadProdCtlById(String _id);
 	public List<ProdCtl> loadProdCtlList(String _parentUid);
 	public List<ProdCtl> loadProdCtlListLv1(String _prodUid);
 	

@@ -9,9 +9,13 @@ public class ProdCtl extends ObjectModel {
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------Attributes-----------------------------------
-	private String id; // 型號 biz key
+//	private String id; // 型號 biz key
 	private int lv; // 1:系統;2:次系統;3:模組 預設先展到第3階
-	private String name; // 名稱
+//	private String name; // 名稱
+	private String partUid;
+	private String partPin;
+	private String partName;
+	
 	private boolean req; // 是否為必要的
 
 	private String parentUid;
@@ -39,13 +43,13 @@ public class ProdCtl extends ObjectModel {
 
 	// -------------------------------------------------------------------------------
 	// ---------------------------------getter&setter---------------------------------
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 
 	public int getLv() {
 		return lv;
@@ -54,15 +58,40 @@ public class ProdCtl extends ObjectModel {
 	public void setLv(int lv) {
 		this.lv = lv;
 	}
+//
+//	public String getName() {
+//		return name;
+//	}
+//
+//	public void setName(String name) {
+//		this.name = name;
+//	}
 
-	public String getName() {
-		return name;
+	public String getPartUid() {
+		return partUid;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPartUid(String partUid) {
+		this.partUid = partUid;
 	}
 
+	public String getPartPin() {
+		return partPin;
+	}
+
+	public void setPartPin(String partPin) {
+		this.partPin = partPin;
+	}
+
+	public String getPartName() {
+		return partName;
+	}
+
+	public void setPartName(String partName) {
+		this.partName = partName;
+	}
+	
+	
 	public boolean isReq() {
 		return req;
 	}
@@ -111,9 +140,12 @@ public class ProdCtl extends ObjectModel {
 	// ------------------------------------ProdCtl------------------------------------
 	public static ProdCtl create(ProdCtlCreateObj _dto) {
 		ProdCtl pc = newInstance();
-		pc.setId(_dto.getId());
+//		pc.setId(_dto.getId());
 		pc.setLv(_dto.getLv());
-		pc.setName(_dto.getName());
+//		pc.setName(_dto.getName());
+		pc.setPartUid(_dto.getPartUid());
+		pc.setPartPin(_dto.getPartPin());
+		pc.setPartName(_dto.getPartName());
 		pc.setReq(_dto.isReq());
 		pc.setParentUid(""); // not assigned yet
 		pc.setParentId(""); // not assigned yet

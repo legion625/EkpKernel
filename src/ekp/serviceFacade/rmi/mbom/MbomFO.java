@@ -222,9 +222,12 @@ public class MbomFO {
 	// ------------------------------------ProdCtl------------------------------------
 	public static ProdCtlRemote parseProdCtlRemote(ProdCtl _obj) {
 		ProdCtlRemote remote = new ProdCtlRemote(_obj.getUid(), _obj.getObjectCreateTime(), _obj.getObjectUpdateTime());
-		remote.setId(_obj.getId());
+//		remote.setId(_obj.getId());
 		remote.setLv(_obj.getLv());
-		remote.setName(_obj.getName());
+//		remote.setName(_obj.getName());
+		remote.setPartUid(_obj.getPartUid());
+		remote.setPartPin(_obj.getPartPin());
+		remote.setPartName(_obj.getPartName());
 		remote.setReq(_obj.isReq());
 		remote.setParentUid(_obj.getParentUid());
 		remote.setParentId(_obj.getParentId());
@@ -234,9 +237,12 @@ public class MbomFO {
 
 	public static ProdCtlCreateObj parseProdCtlCreateObj(ProdCtlCreateObjRemote _remote) {
 		ProdCtlCreateObj dto = new ProdCtlCreateObj();
-		dto.setId(_remote.getId());
+//		dto.setId(_remote.getId());
 		dto.setLv(_remote.getLv());
-		dto.setName(_remote.getName());
+//		dto.setName(_remote.getName());
+		dto.setPartUid(_remote.getPartUid());
+		dto.setPartPin(_remote.getPartPin());
+		dto.setPartName(_remote.getPartName());
 		dto.setReq(_remote.isReq());
 		return dto;
 	}

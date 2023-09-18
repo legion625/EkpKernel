@@ -1007,12 +1007,6 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	}
 
 	@Override
-	public ProdCtlRemote loadProdCtlById(String _id) throws RemoteException {
-		ProdCtl obj = mbomService.loadProdCtlById(_id);
-		return obj == null ? null : MbomFO.parseProdCtlRemote(obj);
-	}
-
-	@Override
 	public List<ProdCtlRemote> loadProdCtlList(String _parentUid) throws RemoteException {
 		List<ProdCtl> list = mbomService.loadProdCtlList(_parentUid);
 		List<ProdCtlRemote> remoteList = list.stream().map(MbomFO::parseProdCtlRemote).collect(Collectors.toList());

@@ -387,11 +387,6 @@ public class MbomServiceImp implements MbomService {
 	}
 
 	@Override
-	public ProdCtl loadProdCtlById(String _id) {
-		return dataService.loadProdCtlById(_id);
-	}
-
-	@Override
 	public List<ProdCtl> loadProdCtlList(String _parentUid) {
 		return dataService.loadProdCtlList(_parentUid);
 	}
