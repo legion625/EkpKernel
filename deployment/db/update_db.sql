@@ -478,8 +478,6 @@ ADD COLUMN `part_cfg_uid` VARCHAR(45) NULL AFTER `part_acq_mm_mano`,
 ADD COLUMN `part_cfg_id` VARCHAR(45) NULL AFTER `part_cfg_uid`,
 CHANGE COLUMN `part_mm_mano` `part_acq_mm_mano` VARCHAR(45) NULL DEFAULT NULL AFTER `part_acq_id`;
 
--- mh_pc
-
 -- 0.5.1.1 -> 0.5.2
 
 ALTER TABLE `mbom_prod_ctl` 
@@ -494,10 +492,15 @@ DROP COLUMN `id`,
 DROP COLUMN `name`;
 */
 
+-- mh_pc
 
 
 
 -- delayed
-
+/* 
+ALTER TABLE `mbom_prod_ctl` 
+DROP COLUMN `id`,
+DROP COLUMN `name`;
+*/
 
 
