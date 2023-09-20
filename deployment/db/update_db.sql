@@ -485,22 +485,18 @@ ADD COLUMN `part_uid` VARCHAR(45) NULL AFTER `name`,
 ADD COLUMN `part_pin` VARCHAR(45) NULL AFTER `part_uid`,
 ADD COLUMN `part_name` VARCHAR(45) NULL AFTER `part_pin`;
 
-/* delay */
-/* 
+-- 0.5.2 -> unstaging
 ALTER TABLE `mbom_prod_ctl` 
-DROP COLUMN `id`,
-DROP COLUMN `name`;
-*/
+DROP COLUMN `parent_id`,
+DROP COLUMN `part_name`,
+DROP COLUMN `part_pin`,
+DROP COLUMN `part_uid`,
+DROP COLUMN `id`;
+
+ALTER TABLE `mbom_prod_ctl_part_cfg_conj` 
+ADD COLUMN `part_acq_uid` VARCHAR(45) NULL AFTER `part_cfg_uid`;
 
 -- mh_pc
 
-
-
--- delayed
-/* 
-ALTER TABLE `mbom_prod_ctl` 
-DROP COLUMN `id`,
-DROP COLUMN `name`;
-*/
 
 

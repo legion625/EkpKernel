@@ -10,6 +10,7 @@ public class ProdCtlPartCfgConjRemote extends ObjectModelRemote {
 
 	private String prodCtlUid; // 標的產品型錄prodCtl biz key
 	private String partCfgUid; // 此產品型錄對應對產品構型PartCfg biz key
+	private String partAcqUid; // 此產品型錄對應產品PartAcq biz
 
 	public String getProdCtlUid() {
 		return prodCtlUid;
@@ -25,6 +26,14 @@ public class ProdCtlPartCfgConjRemote extends ObjectModelRemote {
 
 	void setPartCfgUid(String partCfgUid) {
 		this.partCfgUid = partCfgUid;
+	}
+
+	public String getPartAcqUid() {
+		return partAcqUid;
+	}
+
+	void setPartAcqUid(String partAcqUid) {
+		this.partAcqUid = partAcqUid;
 	}
 
 }

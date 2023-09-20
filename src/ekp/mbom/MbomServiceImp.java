@@ -397,8 +397,8 @@ public class MbomServiceImp implements MbomService {
 	}
 
 	@Override
-	public boolean prodCtlAssignParent(String _uid, String _parentUid, String _parentId) {
-		return loadProdCtl(_uid).assignParent(_parentUid, _parentId);
+	public boolean prodCtlAssignParent(String _uid, String _parentUid) {
+		return loadProdCtl(_uid).assignParent(_parentUid);
 	}
 
 	@Override
@@ -419,8 +419,8 @@ public class MbomServiceImp implements MbomService {
 	// -------------------------------------------------------------------------------
 	// ------------------------------ProdCtlPartCfgConj-------------------------------
 	@Override
-	public ProdCtlPartCfgConj createProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid) {
-		return ProdCtlPartCfgConj.create(_prodCtlUid, _partCfgUid);
+	public ProdCtlPartCfgConj createProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid, String _partAcqUid) {
+		return ProdCtlPartCfgConj.create(_prodCtlUid, _partCfgUid,  _partAcqUid);
 	}
 
 	@Override
@@ -434,8 +434,8 @@ public class MbomServiceImp implements MbomService {
 	}
 
 	@Override
-	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid) {
-		return dataService.loadProdCtlPartCfgConj(_prodCtlUid, _partCfgUid);
+	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid, String _partAcqUid) {
+		return dataService.loadProdCtlPartCfgConj(_prodCtlUid, _partCfgUid, _partAcqUid);
 	}
 
 	@Override
@@ -448,6 +448,11 @@ public class MbomServiceImp implements MbomService {
 		return dataService.loadProdCtlPartCfgConjList2(_partCfgUid);
 	}
 
+	@Override
+	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList3(String _partAcqUid){
+		return dataService.loadProdCtlPartCfgConjList3(_partAcqUid);
+	}
+	
 	// -------------------------------------------------------------------------------
 	// ------------------------------------ProdMod------------------------------------
 	@Override

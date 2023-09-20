@@ -402,7 +402,7 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public List<ProdCtlRemote> loadProdCtlListLv1(String _prodUid) throws RemoteException;
 
-	public boolean prodCtlAssignParent(String _uid, String _parentUid, String _parentId) throws RemoteException;
+	public boolean prodCtlAssignParent(String _uid, String _parentUid) throws RemoteException;
 
 	public boolean prodCtlUnassignParent(String _uid) throws RemoteException;
 
@@ -412,19 +412,21 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------ProdCtlPartCfgConj-------------------------------
-	public ProdCtlPartCfgConjRemote createProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid)
+	public ProdCtlPartCfgConjRemote createProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid, String _partAcqUid)
 			throws RemoteException;
 
 	public boolean deleteProdCtlPartCfgConj(String _uid) throws RemoteException;
 
 	public ProdCtlPartCfgConjRemote loadProdCtlPartCfgConj(String _uid) throws RemoteException;
 
-	public ProdCtlPartCfgConjRemote loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid)
+	public ProdCtlPartCfgConjRemote loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid, String _partAcqUid)
 			throws RemoteException;
 
 	public List<ProdCtlPartCfgConjRemote> loadProdCtlPartCfgConjList1(String _prodCtlUid) throws RemoteException;
 
 	public List<ProdCtlPartCfgConjRemote> loadProdCtlPartCfgConjList2(String _partCfgUid) throws RemoteException;
+	
+	public List<ProdCtlPartCfgConjRemote> loadProdCtlPartCfgConjList3(String _partAcqUid) throws RemoteException;
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------------ProdMod------------------------------------

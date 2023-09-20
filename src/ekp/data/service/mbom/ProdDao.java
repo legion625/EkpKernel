@@ -74,28 +74,18 @@ public class ProdDao extends AbstractMySqlDao {
 	// -------------------------------------------------------------------------------
 	// ------------------------------------ProdCtl------------------------------------
 	private final static String TB_MBOM_PROD_CTL = "mbom_prod_ctl";
-//	private final static String COL_PC_ID = "id";
 	private final static String COL_PC_LV = "lv";
-//	private final static String COL_PC_NAME = "name";
-	private final static String COL_PC_PART_UID = "part_uid";
-	private final static String COL_PC_PART_PIN = "part_pin";
-	private final static String COL_PC_PART_NAME = "part_name";
+	private final static String COL_PC_NAME = "name";
 	private final static String COL_PC_REQ = "req";
 	private final static String COL_PC_PARENT_UID = "parent_uid";
-	private final static String COL_PC_PARENT_ID = "parent_id";
 	private final static String COL_PC_PROD_UID = "prod_uid";
 
 	boolean saveProdCtl(ProdCtl _pc) {
 		DbColumn<ProdCtl>[] cols = new DbColumn[] { //
-//				DbColumn.of(COL_PC_ID, ColType.STRING, ProdCtl::getId, 45), //
 				DbColumn.of(COL_PC_LV, ColType.INT, ProdCtl::getLv), //
-//				DbColumn.of(COL_PC_NAME, ColType.STRING, ProdCtl::getName, 45), //
-				DbColumn.of(COL_PC_PART_UID, ColType.STRING, ProdCtl::getPartUid, 45), //
-				DbColumn.of(COL_PC_PART_PIN, ColType.STRING, ProdCtl::getPartPin, 45), //
-				DbColumn.of(COL_PC_PART_NAME, ColType.STRING, ProdCtl::getPartName, 45), //
+				DbColumn.of(COL_PC_NAME, ColType.STRING, ProdCtl::getName, 45), //
 				DbColumn.of(COL_PC_REQ, ColType.BOOLEAN, ProdCtl::isReq), //
 				DbColumn.of(COL_PC_PARENT_UID, ColType.STRING, ProdCtl::getParentUid, 45), //
-				DbColumn.of(COL_PC_PARENT_ID, ColType.STRING, ProdCtl::getParentId, 45), //
 				DbColumn.of(COL_PC_PROD_UID, ColType.STRING, ProdCtl::getProdUid, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_CTL, cols, _pc);
@@ -110,15 +100,10 @@ public class ProdDao extends AbstractMySqlDao {
 		try {
 			pc = ProdCtl.getInstance(parseUid(_rs), parseObjectCreateTime(_rs), parseObjectUpdateTime(_rs));
 			/* pack attributes */
-//			pc.setId(_rs.getString(COL_PC_ID));
 			pc.setLv(_rs.getInt(COL_PC_LV));
-//			pc.setName(_rs.getString(COL_PC_NAME));
-			pc.setPartUid(_rs.getString(COL_PC_PART_UID));
-			pc.setPartPin(_rs.getString(COL_PC_PART_PIN));
-			pc.setPartName(_rs.getString(COL_PC_PART_NAME));
+			pc.setName(_rs.getString(COL_PC_NAME));
 			pc.setReq(_rs.getBoolean(COL_PC_REQ));
 			pc.setParentUid(_rs.getString(COL_PC_PARENT_UID));
-			pc.setParentId(_rs.getString(COL_PC_PARENT_ID));
 			pc.setProdUid(_rs.getString(COL_PC_PROD_UID));
 			return pc;
 		} catch (SQLException e) {
@@ -130,10 +115,6 @@ public class ProdDao extends AbstractMySqlDao {
 	ProdCtl loadProdCtl(String _uid) {
 		return loadObject(TB_MBOM_PROD_CTL, _uid, this::parseProdCtl);
 	}
-
-//	ProdCtl loadProdCtlById(String _id) {
-//		return loadObject(TB_MBOM_PROD_CTL, COL_PC_ID, _id, this::parseProdCtl);
-//	}
 
 	List<ProdCtl> loadProdCtlList(String _parentUid) {
 		return loadObjectList(TB_MBOM_PROD_CTL, COL_PC_PARENT_UID, _parentUid, this::parseProdCtl);
@@ -151,11 +132,13 @@ public class ProdDao extends AbstractMySqlDao {
 	private final static String TB_MBOM_PROD_CTL_PART_CFG_CONJ = "mbom_prod_ctl_part_cfg_conj";
 	private final static String COL_PCPCC_PROD_CTL_UID = "prod_ctl_uid";
 	private final static String COL_PCPCC_PART_CFG_UID = "part_cfg_uid";
+	private final static String COL_PCPCC_PART_ACQ_UID = "part_acq_uid";
 
 	boolean saveProdCtlPartCfgConj(ProdCtlPartCfgConj _pcpcc) {
 		DbColumn<ProdCtlPartCfgConj>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_PCPCC_PROD_CTL_UID, ColType.STRING, ProdCtlPartCfgConj::getProdCtlUid, 45), //
 				DbColumn.of(COL_PCPCC_PART_CFG_UID, ColType.STRING, ProdCtlPartCfgConj::getPartCfgUid, 45), //
+				DbColumn.of(COL_PCPCC_PART_ACQ_UID, ColType.STRING, ProdCtlPartCfgConj::getPartAcqUid, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, cols, _pcpcc);
 	}
@@ -169,8 +152,9 @@ public class ProdDao extends AbstractMySqlDao {
 		try {
 			String prodCtlUid = _rs.getString(COL_PCPCC_PROD_CTL_UID);
 			String partCfgUid = _rs.getString(COL_PCPCC_PART_CFG_UID);
-			pcpcc = ProdCtlPartCfgConj.getInstance(parseUid(_rs), prodCtlUid, partCfgUid, parseObjectCreateTime(_rs),
-					parseObjectUpdateTime(_rs));
+			String partAcqUid = _rs.getNString(COL_PCPCC_PART_ACQ_UID);
+			pcpcc = ProdCtlPartCfgConj.getInstance(parseUid(_rs), prodCtlUid, partCfgUid, partAcqUid,
+					parseObjectCreateTime(_rs), parseObjectUpdateTime(_rs));
 			/* pack attributes */
 			// none
 			return pcpcc;
@@ -184,10 +168,11 @@ public class ProdDao extends AbstractMySqlDao {
 		return loadObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, _uid, this::parseProdCtlPartCfgConj);
 	}
 
-	ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid) {
+	ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid, String _partAcqUid) {
 		Map<String, String> map = new HashMap<>();
 		map.put(COL_PCPCC_PROD_CTL_UID, _prodCtlUid);
 		map.put(COL_PCPCC_PART_CFG_UID, _partCfgUid);
+		map.put(COL_PCPCC_PART_ACQ_UID, _partAcqUid);
 		return loadObject(TB_MBOM_PROD_CTL_PART_CFG_CONJ, map, this::parseProdCtlPartCfgConj);
 	}
 
@@ -198,6 +183,11 @@ public class ProdDao extends AbstractMySqlDao {
 
 	List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList2(String _partCfgUid) {
 		return loadObjectList(TB_MBOM_PROD_CTL_PART_CFG_CONJ, COL_PCPCC_PART_CFG_UID, _partCfgUid,
+				this::parseProdCtlPartCfgConj);
+	}
+	
+	List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList3(String _partAcqUid){
+		return loadObjectList(TB_MBOM_PROD_CTL_PART_CFG_CONJ, COL_PCPCC_PART_ACQ_UID, _partAcqUid,
 				this::parseProdCtlPartCfgConj);
 	}
 
