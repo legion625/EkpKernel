@@ -1021,8 +1021,8 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	}
 
 	@Override
-	public boolean prodCtlAssignParent(String _uid, String _parentUid, String _parentId) throws RemoteException {
-		return mbomService.prodCtlAssignParent(_uid, _parentUid, _parentId);
+	public boolean prodCtlAssignParent(String _uid, String _parentUid) throws RemoteException {
+		return mbomService.prodCtlAssignParent(_uid, _parentUid);
 	}
 
 	@Override
@@ -1043,9 +1043,9 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	// -------------------------------------------------------------------------------
 	// ------------------------------ProdCtlPartCfgConj-------------------------------
 	@Override
-	public ProdCtlPartCfgConjRemote createProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid)
+	public ProdCtlPartCfgConjRemote createProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid, String _partAcqUid)
 			throws RemoteException {
-		return MbomFO.parseProdCtlPartCfgConjRemote(mbomService.createProdCtlPartCfgConj(_prodCtlUid, _partCfgUid));
+		return MbomFO.parseProdCtlPartCfgConjRemote(mbomService.createProdCtlPartCfgConj(_prodCtlUid, _partCfgUid, _partAcqUid));
 	}
 
 	@Override
@@ -1060,9 +1060,9 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	}
 
 	@Override
-	public ProdCtlPartCfgConjRemote loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid)
+	public ProdCtlPartCfgConjRemote loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid, String _partAcqUid)
 			throws RemoteException {
-		ProdCtlPartCfgConj obj = mbomService.loadProdCtlPartCfgConj(_prodCtlUid, _partCfgUid);
+		ProdCtlPartCfgConj obj = mbomService.loadProdCtlPartCfgConj(_prodCtlUid, _partCfgUid, _partAcqUid);
 		return obj == null ? null : MbomFO.parseProdCtlPartCfgConjRemote(obj);
 	}
 
@@ -1077,6 +1077,14 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	@Override
 	public List<ProdCtlPartCfgConjRemote> loadProdCtlPartCfgConjList2(String _partCfgUid) throws RemoteException {
 		List<ProdCtlPartCfgConj> list = mbomService.loadProdCtlPartCfgConjList2(_partCfgUid);
+		List<ProdCtlPartCfgConjRemote> remoteList = list.stream().map(MbomFO::parseProdCtlPartCfgConjRemote)
+				.collect(Collectors.toList());
+		return remoteList;
+	}
+	
+	@Override
+	public List<ProdCtlPartCfgConjRemote> loadProdCtlPartCfgConjList3(String _partAcqUid) throws RemoteException{
+		List<ProdCtlPartCfgConj> list = mbomService.loadProdCtlPartCfgConjList3(_partAcqUid);
 		List<ProdCtlPartCfgConjRemote> remoteList = list.stream().map(MbomFO::parseProdCtlPartCfgConjRemote)
 				.collect(Collectors.toList());
 		return remoteList;

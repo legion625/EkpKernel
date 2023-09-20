@@ -152,9 +152,10 @@ public interface MbomDataService extends IntegrationService {
 	public boolean saveProdCtlPartCfgConj(ProdCtlPartCfgConj _pcpcc);
 	public boolean deleteProdCtlPartCfgConj(String _uid);
 	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _uid);
-	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid);
+	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid, String _partAcqUid);
 	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList1(String _prodCtlUid);
 	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList2(String _partCfgUid);
+	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList3(String _partAcqUid);
 	
 	// -------------------------------------------------------------------------------
 	// ------------------------------------ProdMod------------------------------------

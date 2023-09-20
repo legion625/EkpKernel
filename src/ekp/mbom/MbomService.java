@@ -184,7 +184,7 @@ public interface MbomService extends BusinessService {
 
 	public List<ProdCtl> loadProdCtlListLv1(String _prodUid);
 
-	public boolean prodCtlAssignParent(String _uid, String _parentUid, String _parentId);
+	public boolean prodCtlAssignParent(String _uid, String _parentUid);
 
 	public boolean prodCtlUnassignParent(String _uid);
 
@@ -194,17 +194,19 @@ public interface MbomService extends BusinessService {
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------ProdCtlPartCfgConj-------------------------------
-	public ProdCtlPartCfgConj createProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid);
+	public ProdCtlPartCfgConj createProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid, String _partAcqUid);
 
 	public boolean deleteProdCtlPartCfgConj(String _uid);
 
 	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _uid);
 
-	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid);
+	public ProdCtlPartCfgConj loadProdCtlPartCfgConj(String _prodCtlUid, String _partCfgUid, String _partAcqUid);
 
 	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList1(String _prodCtlUid);
 
 	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList2(String _partCfgUid);
+	
+	public List<ProdCtlPartCfgConj> loadProdCtlPartCfgConjList3(String _partAcqUid);
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------------ProdMod------------------------------------

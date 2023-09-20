@@ -1,3 +1,14 @@
+Min-Hua, 2023.09.20
+[change]
+1. [MBOM]調整ProdCtl架構。
+  -1. ProdCtl把name加回來，並刪除partUid、partPin、partName和parentId等屬性。
+  -2. ProdCtlPartCfgConj新增指定partAcqUid。
+  -3. 調整相關服務。
+  
+[deployment]
+1. 資料表mbom_prod_ctl刪除parent_id、part_name、part_pin、part_uid和id等欄位。
+2. 資料表mbom_prod_ctl_part_cfg_conj新增part_acq_uid欄位。
+
 ------------------------------------------------------------------------------
 v0.5.2 released by Min-Hua, 2023.09.19 
 [change]

@@ -9,17 +9,11 @@ public class ProdCtl extends ObjectModel {
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------Attributes-----------------------------------
-//	private String id; // 型號 biz key
 	private int lv; // 1:系統;2:次系統;3:模組 預設先展到第3階
-//	private String name; // 名稱
-	private String partUid;
-	private String partPin;
-	private String partName;
+	private String name; // 名稱
 	
 	private boolean req; // 是否為必要的
-
 	private String parentUid;
-	private String parentId;
 
 	//
 	private String prodUid;
@@ -43,14 +37,6 @@ public class ProdCtl extends ObjectModel {
 
 	// -------------------------------------------------------------------------------
 	// ---------------------------------getter&setter---------------------------------
-//	public String getId() {
-//		return id;
-//	}
-//
-//	public void setId(String id) {
-//		this.id = id;
-//	}
-
 	public int getLv() {
 		return lv;
 	}
@@ -58,40 +44,15 @@ public class ProdCtl extends ObjectModel {
 	public void setLv(int lv) {
 		this.lv = lv;
 	}
-//
-//	public String getName() {
-//		return name;
-//	}
-//
-//	public void setName(String name) {
-//		this.name = name;
-//	}
 
-	public String getPartUid() {
-		return partUid;
+	public String getName() {
+		return name;
 	}
 
-	public void setPartUid(String partUid) {
-		this.partUid = partUid;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getPartPin() {
-		return partPin;
-	}
-
-	public void setPartPin(String partPin) {
-		this.partPin = partPin;
-	}
-
-	public String getPartName() {
-		return partName;
-	}
-
-	public void setPartName(String partName) {
-		this.partName = partName;
-	}
-	
-	
 	public boolean isReq() {
 		return req;
 	}
@@ -106,14 +67,6 @@ public class ProdCtl extends ObjectModel {
 
 	public void setParentUid(String parentUid) {
 		this.parentUid = parentUid;
-	}
-
-	public String getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
 	}
 
 	public String getProdUid() {
@@ -140,28 +93,21 @@ public class ProdCtl extends ObjectModel {
 	// ------------------------------------ProdCtl------------------------------------
 	public static ProdCtl create(ProdCtlCreateObj _dto) {
 		ProdCtl pc = newInstance();
-//		pc.setId(_dto.getId());
 		pc.setLv(_dto.getLv());
-//		pc.setName(_dto.getName());
-		pc.setPartUid(_dto.getPartUid());
-		pc.setPartPin(_dto.getPartPin());
-		pc.setPartName(_dto.getPartName());
+		pc.setName(_dto.getName());
 		pc.setReq(_dto.isReq());
 		pc.setParentUid(""); // not assigned yet
-		pc.setParentId(""); // not assigned yet
 		pc.setProdUid(""); // not assigned yet
 		return pc.save() ? pc : null;
 	}
 
-	public boolean assignParent(String _parentUid, String _parentId) {
+	public boolean assignParent(String _parentUid) {
 		setParentUid(_parentUid);
-		setParentId(_parentId);
 		return save();
 	}
 
 	public boolean unassignParent() {
 		setParentUid("");
-		setParentId("");
 		return save();
 	}
 

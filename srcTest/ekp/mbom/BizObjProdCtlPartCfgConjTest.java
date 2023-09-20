@@ -19,8 +19,8 @@ public class BizObjProdCtlPartCfgConjTest extends AbstractEkpInitTest {
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("prodCtlUid1", "partCfgUid1");
-		target2 = new Target("prodCtlUid2", "partCfgUid2");
+		target1 = new Target("prodCtlUid1", "partCfgUid1", "partAcqUid1");
+		target2 = new Target("prodCtlUid2", "partCfgUid2", "partAcqUid1");
 	}
 
 	@Test
@@ -34,7 +34,7 @@ public class BizObjProdCtlPartCfgConjTest extends AbstractEkpInitTest {
 	@Ignore
 	public void testCreateProdCtlPartCfgConj() throws Throwable {
 		/* create */
-		ProdCtlPartCfgConj obj = ProdCtlPartCfgConj.newInstance(target1.prodCtlUid, target1.partCfgUid);
+		ProdCtlPartCfgConj obj = ProdCtlPartCfgConj.newInstance(target1.prodCtlUid, target1.partCfgUid, target1.partAcqUid);
 		PropertyUtils.copyProperties(obj, target1);
 		assert obj.save();
 		targetUid = obj.getUid();
@@ -64,10 +64,12 @@ public class BizObjProdCtlPartCfgConjTest extends AbstractEkpInitTest {
 	public class Target {
 		private String prodCtlUid; // 標的產品型錄prodCtl biz key
 		private String partCfgUid; // 此產品型錄對應對產品構型PartCfg biz key
+		private String partAcqUid; // 此產品型錄對應產品PartAcq biz
 
-		private Target(String prodCtlUid, String partCfgUid) {
+		private Target(String prodCtlUid, String partCfgUid, String partAcqUid) {
 			this.prodCtlUid = prodCtlUid;
 			this.partCfgUid = partCfgUid;
+			this.partAcqUid = partAcqUid;
 		}
 
 		public String getProdCtlUid() {
@@ -76,6 +78,10 @@ public class BizObjProdCtlPartCfgConjTest extends AbstractEkpInitTest {
 
 		public String getPartCfgUid() {
 			return partCfgUid;
+		}
+
+		public String getPartAcqUid() {
+			return partAcqUid;
 		}
 
 	}
