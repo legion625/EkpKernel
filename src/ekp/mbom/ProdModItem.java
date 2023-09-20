@@ -10,8 +10,9 @@ public class ProdModItem extends ObjectModel {
 	private String prodModUid; // 產品model識別碼 biz key
 	private String prodCtlUid; // prodCtl識別碼 biz key
 	//
-	private boolean partCfgAssigned;
+	private boolean partAcqCfgAssigned;
 	private String partCfgUid; // PartCfg識別碼，此model對應的prodCtl所選用的構型
+	private String partAcqUid; // PartAcq識別碼，此model對應的prodCtl所選用的獲取方式
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
@@ -51,12 +52,12 @@ public class ProdModItem extends ObjectModel {
 		this.prodCtlUid = prodCtlUid;
 	}
 
-	public boolean isPartCfgAssigned() {
-		return partCfgAssigned;
+	public boolean isPartAcqCfgAssigned() {
+		return partAcqCfgAssigned;
 	}
 
-	public void setPartCfgAssigned(boolean partCfgAssigned) {
-		this.partCfgAssigned = partCfgAssigned;
+	public void setPartAcqCfgAssigned(boolean partAcqCfgAssigned) {
+		this.partAcqCfgAssigned = partAcqCfgAssigned;
 	}
 
 	public String getPartCfgUid() {
@@ -65,6 +66,14 @@ public class ProdModItem extends ObjectModel {
 
 	public void setPartCfgUid(String partCfgUid) {
 		this.partCfgUid = partCfgUid;
+	}
+	
+	public String getPartAcqUid() {
+		return partAcqUid;
+	}
+
+	public void setPartAcqUid(String partAcqUid) {
+		this.partAcqUid = partAcqUid;
 	}
 
 	// -------------------------------------------------------------------------------
@@ -83,20 +92,23 @@ public class ProdModItem extends ObjectModel {
 	// ----------------------------------ProdModItem----------------------------------
 	public static ProdModItem create(String prodModUid, String prodCtlUid) {
 		ProdModItem pmi = newInstance(prodModUid, prodCtlUid);
-		pmi.setPartCfgAssigned(false); // not assigned yet
+		pmi.setPartAcqCfgAssigned(false); // not assigned yet
 		pmi.setPartCfgUid(""); // not assigned yet
+		pmi.setPartAcqUid(""); // not assigned yet
 		return pmi.save() ? pmi : null;
 	}
 
-	public boolean assignPartCfg(String _partCfgUid) {
-		setPartCfgAssigned(true);
+	public boolean assignPartAcqCfg(String _partCfgUid, String _partAcqUid) {
+		setPartAcqCfgAssigned(true);
 		setPartCfgUid(_partCfgUid);
+		setPartAcqUid(_partAcqUid);
 		return save();
 	}
 
-	public boolean unassignPartCfg() {
-		setPartCfgAssigned(false);
+	public boolean unassignPartAcqCfg() {
+		setPartAcqCfgAssigned(false);
 		setPartCfgUid("");
+		setPartAcqUid("");
 		return save();
 	}
 }

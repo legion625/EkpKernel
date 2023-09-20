@@ -228,12 +228,12 @@ public interface MbomService extends BusinessService {
 
 	public ProdModItem loadProdModItem(String _uid);
 	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid);
-	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid);
+	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid, String _partAcqUid);
 
 	public List<ProdModItem> loadProdModItemList(String _prodModUid);
 
-	public boolean prodModItemAssignPartCfg(String _uid, String _partCfgUid);
+	public boolean prodModItemAssignPartAcqCfg(String _uid, String _partCfgUid, String _partAcqUid);
 
-	public boolean prodModItemUnassignPartCfg(String _uid);
+	public boolean prodModItemUnassignPartAcqCfg(String _uid);
 
 }

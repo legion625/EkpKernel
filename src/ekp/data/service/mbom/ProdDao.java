@@ -246,15 +246,17 @@ public class ProdDao extends AbstractMySqlDao {
 	private final static String TB_MBOM_PROD_MOD_ITEM = "mbom_prod_mod_item";
 	private final static String COL_PMI_PROD_MOD_UID = "prod_mod_uid";
 	private final static String COL_PMI_PROD_CTL_UID = "prod_ctl_uid";
-	private final static String COL_PMI_PART_CFG_ASSIGNED = "part_cfg_assigned";
+	private final static String COL_PMI_PART_ACQ_CFG_ASSIGNED = "part_acq_cfg_assigned";
 	private final static String COL_PMI_PART_CFG_UID = "part_cfg_uid";
+	private final static String COL_PMI_PART_ACQ_UID = "part_acq_uid";
 
 	boolean saveProdModItem(ProdModItem _pmi) {
 		DbColumn<ProdModItem>[] cols = new DbColumn[] {
 				DbColumn.of(COL_PMI_PROD_MOD_UID, ColType.STRING, ProdModItem::getProdModUid, 45), //
 				DbColumn.of(COL_PMI_PROD_CTL_UID, ColType.STRING, ProdModItem::getProdCtlUid, 45), //
-				DbColumn.of(COL_PMI_PART_CFG_ASSIGNED, ColType.BOOLEAN, ProdModItem::isPartCfgAssigned), //
+				DbColumn.of(COL_PMI_PART_ACQ_CFG_ASSIGNED, ColType.BOOLEAN, ProdModItem::isPartAcqCfgAssigned), //
 				DbColumn.of(COL_PMI_PART_CFG_UID, ColType.STRING, ProdModItem::getPartCfgUid, 45), //
+				DbColumn.of(COL_PMI_PART_ACQ_UID, ColType.STRING, ProdModItem::getPartAcqUid, 45), //
 		};
 		return saveObject(TB_MBOM_PROD_MOD_ITEM, cols, _pmi);
 	}
@@ -271,8 +273,9 @@ public class ProdDao extends AbstractMySqlDao {
 			pmi = ProdModItem.getInstance(parseUid(_rs), prodModUid, prodCtlUid, parseObjectCreateTime(_rs),
 					parseObjectUpdateTime(_rs));
 			/* pack attributes */
-			pmi.setPartCfgAssigned(_rs.getBoolean(COL_PMI_PART_CFG_ASSIGNED));
+			pmi.setPartAcqCfgAssigned(_rs.getBoolean(COL_PMI_PART_ACQ_CFG_ASSIGNED));
 			pmi.setPartCfgUid(_rs.getString(COL_PMI_PART_CFG_UID));
+			pmi.setPartAcqUid(_rs.getString(COL_PMI_PART_ACQ_UID));
 			return pmi;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);
@@ -291,11 +294,12 @@ public class ProdDao extends AbstractMySqlDao {
 		return loadObject(TB_MBOM_PROD_MOD_ITEM, map, this::parseProdModItem);
 	}
 
-	ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid) {
+	ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid, String _partAcqUid) {
 		Map<String, String> map = new HashMap<>();
 		map.put(COL_PMI_PROD_MOD_UID, _prodModUid);
 		map.put(COL_PMI_PROD_CTL_UID, _prodCtlUid);
 		map.put(COL_PMI_PART_CFG_UID, _partCfgUid);
+		map.put(COL_PMI_PART_ACQ_UID, _partAcqUid);
 		return loadObject(TB_MBOM_PROD_MOD_ITEM, map, this::parseProdModItem);
 	}
 

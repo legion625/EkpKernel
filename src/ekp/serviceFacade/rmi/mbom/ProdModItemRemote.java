@@ -11,8 +11,9 @@ public class ProdModItemRemote extends ObjectModelRemote {
 	private String prodModUid; // 產品model識別碼 biz key
 	private String prodCtlUid; // prodCtl識別碼 biz key
 	//
-	private boolean partCfgAssigned;
+	private boolean partAcqCfgAssigned;
 	private String partCfgUid; // PartCfg識別碼，此model對應的prodCtl所選用的構型
+	private String partAcqUid; // PartAcq識別碼，此model對應的prodCtl所選用的獲取方式
 
 	public String getProdModUid() {
 		return prodModUid;
@@ -30,12 +31,12 @@ public class ProdModItemRemote extends ObjectModelRemote {
 		this.prodCtlUid = prodCtlUid;
 	}
 
-	public boolean isPartCfgAssigned() {
-		return partCfgAssigned;
+	public boolean isPartAcqCfgAssigned() {
+		return partAcqCfgAssigned;
 	}
 
-	void setPartCfgAssigned(boolean partCfgAssigned) {
-		this.partCfgAssigned = partCfgAssigned;
+	void setPartAcqCfgAssigned(boolean partAcqCfgAssigned) {
+		this.partAcqCfgAssigned = partAcqCfgAssigned;
 	}
 
 	public String getPartCfgUid() {
@@ -44,6 +45,14 @@ public class ProdModItemRemote extends ObjectModelRemote {
 
 	void setPartCfgUid(String partCfgUid) {
 		this.partCfgUid = partCfgUid;
+	}
+
+	public String getPartAcqUid() {
+		return partAcqUid;
+	}
+
+	void setPartAcqUid(String partAcqUid) {
+		this.partAcqUid = partAcqUid;
 	}
 
 }
