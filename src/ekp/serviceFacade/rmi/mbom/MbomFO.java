@@ -276,8 +276,9 @@ public class MbomFO {
 				_obj.getObjectUpdateTime());
 		remote.setProdModUid(_obj.getProdModUid());
 		remote.setProdCtlUid(_obj.getProdCtlUid());
-		remote.setPartCfgAssigned(_obj.isPartCfgAssigned());
+		remote.setPartAcqCfgAssigned(_obj.isPartAcqCfgAssigned());
 		remote.setPartCfgUid(_obj.getPartCfgUid());
+		remote.setPartAcqUid(_obj.getPartAcqUid());
 		return remote;
 	}
 }

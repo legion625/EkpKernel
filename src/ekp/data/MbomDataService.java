@@ -171,7 +171,7 @@ public interface MbomDataService extends IntegrationService {
 	public boolean deleteProdModItem(String _uid);
 	public ProdModItem loadProdModItem(String _uid);
 	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid);
-	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid);
+	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid, String _partAcqUid);
 	public List<ProdModItem> loadProdModItemList(String _prodModUid);
 	
 	

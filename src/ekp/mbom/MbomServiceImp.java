@@ -503,8 +503,8 @@ public class MbomServiceImp implements MbomService {
 	}
 
 	@Override
-	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid) {
-		return dataService.loadProdModItem(_prodModUid, _prodCtlUid, _partCfgUid);
+	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid, String _partAcqUid) {
+		return dataService.loadProdModItem(_prodModUid, _prodCtlUid, _partCfgUid, _partAcqUid);
 	}
 
 	@Override
@@ -513,13 +513,13 @@ public class MbomServiceImp implements MbomService {
 	}
 
 	@Override
-	public boolean prodModItemAssignPartCfg(String _uid, String _partCfgUid) {
-		return loadProdModItem(_uid).assignPartCfg(_partCfgUid);
+	public boolean prodModItemAssignPartAcqCfg(String _uid, String _partCfgUid, String _partAcqUid) {
+		return loadProdModItem(_uid).assignPartAcqCfg(_partCfgUid,  _partAcqUid);
 	}
 
 	@Override
-	public boolean prodModItemUnassignPartCfg(String _uid) {
-		return loadProdModItem(_uid).unassignPartCfg();
+	public boolean prodModItemUnassignPartAcqCfg(String _uid) {
+		return loadProdModItem(_uid).unassignPartAcqCfg();
 	}
 
 }

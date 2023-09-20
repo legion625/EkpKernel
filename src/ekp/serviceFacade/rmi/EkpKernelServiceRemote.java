@@ -448,13 +448,14 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public ProdModItemRemote loadProdModItem(String _uid) throws RemoteException;
 	public ProdModItemRemote loadProdModItem(String _prodModUid, String _prodCtlUid) throws RemoteException;
-	public ProdModItemRemote loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid) throws RemoteException;
+	public ProdModItemRemote loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid
+			, String _partAcqUid) throws RemoteException;
 
 	public List<ProdModItemRemote> loadProdModItemList(String _prodModUid) throws RemoteException;
 
-	public boolean prodModItemAssignPartCfg(String _uid, String _partCfgUid) throws RemoteException;
+	public boolean prodModItemAssignPartAcqCfg(String _uid, String _partCfgUid, String _partAcqUid) throws RemoteException;
 
-	public boolean prodModItemUnassignPartCfg(String _uid) throws RemoteException;
+	public boolean prodModItemUnassignPartAcqCfg(String _uid) throws RemoteException;
 
 
 	// -------------------------------------------------------------------------------

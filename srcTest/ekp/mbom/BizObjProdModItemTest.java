@@ -19,8 +19,8 @@ public class BizObjProdModItemTest extends AbstractEkpInitTest {
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("prodModUid1", "prodCtlUid1", false, "partCfgUid1");
-		target2 = new Target("prodModUid2", "prodCtlUid2", true, "partCfgUid2");
+		target1 = new Target("prodModUid1", "prodCtlUid1", false, "partCfgUid1","partAcqUid1");
+		target2 = new Target("prodModUid2", "prodCtlUid2", true, "partCfgUid2","partAcqUid2");
 	}
 
 	@Test
@@ -65,14 +65,17 @@ public class BizObjProdModItemTest extends AbstractEkpInitTest {
 		private String prodModUid; // 產品model識別碼 biz key
 		private String prodCtlUid; // prodCtl識別碼 biz key
 		//
-		private boolean partCfgAssigned;
+		private boolean partAcqCfgAssigned;
 		private String partCfgUid; // PartCfg識別碼，此model對應的prodCtl所選用的構型
+		private String partAcqUid; // PartAcq識別碼，此model對應的prodCtl所選用的獲取方式
 
-		private Target(String prodModUid, String prodCtlUid, boolean partCfgAssigned, String partCfgUid) {
+		private Target(String prodModUid, String prodCtlUid, boolean partAcqCfgAssigned, String partCfgUid,
+				String partAcqUid) {
 			this.prodModUid = prodModUid;
 			this.prodCtlUid = prodCtlUid;
-			this.partCfgAssigned = partCfgAssigned;
+			this.partAcqCfgAssigned = partAcqCfgAssigned;
 			this.partCfgUid = partCfgUid;
+			this.partAcqUid = partAcqUid;
 		}
 
 		public String getProdModUid() {
@@ -83,12 +86,16 @@ public class BizObjProdModItemTest extends AbstractEkpInitTest {
 			return prodCtlUid;
 		}
 
-		public boolean isPartCfgAssigned() {
-			return partCfgAssigned;
+		public boolean isPartAcqCfgAssigned() {
+			return partAcqCfgAssigned;
 		}
 
 		public String getPartCfgUid() {
 			return partCfgUid;
+		}
+
+		public String getPartAcqUid() {
+			return partAcqUid;
 		}
 
 	}

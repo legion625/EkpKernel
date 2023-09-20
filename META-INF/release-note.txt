@@ -1,3 +1,13 @@
+Min-Hua, 2023.09.20
+[change]
+1. [MBOM] 因應調整ProdModItem的屬性。
+  -1. partCfgAssigned重新命名為partAcqCfgAssigned。
+  -2. 新增partAcqUid屬性。
+  -3. 調整相關服務。
+  
+[deployment]
+1. 資料表mbom_prod_mod_item新增part_acq_uid欄位，並把part_cfg_assigned更名為part_acq_cfg_assigned。
+
 ------------------------------------------------------------------------------
 v0.5.3 released by Min-Hua, 2023.09.20 
 [change]

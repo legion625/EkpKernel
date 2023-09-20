@@ -419,8 +419,8 @@ public class MbomDataServiceImp implements MbomDataService {
 	}
 
 	@Override
-	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid) {
-		return prodDao.loadProdModItem(_prodModUid, _prodCtlUid, _partCfgUid);
+	public ProdModItem loadProdModItem(String _prodModUid, String _prodCtlUid, String _partCfgUid, String _partAcqUid) {
+		return prodDao.loadProdModItem(_prodModUid, _prodCtlUid, _partCfgUid, _partAcqUid);
 	}
 
 	@Override
