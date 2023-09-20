@@ -258,8 +258,9 @@ CREATE TABLE `mbom_prod_mod_item` (
   `uid` varchar(45) NOT NULL,
   `prod_mod_uid` varchar(45) DEFAULT NULL,
   `prod_ctl_uid` varchar(45) DEFAULT NULL,
-  `part_cfg_assigned` tinyint(4) DEFAULT NULL,
+  `part_acq_cfg_assigned` tinyint(4) DEFAULT NULL,
   `part_cfg_uid` varchar(45) DEFAULT NULL,
+  `part_acq_uid` varchar(45) DEFAULT NULL,
   `object_create_time` bigint(20) DEFAULT NULL,
   `object_update_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`uid`)

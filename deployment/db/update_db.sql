@@ -496,7 +496,7 @@ DROP COLUMN `id`;
 ALTER TABLE `mbom_prod_ctl_part_cfg_conj` 
 ADD COLUMN `part_acq_uid` VARCHAR(45) NULL AFTER `part_cfg_uid`;
 
--- 0.5.3 -> unstaging
+-- 0.5.3 -> 0.5.4
 ALTER TABLE `mbom_prod_mod_item` 
 ADD COLUMN `part_acq_uid` VARCHAR(45) NULL AFTER `part_cfg_uid`,
 CHANGE COLUMN `part_cfg_assigned` `part_acq_cfg_assigned` TINYINT(4) NULL DEFAULT NULL ;
