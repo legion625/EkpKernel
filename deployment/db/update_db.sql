@@ -485,7 +485,7 @@ ADD COLUMN `part_uid` VARCHAR(45) NULL AFTER `name`,
 ADD COLUMN `part_pin` VARCHAR(45) NULL AFTER `part_uid`,
 ADD COLUMN `part_name` VARCHAR(45) NULL AFTER `part_pin`;
 
--- 0.5.2 -> unstaging
+-- 0.5.2 -> 0.5.3
 ALTER TABLE `mbom_prod_ctl` 
 DROP COLUMN `parent_id`,
 DROP COLUMN `part_name`,

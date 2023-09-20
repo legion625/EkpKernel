@@ -1,4 +1,5 @@
-Min-Hua, 2023.09.20
+------------------------------------------------------------------------------
+v0.5.3 released by Min-Hua, 2023.09.20 
 [change]
 1. [MBOM]調整ProdCtl架構。
   -1. ProdCtl把name加回來，並刪除partUid、partPin、partName和parentId等屬性。
