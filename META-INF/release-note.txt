@@ -1,6 +1,10 @@
-Min-Hua, 2023.09.24
+------------------------------------------------------------------------------
+v0.5.6 released by Min-Hua, 2023.09.24 
 [change]
 1. [PU]PurchItem新增參考PartAcq相關屬性，包含refpa、refPaUid和refPaType屬性。
+
+[deployment]
+1. 資料表pu_purch_item新增ref_pa、ref_pa_uid和ref_pa_type_idx等欄位。
 
 ------------------------------------------------------------------------------
 v0.5.5 released by Min-Hua, 2023.09.24 
