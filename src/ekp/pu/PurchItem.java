@@ -1,6 +1,7 @@
 package ekp.pu;
 
 import ekp.data.PuDataService;
+import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import ekp.pu.dto.PurchItemCreateObj;
 import legion.DataServiceFactory;
@@ -18,6 +19,12 @@ public class PurchItem extends ObjectModel {
 	private String mmName; // 品名
 	private String mmSpecification;
 	private PartUnit mmStdUnit;
+	
+	/* 快照了當下主要參考的PartAcq */
+	private boolean refPa;
+	private String refPaUid;
+	private PartAcquisitionType refPaType;
+	
 	// 依物料基本檔輸入採購的數量和總價
 	private double qty;
 	private double value;
@@ -92,6 +99,30 @@ public class PurchItem extends ObjectModel {
 		this.mmStdUnit = mmStdUnit;
 	}
 
+	public boolean isRefPa() {
+		return refPa;
+	}
+
+	public void setRefPa(boolean refPa) {
+		this.refPa = refPa;
+	}
+
+	public String getRefPaUid() {
+		return refPaUid;
+	}
+
+	public void setRefPaUid(String refPaUid) {
+		this.refPaUid = refPaUid;
+	}
+
+	public PartAcquisitionType getRefPaType() {
+		return refPaType;
+	}
+
+	public void setRefPaType(PartAcquisitionType refPaType) {
+		this.refPaType = refPaType;
+	}
+
 	public double getQty() {
 		return qty;
 	}
@@ -118,9 +149,13 @@ public class PurchItem extends ObjectModel {
 	
 	// -------------------------------------------------------------------------------
 	public String getMmStdUnitId() {
-		return (getMmStdUnit()==null?PartUnit.UNDEFINED:getMmStdUnit()).getId();
+		return (getMmStdUnit() == null ? PartUnit.UNDEFINED : getMmStdUnit()).getId();
 	}
-	
+
+	public int getRefPaTypeIdx() {
+		return (getRefPaType() == null ? PartAcquisitionType.UNDEFINED : getRefPaType()).getIdx();
+	}
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------ObjectModel----------------------------------
 	@Override
@@ -141,6 +176,9 @@ public class PurchItem extends ObjectModel {
 		pi.setMmName(_dto.getMmName());
 		pi.setMmSpecification(_dto.getMmSpecification());
 		pi.setMmStdUnit(_dto.getMmStdUnit());
+		pi.setRefPa(_dto.isRefPa());
+		pi.setRefPaUid(_dto.getRefPaUid());
+		pi.setRefPaType(_dto.getRefPaType());
 		pi.setQty(_dto.getQty());
 		pi.setValue(_dto.getValue());
 		pi.setRemark(_dto.getRemark());

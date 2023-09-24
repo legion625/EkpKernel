@@ -9,6 +9,9 @@ public enum PurchItemQueryParam implements QueryParam{
 	MM_MANO("MM_MANO", "料號"), //
 	MM_NAME("MM_NAME", "品名"), //
 	MM_SPECIFICATION("MM_SPECIFICATION", "規格"), //
+	REF_PA("REF_PA","有參考獲取方式"), //
+	REF_PA_UID("REF_PA_UID","參考獲取方式"), //
+	REF_PA_TYPE_IDX("REF_PA_TYPE_IDX","參考獲取方式類型"), //
 	REMARK("REMARK","備註"), //
 	;
 

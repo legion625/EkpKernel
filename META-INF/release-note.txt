@@ -1,3 +1,7 @@
+Min-Hua, 2023.09.24
+[change]
+1. [PU]PurchItem新增參考PartAcq相關屬性，包含refpa、refPaUid和refPaType屬性。
+
 ------------------------------------------------------------------------------
 v0.5.5 released by Min-Hua, 2023.09.24 
 [change]
