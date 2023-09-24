@@ -11,6 +11,7 @@ import org.slf4j.event.Level;
 import ekp.data.service.pu.query.PurchItemQueryParam;
 import ekp.data.service.pu.query.PurchQueryParam;
 import ekp.invt.MaterialMaster;
+import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import ekp.pu.Purch;
 import ekp.pu.PurchItem;
@@ -119,6 +120,9 @@ public class PuDao extends AbstractMySqlDao{
 	private final static String COL_PI_MM_NAME = "mm_name";
 	private final static String COL_PI_MM_SPECIFICATION = "mm_specification";
 	private final static String COL_PI_MM_STD_UNIT_ID = "mm_std_unit_id";
+	private final static String COL_PI_REF_PA = "ref_pa";
+	private final static String COL_PI_REF_PA_UID = "ref_pa_uid";
+	private final static String COL_PI_REF_PA_TYPE_IDX = "ref_pa_type_idx";
 	private final static String COL_PI_QTY = "qty";
 	private final static String COL_PI_VALUE = "value";
 	private final static String COL_PI_REMARK = "remark";
@@ -131,6 +135,9 @@ public class PuDao extends AbstractMySqlDao{
 				DbColumn.of(COL_PI_MM_NAME, ColType.STRING, PurchItem:: getMmName, 45 ), //
 				DbColumn.of(COL_PI_MM_SPECIFICATION, ColType.STRING, PurchItem::getMmSpecification, 45 ), //
 				DbColumn.of(COL_PI_MM_STD_UNIT_ID, ColType.STRING, PurchItem:: getMmStdUnitId, 10 ), //
+				DbColumn.of(COL_PI_REF_PA, ColType.BOOLEAN, PurchItem::isRefPa), //
+				DbColumn.of(COL_PI_REF_PA_UID, ColType.STRING, PurchItem::getRefPaUid), //
+				DbColumn.of(COL_PI_REF_PA_TYPE_IDX, ColType.INT, PurchItem::getRefPaTypeIdx), //
 				DbColumn.of(COL_PI_QTY, ColType.DOUBLE, PurchItem:: getQty), //
 				DbColumn.of(COL_PI_VALUE, ColType.DOUBLE, PurchItem:: getValue ), //
 				DbColumn.of(COL_PI_REMARK, ColType.STRING, PurchItem:: getRemark, 200 ), //
@@ -152,6 +159,9 @@ public class PuDao extends AbstractMySqlDao{
 			pi.setMmName(_rs.getString(COL_PI_MM_NAME));
 			pi.setMmSpecification(_rs.getString(COL_PI_MM_SPECIFICATION));
 			pi.setMmStdUnit(PartUnit.get(_rs.getString(COL_PI_MM_STD_UNIT_ID)));
+			pi.setRefPa(_rs.getBoolean(COL_PI_REF_PA));
+			pi.setRefPaUid(_rs.getString(COL_PI_REF_PA_UID));
+			pi.setRefPaType(PartAcquisitionType.get(_rs.getInt(COL_PI_REF_PA_TYPE_IDX)));
 			pi.setQty(_rs.getDouble(COL_PI_QTY));
 			pi.setValue(_rs.getDouble(COL_PI_VALUE));
 			pi.setRemark(_rs.getString(COL_PI_REMARK));
@@ -184,6 +194,12 @@ public class PuDao extends AbstractMySqlDao{
 			return COL_PI_MM_NAME;
 		case MM_SPECIFICATION:
 			return COL_PI_MM_SPECIFICATION;
+		case REF_PA:
+			return COL_PI_REF_PA;
+		case REF_PA_UID:
+			return COL_PI_REF_PA_UID;
+		case REF_PA_TYPE_IDX:
+			return COL_PI_REF_PA_TYPE_IDX;
 		case REMARK:
 			return COL_PI_REMARK;
 		default:

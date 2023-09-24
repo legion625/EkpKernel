@@ -1,14 +1,15 @@
 package ekp.serviceFacade.rmi.pu;
 
+import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import legion.serviceFacade.rmi.ObjectModelRemote;
 
-public class PurchItemRemote extends ObjectModelRemote{
+public class PurchItemRemote extends ObjectModelRemote {
 
 	protected PurchItemRemote(String uid, long objectCreateTime, long objectUpdateTime) {
 		super(uid, objectCreateTime, objectUpdateTime);
 	}
-	
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------Attributes-----------------------------------
 	/* purchUid+mmUid作為biz key */
@@ -20,12 +21,16 @@ public class PurchItemRemote extends ObjectModelRemote{
 	private String mmName; // 品名
 	private String mmSpecification;
 	private PartUnit mmStdUnit;
+	/* 快照了當下主要參考的PartAcq */
+	private boolean refPa;
+	private String refPaUid;
+	private PartAcquisitionType refPaType;
 	// 依物料基本檔輸入採購的數量和總價
 	private double qty;
 	private double value;
 	//
 	private String remark; // 備註（補充說明）
-	
+
 	// -------------------------------------------------------------------------------
 	// ---------------------------------getter&setter---------------------------------
 	public String getPurchUid() {
@@ -74,6 +79,30 @@ public class PurchItemRemote extends ObjectModelRemote{
 
 	void setMmStdUnit(PartUnit mmStdUnit) {
 		this.mmStdUnit = mmStdUnit;
+	}
+
+	public boolean isRefPa() {
+		return refPa;
+	}
+
+	void setRefPa(boolean refPa) {
+		this.refPa = refPa;
+	}
+
+	public String getRefPaUid() {
+		return refPaUid;
+	}
+
+	void setRefPaUid(String refPaUid) {
+		this.refPaUid = refPaUid;
+	}
+
+	public PartAcquisitionType getRefPaType() {
+		return refPaType;
+	}
+
+	void setRefPaType(PartAcquisitionType refPaType) {
+		this.refPaType = refPaType;
 	}
 
 	public double getQty() {

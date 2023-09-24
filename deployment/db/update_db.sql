@@ -501,5 +501,10 @@ ALTER TABLE `mbom_prod_mod_item`
 ADD COLUMN `part_acq_uid` VARCHAR(45) NULL AFTER `part_cfg_uid`,
 CHANGE COLUMN `part_cfg_assigned` `part_acq_cfg_assigned` TINYINT(4) NULL DEFAULT NULL ;
 
--- mh_pc
+-- 0.5.5 -> unstaging
+ALTER TABLE `pu_purch_item` 
+ADD COLUMN `ref_pa` TINYINT NULL AFTER `mm_std_unit_id`,
+ADD COLUMN `ref_pa_uid` VARCHAR(45) NULL AFTER `ref_pa`,
+ADD COLUMN `ref_pa_type_idx` TINYINT NULL AFTER `ref_pa_uid`;
 
+-- mh_pc

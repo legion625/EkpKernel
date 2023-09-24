@@ -8,6 +8,7 @@ import org.junit.Test;
 import ekp.AbstractEkpInitTest;
 import ekp.TestUtil;
 import ekp.data.PuDataService;
+import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import legion.DataServiceFactory;
 
@@ -22,10 +23,10 @@ public class BizObjPurchItemTest extends AbstractEkpInitTest {
 	public void initMethod() {
 		double d1 = 199.9999d;
 		double d2 = 299.9999d;
-		target1 = new Target("purchUid1", "mmUid1", "mmMano1", "mmName1", "mmSpecification1", PartUnit.CMK, d1, d1,
-				"remark1");
-		target2 = new Target("purchUid2", "mmUid2", "mmMano2", "mmName2", "mmSpecification2", PartUnit.CMK, d2, d2,
-				"remark2");
+		target1 = new Target("purchUid1", "mmUid1", "mmMano1", "mmName1", "mmSpecification1", PartUnit.CMK, false,
+				"refPaUid1", PartAcquisitionType.PURCHASING, d1, d1, "remark1");
+		target2 = new Target("purchUid2", "mmUid2", "mmMano2", "mmName2", "mmSpecification2", PartUnit.CMK, true,
+				"refPaUid2", PartAcquisitionType.OUTSOURCING, d2, d2, "remark2");
 	}
 
 	@Test
@@ -75,20 +76,29 @@ public class BizObjPurchItemTest extends AbstractEkpInitTest {
 		private String mmName; // 品名
 		private String mmSpecification;
 		private PartUnit mmStdUnit;
+		/* 快照了當下主要參考的PartAcq */
+		private boolean refPa;
+		private String refPaUid;
+		private PartAcquisitionType refPaType;
 		// 依物料基本檔輸入採購的數量和總價
 		private double qty;
 		private double value;
 		//
 		private String remark; // 備註（補充說明）
 
+
 		private Target(String purchUid, String mmUid, String mmMano, String mmName, String mmSpecification,
-				PartUnit mmStdUnit, double qty, double value, String remark) {
+				PartUnit mmStdUnit, boolean refPa, String refPaUid, PartAcquisitionType refPaType, double qty,
+				double value, String remark) {
 			this.purchUid = purchUid;
 			this.mmUid = mmUid;
 			this.mmMano = mmMano;
 			this.mmName = mmName;
 			this.mmSpecification = mmSpecification;
 			this.mmStdUnit = mmStdUnit;
+			this.refPa = refPa;
+			this.refPaUid = refPaUid;
+			this.refPaType = refPaType;
 			this.qty = qty;
 			this.value = value;
 			this.remark = remark;
@@ -116,6 +126,18 @@ public class BizObjPurchItemTest extends AbstractEkpInitTest {
 
 		public PartUnit getMmStdUnit() {
 			return mmStdUnit;
+		}
+
+		public boolean isRefPa() {
+			return refPa;
+		}
+
+		public String getRefPaUid() {
+			return refPaUid;
+		}
+
+		public PartAcquisitionType getRefPaType() {
+			return refPaType;
 		}
 
 		public double getQty() {
