@@ -15,7 +15,7 @@ public class MaterialInst extends ObjectModel {
 
 	private String misn; // material instance serial number
 	private MaterialInstAcqChannel miac;
-	private String miacSrcNo; // 來源單號:PURCHASING->puNo
+	private String miacSrcNo; // 來源單號:PURCHASING->puNo; SELF_PRODUCING->woNo
 	
 	private double qty; // 數量
 	private double value; // 帳值

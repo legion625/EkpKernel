@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ekp.DebugLogMark;
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
 import ekp.data.service.invt.query.MaterialMasterQueryParam;
@@ -609,9 +610,6 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 			throws RemoteException {
 		QueryOperation<PartQueryParam, Part> param = (QueryOperation<PartQueryParam, Part>) _param.copy();
 		param = mbomService.searchPart(param);
-		log.debug("param.getTotal(): {}", param.getTotal());
-		log.debug("limit: {}\t{}", param.getLimit()[0], param.getLimit()[1]);
-		log.debug("param.getQueryResult().size(): {}", param.getQueryResult().size());
 		_param.setQueryResult(
 				param.getQueryResult().stream().map(MbomFO::parsePartRemote).collect(Collectors.toList()));
 		_param.setTotal(param.getTotal());
