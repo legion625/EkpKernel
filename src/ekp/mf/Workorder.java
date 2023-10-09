@@ -155,6 +155,7 @@ public class Workorder extends ObjectModel{
 		wo.setWoNo(""); // not generated yet...
 		// status-> to be controlled in app...
 		wo.setPartUid(_dto.getPartUid());
+		wo.setPartPin(_dto.getPartPin());
 		wo.setPartAcqUid(_dto.getPartAcqUid());
 		wo.setPartAcqId(_dto.getPartAcqId());
 		wo.setPartAcqMmMano(_dto.getPartAcqMmMano());

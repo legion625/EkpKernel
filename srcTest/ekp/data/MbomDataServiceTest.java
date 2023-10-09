@@ -71,13 +71,14 @@ public class MbomDataServiceTest extends AbstractEkpInitTest {
 		//
 		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.B_OF_PC$_PA_EXISTS, equal, true));
 		existsQvMap.put(PpartSkewerQueryParam.B_OF_PC$_PA_EXISTS,
-				new QueryValue[] { QueryOperation.value(PartCfgQueryParam.ID, equal, "MTW") });
-		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.B_OF_PC_ROOT_PART, equal, false)); // 排除root
-		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS, equal, true)); // 沒上階(孤兒)
-		existsQvMap.put(PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS,
-				new QueryValue[] { QueryOperation.value(PartCfgQueryParam.ID, equal, "MTW") });
+				new QueryValue[] { QueryOperation.value(PartCfgQueryParam.ID, equal, "PART_CFG_Afa") });
+//		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.B_OF_PC_ROOT_PART, equal, false)); // 排除root
+//		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS, equal, true)); // 沒上階(孤兒)
+//		existsQvMap.put(PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS,
+//				new QueryValue[] { QueryOperation.value(PartCfgQueryParam.ID, equal, "MTW") });
 		
-//		//
+		//
+		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.PART_PIN, CompareOp.equal, "Beta"));
 //		p.appendCondition(QueryOperation.value(PpartSkewerQueryParam.PART_UID, CompareOp.equal, "2022!30!7!7"));
 //		p.appendCondition(
 //				QueryOperation.value(PpartSkewerQueryParam.B_OF_PC$_PARENT_PART_EXISTS, CompareOp.equal, true));
