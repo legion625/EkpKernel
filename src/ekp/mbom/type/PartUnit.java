@@ -9,11 +9,15 @@ import legion.type.IdEnum;
  */
 public enum PartUnit implements IdEnum {
 	UNDEFINED("UNDEFINED","未定義", "Undefined"), //
+	BOT("BOT","瓶","Bottle"), //		
 	CMK("CMK","平方公分","Squre Centimeter"), //
 	EAC("EAC","每個", "Each"), //
 	GRM("GRM","公克", "Gram"), //
 	KGM("KGM","公斤", "Kilogram"), //
+	LTR("LTR","公升","Liter"), //		
 	MMT("MMT","公釐", "Millimeter"), //
+	MTR("MTR","公尺","Meter"), //
+	PAC("PAC","包，綑，副，組","Pack"), //		
 	SHE("SHE","張, 片","Sheet"), //
 	SPL("SPL","捲，軸","Spool"), //
 	;
