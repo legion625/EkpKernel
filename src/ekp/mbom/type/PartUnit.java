@@ -12,6 +12,7 @@ public enum PartUnit implements IdEnum {
 	CMK("CMK","平方公分","Squre Centimeter"), //
 	EAC("EAC","每個", "Each"), //
 	GRM("GRM","公克", "Gram"), //
+	KGM("KGM","公斤", "Kilogram"), //
 	MMT("MMT","公釐", "Millimeter"), //
 	SHE("SHE","張, 片","Sheet"), //
 	SPL("SPL","捲，軸","Spool"), //
