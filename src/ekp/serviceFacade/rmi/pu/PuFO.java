@@ -22,7 +22,6 @@ public class PuFO {
 	
 	public static PurchCreateObj parsePurchCreateObj(PurchCreateObjRemote _remote) {
 		PurchCreateObj dto = new PurchCreateObj();
-		dto.setPuNo(_remote.getPuNo());
 		dto.setTitle(_remote.getTitle());
 		dto.setSupplierUid(_remote.getSupplierUid());
 		dto.setSupplierName(_remote.getSupplierName());
