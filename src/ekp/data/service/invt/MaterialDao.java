@@ -27,6 +27,7 @@ import ekp.mbom.type.PartUnit;
 import legion.data.service.AbstractMySqlDao;
 import legion.data.service.AbstractMySqlDao.ColType;
 import legion.data.service.AbstractMySqlDao.DbColumn;
+import legion.util.DataFO;
 import legion.util.LogUtil;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
@@ -189,11 +190,18 @@ public class MaterialDao extends AbstractMySqlDao {
 	MaterialInst loadMaterialInstByMisn(String _misn) {
 		return loadObject(TB_MATERIAL_INST, COL_MI_MISN, _misn, this::parseMaterialInst);
 	}
-	MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo) {
-		return loadObject(TB_MATERIAL_INST, COL_MI_MIAC_SRC_NO, _miacSrcNo, this::parseMaterialInst);
-	}
-	List<MaterialInst> loadMaterialInstList(String _mmUid){
-		return loadObjectList(TB_MATERIAL_INST, COL_MI_MM_UID, _mmUid, this::parseMaterialInst);
+//	MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo) {
+//		return loadObject(TB_MATERIAL_INST, COL_MI_MIAC_SRC_NO, _miacSrcNo, this::parseMaterialInst);
+//	}
+	List<MaterialInst> loadMaterialInstList(String _mmUid,MaterialInstAcqChannel _miac, String _miacSrcNo){
+		Map<String, String> colValueMap = new HashMap<>();
+		if(!DataFO.isEmptyString(_mmUid))
+			colValueMap.put(COL_MI_MM_UID, _mmUid);
+		if(_miac!=null && MaterialInstAcqChannel.UNDEFINED!=_miac)
+			colValueMap.put(COL_MI_MIAC_IDX, _miac.getIdx()+"");
+		if(!DataFO.isEmptyString(_miacSrcNo))
+			colValueMap.put(COL_MI_MIAC_SRC_NO, _miacSrcNo);
+		return loadObjectList(TB_MATERIAL_INST, colValueMap, this::parseMaterialInst);
 	}
 	
 	private static String packMaterialInstField(MbsbStmtQueryParam _param, String _tbMbsb, String _colMbsbMiUid) {

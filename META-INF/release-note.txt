@@ -1,3 +1,7 @@
+Min-Hua, 2023.11.12
+[change]
+1. [IV]刪除loadMaterialInstByMiacSrcNo服務，改新增loadMaterialInst服務支援_mmUid、miac及miacSrcNo參數。
+
 ------------------------------------------------------------------------------
 v0.5.7 released by Min-Hua, 2023.11.04 
 [change]

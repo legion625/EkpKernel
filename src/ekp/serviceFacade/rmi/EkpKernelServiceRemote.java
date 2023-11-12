@@ -17,6 +17,7 @@ import ekp.data.service.mf.query.WorkorderQueryParam;
 import ekp.data.service.pu.query.PurchQueryParam;
 import ekp.data.service.sd.query.SalesOrderItemQueryParam;
 import ekp.data.service.sd.query.SalesOrderQueryParam;
+import ekp.invt.type.MaterialInstAcqChannel;
 import ekp.mbom.PartAcquisition;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
@@ -167,9 +168,9 @@ public interface EkpKernelServiceRemote extends Remote {
 
 	public MaterialInstRemote loadMaterialInstByMisn(String _misn) throws RemoteException;
 
-	public MaterialInstRemote loadMaterialInstByMiacSrcNo(String _miacSrcNo) throws RemoteException;
+//	public MaterialInstRemote loadMaterialInstByMiacSrcNo(String _miacSrcNo) throws RemoteException;
 
-	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid) throws RemoteException;
+	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid,MaterialInstAcqChannel _miac, String _miacSrcNo) throws RemoteException;
 
 	public boolean materialInstToAssignSrcMi(String _uid)throws RemoteException;
 	public boolean materialInstRevertToAssignSrcMi(String _uid)throws RemoteException;

@@ -18,6 +18,7 @@ import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.WrhsBin;
 import ekp.invt.WrhsLoc;
+import ekp.invt.type.MaterialInstAcqChannel;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
 
@@ -212,14 +213,13 @@ public class InvtDataServiceImp implements InvtDataService {
 		return materialDao.loadMaterialInstByMisn(_misn);
 	}
 	
+//	@Override
+//	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo) {
+//		return materialDao.loadMaterialInstByMiacSrcNo(_miacSrcNo);
+//	}
 	@Override
-	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo) {
-		return materialDao.loadMaterialInstByMiacSrcNo(_miacSrcNo);
-	}
-
-	@Override
-	public List<MaterialInst> loadMaterialInstList(String _mmUid) {
-		return materialDao.loadMaterialInstList(_mmUid);
+	public List<MaterialInst> loadMaterialInstList(String _mmUid,MaterialInstAcqChannel _miac, String _miacSrcNo) {
+		return materialDao.loadMaterialInstList(_mmUid, _miac, _miacSrcNo);
 	}
 	
 	// -------------------------------------------------------------------------------

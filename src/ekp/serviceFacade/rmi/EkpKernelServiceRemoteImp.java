@@ -33,6 +33,7 @@ import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.WrhsBin;
 import ekp.invt.WrhsLoc;
+import ekp.invt.type.MaterialInstAcqChannel;
 import ekp.mbom.MbomService;
 import ekp.mbom.ParsPart;
 import ekp.mbom.ParsProc;
@@ -376,15 +377,15 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		return obj == null ? null : InvtFO.parseMaterialInstRemote(obj);
 	}
 
-	@Override
-	public MaterialInstRemote loadMaterialInstByMiacSrcNo(String _miacSrcNo) throws RemoteException{
-		MaterialInst obj = invtService.loadMaterialInstByMiacSrcNo(_miacSrcNo);
-		return obj == null ? null : InvtFO.parseMaterialInstRemote(obj);
-	}
+//	@Override
+//	public MaterialInstRemote loadMaterialInstByMiacSrcNo(String _miacSrcNo) throws RemoteException{
+//		MaterialInst obj = invtService.loadMaterialInstByMiacSrcNo(_miacSrcNo);
+//		return obj == null ? null : InvtFO.parseMaterialInstRemote(obj);
+//	}
 
 	@Override
-	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid) throws RemoteException{
-		List<MaterialInst> list = invtService.loadMaterialInstList(_mmUid);
+	public List<MaterialInstRemote> loadMaterialInstList(String _mmUid,MaterialInstAcqChannel _miac, String _miacSrcNo) throws RemoteException{
+		List<MaterialInst> list = invtService.loadMaterialInstList(_mmUid, _miac, _miacSrcNo);
 		List<MaterialInstRemote> remoteList = list.stream().map(InvtFO::parseMaterialInstRemote).collect(Collectors.toList());
 		return remoteList;
 	}

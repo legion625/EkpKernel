@@ -17,6 +17,7 @@ import ekp.invt.MaterialMaster;
 import ekp.invt.MbsbStmt;
 import ekp.invt.WrhsBin;
 import ekp.invt.WrhsLoc;
+import ekp.invt.type.MaterialInstAcqChannel;
 import legion.IntegrationService;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
@@ -73,8 +74,8 @@ public interface InvtDataService extends IntegrationService {
 	public boolean deleteMaterialInst(String _uid);
 	public MaterialInst loadMaterialInst(String _uid);
 	public MaterialInst loadMaterialInstByMisn(String _misn);
-	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo);
-	public List<MaterialInst> loadMaterialInstList(String _mmUid);
+//	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo);
+	public List<MaterialInst> loadMaterialInstList(String _mmUid,MaterialInstAcqChannel _miac, String _miacSrcNo);
 	
 	// -------------------------------------------------------------------------------
 	// ------------------------------MaterialInstSrcConj------------------------------
