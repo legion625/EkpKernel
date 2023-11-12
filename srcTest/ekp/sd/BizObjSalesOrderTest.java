@@ -25,8 +25,8 @@ public class BizObjSalesOrderTest extends AbstractEkpInitTest {
 	public void initMethod() {
 		long l1 = DateUtil.toLong(LocalDateTime.now().plusDays(1));
 		long l2 = DateUtil.toLong(LocalDateTime.now().plusDays(2));
-		target1 = new Target("sosn1", "title1", "customerName1", "customerBan1", "salerId1", "salerName1", l1);
-		target2 = new Target("sosn2", "title2", "customerName2", "customerBan2", "salerId2", "salerName2", l2);
+		target1 = new Target("sosn1", "title1","customerUid1", "customerName1", "customerBan1", "salerId1", "salerName1", l1);
+		target2 = new Target("sosn2", "title2","customerUid2", "customerName2", "customerBan2", "salerId2", "salerName2", l2);
 	}
 
 	@Test
@@ -69,6 +69,7 @@ public class BizObjSalesOrderTest extends AbstractEkpInitTest {
 	public class Target {
 		private String sosn;
 		private String title;
+		private String customerUid;
 		private String customerName;
 		private String customerBan;
 
@@ -76,10 +77,11 @@ public class BizObjSalesOrderTest extends AbstractEkpInitTest {
 		private String salerName;
 		private long saleDate;
 
-		private Target(String sosn, String title, String customerName, String customerBan, String salerId,
+		private Target(String sosn, String title,String customerUid, String customerName, String customerBan, String salerId,
 				String salerName, long saleDate) {
 			this.sosn = sosn;
 			this.title = title;
+			this.customerUid = customerUid;
 			this.customerName = customerName;
 			this.customerBan = customerBan;
 			this.salerId = salerId;
@@ -93,6 +95,10 @@ public class BizObjSalesOrderTest extends AbstractEkpInitTest {
 
 		public String getTitle() {
 			return title;
+		}
+
+		public String getCustomerUid() {
+			return customerUid;
 		}
 
 		public String getCustomerName() {

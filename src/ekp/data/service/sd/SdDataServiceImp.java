@@ -6,6 +6,7 @@ import java.util.Map;
 import ekp.data.SdDataService;
 import ekp.data.service.sd.query.SalesOrderItemQueryParam;
 import ekp.data.service.sd.query.SalesOrderQueryParam;
+import ekp.sd.BizPartner;
 import ekp.sd.SalesOrder;
 import ekp.sd.SalesOrderItem;
 import legion.util.query.QueryOperation;
@@ -16,6 +17,7 @@ public class SdDataServiceImp implements SdDataService {
 	private String source;
 
 	// dao
+	private BizPartnerDao bpDao;
 	private SoDao soDao;
 
 	@Override
@@ -26,12 +28,40 @@ public class SdDataServiceImp implements SdDataService {
 		source = _params.get("source");
 
 		// dao
+		bpDao = new BizPartnerDao(source);
 		soDao = new SoDao(source);
 	}
 
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
+	}
+
+	// -------------------------------------------------------------------------------
+	// ----------------------------------BizPartner-----------------------------------
+	@Override
+	public boolean saveBizPartner(BizPartner _bp) {
+		return bpDao.saveBizPartner(_bp);
+	}
+
+	@Override
+	public boolean deleteBizPartner(String _uid){
+		return bpDao.deleteBizPartner(_uid);
+	}
+
+	@Override
+	public BizPartner loadBizPartner(String _uid){
+		return bpDao.loadBizPartner(_uid);
+	}
+
+	@Override
+	public BizPartner loadBizPartnerByBpsn(String _bpsn){
+		return bpDao.loadBizPartnerByBpsn(_bpsn);
+	}
+
+	@Override
+	public List<BizPartner> loadBizPartnerList(){
+		return bpDao.loadBizPartnerList();
 	}
 
 	// -------------------------------------------------------------------------------

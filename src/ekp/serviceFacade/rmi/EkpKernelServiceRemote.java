@@ -21,6 +21,8 @@ import ekp.invt.type.MaterialInstAcqChannel;
 import ekp.mbom.PartAcquisition;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
+import ekp.sd.BizPartner;
+import ekp.sd.dto.BizPartnerCreateObj;
 import ekp.serviceFacade.rmi.invt.InvtOrderCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.InvtOrderItemCreateObjRemote;
 import ekp.serviceFacade.rmi.invt.InvtOrderItemRemote;
@@ -70,6 +72,8 @@ import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemRemote;
 import ekp.serviceFacade.rmi.pu.PurchRemote;
+import ekp.serviceFacade.rmi.sd.BizPartnerCreateObjRemote;
+import ekp.serviceFacade.rmi.sd.BizPartnerRemote;
 import ekp.serviceFacade.rmi.sd.SalesOrderCreateObjRemote;
 import ekp.serviceFacade.rmi.sd.SalesOrderItemCreateObjRemote;
 import ekp.serviceFacade.rmi.sd.SalesOrderItemRemote;
@@ -529,6 +533,15 @@ public interface EkpKernelServiceRemote extends Remote {
 	// -------------------------------------------------------------------------------
 	// --------------------------------------SD---------------------------------------
 	// XXX
+	
+	// -------------------------------------------------------------------------------
+	// ----------------------------------BizPartner-----------------------------------
+	public BizPartnerRemote createBizPartner(BizPartnerCreateObjRemote _dto) throws RemoteException;
+	public boolean deleteBizPartner(String _uid) throws RemoteException;
+	public BizPartnerRemote loadBizPartner(String _uid) throws RemoteException;
+	public BizPartnerRemote loadBizPartnerByBpsn(String _bpsn) throws RemoteException;
+	public List<BizPartnerRemote> loadBizPartnerList() throws RemoteException;
+	
 	// -------------------------------------------------------------------------------
 	// ----------------------------------SalesOrder-----------------------------------
 	public SalesOrderRemote createSalesOrder(SalesOrderCreateObjRemote _dto) throws RemoteException;

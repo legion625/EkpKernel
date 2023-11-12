@@ -33,6 +33,7 @@ public class PuDao extends AbstractMySqlDao{
 	private final static String TB_PURCH = "pu_purch";
 	private final static String COL_P_PU_NO = "pu_no";
 	private final static String COL_P_TITLE = "title";
+	private final static String COL_P_SUPPLIER_UID = "supplier_uid";
 	private final static String COL_P_SUPPLIER_NAME = "supplier_name";
 	private final static String COL_P_SUPPLIER_BAN = "supplier_ban";
 	private final static String COL_P_PERF_STATUS_IDX = "perf_status_idx";
@@ -42,6 +43,7 @@ public class PuDao extends AbstractMySqlDao{
 		DbColumn<Purch>[] cols = new DbColumn[] {
 				DbColumn.of(COL_P_PU_NO, ColType.STRING, Purch::getPuNo , 45), //
 				DbColumn.of(COL_P_TITLE, ColType.STRING, Purch::getTitle , 45), //
+				DbColumn.of(COL_P_SUPPLIER_UID, ColType.STRING, Purch::getSupplierUid , 45), //
 				DbColumn.of(COL_P_SUPPLIER_NAME, ColType.STRING, Purch::getSupplierName , 45), //
 				DbColumn.of(COL_P_SUPPLIER_BAN, ColType.STRING, Purch::getSupplierBan , 45), //
 				DbColumn.of(COL_P_PERF_STATUS_IDX, ColType.INT, Purch::getPerfStatusIdx), //
@@ -61,6 +63,7 @@ public class PuDao extends AbstractMySqlDao{
 			/* pack attributes */
 			p.setPuNo(_rs.getString(COL_P_PU_NO));
 			p.setTitle(_rs.getString(COL_P_TITLE));
+			p.setSupplierUid(_rs.getString(COL_P_SUPPLIER_UID));
 			p.setSupplierName(_rs.getString(COL_P_SUPPLIER_NAME));
 			p.setSupplierBan(_rs.getString(COL_P_SUPPLIER_BAN));
 			p.setPerfTime(_rs.getLong(COL_P_PERF_TIME));
@@ -87,6 +90,8 @@ public class PuDao extends AbstractMySqlDao{
 			return COL_P_PU_NO;
 		case TITLE:
 			return COL_P_TITLE;
+		case SUPPLIER_UID:
+			return COL_P_SUPPLIER_UID;
 		case SUPPLIER_NAME:
 			return COL_P_SUPPLIER_NAME;
 		case SUPPLIER_BAN:

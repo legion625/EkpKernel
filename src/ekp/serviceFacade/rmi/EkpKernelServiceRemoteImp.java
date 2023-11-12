@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ekp.DebugLogMark;
 import ekp.data.service.invt.query.InvtOrderItemQueryParam;
 import ekp.data.service.invt.query.InvtOrderQueryParam;
 import ekp.data.service.invt.query.MaterialMasterQueryParam;
@@ -56,6 +55,7 @@ import ekp.mf.WorkorderMaterial;
 import ekp.pu.PuService;
 import ekp.pu.Purch;
 import ekp.pu.PurchItem;
+import ekp.sd.BizPartner;
 import ekp.sd.SalesOrder;
 import ekp.sd.SalesOrderItem;
 import ekp.sd.SdService;
@@ -112,6 +112,8 @@ import ekp.serviceFacade.rmi.pu.PurchCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemCreateObjRemote;
 import ekp.serviceFacade.rmi.pu.PurchItemRemote;
 import ekp.serviceFacade.rmi.pu.PurchRemote;
+import ekp.serviceFacade.rmi.sd.BizPartnerCreateObjRemote;
+import ekp.serviceFacade.rmi.sd.BizPartnerRemote;
 import ekp.serviceFacade.rmi.sd.SalesOrderCreateObjRemote;
 import ekp.serviceFacade.rmi.sd.SalesOrderItemCreateObjRemote;
 import ekp.serviceFacade.rmi.sd.SalesOrderItemRemote;
@@ -654,7 +656,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 				.collect(Collectors.toList());
 		return remoteList;
 	}
-	
+
 	@Override
 	public QueryOperation<PartAcquisitionQueryParam, PartAcquisitionRemote> searchPartAcquisition(
 			QueryOperation<PartAcquisitionQueryParam, PartAcquisitionRemote> _param) throws RemoteException{
@@ -675,7 +677,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean partAcqRevertStartEditing(String _uid) throws RemoteException {
 		return mbomService.partAcqRevertStartEditing(_uid);
 	}
-	
+
 	@Override
 	public boolean partAcqAssignMm(String _uid, String _mmUid, String _mmMano) throws RemoteException{
 		return mbomService.partAcqAssignMm(_uid, _mmUid, _mmMano);
@@ -684,7 +686,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean partAcqRevertAssignMm(String _uid) throws RemoteException{
 		return mbomService.partAcqRevertAssignMm(_uid);
 	}
-	
+
 	@Override
 	public boolean partAcqPublish(String _uid, long _publishTime) throws RemoteException {
 		return mbomService.partAcqPublish(_uid, _publishTime);
@@ -1080,7 +1082,7 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 				.collect(Collectors.toList());
 		return remoteList;
 	}
-	
+
 	@Override
 	public List<ProdCtlPartCfgConjRemote> loadProdCtlPartCfgConjList3(String _partAcqUid) throws RemoteException{
 		List<ProdCtlPartCfgConj> list = mbomService.loadProdCtlPartCfgConjList3(_partAcqUid);
@@ -1371,6 +1373,41 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	// -------------------------------------------------------------------------------
 	// --------------------------------------SD---------------------------------------
 	// XXX
+
+	// -------------------------------------------------------------------------------
+	// ----------------------------------BizPartner-----------------------------------
+	@Override
+	public BizPartnerRemote createBizPartner(BizPartnerCreateObjRemote _dto) throws RemoteException {
+		if (_dto == null)
+			return null;
+		BizPartner obj = sdService.createBizPartner(SdFO.parseBizPartnerCreateObj(_dto));
+		return obj == null ? null : SdFO.parseBizPartnerRemote(obj);
+	}
+
+	@Override
+	public boolean deleteBizPartner(String _uid) throws RemoteException {
+		return sdService.deleteBizPartner(_uid);
+	}
+
+	@Override
+	public BizPartnerRemote loadBizPartner(String _uid) throws RemoteException {
+		BizPartner obj = sdService.loadBizPartner(_uid);
+		return obj == null ? null : SdFO.parseBizPartnerRemote(obj);
+	}
+
+	@Override
+	public BizPartnerRemote loadBizPartnerByBpsn(String _bpsn) throws RemoteException {
+		BizPartner obj = sdService.loadBizPartnerByBpsn(_bpsn);
+		return obj == null ? null : SdFO.parseBizPartnerRemote(obj);
+	}
+
+	@Override
+	public List<BizPartnerRemote> loadBizPartnerList() throws RemoteException {
+		List<BizPartner> list = sdService.loadBizPartnerList();
+		List<BizPartnerRemote> remoteList = list.stream().map(SdFO::parseBizPartnerRemote).collect(Collectors.toList());
+		return remoteList;
+	}
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------SalesOrder-----------------------------------
 	@Override
@@ -1467,5 +1504,5 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 	public boolean soiRevertFinishDeliver(String _uid) throws RemoteException{
 		return sdService.soiRevertFinishDeliver(_uid);
 	}
-	
+
 }

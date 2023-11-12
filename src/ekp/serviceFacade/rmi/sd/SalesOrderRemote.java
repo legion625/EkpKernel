@@ -9,6 +9,7 @@ public class SalesOrderRemote extends ObjectModelRemote {
 
 	private String sosn;
 	private String title;
+	private String customerUid;
 	private String customerName;
 	private String customerBan;
 
@@ -32,6 +33,14 @@ public class SalesOrderRemote extends ObjectModelRemote {
 		this.title = title;
 	}
 
+	public String getCustomerUid() {
+		return customerUid;
+	}
+
+	void setCustomerUid(String customerUid) {
+		this.customerUid = customerUid;
+	}
+	
 	public String getCustomerName() {
 		return customerName;
 	}
