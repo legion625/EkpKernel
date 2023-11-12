@@ -507,7 +507,7 @@ ADD COLUMN `ref_pa` TINYINT NULL AFTER `mm_std_unit_id`,
 ADD COLUMN `ref_pa_uid` VARCHAR(45) NULL AFTER `ref_pa`,
 ADD COLUMN `ref_pa_type_idx` TINYINT NULL AFTER `ref_pa_uid`;
 
--- 0.5.7 -> unstaging
+-- 0.5.7 -> 0.6.0
 CREATE TABLE `sd_biz_partner` (
   `uid` varchar(45) NOT NULL,
   `bpsn` varchar(45) DEFAULT NULL,

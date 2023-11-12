@@ -1,9 +1,15 @@
-Min-Hua, 2023.11.12
+------------------------------------------------------------------------------
+v0.6.0 released by Min-Hua, 2023.11.12 
 [change]
 1. [IV]刪除loadMaterialInstByMiacSrcNo服務，改新增loadMaterialInst服務支援_mmUid、miac及miacSrcNo參數。
 2. [SD]新增BizPartner。
   -1. [PU]Purch新增supplierUid屬性。
   -2. [SD]SalesOrder新增cusomterUid屬性。
+  
+[deployment]
+1. 新增sd_biz_partner資料表。
+2. 資料表pu_purch新增supplier_uid欄位。
+3. 資料表sd_sales_order新增customer_uid欄位。
 
 ------------------------------------------------------------------------------
 v0.5.7 released by Min-Hua, 2023.11.04 

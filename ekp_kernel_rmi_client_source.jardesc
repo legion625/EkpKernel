@@ -12,11 +12,13 @@
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{WrhsBinCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{MaterialBinStockCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.pu{PurchCreateObjRemote.java"/>
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.sd{BizPartnerRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdCtlCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartCfgRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ProdRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.invt{MaterialInstRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{ParsProcCreateObjRemote.java"/>
+        <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.sd{BizPartnerCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.pu{PurchItemCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartCreateObjRemote.java"/>
         <javaElement handleIdentifier="=EkpKernel-github/src&lt;ekp.serviceFacade.rmi.mbom{PartAcquisitionRemote.java"/>
