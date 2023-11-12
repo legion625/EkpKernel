@@ -5,6 +5,7 @@ import java.util.Map;
 
 import ekp.data.service.sd.query.SalesOrderItemQueryParam;
 import ekp.data.service.sd.query.SalesOrderQueryParam;
+import ekp.sd.dto.BizPartnerCreateObj;
 import ekp.sd.dto.SalesOrderCreateObj;
 import ekp.sd.dto.SalesOrderItemCreateObj;
 import legion.BusinessService;
@@ -13,6 +14,14 @@ import legion.util.query.QueryOperation.QueryValue;
 
 public interface SdService extends BusinessService{
 
+	// -------------------------------------------------------------------------------
+	// ----------------------------------BizPartner-----------------------------------
+	public BizPartner createBizPartner(BizPartnerCreateObj _dto);
+	public boolean deleteBizPartner(String _uid);
+	public BizPartner loadBizPartner(String _uid);
+	public BizPartner loadBizPartnerByBpsn(String _bpsn);
+	public List<BizPartner> loadBizPartnerList();
+	
 	// -------------------------------------------------------------------------------
 	// ----------------------------------SalesOrder-----------------------------------
 	public SalesOrder createSalesOrder(SalesOrderCreateObj _dto);

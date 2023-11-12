@@ -17,6 +17,7 @@ import ekp.invt.dto.MaterialMasterCreateObj;
 import ekp.invt.dto.MbsbStmtCreateObj;
 import ekp.invt.dto.WrhsBinCreateObj;
 import ekp.invt.dto.WrhsLocCreateObj;
+import ekp.invt.type.MaterialInstAcqChannel;
 import legion.BusinessService;
 import legion.util.TimeTraveler;
 import legion.util.query.QueryOperation;
@@ -84,8 +85,8 @@ public interface InvtService extends BusinessService {
 	public boolean deleteMaterialInst(String _uid);
 	public MaterialInst loadMaterialInst(String _uid);
 	public MaterialInst loadMaterialInstByMisn(String _misn);
-	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo);
-	public List<MaterialInst> loadMaterialInstList(String _mmUid);
+//	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo);
+	public List<MaterialInst> loadMaterialInstList(String _mmUid,MaterialInstAcqChannel _miac, String _miacSrcNo);
 	public boolean materialInstToAssignSrcMi(String _uid);
 	public boolean materialInstRevertToAssignSrcMi(String _uid);
 	public boolean materialInstFinishAssignedSrcMi(String _uid);

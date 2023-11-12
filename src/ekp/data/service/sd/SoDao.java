@@ -28,6 +28,7 @@ public class SoDao extends AbstractMySqlDao {
 	private final static String TB_SALES_ORDER = "sd_sales_order";
 	private final static String COL_SO_SOSN = "sosn";
 	private final static String COL_SO_TITLE = "title";
+	private final static String COL_SO_CUSTOMER_UID = "customer_uid";
 	private final static String COL_SO_CUSTOMER_NAME = "customer_name";
 	private final static String COL_SO_CUSTOMER_BAN = "customer_ban";
 	private final static String COL_SO_SALER_ID = "saler_id";
@@ -38,6 +39,7 @@ public class SoDao extends AbstractMySqlDao {
 		DbColumn<SalesOrder>[] cols = new DbColumn[] {
 				DbColumn.of(COL_SO_SOSN, ColType.STRING, SalesOrder::getSosn, 45), //
 				DbColumn.of(COL_SO_TITLE, ColType.STRING, SalesOrder::getTitle, 45), //
+				DbColumn.of(COL_SO_CUSTOMER_UID, ColType.STRING, SalesOrder::getCustomerUid, 45), //
 				DbColumn.of(COL_SO_CUSTOMER_NAME, ColType.STRING, SalesOrder::getCustomerName, 45), //
 				DbColumn.of(COL_SO_CUSTOMER_BAN, ColType.STRING, SalesOrder::getCustomerBan, 45), //
 				DbColumn.of(COL_SO_SALER_ID, ColType.STRING, SalesOrder::getSalerId, 45), //
@@ -58,6 +60,7 @@ public class SoDao extends AbstractMySqlDao {
 			/* pack attributes */
 			so.setSosn(_rs.getString(COL_SO_SOSN));
 			so.setTitle(_rs.getString(COL_SO_TITLE));
+			so.setCustomerUid(_rs.getString(COL_SO_CUSTOMER_UID));
 			so.setCustomerName(_rs.getString(COL_SO_CUSTOMER_NAME));
 			so.setCustomerBan(_rs.getString(COL_SO_CUSTOMER_BAN));
 			so.setSalerId(_rs.getString(COL_SO_SALER_ID));
@@ -86,6 +89,8 @@ public class SoDao extends AbstractMySqlDao {
 			return COL_SO_SOSN;
 		case TITLE:
 			return COL_SO_TITLE;
+		case CUSTOMER_UID:
+			return COL_SO_CUSTOMER_UID;
 		case CUSTOMER_NAME:
 			return COL_SO_CUSTOMER_NAME;
 		case CUSTOMER_BAN:

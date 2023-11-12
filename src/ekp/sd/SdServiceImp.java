@@ -6,6 +6,7 @@ import java.util.Map;
 import ekp.data.SdDataService;
 import ekp.data.service.sd.query.SalesOrderItemQueryParam;
 import ekp.data.service.sd.query.SalesOrderQueryParam;
+import ekp.sd.dto.BizPartnerCreateObj;
 import ekp.sd.dto.SalesOrderCreateObj;
 import ekp.sd.dto.SalesOrderItemCreateObj;
 import legion.DataServiceFactory;
@@ -27,6 +28,29 @@ public class SdServiceImp implements SdService {
 
 	}
 
+	// -------------------------------------------------------------------------------
+	// ----------------------------------BizPartner-----------------------------------
+	@Override
+	public BizPartner createBizPartner(BizPartnerCreateObj _dto) {
+		return BizPartner.create(_dto);
+	}
+	@Override
+	public boolean deleteBizPartner(String _uid) {
+		return loadBizPartner(_uid).delete();
+	}
+	@Override
+	public BizPartner loadBizPartner(String _uid) {
+		return dataService.loadBizPartner(_uid);
+	}
+	@Override
+	public BizPartner loadBizPartnerByBpsn(String _bpsn) {
+		return dataService.loadBizPartnerByBpsn(_bpsn);
+	}
+	@Override
+	public List<BizPartner> loadBizPartnerList(){
+		return dataService.loadBizPartnerList();
+	}
+	
 	// -------------------------------------------------------------------------------
 	// ----------------------------------SalesOrder-----------------------------------
 	@Override

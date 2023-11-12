@@ -2,6 +2,7 @@ package ekp.sd.dto;
 
 public class SalesOrderCreateObj {
 	private String title;
+	private String customerUid;
 	private String customerName;
 	private String customerBan;
 
@@ -13,6 +14,13 @@ public class SalesOrderCreateObj {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getCustomerUid() {
+		return customerUid;
+	}
+	public void setCustomerUid(String customerUid) {
+		this.customerUid = customerUid;
 	}
 	public String getCustomerName() {
 		return customerName;

@@ -21,6 +21,7 @@ import ekp.invt.dto.MaterialMasterCreateObj;
 import ekp.invt.dto.MbsbStmtCreateObj;
 import ekp.invt.dto.WrhsBinCreateObj;
 import ekp.invt.dto.WrhsLocCreateObj;
+import ekp.invt.type.MaterialInstAcqChannel;
 import ekp.invt.type.MbsbFlowType;
 import legion.DataServiceFactory;
 import legion.util.TimeTraveler;
@@ -233,14 +234,13 @@ public class InvtServiceImp implements InvtService {
 		return dataService.loadMaterialInstByMisn(_misn);
 	}
 	
+//	@Override
+//	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo) {
+//		return dataService.loadMaterialInstByMiacSrcNo(_miacSrcNo);
+//	}
 	@Override
-	public MaterialInst loadMaterialInstByMiacSrcNo(String _miacSrcNo) {
-		return dataService.loadMaterialInstByMiacSrcNo(_miacSrcNo);
-	}
-
-	@Override
-	public List<MaterialInst> loadMaterialInstList(String _mmUid) {
-		return dataService.loadMaterialInstList(_mmUid);
+	public List<MaterialInst> loadMaterialInstList(String _mmUid,MaterialInstAcqChannel _miac, String _miacSrcNo) {
+		return dataService.loadMaterialInstList(_mmUid, _miac, _miacSrcNo);
 	}
 	@Override
 	public boolean materialInstToAssignSrcMi(String _uid) {

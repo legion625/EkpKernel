@@ -6,6 +6,7 @@ public enum PurchQueryParam implements QueryParam{
 	/* Purch:this */
 	PU_NO("PU_NO", "購案案號"), //
 	TITLE("TITLE", "名稱"), //
+	SUPPLIER_UID("SUPPLIER_UID","供應商"), //
 	SUPPLIER_NAME("SUPPLIER_NAME", "供應商名稱"), //
 	SUPPLIER_BAN("SUPPLIER_BAN","供應商統編"), //
 	PERF_STATUS_IDX("PERF_STATUS_IDX", "履約狀態"), //

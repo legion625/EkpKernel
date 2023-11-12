@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class SalesOrderCreateObjRemote implements Serializable{
 	private String title;
+	private String customerUid;
 	private String customerName;
 	private String customerBan;
 
@@ -17,6 +18,16 @@ public class SalesOrderCreateObjRemote implements Serializable{
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	
+	
+	public String getCustomerUid() {
+		return customerUid;
+	}
+
+	public void setCustomerUid(String customerUid) {
+		this.customerUid = customerUid;
 	}
 
 	public String getCustomerName() {

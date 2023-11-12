@@ -14,6 +14,7 @@ public class Purch extends ObjectModel {
 	// ----------------------------------Attributes-----------------------------------
 	private String puNo; // 購案案號
 	private String title; // 名稱
+	private String supplierUid;// 供應商
 	private String supplierName;
 	private String supplierBan; // 供應商統編（臺灣）
 	
@@ -55,6 +56,14 @@ public class Purch extends ObjectModel {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getSupplierUid() {
+		return supplierUid;
+	}
+
+	public void setSupplierUid(String supplierUid) {
+		this.supplierUid = supplierUid;
 	}
 
 	public String getSupplierName() {
@@ -113,6 +122,7 @@ public class Purch extends ObjectModel {
 		Purch p = newInstance();
 		p.setPuNo(""); // not generated yet...
 		p.setTitle(_dto.getTitle());
+		p.setSupplierUid(_dto.getSupplierUid());
 		p.setSupplierName(_dto.getSupplierName());
 		p.setSupplierBan(_dto.getSupplierBan());
 		

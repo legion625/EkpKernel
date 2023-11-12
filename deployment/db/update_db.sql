@@ -507,4 +507,21 @@ ADD COLUMN `ref_pa` TINYINT NULL AFTER `mm_std_unit_id`,
 ADD COLUMN `ref_pa_uid` VARCHAR(45) NULL AFTER `ref_pa`,
 ADD COLUMN `ref_pa_type_idx` TINYINT NULL AFTER `ref_pa_uid`;
 
+-- 0.5.7 -> unstaging
+CREATE TABLE `sd_biz_partner` (
+  `uid` varchar(45) NOT NULL,
+  `bpsn` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `ban` varchar(45) DEFAULT NULL,
+  `object_create_time` bigint DEFAULT NULL,
+  `object_update_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ;
+
+ALTER TABLE `pu_purch` 
+ADD COLUMN `supplier_uid` VARCHAR(45) NULL AFTER `title`;
+
+ALTER TABLE `sd_sales_order` 
+ADD COLUMN `customer_uid` VARCHAR(45) NULL AFTER `title`;
+
 -- mh_pc

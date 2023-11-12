@@ -54,4 +54,14 @@ public  class SerialNoGenerator {
 		String sosn = "SO" + DataFO.fillString(yearStr + "", 2, '0') + DataFO.fillString(numStr + "", 6, '0');
 		return sosn;
 	}
+	
+	public synchronized static String generateBPSN() {
+		ObjectSeqDataService objSeqDataService = DataServiceFactory.getInstance()
+				.getService(ObjectSeqDataService.class);
+		String yearStr = String.valueOf(EkpKernelDateUtil.getCurrentYear()).substring(2);
+		String idenfigyStr = "BPSN" + yearStr;
+		String numStr = objSeqDataService.getSimpleSeq(idenfigyStr);
+		String bpsn = "BP" + DataFO.fillString(yearStr + "", 2, '0') + DataFO.fillString(numStr + "", 2, '0');
+		return bpsn;
+	}
 }

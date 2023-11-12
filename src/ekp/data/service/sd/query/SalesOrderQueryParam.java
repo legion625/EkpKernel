@@ -6,6 +6,7 @@ public enum SalesOrderQueryParam implements QueryParam{
 	/* SalesOrder:this */
 	SOSN("SOSN","序號"), //
 	TITLE("TITLE", "名稱"), //
+	CUSTOMER_UID("CUSTOMER_UID", "客戶"), //
 	CUSTOMER_NAME("CUSTOMER_NAME", "客戶名稱"), //
 	CUSTOMER_BAN("CUSTOMER_BAN","客戶統編"), //
 	SALER_ID("SALER_ID", "銷售人ID"), //

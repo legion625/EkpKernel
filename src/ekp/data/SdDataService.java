@@ -5,13 +5,26 @@ import java.util.Map;
 
 import ekp.data.service.sd.query.SalesOrderItemQueryParam;
 import ekp.data.service.sd.query.SalesOrderQueryParam;
+import ekp.sd.BizPartner;
 import ekp.sd.SalesOrder;
 import ekp.sd.SalesOrderItem;
 import legion.IntegrationService;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
 
-public interface SdDataService extends IntegrationService{
+public interface SdDataService extends IntegrationService {
+
+	// -------------------------------------------------------------------------------
+	// ----------------------------------BizPartner-----------------------------------
+	public boolean saveBizPartner(BizPartner _bp);
+
+	public boolean deleteBizPartner(String _uid);
+
+	public BizPartner loadBizPartner(String _uid);
+
+	public BizPartner loadBizPartnerByBpsn(String _bpsn);
+
+	public List<BizPartner> loadBizPartnerList();
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------SalesOrder-----------------------------------
@@ -24,16 +37,22 @@ public interface SdDataService extends IntegrationService{
 	public SalesOrder loadSalesOrderBySosn(String _sosn);
 
 	public QueryOperation<SalesOrderQueryParam, SalesOrder> searchSalesOrder(
-			QueryOperation<SalesOrderQueryParam, SalesOrder> _param, Map<SalesOrderQueryParam, QueryValue[]> _existsDetailMap);
+			QueryOperation<SalesOrderQueryParam, SalesOrder> _param,
+			Map<SalesOrderQueryParam, QueryValue[]> _existsDetailMap);
 
 	// -------------------------------------------------------------------------------
 	// --------------------------------SalesOrderItem---------------------------------
 	public boolean saveSalesOrderItem(SalesOrderItem _soi);
+
 	public boolean deleteSalesOrderItem(String _uid);
+
 	public SalesOrderItem loadSalesOrderItem(String _uid);
+
 	public List<SalesOrderItem> loadSalesOrderItemList(String _soUid);
+
 	public List<SalesOrderItem> loadSalesOrderItemListMyMm(String _mmUid);
+
 	public QueryOperation<SalesOrderItemQueryParam, SalesOrderItem> searchSalesOrderItem(
 			QueryOperation<SalesOrderItemQueryParam, SalesOrderItem> _param);
-	
+
 }

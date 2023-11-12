@@ -1,11 +1,32 @@
 package ekp.serviceFacade.rmi.sd;
 
+import ekp.sd.BizPartner;
 import ekp.sd.SalesOrder;
 import ekp.sd.SalesOrderItem;
+import ekp.sd.dto.BizPartnerCreateObj;
 import ekp.sd.dto.SalesOrderCreateObj;
 import ekp.sd.dto.SalesOrderItemCreateObj;
 
 public class SdFO {
+	
+	// -------------------------------------------------------------------------------
+	// ----------------------------------BizPartner-----------------------------------
+	public static BizPartnerRemote parseBizPartnerRemote(BizPartner _obj) {
+		BizPartnerRemote remote = new BizPartnerRemote(_obj.getUid(), _obj.getObjectCreateTime(),
+				_obj.getObjectUpdateTime());
+		remote.setBpsn(_obj.getBpsn());
+		remote.setName(_obj.getName());
+		remote.setBan(_obj.getBan());
+		return remote;
+	}
+
+	public static BizPartnerCreateObj parseBizPartnerCreateObj(BizPartnerCreateObjRemote _remote) {
+		BizPartnerCreateObj dto = new BizPartnerCreateObj();
+		dto.setName(_remote.getName());
+		dto.setBan(_remote.getBan());
+		return dto;
+	}
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------SalesOrder-----------------------------------
 	public static SalesOrderRemote parseSalesOrderRemote(SalesOrder _obj) {
@@ -13,6 +34,7 @@ public class SdFO {
 				_obj.getObjectUpdateTime());
 		remote.setSosn(_obj.getSosn());
 		remote.setTitle(_obj.getTitle());
+		remote.setCustomerUid(_obj.getCustomerUid());
 		remote.setCustomerName(_obj.getCustomerName());
 		remote.setCustomerBan(_obj.getCustomerBan());
 		remote.setSalerId(_obj.getSalerId());
@@ -24,6 +46,7 @@ public class SdFO {
 	public static SalesOrderCreateObj parseSalesOrderCreateObj(SalesOrderCreateObjRemote _remote) {
 		SalesOrderCreateObj dto = new SalesOrderCreateObj();
 		dto.setTitle(_remote.getTitle());
+		dto.setCustomerUid(_remote.getCustomerUid());
 		dto.setCustomerName(_remote.getCustomerName());
 		dto.setCustomerBan(_remote.getCustomerBan());
 		dto.setSalerId(_remote.getSalerId());
