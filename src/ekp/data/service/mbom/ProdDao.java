@@ -119,6 +119,10 @@ public class ProdDao extends AbstractMySqlDao {
 	List<ProdCtl> loadProdCtlList(String _parentUid) {
 		return loadObjectList(TB_MBOM_PROD_CTL, COL_PC_PARENT_UID, _parentUid, this::parseProdCtl);
 	}
+	
+	List<ProdCtl> loadProdCtlListByProd(String _prodUid){
+		return loadObjectList(TB_MBOM_PROD_CTL, COL_PC_PROD_UID, _prodUid, this::parseProdCtl);
+	}
 
 	List<ProdCtl> loadProdCtlListLv1(String _prodUid) {
 		Map<String, String> colValueMap = new HashMap<>();

@@ -24,6 +24,7 @@ import ekp.mbom.ProdCtlPartCfgConj;
 import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
 import ekp.mbom.dto.PpartSkewer;
+import ekp.serviceFacade.rmi.mbom.ProdCtlRemote;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
 
@@ -327,7 +328,12 @@ public class MbomDataServiceImp implements MbomDataService {
 	public List<ProdCtl> loadProdCtlList(String _parentUid) {
 		return prodDao.loadProdCtlList(_parentUid);
 	}
-
+	
+	@Override
+	public List<ProdCtl> loadProdCtlListByProd(String _prodUid){
+		return prodDao.loadProdCtlListByProd(_prodUid);
+	}
+	
 	@Override
 	public List<ProdCtl> loadProdCtlListLv1(String _prodUid) {
 		return prodDao.loadProdCtlListLv1(_prodUid);

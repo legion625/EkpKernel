@@ -1013,6 +1013,13 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<ProdCtlRemote> remoteList = list.stream().map(MbomFO::parseProdCtlRemote).collect(Collectors.toList());
 		return remoteList;
 	}
+	
+	@Override
+	public List<ProdCtlRemote> loadProdCtlListByProd(String _prodUid) throws RemoteException{
+		List<ProdCtl> list = mbomService.loadProdCtlListByProd(_prodUid);
+		List<ProdCtlRemote> remoteList = list.stream().map(MbomFO::parseProdCtlRemote).collect(Collectors.toList());
+		return remoteList;
+	}
 
 	@Override
 	public List<ProdCtlRemote> loadProdCtlListLv1(String _prodUid) throws RemoteException {

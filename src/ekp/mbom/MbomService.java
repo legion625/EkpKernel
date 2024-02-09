@@ -19,6 +19,7 @@ import ekp.mbom.dto.ProdModCreateObj;
 import ekp.mbom.type.PartAcquisitionType;
 import ekp.mbom.type.PartUnit;
 import ekp.serviceFacade.rmi.mbom.PartCfgConjRemote;
+import ekp.serviceFacade.rmi.mbom.ProdCtlRemote;
 import legion.BusinessService;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
@@ -182,6 +183,8 @@ public interface MbomService extends BusinessService {
 
 	public List<ProdCtl> loadProdCtlList(String _parentUid);
 
+	public List<ProdCtl> loadProdCtlListByProd(String _prodUid);
+	
 	public List<ProdCtl> loadProdCtlListLv1(String _prodUid);
 
 	public boolean prodCtlAssignParent(String _uid, String _parentUid);

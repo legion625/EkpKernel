@@ -22,6 +22,7 @@ import ekp.mbom.ProdMod;
 import ekp.mbom.ProdModItem;
 import ekp.mbom.dto.PpartSkewer;
 import ekp.serviceFacade.rmi.mbom.PartCfgRemote;
+import ekp.serviceFacade.rmi.mbom.ProdCtlRemote;
 import legion.IntegrationService;
 import legion.util.query.QueryOperation;
 import legion.util.query.QueryOperation.QueryValue;
@@ -144,8 +145,8 @@ public interface MbomDataService extends IntegrationService {
 	public boolean deleteProdCtl(String _uid);
 	public ProdCtl loadProdCtl(String _uid);
 	public List<ProdCtl> loadProdCtlList(String _parentUid);
+	public List<ProdCtl> loadProdCtlListByProd(String _prodUid);
 	public List<ProdCtl> loadProdCtlListLv1(String _prodUid);
-	
 
 	// -------------------------------------------------------------------------------
 	// ------------------------------ProdCtlPartCfgConj-------------------------------
