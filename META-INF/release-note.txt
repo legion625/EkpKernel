@@ -1,3 +1,7 @@
+Min-Hua, 2024.02.13
+[change]
+1. 調整PartAcquisitionType的Name為2個字的縮寫。
+
 Min-Hua, 2024.02.09
 [change]
 1. 新增loadProdCtlListByProd服務。

@@ -26,8 +26,8 @@ public class BizObjPartAcquisitionTest extends AbstractEkpInitTest{
 	public void initMethod() {
 		long time1 = DateUtil.toLong(LocalDate.now().plusDays(1));
 		long time2 = DateUtil.toLong(LocalDate.now().plusDays(2));
-		target1 = new Target("partUid1", "partPin1",PartAcqStatus.EDITING, "id1", "name1", PartAcquisitionType.PURCHASING,  false, "mmUid1", "mmMano1", time1, 199.99d);
-		target2 = new Target("partUid2", "partPin2",PartAcqStatus.PUBLISHED, "id2", "name2", PartAcquisitionType.OUTSOURCING, true, "mmUid2", "mmMano2", time2,299.99d);
+		target1 = new Target("partUid1", "partPin1",PartAcqStatus.EDITING, "id1", "name1", PartAcquisitionType.PU,  false, "mmUid1", "mmMano1", time1, 199.99d);
+		target2 = new Target("partUid2", "partPin2",PartAcqStatus.PUBLISHED, "id2", "name2", PartAcquisitionType.OS, true, "mmUid2", "mmMano2", time2,299.99d);
 	}
 
 	@Test

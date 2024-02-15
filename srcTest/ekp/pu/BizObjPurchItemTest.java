@@ -24,9 +24,9 @@ public class BizObjPurchItemTest extends AbstractEkpInitTest {
 		double d1 = 199.9999d;
 		double d2 = 299.9999d;
 		target1 = new Target("purchUid1", "mmUid1", "mmMano1", "mmName1", "mmSpecification1", PartUnit.CMK, false,
-				"refPaUid1", PartAcquisitionType.PURCHASING, d1, d1, "remark1");
+				"refPaUid1", PartAcquisitionType.PU, d1, d1, "remark1");
 		target2 = new Target("purchUid2", "mmUid2", "mmMano2", "mmName2", "mmSpecification2", PartUnit.CMK, true,
-				"refPaUid2", PartAcquisitionType.OUTSOURCING, d2, d2, "remark2");
+				"refPaUid2", PartAcquisitionType.OS, d2, d2, "remark2");
 	}
 
 	@Test
