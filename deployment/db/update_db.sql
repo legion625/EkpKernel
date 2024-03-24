@@ -523,7 +523,7 @@ ALTER TABLE `sd_sales_order`
 ADD COLUMN `customer_uid` VARCHAR(45) NULL AFTER `title`;
 -- mh_sp8
 
--- 0.6.1 -> unstaging
+-- 0.6.1 -> 0.6.2
 ALTER TABLE `sd_biz_partner` 
 ADD COLUMN `supplier` TINYINT NULL AFTER `ban`,
 ADD COLUMN `customer` TINYINT NULL AFTER `supplier`;
