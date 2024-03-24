@@ -17,10 +17,18 @@ public interface SdService extends BusinessService{
 	// -------------------------------------------------------------------------------
 	// ----------------------------------BizPartner-----------------------------------
 	public BizPartner createBizPartner(BizPartnerCreateObj _dto);
+
 	public boolean deleteBizPartner(String _uid);
+
 	public BizPartner loadBizPartner(String _uid);
+
 	public BizPartner loadBizPartnerByBpsn(String _bpsn);
+
 	public List<BizPartner> loadBizPartnerList();
+
+	public boolean bpToggleSupplier(String _uid, boolean _supplier);
+
+	public boolean bpToggleCustomer(String _uid, boolean _customer);
 	
 	// -------------------------------------------------------------------------------
 	// ----------------------------------SalesOrder-----------------------------------

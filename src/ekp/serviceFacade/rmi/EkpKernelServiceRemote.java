@@ -543,6 +543,8 @@ public interface EkpKernelServiceRemote extends Remote {
 	public BizPartnerRemote loadBizPartner(String _uid) throws RemoteException;
 	public BizPartnerRemote loadBizPartnerByBpsn(String _bpsn) throws RemoteException;
 	public List<BizPartnerRemote> loadBizPartnerList() throws RemoteException;
+	public boolean bpToggleSupplier(String _uid, boolean _supplier) throws RemoteException;
+	public boolean bpToggleCustomer(String _uid, boolean _customer) throws RemoteException;
 	
 	// -------------------------------------------------------------------------------
 	// ----------------------------------SalesOrder-----------------------------------

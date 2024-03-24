@@ -17,6 +17,8 @@ public class SdFO {
 		remote.setBpsn(_obj.getBpsn());
 		remote.setName(_obj.getName());
 		remote.setBan(_obj.getBan());
+		remote.setSupplier(_obj.isSupplier());
+		remote.setCustomer(_obj.isCustomer());
 		return remote;
 	}
 

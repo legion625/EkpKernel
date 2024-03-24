@@ -11,6 +11,8 @@ public class BizPartnerRemote extends ObjectModelRemote {
 	private String bpsn;
 	private String name;
 	private String ban;
+	private boolean supplier;
+	private boolean customer;
 
 	public String getBpsn() {
 		return bpsn;
@@ -34,6 +36,22 @@ public class BizPartnerRemote extends ObjectModelRemote {
 
 	void setBan(String ban) {
 		this.ban = ban;
+	}
+
+	public boolean isSupplier() {
+		return supplier;
+	}
+
+	void setSupplier(boolean supplier) {
+		this.supplier = supplier;
+	}
+
+	public boolean isCustomer() {
+		return customer;
+	}
+
+	void setCustomer(boolean customer) {
+		this.customer = customer;
 	}
 
 }

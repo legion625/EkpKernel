@@ -23,12 +23,17 @@ public class BizPartnerDao extends AbstractMySqlDao {
 	private final static String COL_BP_BPSN = "bpsn";
 	private final static String COL_BP_NAME = "name";
 	private final static String COL_BP_BAN = "ban";
+	private final static String COL_BP_SUPPLIER = "supplier";
+	private final static String COL_BP_CUSTOMER = "customer";
+	
 
 	boolean saveBizPartner(BizPartner _bp) {
 		DbColumn<BizPartner>[] cols = new DbColumn[] { //
 				DbColumn.of(COL_BP_BPSN, ColType.STRING, BizPartner::getBpsn, 45), //
 				DbColumn.of(COL_BP_NAME, ColType.STRING, BizPartner::getName, 45), //
 				DbColumn.of(COL_BP_BAN, ColType.STRING, BizPartner::getBan, 45), //
+				DbColumn.of(COL_BP_SUPPLIER, ColType.BOOLEAN, BizPartner::isSupplier), //
+				DbColumn.of(COL_BP_CUSTOMER, ColType.BOOLEAN, BizPartner::isCustomer), //
 		};
 		return saveObject(TB_BIZ_PARTNER, cols, _bp);
 	}
@@ -45,6 +50,8 @@ public class BizPartnerDao extends AbstractMySqlDao {
 			bp.setBpsn(_rs.getString(COL_BP_BPSN));
 			bp.setName(_rs.getString(COL_BP_NAME));
 			bp.setBan(_rs.getString(COL_BP_BAN));
+			bp.setSupplier(_rs.getBoolean(COL_BP_SUPPLIER));
+			bp.setCustomer(_rs.getBoolean(COL_BP_CUSTOMER));
 			return bp;
 		} catch (SQLException e) {
 			LogUtil.log(log, e, Level.ERROR);

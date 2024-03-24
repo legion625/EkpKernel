@@ -47,8 +47,18 @@ public class SdServiceImp implements SdService {
 		return dataService.loadBizPartnerByBpsn(_bpsn);
 	}
 	@Override
-	public List<BizPartner> loadBizPartnerList(){
+	public List<BizPartner> loadBizPartnerList() {
 		return dataService.loadBizPartnerList();
+	}
+
+	@Override
+	public boolean bpToggleSupplier(String _uid, boolean _supplier) {
+		return loadBizPartner(_uid).toggleSupplier(_supplier);
+	}
+
+	@Override
+	public boolean bpToggleCustomer(String _uid, boolean _customer) {
+		return loadBizPartner(_uid).toggleCustomer(_customer);
 	}
 	
 	// -------------------------------------------------------------------------------

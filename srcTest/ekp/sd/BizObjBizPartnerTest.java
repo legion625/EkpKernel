@@ -22,8 +22,8 @@ public class BizObjBizPartnerTest extends AbstractEkpInitTest{
 
 	@Before
 	public void initMethod() {
-		target1 = new Target("bpsn1", "name1", "ban1");
-		target2 = new Target("bpsn2", "name2", "ban2");
+		target1 = new Target("bpsn1", "name1", "ban1", false, false);
+		target2 = new Target("bpsn2", "name2", "ban2", true, true);
 	}
 
 	@Test
@@ -67,11 +67,15 @@ public class BizObjBizPartnerTest extends AbstractEkpInitTest{
 		private String bpsn;
 		private String name;
 		private String ban;
+		private boolean supplier;
+		private boolean customer;
 
-		private Target(String bpsn, String name, String ban) {
+		private Target(String bpsn, String name, String ban, boolean supplier, boolean customer) {
 			this.bpsn = bpsn;
 			this.name = name;
 			this.ban = ban;
+			this.supplier = supplier;
+			this.customer = customer;
 		}
 
 		public String getBpsn() {
@@ -84,6 +88,14 @@ public class BizObjBizPartnerTest extends AbstractEkpInitTest{
 
 		public String getBan() {
 			return ban;
+		}
+
+		public boolean isSupplier() {
+			return supplier;
+		}
+
+		public boolean isCustomer() {
+			return customer;
 		}
 
 	}

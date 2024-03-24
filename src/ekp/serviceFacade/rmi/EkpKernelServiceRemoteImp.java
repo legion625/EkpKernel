@@ -1414,6 +1414,14 @@ public class EkpKernelServiceRemoteImp extends UnicastRemoteObject implements Ek
 		List<BizPartnerRemote> remoteList = list.stream().map(SdFO::parseBizPartnerRemote).collect(Collectors.toList());
 		return remoteList;
 	}
+	@Override
+	public boolean bpToggleSupplier(String _uid, boolean _supplier) throws RemoteException{
+		return sdService.bpToggleSupplier(_uid, _supplier);
+	}
+	@Override
+	public boolean bpToggleCustomer(String _uid, boolean _customer) throws RemoteException{
+		return sdService.bpToggleCustomer(_uid, _customer);
+	}
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------SalesOrder-----------------------------------

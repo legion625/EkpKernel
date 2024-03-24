@@ -14,6 +14,8 @@ public class BizPartner extends ObjectModel {
 	private String bpsn;
 	private String name;
 	private String ban;
+	private boolean supplier;
+	private boolean customer;
 
 	// -------------------------------------------------------------------------------
 	// ----------------------------------constructor----------------------------------
@@ -58,6 +60,22 @@ public class BizPartner extends ObjectModel {
 		this.ban = ban;
 	}
 
+	public boolean isSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(boolean supplier) {
+		this.supplier = supplier;
+	}
+
+	public boolean isCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(boolean customer) {
+		this.customer = customer;
+	}
+
 	// -------------------------------------------------------------------------------
 	// ----------------------------------ObjectModel----------------------------------
 	@Override
@@ -79,7 +97,18 @@ public class BizPartner extends ObjectModel {
 		bp.setBpsn(""); // 未指定
 		bp.setName(_dto.getName());
 		bp.setBan(_dto.getBan());
+		bp.setSupplier(false); // 未指定
+		bp.setCustomer(false); // 未指定
 		return bp.save() ? bp : null;
+	}
+	
+	boolean toggleSupplier(boolean _supplier) {
+		setSupplier(_supplier);
+		return save();
+	}
+	boolean toggleCustomer(boolean _customer) {
+		setCustomer(_customer);
+		return save();
 	}
 
 }

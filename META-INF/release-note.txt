@@ -1,3 +1,11 @@
+Min-Hua, 2024.03.24
+[change]
+1. [SD]BizPartner新增supplier和customer的布林值屬性標註。
+  -1. 新增bpToggleSupplier和bpToggleCustomer服務。
+  
+[deployment]
+1. 資料表sd_biz_partner新增supplier和customer欄位。
+
 Min-Hua, 2024.02.13
 [change]
 1. 調整PartAcquisitionType的Name為2個字的縮寫。
